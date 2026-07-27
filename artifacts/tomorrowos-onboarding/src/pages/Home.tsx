@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'wouter';
 import GithubIcon from '@/components/GithubIcon';
+import { ArchitectureSection } from '@/components/ArchitectureSection';
 import StartYourWayDiagram from '@/components/StartYourWayDiagram';
 import { useSeo } from '@/hooks/use-seo';
 import { siteConfig } from '@/config/site';
@@ -61,74 +62,7 @@ export default function Home() {
       </section>
 
       {/* ARCHITECTURE DIAGRAM SECTION */}
-      <section className="pb-12 md:pb-24 px-4 md:px-8 w-full">
-        {/* Desktop/Tablet view */}
-        <div className="hidden md:flex flex-col items-center w-full">
-          <img 
-            src={`${import.meta.env.BASE_URL}assets/illustrations/tomorrowos-architecture-1.png`} 
-            alt="TomorrowOS Architecture" 
-            className="w-full h-auto object-contain max-w-[1080px]"
-          />
-          <div className="mt-8 text-center text-sm font-medium text-muted-foreground uppercase tracking-widest">
-            One shared foundation beneath every screen experience.
-          </div>
-        </div>
-
-        {/* Mobile view */}
-        <div className="md:hidden flex flex-col items-center w-full relative">
-          {state.prototypeReviewMode && (
-            <div className="absolute -top-10 left-0 right-0 bg-amber-100 text-amber-900 text-xs px-2 py-1 text-center font-bold z-20">
-              MISSING ASSET — dedicated mobile architecture export
-            </div>
-          )}
-          <div className="flex flex-col gap-8 items-center w-full">
-            <div className="flex flex-col gap-3 w-full">
-              <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center gap-2">
-                <img src={`${import.meta.env.BASE_URL}assets/icons/black/desktop_windows.svg`} alt="CMS" className="w-5 h-5" />
-                <span className="font-semibold text-sm">Build a CMS</span>
-              </div>
-              <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center gap-2">
-                <img src={`${import.meta.env.BASE_URL}assets/icons/black/code.svg`} alt="App" className="w-5 h-5" />
-                <span className="font-semibold text-sm">Connect an app</span>
-              </div>
-              <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center gap-2">
-                <img src={`${import.meta.env.BASE_URL}assets/icons/black/deployed_code.svg`} alt="Experience" className="w-5 h-5" />
-                <span className="font-semibold text-sm">Create a new experience</span>
-              </div>
-            </div>
-
-            <div className="h-8 border-l-2 border-dashed border-muted-foreground/30" />
-
-            <div className="bg-foreground text-background rounded-2xl p-6 shadow-lg text-center w-full max-w-[280px]">
-              <h3 className="font-bold text-xl mb-1">TomorrowOS</h3>
-              <p className="text-xs text-background/80">Shared runtime, APIs and device layer</p>
-            </div>
-
-            <div className="h-8 border-l-2 border-dashed border-muted-foreground/30" />
-
-            <div className="grid grid-cols-2 gap-3 w-full">
-              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center col-span-2">
-                <img src={`${import.meta.env.BASE_URL}assets/platforms/samsung-logo.svg`} alt="Samsung Tizen" className="h-4" />
-              </div>
-              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center">
-                <img src={`${import.meta.env.BASE_URL}assets/platforms/lg-webos-logo.svg`} alt="LG webOS" className="h-4" />
-              </div>
-              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center">
-                <img src={`${import.meta.env.BASE_URL}assets/platforms/brightsign-logo.svg`} alt="BrightSign" className="h-4" />
-              </div>
-              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center">
-                <img src={`${import.meta.env.BASE_URL}assets/platforms/android-logo.svg`} alt="Android" className="h-4" />
-              </div>
-              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center">
-                <img src={`${import.meta.env.BASE_URL}assets/platforms/windows-logo.png`} alt="Windows" className="h-4" />
-              </div>
-            </div>
-          </div>
-          <div className="mt-10 text-center text-xs font-medium text-muted-foreground uppercase tracking-widest px-4">
-            One shared foundation beneath every screen experience.
-          </div>
-        </div>
-      </section>
+      <ArchitectureSection />
 
       {/* START YOUR WAY SECTION */}
       <section id="start-new" className="py-16 md:py-24 px-4 md:px-8 max-w-[1200px] mx-auto w-full scroll-mt-24">
@@ -139,17 +73,20 @@ export default function Home() {
               Whether you build with AI-assisted tools or write against the SDK directly, you start from the same foundation.
             </p>
           </div>
-          <div className="flex items-center justify-center gap-4 shrink-0">
-            {showDocs && (
-              <a href={hasDocs ? siteConfig.links.docs : '#'} onClick={(e) => !hasDocs && e.preventDefault()} target={hasDocs ? "_blank" : undefined} rel={hasDocs ? "noopener noreferrer" : undefined} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-6">
-                {hasDocs ? 'View the docs' : <PlaceholderText value="PLACEHOLDER_DOCS_URL" fallback="View the docs" />}
+          <div className="flex items-center justify-center gap-6 shrink-0">
+            {/* View the docs: routes to an internal placeholder until the docs URL is configured. */}
+            {hasDocs ? (
+              <a href={siteConfig.links.docs} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-medium border border-foreground/80 bg-background hover:bg-accent hover:text-accent-foreground h-12 px-7">
+                View the docs
               </a>
+            ) : (
+              <Link href="/docs" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-medium border border-foreground/80 bg-background hover:bg-accent hover:text-accent-foreground h-12 px-7">
+                {state.prototypeReviewMode ? <PlaceholderText value="PLACEHOLDER_DOCS_URL" fallback="View the docs" /> : 'View the docs'}
+              </Link>
             )}
-            {showGithub && (
-              <a href={hasGithub ? siteConfig.links.github : '#'} onClick={(e) => !hasGithub && e.preventDefault()} target={hasGithub ? "_blank" : undefined} rel={hasGithub ? "noopener noreferrer" : undefined} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium text-foreground hover:opacity-70 h-10 px-4">
-                <GithubIcon className="w-4 h-4 mr-2" />{hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" />} <ChevronRight className="w-4 h-4 ml-1" />
-              </a>
-            )}
+            <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center whitespace-nowrap text-base font-medium text-foreground hover:opacity-70 h-12">
+              <GithubIcon className="w-5 h-5 mr-2" />View GitHub <ChevronRight className="w-5 h-5 ml-1.5" />
+            </a>
           </div>
         </div>
 
@@ -244,9 +181,6 @@ export default function Home() {
             <p className="text-muted-foreground text-sm mb-4 flex-1">
               Your frontend, workflows, users, data and commercial model remain yours.
             </p>
-            <Link href="/start" className="inline-flex items-center text-sm font-medium text-foreground hover:opacity-70">
-              Learn <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
           </div>
 
           <div className="flex flex-col">
@@ -263,9 +197,6 @@ export default function Home() {
             <p className="text-muted-foreground text-sm mb-4 flex-1">
               Self-host locally, deploy privately or run it in the cloud environment you choose.
             </p>
-            <Link href="/start" className="inline-flex items-center text-sm font-medium text-foreground hover:opacity-70">
-              Learn <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
           </div>
 
           <div className="flex flex-col">
@@ -282,16 +213,13 @@ export default function Home() {
             <p className="text-muted-foreground text-sm mb-4 flex-1">
               Build against one shared layer across supported screen hardware.
             </p>
-            <Link href="/start" className="inline-flex items-center text-sm font-medium text-foreground hover:opacity-70">
-              Learn <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
           </div>
         </div>
       </section>
 
       {/* PATTERNS SECTION */}
       <section id="patterns" className="py-16 md:py-24 px-4 md:px-8 max-w-[1200px] mx-auto w-full bg-muted/30 border-y border-border scroll-mt-24">
-        <div className="mb-12">
+        <div className="mb-12 text-center flex flex-col items-center">
           <div className="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">USE CASES</div>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Start from a working pattern.</h2>
           <p className="text-lg text-muted-foreground max-w-2xl">
@@ -299,7 +227,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5 mb-12">
           <PatternCard 
             title="Digital menu boards"
             desc="Pricing, promos and scheduling across one or more screens."
@@ -327,17 +255,16 @@ export default function Home() {
           />
         </div>
 
-        {state.prototypeReviewMode || (siteConfig.links.knowledgeBase && !siteConfig.links.knowledgeBase.includes('{{')) ? (
-          <a 
-            href={siteConfig.links.knowledgeBase && !siteConfig.links.knowledgeBase.includes('{{') ? siteConfig.links.knowledgeBase : '#'} 
-            onClick={(e) => siteConfig.links.knowledgeBase.includes('{{') && e.preventDefault()}
-            target={!siteConfig.links.knowledgeBase.includes('{{') ? "_blank" : undefined} 
-            rel={!siteConfig.links.knowledgeBase.includes('{{') ? "noopener noreferrer" : undefined} 
+        <div className="flex justify-center">
+          <a
+            href={siteConfig.links.knowledgeBase}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8"
           >
-            {siteConfig.links.knowledgeBase.includes('{{') ? <PlaceholderText value="PLACEHOLDER_KNOWLEDGE_BASE_URL" fallback="Knowledge Base" /> : 'Knowledge Base'} <ChevronRight className="w-4 h-4 ml-2" />
+            Knowledge Base <ChevronRight className="w-4 h-4 ml-2" />
           </a>
-        ) : null}
+        </div>
       </section>
 
       {/* FINAL CTA SECTION */}
@@ -365,12 +292,10 @@ export default function Home() {
 
 function PatternCard({ title, desc, icon }: { title: string, desc: string, icon: string }) {
   return (
-    <div className="bg-background border border-border rounded-xl p-6 shadow-sm hover:border-foreground/20 transition-colors">
-      <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center mb-4">
-        <img src={`${import.meta.env.BASE_URL}assets/icons/black/${icon}`} alt="" className="w-5 h-5 opacity-80" />
-      </div>
-      <h3 className="font-bold text-lg mb-2">{title}</h3>
-      <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+    <div className="bg-background border border-border rounded-xl p-5 shadow-sm hover:border-foreground/20 transition-colors">
+      <img src={`${import.meta.env.BASE_URL}assets/icons/black/${icon}`} alt="" className="w-6 h-6 opacity-90 mb-5" />
+      <h3 className="font-bold text-sm mb-2">{title}</h3>
+      <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
     </div>
   );
 }

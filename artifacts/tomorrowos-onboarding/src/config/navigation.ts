@@ -12,6 +12,7 @@ export const siteNavigation: { primary: NavItem[]; actions: NavItem[] } = {
   primary: [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
+    { label: 'Docs', href: siteConfig.links.docs, external: true },
   ],
   actions: [
     { label: 'GitHub', href: siteConfig.links.github, external: true, variant: 'outline' },

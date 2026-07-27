@@ -8,7 +8,7 @@ import { Star, Code, Package, Layers } from 'lucide-react';
  */
 
 const entryPoints = [
-  { icon: Star, title: 'AI-assisted', subtitle: 'Replit, Lovable, Bubble, Cursor' },
+  { icon: Star, title: 'AI-assisted', subtitle: 'Replit, Vercel, v0, Cursor' },
   { icon: Code, title: 'SDK', subtitle: 'Runtime, APIs, CLI' },
   { icon: Package, title: 'Existing product', subtitle: 'CMS, SaaS, dashboards, enterprise apps' },
 ];
@@ -20,10 +20,10 @@ const dottedBg: React.CSSProperties = {
 
 function EntryCard({ icon: Icon, title, subtitle }: { icon: typeof Star; title: string; subtitle: string }) {
   return (
-    <div className="flex flex-col items-center text-center bg-white rounded-2xl border border-border/60 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.15)] px-4 py-6 md:px-5 md:py-7">
-      <Icon className="w-6 h-6 mb-3" strokeWidth={2} aria-hidden="true" />
-      <div className="text-sm md:text-base font-bold text-foreground">{title}</div>
-      <div className="text-xs md:text-sm text-muted-foreground mt-1 leading-snug">{subtitle}</div>
+    <div className="h-full flex flex-col items-center text-center bg-white rounded-2xl border border-border/60 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.15)] px-3 py-6 md:px-4 md:py-7">
+      <Icon className="w-6 h-6 mb-3 shrink-0" strokeWidth={2} aria-hidden="true" />
+      <div className="text-sm md:text-base font-bold text-foreground whitespace-nowrap">{title}</div>
+      <div className="text-xs md:text-sm text-muted-foreground mt-1.5 leading-snug max-w-[170px] mx-auto">{subtitle}</div>
     </div>
   );
 }
@@ -70,7 +70,7 @@ function ScreenMock() {
         </div>
         {/* Footer */}
         <div className="flex items-center justify-between px-3 md:px-4 py-1.5 md:py-2 text-[8px] md:text-[9px] text-muted-foreground shrink-0">
-          <span className="font-semibold text-foreground">tomorrowos</span>
+          <img src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`} alt="TomorrowOS" className="h-2.5 md:h-3 w-auto" />
           <span>TomorrowOS is open source &nbsp;&bull;&nbsp; tomorrowos.org</span>
         </div>
       </div>
@@ -82,7 +82,7 @@ export default function StartYourWayDiagram() {
   return (
     <div className="relative w-full rounded-3xl px-3 py-8 md:px-6 md:py-10" style={dottedBg} role="img" aria-label="Diagram: AI-assisted tools, the SDK and existing products all build on the shared TomorrowOS foundation, which powers signage screens.">
       {/* Entry point cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 relative z-10">
+      <div className="grid grid-cols-1 sm:grid-cols-3 items-stretch gap-4 md:gap-5 relative z-10">
         {entryPoints.map((e) => (
           <EntryCard key={e.title} {...e} />
         ))}

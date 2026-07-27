@@ -32,6 +32,7 @@ function Router() {
         <Route path="/quickstart" component={() => <Redirect to="/" replace />} />
         <Route path="/about" component={About} />
         <Route path="/github" component={() => <PlaceholderPage title="GitHub" />} />
+        <Route path="/docs" component={() => <PlaceholderPage title="Documentation" />} />
         <Route path="/community" component={() => <PlaceholderPage title="Community" />} />
         <Route path="/governance" component={() => <PlaceholderPage title="Governance" />} />
         <Route path="/license" component={() => <PlaceholderPage title="License" />} />

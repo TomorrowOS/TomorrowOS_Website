@@ -3,7 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { usePrototype } from './PrototypeProvider';
 import { PlaceholderText } from './PlaceholderText';
 import { siteNavigation, isConfiguredUrl } from '@/config/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import GithubIcon from './GithubIcon';
 import { cn } from '@/lib/utils';
 
@@ -103,19 +103,32 @@ export function WebsiteHeader() {
             <img src={logoSrc} alt="TomorrowOS" className="h-6 w-auto md:h-auto md:w-[220px]" />
           </Link>
           <nav className="hidden md:flex items-center gap-7" aria-label="Primary">
-            {siteNavigation.primary.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(location, item.href) ? 'page' : undefined}
-                className={cn(
-                  'text-[15px] font-medium text-foreground transition-opacity hover:opacity-70',
-                  isActive(location, item.href) && 'underline underline-offset-8 decoration-foreground/60'
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {siteNavigation.primary.map((item) =>
+              item.external ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[15px] font-medium text-foreground transition-opacity hover:opacity-70 inline-flex items-center"
+                >
+                  {item.label}
+                  <ArrowUpRight className="w-3.5 h-3.5 ml-0.5 opacity-60" aria-hidden="true" />
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive(location, item.href) ? 'page' : undefined}
+                  className={cn(
+                    'text-[15px] font-medium text-foreground transition-opacity hover:opacity-70',
+                    isActive(location, item.href) && 'underline underline-offset-8 decoration-foreground/60'
+                  )}
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
         </div>
 
@@ -161,19 +174,32 @@ export function WebsiteHeader() {
             </button>
           </div>
           <nav className="flex flex-col p-4 gap-4 flex-1 overflow-y-auto" aria-label="Mobile">
-            {siteNavigation.primary.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(location, item.href) ? 'page' : undefined}
-                className={cn(
-                  'text-lg font-medium py-2 border-b border-border/50',
-                  isActive(location, item.href) ? 'text-foreground underline underline-offset-8' : 'text-foreground'
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {siteNavigation.primary.map((item) =>
+              item.external ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg font-medium py-2 border-b border-border/50 text-foreground flex items-center"
+                >
+                  {item.label}
+                  <ArrowUpRight className="w-4 h-4 ml-1 opacity-60" aria-hidden="true" />
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive(location, item.href) ? 'page' : undefined}
+                  className={cn(
+                    'text-lg font-medium py-2 border-b border-border/50',
+                    isActive(location, item.href) ? 'text-foreground underline underline-offset-8' : 'text-foreground'
+                  )}
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
             {githubButton('text-lg font-medium text-foreground py-2 border-b border-border/50 flex items-center')}
             <Link
               href={startAction.href}
