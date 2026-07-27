@@ -1,0 +1,1362 @@
+Extend the existing TomorrowOS Guided Setup onboarding MVP.
+
+For this phase, focus only on the device/player section and build Samsung Tizen as the first complete platform installation guide.
+
+Preserve the existing TomorrowOS onboarding design:
+
+- Roboto typography
+- Black and white
+- Light-grey borders
+- Minimal use of colour
+- Clear cards
+- No gradients
+- No large shadows
+- Calm, premium and instructional
+- Responsive on desktop and mobile
+
+Use the attached file:
+
+Final Tizen Setup Flow (2026).docx
+
+as the content source for the Samsung guide, while applying the UX, terminology and accuracy requirements below.
+
+Do not rebuild the overall onboarding application.
+
+Extend the existing Guided Setup journey from:
+
+Production check
+→ Download players
+→ Install TomorrowOS
+→ Pair device
+→ Create and deploy
+
+==================================================
+1. CRITICAL PRODUCT RULE
+==================================================
+
+The TomorrowOS onboarding website is a guide.
+
+It is not currently integrated with:
+
+- The user’s generated CMS
+- Replit
+- Samsung displays
+- The TomorrowOS Runtime running on a display
+- Device pairing
+- Device online status
+
+Therefore, do not create controls that imply TomorrowOS.org can:
+
+- Download a player into the user’s CMS
+- Install the Samsung Runtime remotely
+- Read the pairing code
+- Enter a pairing code
+- Connect the display
+- Reboot the display
+- Verify the display is online
+- Deploy content
+
+The guide may:
+
+- Show instructions
+- Show screenshots
+- Copy the Samsung installation URL
+- Open the user’s CMS when a locally saved CMS URL exists
+- Link to the Samsung setup guide
+- Link to compatibility information
+- Let the user mark instructional steps complete
+- Display troubleshooting
+- Save non-sensitive guide progress locally
+
+Use user-confirmed language:
+
+- I completed this step
+- I can see the pairing code
+- I confirmed the screen is online
+- Marked complete
+
+Do not use automatic or verified language unless a real integration exists:
+
+- Device connected
+- Player installed
+- Runtime verified
+- Screen online
+- Pairing successful
+- Health check passed
+
+==================================================
+2. UPDATE THE DOWNLOAD PLAYERS STEP
+==================================================
+
+Retain the Guided Setup deployment step named:
+
+Download players
+
+Replace its current content with the following.
+
+Heading:
+
+Choose your screen platform
+
+Supporting copy:
+
+Open Download Players inside your published CMS, then select the platform you want to install.
+
+Add a small explanatory note:
+
+Player downloads and installation actions take place inside your CMS or on the physical display. This guide provides the instructions but does not install the player for you.
+
+Primary action:
+
+Open your CMS
+
+Behaviour:
+
+- If a CMS URL has previously been saved locally during onboarding, open it in a new browser tab.
+- If no CMS URL has been saved, show:
+  “Open the public CMS URL copied after publishing your project.”
+- Do not require the user to enter their CMS login or credentials into TomorrowOS.
+
+Add five platform cards.
+
+------------------------------------------
+SAMSUNG CARD
+------------------------------------------
+
+Platform:
+
+Samsung
+
+Supporting label:
+
+Tizen 6.5 and Tizen 7.0
+
+Status pill:
+
+Available
+
+Description:
+
+Install the TomorrowOS Runtime on a supported Samsung commercial signage display.
+
+Primary action:
+
+View Samsung setup guide
+
+Route:
+
+/guides/platforms/samsung-tizen
+
+Secondary note:
+
+Installed directly on the display using the TomorrowOS installation URL.
+
+------------------------------------------
+BRIGHTSIGN CARD
+------------------------------------------
+
+Preserve the current BrightSign support status and behaviour already present in the application.
+
+Do not change BrightSign to Coming soon unless the existing product configuration already says that.
+
+When an existing BrightSign installation guide is available, retain its link.
+
+When no guide exists yet, display:
+
+Guide being prepared
+
+Do not create or invent BrightSign installation instructions as part of this task.
+
+------------------------------------------
+ANDROID CARD
+------------------------------------------
+
+Platform:
+
+Android
+
+Status pill:
+
+Coming soon
+
+Description:
+
+TomorrowOS player support and installation instructions are being prepared.
+
+The card must be visibly disabled.
+
+Do not show:
+
+- Download
+- Install
+- Open guide
+- Fake setup instructions
+
+------------------------------------------
+LG CARD
+------------------------------------------
+
+Platform:
+
+LG
+
+Supporting label:
+
+webOS
+
+Status pill:
+
+Coming soon
+
+Description:
+
+TomorrowOS player support and installation instructions are being prepared.
+
+The card must be visibly disabled.
+
+------------------------------------------
+WINDOWS CARD
+------------------------------------------
+
+Platform:
+
+Windows
+
+Status pill:
+
+Coming soon
+
+Description:
+
+TomorrowOS player support and installation instructions are being prepared.
+
+The card must be visibly disabled.
+
+------------------------------------------
+COMING-SOON CARD DESIGN
+------------------------------------------
+
+Coming-soon cards should:
+
+- Use normal readable text
+- Have a light-grey background
+- Use a subtle Coming soon pill
+- Not appear broken
+- Not have a pointer cursor
+- Not have an active hover effect
+- Not have a clickable button
+
+Do not create email notification forms unless a real notification system exists.
+
+==================================================
+3. CREATE THE SAMSUNG GUIDE ROUTE
+==================================================
+
+Create:
+
+/guides/platforms/samsung-tizen
+
+The guide must open inside the existing TomorrowOS application shell.
+
+Include:
+
+- TomorrowOS header
+- Back to Guided Setup
+- Back to screen platforms
+- Guide progress
+- Persistent Need help? control
+- Mobile-friendly navigation
+- Screenshot placeholders
+- Troubleshooting
+- Mark step complete actions
+
+When the user opens this guide from onboarding, preserve their onboarding progress.
+
+When they return, take them back to the Download players or Install TomorrowOS step.
+
+==================================================
+4. SAMSUNG GUIDE HEADER
+==================================================
+
+Eyebrow:
+
+SAMSUNG PLATFORM GUIDE
+
+Heading:
+
+Install TomorrowOS on Samsung Tizen
+
+Supporting copy:
+
+Install the TomorrowOS Runtime on a supported Samsung commercial signage display running Tizen 6.5 or Tizen 7.0.
+
+Add status information:
+
+Supported platform:
+Samsung commercial signage
+
+Supported operating systems:
+Tizen 6.5 and Tizen 7.0
+
+Estimated time:
+Approximately 10 minutes
+
+Add an important note:
+
+This guide does not apply to Samsung consumer televisions.
+
+Primary action:
+
+Start setup
+
+Secondary action:
+
+Check Samsung compatibility
+
+Compatibility action:
+
+- Link to the existing TomorrowOS compatibility route when one exists.
+- Use `/compatibility` as the intended route.
+- Do not display a 404.
+- When the compatibility page has not yet been built, create a simple internal placeholder stating:
+  “The full TomorrowOS compatibility matrix is being prepared. Confirm your model and firmware with the TomorrowOS team before installation.”
+- Do not claim that every Tizen 6.5 or Tizen 7.0 display is supported.
+
+==================================================
+5. BEFORE YOU BEGIN
+==================================================
+
+Create a compact preparation section.
+
+Heading:
+
+Before you begin
+
+Checklist:
+
+- Supported Samsung commercial signage display
+- Samsung remote
+- Active internet connection
+- Public HTTPS URL for your published CMS
+- Access to your CMS from a computer or mobile device
+- Approximately 10 minutes
+
+Add:
+
+Where do I find my CMS URL?
+
+Expandable answer:
+
+Use the public HTTPS URL created when you published your CMS through Replit or your chosen hosting provider.
+
+Correct example:
+
+https://my-signage-cms.replit.app
+
+Do not use:
+
+- A Replit editor URL
+- A temporary preview URL
+- A Supabase URL
+- A Cloudinary URL
+- A CMS settings or admin subpage
+
+Use the same CMS URL previously saved in the TomorrowOS onboarding guide when available.
+
+Do not display a real private CMS URL in screenshots.
+
+==================================================
+6. GUIDE NAVIGATION
+==================================================
+
+Create ten instructional guide steps:
+
+1. Choose your starting point
+2. Set Play via to Custom App
+3. Open Custom App
+4. Install the TomorrowOS Runtime
+5. Select screen orientation
+6. Connect the Runtime to your CMS
+7. Wait for the pairing code
+8. Pair the screen in your CMS
+9. Confirm the installation
+10. Create and deploy content
+
+Desktop:
+
+- Use a connected sidebar stepper and content panel.
+- Keep the sidebar approximately 220–240px wide.
+- Current step must be obvious.
+- Completed steps use a checkmark.
+- Available steps must not look disabled.
+- Do not allow the sidebar to feel visually detached from the content.
+
+Mobile:
+
+- Show:
+  “Step X of 10”
+- Add a View all steps action.
+- Keep Back and Continue actions visible.
+
+Every step should have:
+
+- Step number
+- Heading
+- Short explanation
+- Instructions
+- Screenshot placeholder
+- Troubleshooting link where relevant
+- Back
+- Continue
+- I completed this step
+
+Marking a step complete updates only local onboarding progress.
+
+Add this clarification where appropriate:
+
+Completing this step in the guide does not verify the Samsung display or CMS. Confirm the result on the display before continuing.
+
+==================================================
+7. STEP 1 — CHOOSE YOUR STARTING POINT
+==================================================
+
+Heading:
+
+Choose your starting point
+
+Show two selectable instructional cards.
+
+CARD A
+
+New or factory-reset display
+
+Description:
+
+Complete Samsung’s first-time display setup before installing TomorrowOS.
+
+Instructions:
+
+1. Select the language.
+2. Connect the display to the internet.
+3. Select the physical screen orientation.
+4. Confirm the local date and time.
+5. Complete the remaining Samsung setup prompts.
+6. Continue to Set Play via to Custom App.
+
+CARD B
+
+Display already configured
+
+Description:
+
+Continue directly to setting Play via to Custom App.
+
+Selecting either card changes only the guide content and progress.
+
+It does not communicate with the display.
+
+Screenshot placeholder:
+
+ID:
+SAMSUNG-01
+
+Tool:
+Samsung display first-time setup
+
+Highlight:
+Language, network and orientation setup
+
+Caption:
+Complete Samsung’s initial display setup before installing TomorrowOS.
+
+==================================================
+8. STEP 2 — SET PLAY VIA TO CUSTOM APP
+==================================================
+
+Heading:
+
+Set Play via to Custom App
+
+Copy:
+
+TomorrowOS must be selected as the application the display launches.
+
+Instructions:
+
+Using the Samsung remote:
+
+1. Open Menu.
+2. Select System.
+3. Select Play via.
+4. Select Custom App.
+
+Screenshot placeholder:
+
+ID:
+SAMSUNG-02
+
+Tool:
+Samsung system menu
+
+Highlight:
+System → Play via → Custom App
+
+Caption:
+Set Play via to Custom App.
+
+Add two help options:
+
+Custom App is already selected
+
+Copy:
+Continue to the next step.
+
+Custom App is not available
+
+Copy:
+The display may currently be configured to launch MagicINFO.
+
+Action:
+
+View MagicINFO switching steps
+
+This should open the dedicated in-page MagicINFO section or contextual drawer.
+
+==================================================
+9. STEP 3 — OPEN CUSTOM APP
+==================================================
+
+Heading:
+
+Open Custom App
+
+Instructions:
+
+1. Press Home on the Samsung remote.
+2. Select Custom App.
+
+Supporting note:
+
+Depending on the model and firmware, this option may appear inside App Management.
+
+Screenshot placeholder:
+
+ID:
+SAMSUNG-03
+
+Tool:
+Samsung Home menu
+
+Highlight:
+Custom App or App Management
+
+Caption:
+Open Custom App from the Samsung Home menu.
+
+Troubleshooting action:
+
+I cannot see Custom App
+
+Link to:
+
+MagicINFO switching steps
+
+==================================================
+10. STEP 4 — INSTALL THE TOMORROWOS RUNTIME
+==================================================
+
+Heading:
+
+Install the TomorrowOS Runtime
+
+Copy:
+
+Inside Custom App or App Management, select Install Custom App.
+
+Supporting note:
+
+Some supported firmware may label this option Install Web App.
+
+Show the installation address as live, selectable text:
+
+https://tmr.sh/tizen
+
+Include:
+
+- Copy URL
+- Copied confirmation
+
+Instructions:
+
+1. Select Install Custom App or Install Web App.
+2. Enter `https://tmr.sh/tizen` exactly.
+3. Confirm the installation.
+4. Wait for the Runtime to finish downloading.
+
+Important callout:
+
+- Enter the full address.
+- Do not add spaces.
+- Do not turn off or restart the display during installation.
+
+Expected result:
+
+The display downloads the TomorrowOS Runtime and launches it when installation is complete.
+
+Do not show an automatic installation progress state on the TomorrowOS website.
+
+Screenshot placeholders:
+
+ID:
+SAMSUNG-04A
+
+Tool:
+Samsung Custom App
+
+Highlight:
+Install Custom App or Install Web App
+
+Caption:
+Select the installation option shown by your firmware.
+
+ID:
+SAMSUNG-04B
+
+Tool:
+Samsung installation URL field
+
+Highlight:
+The full `https://tmr.sh/tizen` URL
+
+Caption:
+Enter the TomorrowOS installation URL exactly.
+
+ID:
+SAMSUNG-04C
+
+Tool:
+Samsung display
+
+Highlight:
+Installation progress or TomorrowOS launch
+
+Caption:
+Wait for installation to complete before continuing.
+
+==================================================
+11. STEP 5 — SELECT SCREEN ORIENTATION
+==================================================
+
+Heading:
+
+Select the screen orientation
+
+Copy:
+
+When the TomorrowOS Runtime opens, select the option matching the physical installation of the display.
+
+Options shown as instructional examples:
+
+- Landscape
+- Portrait clockwise
+- Portrait counter-clockwise
+
+Do not make these controls configure a real display.
+
+Screenshot placeholder:
+
+ID:
+SAMSUNG-05
+
+Tool:
+TomorrowOS Runtime
+
+Highlight:
+Orientation selection
+
+Caption:
+Choose the orientation matching the physical display installation.
+
+Add:
+
+This setting can be changed later through the approved TomorrowOS Runtime setup process.
+
+Do not claim it can be changed remotely unless that feature exists.
+
+==================================================
+12. STEP 6 — CONNECT THE RUNTIME TO YOUR CMS
+==================================================
+
+Heading:
+
+Connect the Runtime to your CMS
+
+Copy:
+
+The TomorrowOS Runtime will ask for the public address of your CMS.
+
+Show example:
+
+https://my-signage-cms.replit.app
+
+Always use HTTPS in the example.
+
+Do not use:
+
+http://mycms.replit.app
+
+Instructions:
+
+1. Find the public HTTPS CMS URL copied when you published your CMS.
+2. Enter the complete URL on the Samsung display.
+3. Confirm and continue.
+
+Use:
+
+- Published Replit CMS URL
+- Connected custom domain
+- Public URL from another supported host
+
+Do not use:
+
+- Replit editor URL
+- Replit Preview URL
+- Supabase URL
+- Cloudinary URL
+- CMS settings page
+- Localhost address
+
+Add help:
+
+Where do I find my CMS URL?
+
+When a CMS URL has been saved locally during onboarding, show it as a convenience with:
+
+Copy saved CMS URL
+
+Add:
+
+This guide does not send the CMS URL to your Samsung display. Enter it manually using the Samsung remote.
+
+Screenshot placeholder:
+
+ID:
+SAMSUNG-06
+
+Tool:
+TomorrowOS Runtime
+
+Highlight:
+CMS URL field
+
+Caption:
+Enter the public HTTPS address of your CMS.
+
+==================================================
+13. STEP 7 — WAIT FOR THE PAIRING CODE
+==================================================
+
+Heading:
+
+Wait for the pairing code
+
+Copy:
+
+After the CMS URL is accepted, a pairing code will appear on the Samsung display.
+
+Add:
+
+Leave this screen open while you complete the next step.
+
+Do not:
+
+- Generate a pairing code on the guide
+- Display an interactive pairing-code field
+- Store a pairing code
+- Claim the guide can read the pairing code
+- Describe it as six digits
+- Promise a fixed code format
+
+Screenshot placeholder:
+
+ID:
+SAMSUNG-07
+
+Tool:
+TomorrowOS Runtime on Samsung display
+
+Highlight:
+Pairing code
+
+Caption:
+Your pairing code appears on the physical display.
+
+The screenshot must clearly say:
+
+Example only
+
+Completion action:
+
+I can see a pairing code on the display
+
+==================================================
+14. STEP 8 — PAIR THE SCREEN IN YOUR CMS
+==================================================
+
+Heading:
+
+Pair the screen in your CMS
+
+Copy:
+
+This action takes place inside your published CMS, not on the TomorrowOS guide.
+
+Instructions:
+
+1. Open your published CMS.
+2. Select Pair a device.
+3. Enter the pairing code shown on the Samsung display.
+4. Select Connect.
+5. Wait for the screen to appear in the device list.
+
+Primary action:
+
+Open my CMS
+
+Behaviour:
+
+- Open the locally saved CMS URL when one exists.
+- Otherwise explain where to find the CMS URL.
+- Do not ask for CMS credentials.
+
+Secondary actions:
+
+- Show me where to enter the code
+- View pairing troubleshooting
+
+Completion action:
+
+I confirmed the screen appears in my CMS
+
+Expected result:
+
+The screen appears in your CMS as connected or online, and the Runtime leaves the pairing screen.
+
+Clarification:
+
+TomorrowOS.org does not enter or verify the pairing code. Pairing is completed inside your owned and operated CMS.
+
+Screenshot placeholder:
+
+ID:
+SAMSUNG-08
+
+Tool:
+Generated TomorrowOS CMS
+
+Highlight:
+Pair a device field and Connect action
+
+Caption:
+Enter the pairing code inside your CMS—not on this guide.
+
+Do not create:
+
+- A pairing-code input in the guide
+- A Connect button in the guide
+- An automatic connected state
+- A simulated online device in customer-facing mode
+
+==================================================
+15. STEP 9 — CONFIRM THE INSTALLATION
+==================================================
+
+Heading:
+
+Confirm the installation
+
+Manual confirmation checklist:
+
+- The display appears online in the CMS.
+- The pairing screen has closed.
+- The expected starter, splash or assigned content appears.
+- No blocking installation or connection error is visible.
+
+Subheading:
+
+Complete a restart test
+
+Default instructions:
+
+1. Restart the Samsung display using the remote or approved physical restart method.
+2. Wait for the display to start.
+3. Confirm the TomorrowOS Runtime launches again.
+4. Confirm the screen reconnects to the CMS.
+5. Confirm the expected content or splash screen resumes.
+
+Conditional CMS reboot copy:
+
+Only display “Reboot through your CMS” when the generated CMS genuinely contains a working reboot command.
+
+Do not assume every starter CMS has remote reboot functionality.
+
+When the CMS has a confirmed reboot action, show:
+
+Alternative:
+Use the Reboot action on the device card inside your CMS.
+
+Add:
+
+A successful restart test is required before considering installation complete.
+
+Completion action:
+
+I confirmed the screen restarts and reconnects
+
+Clarification:
+
+This confirmation updates your onboarding progress only. TomorrowOS.org does not independently verify the restart.
+
+Screenshot placeholders:
+
+ID:
+SAMSUNG-09A
+
+Tool:
+Generated CMS
+
+Highlight:
+Samsung device shown online
+
+Caption:
+Confirm the display appears online in your CMS.
+
+ID:
+SAMSUNG-09B
+
+Tool:
+Samsung display
+
+Highlight:
+TomorrowOS Runtime after restart
+
+Caption:
+Confirm the Runtime launches again after restarting the display.
+
+==================================================
+16. STEP 10 — CREATE AND DEPLOY CONTENT
+==================================================
+
+Heading:
+
+Create and deploy content
+
+Copy:
+
+Complete these actions inside your CMS.
+
+Instructions:
+
+1. Create a playlist.
+2. Upload or create content.
+3. Adjust the schedule.
+4. Save the changes.
+5. Assign the playlist to the Samsung display.
+6. Confirm the content appears on the screen.
+
+Primary action:
+
+Open my CMS
+
+Secondary action:
+
+View content deployment guide
+
+Completion action:
+
+My first content is playing
+
+Do not build working playlist, scheduling or deployment controls inside the TomorrowOS guide.
+
+Final success panel:
+
+Samsung setup complete
+
+Copy:
+
+You confirmed that the TomorrowOS Runtime is installed, paired and playing content on your Samsung display.
+
+Add:
+
+This status is based on your confirmation and is not independently verified by TomorrowOS.org.
+
+Actions:
+
+- Return to Guided Setup
+- Add another screen
+- View Samsung troubleshooting
+
+==================================================
+17. MAGICINFO SWITCHING SECTION
+==================================================
+
+Create a dedicated expandable section or guide subroute:
+
+/guides/platforms/samsung-tizen/magicinfo
+
+Heading:
+
+Switch from MagicINFO to Custom App
+
+Supporting copy:
+
+Use these steps when Custom App does not appear after pressing Home.
+
+STEP 1
+
+Leave MagicINFO
+
+Instructions:
+
+Use the Source button and temporarily switch to an available input, such as HDMI.
+
+Copy:
+
+This allows you to open the Samsung system menu outside MagicINFO.
+
+Screenshot placeholder:
+
+SAMSUNG-MAGICINFO-01
+Source menu with HDMI highlighted.
+
+STEP 2
+
+Open the Samsung menu
+
+Instructions:
+
+1. Press Menu on the remote.
+2. Select System.
+
+Screenshot placeholder:
+
+SAMSUNG-MAGICINFO-02
+System menu highlighted.
+
+STEP 3
+
+Change Play via
+
+Instructions:
+
+1. Select Play via.
+2. Select Custom App.
+
+Screenshot placeholder:
+
+SAMSUNG-MAGICINFO-03
+Play via → Custom App highlighted.
+
+STEP 4
+
+Restart the display
+
+Instructions:
+
+1. Turn the display off and on again.
+2. Press Home.
+3. Confirm Custom App is now available.
+4. Return to Step 3 of the Samsung setup guide.
+
+Button:
+
+Return to Open Custom App
+
+Do not use the phrase:
+
+Once stored
+
+Use:
+
+After selecting Custom App, restart the display so the change takes effect.
+
+==================================================
+18. TROUBLESHOOTING
+==================================================
+
+Add a troubleshooting section accessible from every Samsung guide step.
+
+Use accordions or cards.
+
+------------------------------------------
+I CANNOT SEE CUSTOM APP
+------------------------------------------
+
+- Confirm Play via is set to Custom App.
+- Restart the display after changing the setting.
+- Confirm the panel is a supported commercial signage model.
+
+Action:
+
+View MagicINFO switching steps
+
+------------------------------------------
+THE INSTALLATION URL DOES NOT LOAD
+------------------------------------------
+
+- Confirm the display is connected to the internet.
+- Re-enter `https://tmr.sh/tizen` exactly.
+- Confirm the display date and time are correct.
+- Restart the display and try again.
+
+Action:
+
+Copy installation URL
+
+------------------------------------------
+THE CMS URL IS REJECTED
+------------------------------------------
+
+- Use the public published CMS address.
+- Confirm it begins with `https://`.
+- Do not use the Replit editor or Preview address.
+- Open the CMS URL on another device to confirm it loads.
+- Do not use a Supabase or Cloudinary address.
+
+Action:
+
+Where do I find my CMS URL?
+
+------------------------------------------
+NO PAIRING CODE APPEARS
+------------------------------------------
+
+- Confirm the CMS URL is correct.
+- Confirm the published CMS is currently available.
+- Restart the TomorrowOS Runtime.
+- Check the display for an error message.
+
+Do not invent a reset process.
+
+Use an engineering placeholder when reset instructions are not yet confirmed:
+
+{{CONFIRM_APPROVED_RUNTIME_RESET_PROCESS}}
+
+------------------------------------------
+THE CMS DOES NOT ACCEPT THE CODE
+------------------------------------------
+
+- Enter the code exactly as shown.
+- Confirm you are using the same CMS URL entered on the display.
+- Confirm the pairing code has not expired.
+- Return to the player and check whether a new code is displayed.
+
+Do not promise that the user can manually generate a new code unless engineering confirms that process.
+
+------------------------------------------
+THE SCREEN PAIRS BUT SHOWS NO CONTENT
+------------------------------------------
+
+Copy:
+
+Pairing and content assignment are separate steps.
+
+Checks:
+
+- Confirm the screen appears online in the CMS.
+- Confirm a playlist or content item is assigned.
+- Confirm the schedule is active now.
+- Confirm the content format is supported by the display.
+- Confirm the CMS changes were saved.
+
+Action:
+
+View content deployment guide
+
+==================================================
+19. SCREENSHOT PLACEHOLDERS
+==================================================
+
+Use the existing reusable ScreenshotPlaceholder component.
+
+Do not use plain empty black rectangles.
+
+Every placeholder must display:
+
+- Screenshot ID
+- Product or interface
+- Exact menu or control to highlight
+- Suggested caption
+- Replace-image control in Prototype Review Mode
+
+Samsung screenshot IDs:
+
+- SAMSUNG-01
+- SAMSUNG-02
+- SAMSUNG-03
+- SAMSUNG-04A
+- SAMSUNG-04B
+- SAMSUNG-04C
+- SAMSUNG-05
+- SAMSUNG-06
+- SAMSUNG-07
+- SAMSUNG-08
+- SAMSUNG-09A
+- SAMSUNG-09B
+- SAMSUNG-MAGICINFO-01
+- SAMSUNG-MAGICINFO-02
+- SAMSUNG-MAGICINFO-03
+
+Add optional metadata in review mode:
+
+- Samsung model
+- Tizen version
+- Firmware version
+- Date captured
+
+Do not show that internal metadata to normal users unless it aids understanding.
+
+==================================================
+20. NEED HELP DRAWER
+==================================================
+
+Extend the existing contextual Need help? drawer for Samsung.
+
+It should recognise the current guide step.
+
+Show:
+
+- You are here
+- What should be visible on the display
+- Common blockers
+- Relevant troubleshooting
+- Screenshot reference
+- Previous and next step links
+
+Example for installation step:
+
+You are at:
+Install the TomorrowOS Runtime
+
+You should see:
+A field for an installation URL inside Custom App or App Management.
+
+Common blockers:
+- Install option not visible
+- Custom App unavailable
+- Display offline
+- URL typed incorrectly
+
+Actions:
+- Copy installation URL
+- View MagicINFO steps
+- Open troubleshooting
+
+==================================================
+21. PROTOTYPE REVIEW MODE
+==================================================
+
+Prototype Review Mode may:
+
+- Jump to any Samsung guide step
+- Mark steps complete
+- Show screenshot IDs
+- Show engineering placeholders
+- Display all troubleshooting states
+- Reset Samsung guide progress
+
+Show the persistent review banner:
+
+Prototype simulation — These states are for internal review and are not connected to a Samsung display, your CMS or the TomorrowOS Runtime.
+
+Normal customer-facing mode must not simulate:
+
+- Installation
+- Pairing
+- Device online status
+- Reboot
+- Content playback
+
+==================================================
+22. ACCESSIBILITY
+==================================================
+
+Ensure:
+
+- All guide steps are keyboard accessible.
+- Screenshot captions are readable.
+- Copy buttons have accessible names.
+- Coming-soon platform cards are marked disabled.
+- Status is not communicated through colour alone.
+- Focus states are visible.
+- Expandable troubleshooting has correct ARIA behaviour.
+- Mobile touch targets are large enough.
+- The stepper can be navigated without a mouse.
+
+==================================================
+23. ACCEPTANCE CRITERIA
+==================================================
+
+The work is complete only when:
+
+1. The Download players section displays Samsung, BrightSign, Android, LG and Windows.
+2. Samsung is marked Available.
+3. Android is marked Coming soon and disabled.
+4. LG is marked Coming soon and disabled.
+5. Windows is marked Coming soon and disabled.
+6. Existing BrightSign behaviour is preserved.
+7. Samsung opens a complete internal platform guide.
+8. The Samsung guide uses Tizen 6.5 and Tizen 7.0 terminology.
+9. The guide states it applies to commercial signage, not consumer TVs.
+10. The installation URL is copyable.
+11. The installation URL is `https://tmr.sh/tizen`.
+12. The CMS URL example begins with `https://`.
+13. The guide does not collect a CMS password.
+14. The guide does not collect or store a pairing code.
+15. The pairing action clearly occurs inside the user’s CMS.
+16. No fake Connect button exists in the guide.
+17. No automatic device-online state exists in customer-facing mode.
+18. The restart test does not assume remote CMS reboot exists.
+19. The MagicINFO subflow is complete.
+20. Troubleshooting is available from every guide step.
+21. Screenshot placeholders contain useful production instructions.
+22. Guided Setup progress is preserved when opening and closing the guide.
+23. Back to onboarding returns to the correct deployment step.
+24. Desktop and mobile layouts work.
+25. All copy buttons work.
+26. Prototype Review Mode can test every state.
+27. Normal mode clearly distinguishes user confirmation from verification.
+28. There are no remaining references to ScreenCloud.
+29. There are no raw errors such as `[object Object]` or `undefined`.
+30. TypeScript and runtime errors are resolved.
+
+==================================================
+24. DELIVERY
+==================================================
+
+Before coding:
+
+1. Review the existing onboarding architecture.
+2. Review Final Tizen Setup Flow (2026).docx.
+3. Identify the existing routes and shared components.
+4. Preserve the current Guided Setup progress system.
+5. List any engineering placeholders that remain unresolved.
+6. Then begin building without waiting for further approval.
+
+After coding:
+
+1. Run the application.
+2. Test the Download players section.
+3. Test the Samsung guide from beginning to end.
+4. Test returning to onboarding.
+5. Test mobile.
+6. Test every copy button.
+7. Test MagicINFO navigation.
+8. Test troubleshooting links.
+9. Test Prototype Review Mode.
+10. Confirm that no secrets, CMS credentials or pairing codes are stored.
+11. Provide a concise completion report.
+
+Do not stop after creating static pages.
+
+This should be a complete, clickable Samsung Tizen installation-guide example inside the TomorrowOS Guided Setup experience.
