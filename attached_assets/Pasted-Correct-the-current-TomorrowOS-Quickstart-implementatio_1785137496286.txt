@@ -1,0 +1,409 @@
+Correct the current TomorrowOS Quickstart implementation.
+
+Do not redesign the page and do not rebuild the application from scratch.
+
+The current page is using approximated text, icons and a hand-built architecture diagram instead of the approved assets supplied in:
+
+2. Version 1 - Site Assets-20260727T060352Z-1-001.zip
+
+This correction must prioritise exact asset usage and visual comparison against Home.png and Home@2x.png.
+
+==================================================
+1. AUDIT THE CURRENT IMPLEMENTATION FIRST
+==================================================
+
+Before editing:
+
+1. Confirm whether the screenshot-matched page is `/` or `/quickstart`.
+2. Confirm that `/quickstart` is the Figma-designed page.
+3. Confirm that `/` remains the simple placeholder homepage.
+4. List every approved asset currently present in the project.
+5. List which approved assets are actually referenced by `/quickstart`.
+6. Identify any CSS or React components currently recreating approved artwork.
+7. Identify whether the local Roboto and JetBrains Mono fonts are loading successfully.
+8. Then make the corrections below.
+
+Do not stop at the audit.
+
+==================================================
+2. NORMALISE THE ASSET PATHS
+==================================================
+
+Copy the approved assets into clean paths with no spaces or unusual punctuation.
+
+Use:
+
+public/assets/brand/tomorrowos-logo.svg
+
+public/assets/illustrations/tomorrowos-architecture-1.png
+public/assets/illustrations/tomorrowos-architecture-2.png
+public/assets/illustrations/owned.png
+public/assets/illustrations/portable.png
+public/assets/illustrations/support.png
+public/assets/illustrations/open-source.png
+
+public/assets/icons/black/
+public/assets/icons/white/
+
+public/assets/platforms/
+
+public/assets/fonts/roboto-variable.ttf
+public/assets/fonts/roboto-italic-variable.ttf
+public/assets/fonts/jetbrains-mono-variable.ttf
+
+Rename:
+
+brightsign=-logo.svg
+to:
+brightsign-logo.svg
+
+Rename:
+
+Frame 3992.svg
+to:
+content-copy.svg
+
+Do not retain duplicate production copies after imports have been updated.
+
+==================================================
+3. REPLACE THE HEADER LOGO
+==================================================
+
+The current header incorrectly renders a generic black circle and typed text:
+
+Tomorrow OS
+
+Remove that fallback implementation.
+
+Use the supplied SVG:
+
+/assets/brand/tomorrowos-logo.svg
+
+Requirements:
+
+- Preserve its exact proportions.
+- Do not recreate it with text.
+- Do not separate “Tomorrow” and “OS”.
+- Use accessible alt text: TomorrowOS.
+- Match the size and position shown in the Figma export.
+
+Restore the approved desktop navigation:
+
+- Explore
+- Get Started
+- GitHub
+- Start building
+
+GitHub must appear as the outlined button shown in Figma.
+
+Start building must remain the black primary button.
+
+Use the configured GitHub destination.
+
+==================================================
+4. REPLACE THE MAIN ARCHITECTURE SECTION
+==================================================
+
+Delete or stop rendering the current hand-built hero architecture component.
+
+This includes the incorrect:
+
+- Large black centre card
+- Generic circle mark
+- Text-only platform labels
+- Recreated connector lines
+- Incorrect left-side icons
+- Rounded outer diagram container
+
+For desktop and tablet, use the exact approved artwork:
+
+/assets/illustrations/tomorrowos-architecture-1.png
+
+Render it as a semantic responsive image.
+
+Requirements:
+
+- Width: 100%
+- Height: auto
+- Object fit: contain
+- Preserve exact aspect ratio
+- No crop
+- No colour filter
+- No replacement background
+- No large outer border
+- No additional rounded wrapper that is not visible in Figma
+- No duplicated text or logos placed over the image
+
+The image already contains:
+
+- Build a CMS
+- Connect an app
+- Create a new experience
+- TomorrowOS centre card
+- Connector lines
+- Samsung Tizen
+- LG webOS
+- BrightSign
+- Android
+- Windows
+
+Do not recreate any of those separately on desktop.
+
+Use a maximum rendered width matching the Figma composition, approximately 1040–1080px within the 1440px desktop artboard.
+
+Centre it horizontally.
+
+==================================================
+5. CORRECT THE HERO SPACING
+==================================================
+
+The current implementation has too much empty space between the hero buttons and the architecture artwork.
+
+Match Home.png at the exact 1440px desktop viewport.
+
+The architecture should begin relatively soon after the CTA row and feel part of the hero—not like a separate section far below it.
+
+Remove any:
+
+- Excessive fixed min-height
+- Large spacer div
+- Oversized bottom padding
+- Margin intended for a different artwork component
+
+Restore the caption immediately below the architecture:
+
+One shared foundation beneath every screen experience.
+
+Match its type size, colour and spacing to the Figma.
+
+==================================================
+6. USE THE APPROVED ICONS
+==================================================
+
+Where icons remain outside the supplied architecture illustration, use the provided SVG files.
+
+Do not use:
+
+- Emojis
+- Lucide substitutes
+- Generic browser icons
+- CSS-created approximations
+
+Use approved black or white versions based on the Figma background.
+
+For the Working Patterns section use:
+
+Digital menu boards
+→ restaurant.svg
+
+Directory boards
+→ grid_view.svg
+
+Retail media networks
+→ volume_down.svg
+
+Internal communications
+→ chat.svg
+
+Custom signage products
+→ deployed_code.svg
+
+==================================================
+7. USE APPROVED PLATFORM LOGOS
+==================================================
+
+Use the supplied logo files wherever platform logos appear elsewhere on the page.
+
+Do not render platform names as substitutes for their logos.
+
+Use:
+
+- samsung-logo.svg
+- tizen-logo.svg
+- lg-webos-logo.svg
+- brightsign-logo.svg
+- android-logo.svg
+- windows-logo.png
+- railway-logo.svg
+- render-logo.svg
+- northflank-logo.svg
+
+Preserve natural aspect ratios and official colours.
+
+Do not stretch every logo to the same width.
+
+Fly.io is the only known missing platform logo.
+
+In Review Mode show:
+
+MISSING ASSET — Fly.io logo
+
+In normal mode use a restrained text fallback or temporarily omit it without breaking the row.
+
+==================================================
+8. IMPLEMENT THE SECOND APPROVED ARCHITECTURE
+==================================================
+
+Use:
+
+/assets/illustrations/tomorrowos-architecture-2.png
+
+in the Start your way section where shown in Figma.
+
+Do not treat this as the mobile version of the main hero architecture.
+
+It is a separate approved illustration containing:
+
+- AI-assisted
+- SDK
+- Existing product
+- TomorrowOS
+- Example output screen
+
+Preserve its exact aspect ratio and transparent background.
+
+==================================================
+9. USE THE APPROVED OWNERSHIP IMAGES
+==================================================
+
+Use:
+
+Own your product
+→ owned.png
+
+Choose your infrastructure
+→ portable.png
+
+Support multiple platforms
+→ support.png
+
+Do not replace these with generated artwork or CSS illustrations.
+
+Match the Figma image crop, internal card padding and image proportions.
+
+==================================================
+10. VERIFY LOCAL FONTS
+==================================================
+
+Load the supplied local font files through `@font-face`.
+
+Use:
+
+Roboto:
+- 400 Regular
+- 500 Medium
+- 700 Bold
+
+JetBrains Mono:
+- 700 Bold
+- Code and command content only
+
+Confirm through browser computed styles that Roboto is actually loaded rather than falling back to Arial or a system font.
+
+Use:
+
+font-display: swap
+
+==================================================
+11. MOBILE ARCHITECTURE
+==================================================
+
+The asset package does not include a standalone mobile export for the main hero architecture.
+
+Do not squeeze the wide desktop PNG into an unreadable mobile image.
+
+For mobile:
+
+- Match the mobile composition visible in the approved Figma export.
+- Use the supplied individual icons and platform logos.
+- Keep this as a dedicated responsive composition.
+- Do not alter the desktop composition.
+- Flag the absence of a dedicated mobile architecture export in Review Mode.
+
+Do not confuse `tomorrowos-architecture-2.png` with the mobile hero architecture.
+
+==================================================
+12. EXACT FIGMA COMPARISON
+==================================================
+
+The supplied Figma export contains these target artboard widths:
+
+Desktop:
+1440px
+
+Mobile:
+390px
+
+Capture `/quickstart` at exactly:
+
+- 1440px wide
+- 390px wide
+
+Compare the implementation against the approved exports.
+
+For the first desktop viewport, specifically check:
+
+- Header logo
+- Header link positions
+- GitHub button
+- Start building button
+- H1 width and line break
+- Supporting-copy line breaks
+- CTA dimensions
+- CTA-to-architecture spacing
+- Architecture width and alignment
+- Caption below architecture
+
+Do not accept a “similar” result.
+
+Complete at least two correction passes after the first screenshot.
+
+==================================================
+13. REMOVE OBSOLETE APPROXIMATIONS
+==================================================
+
+After the correct assets are working:
+
+- Remove the old hand-built architecture component when unused.
+- Remove unused generic icon imports.
+- Remove fallback text logos.
+- Remove obsolete CSS connector-line rules.
+- Remove duplicate platform text cards.
+- Remove unused placeholder assets.
+
+Do not leave both the approved image and the approximation in the codebase.
+
+==================================================
+14. ACCEPTANCE CRITERIA
+==================================================
+
+This correction is complete only when:
+
+1. The real TomorrowOS SVG appears in the header.
+2. “Tomorrow OS” is no longer recreated as text.
+3. The GitHub header button is restored.
+4. The desktop hero uses `tomorrowos-architecture-1.png`.
+5. The black centre architecture card is removed.
+6. Official platform logos appear inside the architecture artwork.
+7. The oversized outer architecture container is removed.
+8. Hero spacing matches the Figma significantly more closely.
+9. The architecture caption is present.
+10. The Start your way section uses `tomorrowos-architecture-2.png`.
+11. Ownership cards use the three approved images.
+12. Working-pattern cards use the approved icons.
+13. Roboto 400, 500 and 700 load locally.
+14. `/quickstart` is the Figma-designed route.
+15. `/` remains the placeholder homepage.
+16. Desktop is compared at exactly 1440px.
+17. Mobile is compared at exactly 390px.
+18. Missing mobile architecture and Fly.io assets are flagged in Review Mode.
+19. No old CSS architecture approximation remains visible.
+20. No asset-path or runtime errors remain.
+
+After completing the work, provide:
+
+- A screenshot of `/quickstart` at 1440px
+- A screenshot at 390px
+- An asset-usage report
+- A list of remaining mismatches
+- A list of genuinely missing assets
