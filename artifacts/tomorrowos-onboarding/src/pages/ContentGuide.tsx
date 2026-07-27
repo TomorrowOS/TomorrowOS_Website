@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useGuideSeo } from '@/components/GuideSeo';
 import { useLocation } from 'wouter';
 import { usePrototype } from '@/components/PrototypeProvider';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import { ContentJourney } from '@/components/ContentJourney';
 import { NeedHelpDrawer } from '@/components/NeedHelpDrawer';
 
 export default function ContentGuide() {
+  useGuideSeo('/guides/content');
   const { state, updateState } = usePrototype();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [, setLocation] = useLocation();

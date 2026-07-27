@@ -3,7 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { usePrototype } from './PrototypeProvider';
 import { PlaceholderText } from './PlaceholderText';
 import { siteNavigation, isConfiguredUrl } from '@/config/navigation';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ExternalLink } from 'lucide-react';
 import GithubIcon from './GithubIcon';
 import { cn } from '@/lib/utils';
 
@@ -113,7 +113,7 @@ export function WebsiteHeader() {
                   className="text-[15px] font-medium text-foreground transition-opacity hover:opacity-70 inline-flex items-center"
                 >
                   {item.label}
-                  <ArrowUpRight className="w-3.5 h-3.5 ml-0.5 opacity-60" aria-hidden="true" />
+                  <ExternalLink className="w-3.5 h-3.5 ml-1 opacity-60" aria-hidden="true" />
                 </a>
               ) : (
                 <Link
@@ -184,7 +184,7 @@ export function WebsiteHeader() {
                   className="text-lg font-medium py-2 border-b border-border/50 text-foreground flex items-center"
                 >
                   {item.label}
-                  <ArrowUpRight className="w-4 h-4 ml-1 opacity-60" aria-hidden="true" />
+                  <ExternalLink className="w-4 h-4 ml-1.5 opacity-60" aria-hidden="true" />
                 </a>
               ) : (
                 <Link

@@ -96,22 +96,22 @@ export const aboutContent = {
       {
         name: "Dylan",
         role: "Project Lead",
-        imagePath: "assets/team/dylan.png"
+        imagePath: "assets/team/dylan.webp"
       },
       {
         name: "Matt",
         role: "Industry Advisor",
-        imagePath: "assets/team/matt.png"
+        imagePath: "assets/team/matt.webp"
       },
       {
         name: "James",
         role: "Core Platform Maintainer",
-        imagePath: "assets/team/james.png"
+        imagePath: "assets/team/james.webp"
       },
       {
         name: "Kai",
         role: "Core Platform Maintainer",
-        imagePath: "assets/team/kai.png"
+        imagePath: "assets/team/kai.webp"
       }
     ]
   },

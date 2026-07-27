@@ -15,7 +15,7 @@ export default function About() {
     fullTitle: true,
     description: 'Learn why TomorrowOS is building an open foundation for digital signage, helping teams avoid rebuilding device, playback and platform infrastructure.',
     canonicalPath: '/about',
-    socialImage: `${import.meta.env.BASE_URL}assets/illustrations/open-source.png`
+    socialImage: `${import.meta.env.BASE_URL}assets/illustrations/open-source.webp`
   });
 
   return (
@@ -110,8 +110,10 @@ function AboutHero() {
         </div>
         <div className="flex-1 flex justify-center md:justify-end w-full order-1 md:order-none">
           <img 
-            src={`${import.meta.env.BASE_URL}assets/illustrations/open-source.png`}
+            src={`${import.meta.env.BASE_URL}assets/illustrations/open-source.webp`}
             alt="Open source foundation illustration"
+            width={1228}
+            height={714}
             className="w-full max-w-[500px] md:max-w-none h-auto object-contain"
           />
         </div>
@@ -316,6 +318,8 @@ function TeamMember({ name, role, imagePath }: { name: string, role: string, ima
           <img
             src={`${import.meta.env.BASE_URL}${imagePath}`}
             alt={`Portrait of ${name}`}
+            width={640}
+            height={640}
             className="w-full h-full object-cover"
             loading="lazy"
           />

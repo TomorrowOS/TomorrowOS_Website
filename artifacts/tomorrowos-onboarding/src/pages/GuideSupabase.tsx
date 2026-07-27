@@ -1,9 +1,11 @@
 import React from 'react';
+import { useGuideSeo } from '@/components/GuideSeo';
 import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
 export default function GuideSupabase() {
+  useGuideSeo('/guides/supabase');
   const [, setLocation] = useLocation();
 
   return (

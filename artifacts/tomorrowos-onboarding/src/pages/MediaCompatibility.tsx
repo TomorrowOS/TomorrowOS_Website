@@ -1,6 +1,8 @@
 import React from 'react';
+import { usePageSeo } from '@/hooks/use-page-seo';
 
 export default function MediaCompatibility() {
+  usePageSeo('/compatibility/media');
   return (
     <div className="flex flex-col mx-auto max-w-[1050px] animate-in fade-in duration-500 py-12 px-6">
       <h1 className="text-3xl font-bold text-gray-900 mb-6 tracking-tight">Media Compatibility</h1>

@@ -1,7 +1,13 @@
 User-agent: *
 Disallow: /
 
+Sitemap: https://tomorrowos.org/sitemap.xml
+
 # NOTE: For production launch:
 # 1. Change siteConfig.isPrototype to false in src/config/site.ts
-# 2. Change this file to:
-# Allow: /
+# 2. Change "Disallow: /" above to:
+#    Allow: /
+#    Disallow: /start/guided
+#    Disallow: /start/terminal
+#    Disallow: /cookie-settings
+# 3. Confirm the Sitemap URL matches the production custom domain.

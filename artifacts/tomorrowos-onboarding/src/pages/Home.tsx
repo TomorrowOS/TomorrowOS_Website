@@ -8,12 +8,15 @@ import { siteConfig } from '@/config/site';
 import { ChevronRight } from 'lucide-react';
 import { usePrototype } from '@/components/PrototypeProvider';
 import { PlaceholderText } from '@/components/PlaceholderText';
+import { JsonLd } from '@/components/JsonLd';
+import { absoluteUrl } from '@/lib/seoConfig';
 
 export default function Home() {
   const { state } = usePrototype();
   useSeo({
     title: 'Open-Source Digital Signage Foundation',
-    description: 'Build your own CMS, add screen management to an existing application or create an entirely new digital signage product.'
+    description: 'Build your own CMS, add screen management to an existing application or create an entirely new digital signage product.',
+    canonicalPath: '/',
   });
 
   useEffect(() => {
@@ -39,6 +42,30 @@ export default function Home() {
 
   return (
     <div className="flex flex-col animate-in fade-in duration-500 pb-10 md:pb-24">
+      <JsonLd
+        id="organization"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'TomorrowOS',
+          url: absoluteUrl('/'),
+          logo: absoluteUrl('/assets/brand/tomorrowos-logo.svg'),
+          sameAs: [siteConfig.links.github],
+        }}
+      />
+      <JsonLd
+        id="software-application"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: 'TomorrowOS',
+          applicationCategory: 'DeveloperApplication',
+          operatingSystem: 'Web, Samsung Tizen, LG webOS, Android, BrightSign, Windows',
+          description: 'Open-source digital signage foundation. Build your own CMS on shared device, playback and platform infrastructure.',
+          url: absoluteUrl('/'),
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        }}
+      />
       {/* HERO SECTION */}
       <section className="pt-16 pb-6 md:pt-32 md:pb-16 px-4 md:px-8 text-center max-w-5xl mx-auto flex flex-col items-center">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6 max-w-4xl">
@@ -66,9 +93,6 @@ export default function Home() {
               {hasGithub ? 'View on GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View on GitHub" />}
             </a>
           )}
-          <a href="#start-new" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors text-muted-foreground hover:text-foreground h-11 px-8 w-full sm:w-auto sm:border sm:border-input sm:bg-background sm:text-foreground sm:hover:bg-accent">
-            Explore TomorrowOS
-          </a>
         </div>
       </section>
 
@@ -181,8 +205,10 @@ export default function Home() {
           <div className="flex flex-col">
             <div className="bg-[#f2f2f2] rounded-2xl mb-6 overflow-hidden flex items-center justify-center p-6 aspect-[4/3]">
               <img 
-                src={`${import.meta.env.BASE_URL}assets/illustrations/owned.png`}
+                src={`${import.meta.env.BASE_URL}assets/illustrations/owned.webp`}
                 alt="3D illustration of a dashboard showing ownership of the product"
+                width={835}
+                height={576}
                 loading="lazy"
                 className="max-w-full max-h-full object-contain"
               />
@@ -197,8 +223,10 @@ export default function Home() {
           <div className="flex flex-col">
             <div className="bg-[#f2f2f2] rounded-2xl mb-6 overflow-hidden flex items-center justify-center p-6 aspect-[4/3]">
               <img 
-                src={`${import.meta.env.BASE_URL}assets/illustrations/portable.png`}
+                src={`${import.meta.env.BASE_URL}assets/illustrations/portable.webp`}
                 alt="3D illustration of a cloud platform showing infrastructure portability"
+                width={835}
+                height={576}
                 loading="lazy"
                 className="w-full h-auto object-contain"
               />
@@ -213,8 +241,10 @@ export default function Home() {
           <div className="flex flex-col">
             <div className="bg-[#f2f2f2] rounded-2xl mb-6 overflow-hidden flex items-center justify-center p-6 aspect-[4/3]">
               <img 
-                src={`${import.meta.env.BASE_URL}assets/illustrations/support.png`}
+                src={`${import.meta.env.BASE_URL}assets/illustrations/support.webp`}
                 alt="3D illustration of screens and media players showing multi-platform support"
+                width={1600}
+                height={1157}
                 loading="lazy"
                 className="w-full h-auto object-contain"
               />

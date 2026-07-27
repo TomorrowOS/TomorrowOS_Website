@@ -5,14 +5,16 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, ArrowDown, Check, ExternalLink, Info, Lock, Monitor, Package, FileText, Github, MessageSquare, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { CopyableText } from './CopyableText';
+import GithubIcon from './GithubIcon';
 import { usePrototype } from './PrototypeProvider';
 import { serverSdkConfig, getEffectiveServerSdkStatus } from '@/lib/serverSdkConfig';
 import { onboardingPaths } from '@/lib/onboardingPaths';
 
-function ExternalAction({ href, children, variant = 'outline' }: { href: string; children: React.ReactNode; variant?: 'outline' | 'default' }) {
+function ExternalAction({ href, children, icon, variant = 'outline' }: { href: string; children: React.ReactNode; icon?: React.ReactNode; variant?: 'outline' | 'default' }) {
   return (
     <Button asChild variant={variant} className="gap-2">
       <a href={href} target="_blank" rel="noopener noreferrer">
+        {icon}
         {children} <ExternalLink className="w-3.5 h-3.5" />
       </a>
     </Button>
@@ -39,15 +41,42 @@ export function ServerSdkJourney() {
       <section>
         <div className="flex items-center gap-3 mb-3 flex-wrap">
           <h2 className="text-2xl font-bold text-gray-900">Integrate the Server SDK</h2>
-          <span className="inline-block text-xs font-semibold px-2 py-1 rounded bg-gray-100 text-gray-900 border border-border">{statusLabel}</span>
+          <span className="inline-block text-xs font-semibold px-2 py-1 rounded bg-[#2563EB]/10 text-[#1D4ED8] border border-[#2563EB]/30">{statusLabel}</span>
         </div>
         <p className="text-gray-600 mb-4">
           Add TomorrowOS to an existing Node.js or TypeScript backend application.
         </p>
         <div className="flex flex-wrap gap-2">
-          <ExternalAction href={serverSdkConfig.links.docs}>View SDK documentation</ExternalAction>
-          <ExternalAction href={serverSdkConfig.links.npm}>View npm package</ExternalAction>
-          <ExternalAction href={serverSdkConfig.links.github}>View on GitHub</ExternalAction>
+          <ExternalAction
+            href={serverSdkConfig.links.docs}
+            icon={
+              <img
+                src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-mark.svg`}
+                alt=""
+                className="w-4 h-4 object-contain"
+              />
+            }
+          >
+            View SDK documentation
+          </ExternalAction>
+          <ExternalAction
+            href={serverSdkConfig.links.npm}
+            icon={
+              <img
+                src={`${import.meta.env.BASE_URL}assets/platforms/npm-logo.svg`}
+                alt=""
+                className="w-6 h-4 object-contain"
+              />
+            }
+          >
+            View npm package
+          </ExternalAction>
+          <ExternalAction
+            href={serverSdkConfig.links.github}
+            icon={<GithubIcon className="w-4 h-4" />}
+          >
+            View on GitHub
+          </ExternalAction>
         </div>
       </section>
 

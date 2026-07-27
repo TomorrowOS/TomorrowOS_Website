@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { siteConfig } from '@/config/site';
+import { absoluteUrl } from '@/lib/seoConfig';
 
 interface SeoProps {
   title?: string;
@@ -47,7 +48,7 @@ export function useSeo({ title, fullTitle = false, description, canonicalPath, s
     }
 
     if (canonicalPath) {
-      const url = `${window.location.origin}${canonicalPath}`;
+      const url = absoluteUrl(canonicalPath);
       let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
       if (!link) {
         link = document.createElement('link');

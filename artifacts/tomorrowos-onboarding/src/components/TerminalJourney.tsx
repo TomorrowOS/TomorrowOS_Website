@@ -255,7 +255,7 @@ function TerminalStep5() {
               <PlaceholderText block value={terminalConfig.placeholders.SUPPORTED_DATABASE_OPTIONS} fallback="Available soon — pending engineering confirmation" />
             </div>
             <div className="ml-14 mt-3">
-               <a href="#" onClick={(e) => { e.preventDefault(); setLocation('/guides/supabase'); }} className="text-sm font-medium text-black hover:underline">Need a database? View Supabase guide</a>
+               <a href="/guides/supabase" onClick={(e) => { e.preventDefault(); setLocation('/guides/supabase'); }} className="text-sm font-medium text-black hover:underline">Need a database? View Supabase guide</a>
             </div>
           </CardContent>
         </Card>
@@ -274,7 +274,7 @@ function TerminalStep5() {
               <PlaceholderText block value={terminalConfig.placeholders.SUPPORTED_MEDIA_STORAGE_OPTIONS} fallback="Available soon — pending engineering confirmation" />
             </div>
             <div className="ml-14 mt-3">
-               <a href="#" onClick={(e) => { e.preventDefault(); setLocation('/guides/cloudinary'); }} className="text-sm font-medium text-black hover:underline">Need media storage? View Cloudinary guide</a>
+               <a href="/guides/cloudinary" onClick={(e) => { e.preventDefault(); setLocation('/guides/cloudinary'); }} className="text-sm font-medium text-black hover:underline">Need media storage? View Cloudinary guide</a>
             </div>
           </CardContent>
         </Card>

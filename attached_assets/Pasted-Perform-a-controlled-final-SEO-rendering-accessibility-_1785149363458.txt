@@ -1,0 +1,904 @@
+Perform a controlled final SEO, rendering, accessibility, performance and go-live validation pass on the existing TomorrowOS website.
+
+This is an existing working project with:
+
+- Homepage
+- About
+- Quickstart
+- Interactive onboarding
+- Guided Setup
+- Terminal
+- Server SDK
+- HTTP API
+- Platform guides
+- Supabase and Cloudinary guides
+- Content and publishing guides
+- Compatibility pages
+- Legal placeholders
+- Prototype Review Mode
+
+Do not rebuild the application.
+Do not redesign any approved Figma page.
+Do not change the established user journeys.
+Do not change route names unless correcting a confirmed routing error.
+Do not change platform support statuses.
+Do not invent technical, legal or product claims.
+
+The objective is to safely complete the remaining launch-readiness work while preserving all current functionality.
+
+==================================================
+0. CREATE A SAFE RESTORE POINT
+==================================================
+
+Before changing any code:
+
+1. Create a Git commit or Replit checkpoint named:
+
+   pre-go-live-hardening
+
+2. Record:
+   - Current route map
+   - Current build command
+   - Current deployment command
+   - Current deployment type
+   - Current environment variables by name only
+   - Current localStorage keys
+   - Current sitemap contents
+   - Current robots.txt contents
+   - Current SEO configuration
+   - Current JSON-LD configuration
+   - Current bundle sizes
+   - Current public asset size
+   - Current 404 behaviour
+
+3. Capture baseline screenshots at:
+   - 390px
+   - 768px
+   - 1024px
+   - 1440px
+
+For:
+- Homepage
+- About
+- Quickstart
+- Start Building
+- One public guide
+
+Do not expose secret values in the report.
+
+If the project does not build successfully before editing, stop and report the existing error before making unrelated changes.
+
+==================================================
+1. NON-NEGOTIABLE PRESERVATION RULES
+==================================================
+
+Preserve:
+
+- All established routes
+- All guide deep links
+- Existing onboarding progress
+- Existing localStorage keys
+- Existing visual design
+- Existing Figma layouts
+- Global header and footer
+- Mobile navigation
+- Prototype Review Mode
+- Guided Setup logic
+- Terminal logic
+- Server SDK positioning
+- HTTP API preview positioning
+- Samsung guide
+- Content and publishing guide
+- Supabase and Cloudinary guides
+- Cookie preference behaviour
+
+Do not:
+
+- Delete working components because they appear unused without first tracing imports
+- Rename localStorage keys
+- Clear user progress during deployment
+- Replace route components unnecessarily
+- Change the deployment type without documenting why
+- Add analytics
+- Add marketing scripts
+- Add tracking
+- Alter secrets
+- Modify production data
+- Publish legal placeholders as final legal content
+- Introduce fake integrations or automated verification states
+
+==================================================
+2. CENTRAL ENVIRONMENT AND INDEXING CONFIGURATION
+==================================================
+
+Create one source of truth for environment behaviour.
+
+Use or extend the existing site configuration.
+
+Required configuration:
+
+siteConfig = {
+  siteUrl: "https://tomorrowos.org",
+  environment: "prototype" | "preview" | "production",
+  isPrototype: boolean,
+  isProduction: boolean,
+  allowIndexing: boolean
+}
+
+Expected behaviour:
+
+PROTOTYPE OR PREVIEW
+
+- Every page uses:
+  noindex, follow
+- No public sitemap containing indexable URLs
+- Review Mode remains available
+- No analytics or marketing scripts
+- Preview deployment must not appear in Google
+
+PRODUCTION
+
+- Approved public pages use:
+  index, follow
+- Interactive or duplicate utility pages remain:
+  noindex, follow
+- Review Mode is unavailable to normal users
+- Production sitemap contains only canonical indexable URLs
+
+Do not hard-code `noindex` permanently into index.html.
+
+The robots directive must be generated from environment configuration.
+
+Verify the final built HTML rather than only inspecting the React DOM.
+
+Add an automated check that fails when:
+
+- Production contains a global noindex
+- Prototype or preview contains index, follow
+- A draft page becomes indexable
+- Review Mode becomes indexable
+
+==================================================
+3. INDEXING POLICY
+==================================================
+
+Create a central route-indexing configuration.
+
+INDEX IN PRODUCTION
+
+- /
+- /about
+- /quickstart
+- Approved public platform guides
+- Approved compatibility pages
+- Approved public troubleshooting guides
+- Approved public technical guides
+- Final Privacy Policy
+- Final Terms of Service
+- Final Cookie Policy, when created
+
+NOINDEX IN PRODUCTION
+
+- /start
+- Interactive onboarding sub-routes
+- Prototype Review Mode
+- Internal test routes
+- Draft legal pages
+- Cookie Settings
+- Temporary placeholder pages
+- Incomplete Server SDK examples
+- HTTP API preview when it lacks sufficient public content
+- Duplicate setup-state URLs
+
+Keep links on noindex utility pages crawlable with:
+
+noindex, follow
+
+Do not block these routes in robots.txt when Google needs to read the noindex directive.
+
+==================================================
+4. SITEMAP CORRECTION
+==================================================
+
+Replace the manually maintained static sitemap with an environment-aware generated sitemap.
+
+Production sitemap requirements:
+
+- Use `https://tomorrowos.org`
+- Include only canonical, indexable pages
+- Exclude `/start` and onboarding state routes
+- Exclude Cookie Settings
+- Exclude draft or placeholder legal pages
+- Exclude Review Mode
+- Exclude preview-only pages
+- Exclude URLs using query parameters for setup state
+- Exclude duplicate aliases
+- Use one canonical hostname
+
+Prototype and preview behaviour:
+
+- Do not expose a sitemap listing future indexable routes as currently indexable
+- Either omit the sitemap or generate a clearly non-production version with no indexable entries
+- Keep robots.txt consistent with that decision
+
+Add this to production robots.txt:
+
+Sitemap: https://tomorrowos.org/sitemap.xml
+
+Do not leave comments saying the production domain is a placeholder.
+
+The production domain is:
+
+https://tomorrowos.org
+
+==================================================
+5. CANONICAL URL VALIDATION
+==================================================
+
+Use one shared absoluteUrl() helper.
+
+Canonical rules:
+
+- Every indexable page has one self-referencing canonical
+- Canonicals use HTTPS
+- Canonicals use `tomorrowos.org`
+- Canonicals contain no trailing duplicate query state
+- Canonicals do not point to Replit preview domains
+- Canonicals match sitemap URLs
+- Open Graph URLs match canonicals
+- JSON-LD URLs match canonicals
+
+Add automated validation for:
+
+- Missing canonical
+- Multiple canonicals
+- Relative canonical
+- Wrong hostname
+- Sitemap/canonical conflict
+- Canonical pointing to a noindex utility route
+
+==================================================
+6. PUBLIC-PAGE PRE-RENDERING
+==================================================
+
+The remaining major SEO gap is meaningful HTML before client JavaScript runs.
+
+Audit the existing build architecture before choosing an implementation.
+
+Do not perform a full framework migration.
+
+Implement the safest minimal-change pre-rendering or static-generation approach compatible with the current project.
+
+Pre-render at minimum:
+
+- /
+- /about
+- /quickstart
+- Approved public platform guides
+- Approved public compatibility pages
+- Approved public troubleshooting pages
+
+Do not pre-render every interactive onboarding state.
+
+The interactive `/start` application may remain client-rendered and noindex.
+
+Each pre-rendered page must return meaningful initial HTML containing:
+
+- Correct title
+- Correct meta description
+- Correct robots directive
+- Correct canonical
+- Correct Open Graph tags
+- Correct JSON-LD
+- Visible H1
+- Useful visible page content
+- Global header
+- Internal navigation
+
+Do not merely inject route metadata after hydration.
+
+Verify using the built output and raw HTTP response.
+
+Example validation:
+
+curl -s https://tomorrowos.org/about
+
+The raw response must contain:
+
+- About-specific title
+- About-specific description
+- About canonical
+- About H1 or meaningful About content
+
+If safe pre-rendering cannot be implemented without a large architectural migration:
+
+1. Do not break the current project.
+2. Document the exact blocker.
+3. Implement the safest partial solution.
+4. Keep the affected routes noindex until resolved.
+5. Report the remaining launch blocker honestly.
+
+==================================================
+7. METADATA INVENTORY
+==================================================
+
+Continue using:
+
+src/lib/seoConfig.ts
+
+or the existing equivalent as the single metadata source.
+
+Every route must define:
+
+- title
+- description
+- canonical path
+- robots policy
+- Open Graph title
+- Open Graph description
+- Open Graph image
+- Open Graph URL
+- Twitter card
+- JSON-LD types when appropriate
+
+Verify metadata for:
+
+- Homepage
+- About
+- Quickstart
+- Start Building
+- Guided Setup
+- Terminal
+- Server SDK
+- HTTP API
+- Supabase guide
+- Cloudinary guide
+- Vercel guide
+- Samsung Tizen guide
+- Content guide
+- Compatibility pages
+- Privacy
+- Terms
+- Cookie Policy
+- Cookie Settings
+
+No two important public pages should use identical titles and descriptions.
+
+==================================================
+8. STRUCTURED DATA AUDIT
+==================================================
+
+Audit all JSON-LD.
+
+HOMEPAGE
+
+Allow:
+
+- Organization
+- SoftwareApplication only when the visible homepage content supports it
+
+Organization should include only verified values:
+
+- Name
+- Canonical URL
+- Official logo
+- GitHub sameAs
+- Approved description
+
+Do not include:
+
+- Fake ratings
+- Fake reviews
+- Fake pricing
+- Fake download counts
+- Fake operating-system claims
+
+GUIDES
+
+Use BreadcrumbList only when:
+
+- The same breadcrumb is visibly shown on the page
+- Every breadcrumb URL is valid
+- The current page is the final item
+- Breadcrumb labels match visible navigation
+
+LEGAL AND UTILITY PAGES
+
+Do not add unnecessary structured data.
+
+Validation:
+
+- No duplicate JSON-LD objects
+- No malformed JSON
+- No placeholder values
+- No Replit preview URLs
+- No invisible claims unsupported by page content
+
+Add a build test that parses every JSON-LD script.
+
+==================================================
+9. REAL 404 HANDLING
+==================================================
+
+Audit current unknown-route behaviour.
+
+The route:
+
+/this-page-does-not-exist
+
+must not silently render the homepage with HTTP 200.
+
+Implement the strongest correct 404 behaviour supported by the current deployment architecture.
+
+Requirements:
+
+- Dedicated Not Found page
+- Clear heading
+- Useful navigation
+- Noindex
+- No canonical pretending it is a real page
+- Correct HTTP 404 status where supported
+- No sitemap inclusion
+
+If the current SPA deployment cannot emit a real server-side 404 without changing deployment architecture:
+
+- Implement the best available 404 route
+- Ensure it is noindex
+- Document the status-code limitation
+- Do not misrepresent it as resolved
+
+==================================================
+10. EXPAND THE SMOKE TEST
+==================================================
+
+Retain the existing:
+
+pnpm run smoke
+
+Expand it beyond HTTP 200 checks.
+
+For every route, validate:
+
+- Expected status code
+- Expected H1 or unique content marker
+- Expected page title
+- Expected canonical
+- Expected robots directive
+- Expected JSON-LD type
+- No unresolved `{{PLACEHOLDER}}`
+- No “available soon” copy where prohibited
+- No `[object Object]`
+- No `undefined`
+- No broken internal links
+- No href="#"
+- No empty destination
+- No preview-domain canonical
+
+Add tests for:
+
+- `/this-page-does-not-exist`
+- sitemap.xml
+- robots.txt
+- favicon
+- Open Graph image
+- manifest where present
+
+The test must detect a soft 404.
+
+A route returning 200 with the homepage content must fail.
+
+==================================================
+11. PERFORMANCE VALIDATION
+==================================================
+
+Preserve the completed improvements:
+
+- Route-level code splitting
+- Local Roboto
+- Removed Inter request
+- WebP images
+- Explicit image dimensions
+- Below-the-fold lazy loading
+- Reduced public assets
+
+Do not reverse these changes.
+
+Audit:
+
+- Initial JavaScript compressed transfer size
+- Initial JavaScript parsed size
+- Largest image
+- Largest CSS file
+- Font preload behaviour
+- Unused imports
+- Duplicate assets
+- Layout shifts
+- Hero rendering
+- Architecture component rendering
+- Mobile-menu bundle impact
+- Review Mode bundle impact
+
+Targets:
+
+- LCP: 2.5 seconds or less
+- INP: under 200 milliseconds
+- CLS: under 0.1
+
+Do not claim these targets passed without a real production measurement.
+
+When Lighthouse is unavailable inside Replit:
+
+- Prepare the build for Lighthouse
+- Add a launch checklist
+- Report that production Lighthouse remains required
+- Do not invent scores
+
+Ensure Prototype Review Mode is excluded from or separately split out of the normal production bundle where practical.
+
+==================================================
+12. IMAGE AND FONT SAFETY
+==================================================
+
+Continue using:
+
+Roboto:
+- 400
+- 500
+- 700
+
+JetBrains Mono:
+- 700 for code only
+
+Confirm the fonts are actually loaded through computed styles.
+
+Image requirements:
+
+- Meaningful images have alt text
+- Decorative images use empty alt
+- Width and height are explicit
+- Responsive images use suitable srcset/sizes
+- Hero assets are not lazy-loaded
+- Below-the-fold images remain lazy-loaded
+- WebP or AVIF used where appropriate
+- SVG used for logos and icons
+- No distorted platform logos
+- No duplicated high-resolution source files
+
+Do not delete source assets still required by Figma sections or Review Mode without tracing usage first.
+
+==================================================
+13. ACCESSIBILITY COMPLETION
+==================================================
+
+Preserve:
+
+- Skip-to-content
+- `<main id="main-content">`
+
+Complete a practical WCAG AA audit.
+
+Check:
+
+- One H1 per page
+- Logical heading order
+- Keyboard navigation
+- Visible focus states
+- Mobile-menu focus trap
+- Escape closes mobile menu
+- Background scroll locking
+- Card selection semantics
+- `aria-current` for navigation
+- Form labels
+- Error associations
+- Status not communicated by colour alone
+- 44px touch targets where practical
+- Reduced-motion support
+- 200% browser zoom
+- No clipped text
+- No horizontal scrolling at 320px
+- Diagram text alternatives
+- Screenshot captions
+- Accessible accordions
+- Accessible copy buttons
+
+Run an automated accessibility test where supported.
+
+Do not claim full accessibility compliance based only on automated results.
+
+==================================================
+14. LINK VALIDATION
+==================================================
+
+Validate all internal and external links.
+
+At minimum:
+
+- Header navigation
+- Footer navigation
+- About
+- Get Started
+- GitHub
+- Start building
+- Documentation
+- GitHub Discussions
+- Supabase guide
+- Cloudinary guide
+- Vercel guide
+- Samsung guide
+- Content guide
+- Privacy
+- Terms
+- Cookies
+- Cookie Settings
+
+External links require:
+
+target="_blank"
+rel="noopener noreferrer"
+
+Do not allow:
+
+- `href="#"`
+- Empty href
+- Placeholder domains
+- Broken internal routes
+- Missing anchor targets
+- Links hidden only because configuration was overlooked
+
+==================================================
+15. PRODUCTION DOMAIN AND REDIRECT CHECKLIST
+==================================================
+
+Use the canonical production domain:
+
+https://tomorrowos.org
+
+Document the required production redirects:
+
+- http://tomorrowos.org → https://tomorrowos.org
+- http://www.tomorrowos.org → https://tomorrowos.org
+- https://www.tomorrowos.org → https://tomorrowos.org
+
+Do not change DNS or domain configuration without explicit access and approval.
+
+Prepare tests or documented checks for launch.
+
+==================================================
+16. LEGAL PAGE SAFETY
+==================================================
+
+Privacy and Terms remain draft until legally reviewed.
+
+While draft:
+
+- noindex, follow
+- Visible Draft status
+- Excluded from sitemap
+- Footer links may remain available for internal testing
+- No claim that legal review is complete
+
+Cookie Settings:
+
+- Always noindex, follow
+- Necessary storage always active
+- Analytics off by default
+- Marketing off by default
+- No optional scripts loaded without consent
+- Consent stored locally only
+- Existing consent behaviour preserved
+
+Do not invent legal commitments.
+
+==================================================
+17. SEARCH CONSOLE LAUNCH PREPARATION
+==================================================
+
+Prepare a production-launch checklist for:
+
+- Verify Google Search Console property
+- Submit sitemap
+- Inspect homepage
+- Inspect About
+- Inspect Quickstart
+- Inspect one platform guide
+- Confirm canonical selection
+- Confirm mobile usability
+- Review indexing exclusions
+- Monitor Core Web Vitals
+- Monitor crawl errors
+
+Do not claim Search Console has been configured unless it actually has.
+
+==================================================
+18. PRODUCTION QA VIEWPORTS
+==================================================
+
+Test at:
+
+- 320px
+- 390px
+- 768px
+- 1024px
+- 1440px
+
+Pages:
+
+- Homepage
+- About
+- Quickstart
+- Start Building
+- Guided Setup
+- Terminal
+- Server SDK
+- HTTP API
+- Samsung guide
+- Content guide
+- Privacy
+- Terms
+- Cookie Settings
+- Not Found
+
+Check:
+
+- No horizontal scroll
+- Header alignment
+- Footer alignment
+- Mobile menu
+- Button wrapping
+- Code-block overflow
+- Step navigation
+- Image sizing
+- Connector diagrams
+- Breadcrumbs
+- Sticky controls
+- Long legal text
+
+==================================================
+19. DO NOT CHANGE DEPLOYMENT TYPE BLINDLY
+==================================================
+
+Audit the current Replit deployment type.
+
+Do not switch between:
+
+- Static
+- Autoscale
+- Reserved VM
+
+unless the current project architecture clearly requires it.
+
+Before any deployment change, report:
+
+- Current type
+- Why it is unsuitable
+- Proposed type
+- Expected effect
+- Rollback method
+
+The website and interactive onboarding must continue to work after publishing.
+
+==================================================
+20. BUILD AND TEST COMMANDS
+==================================================
+
+Run:
+
+- pnpm install
+- pnpm run build
+- pnpm run typecheck, when available
+- pnpm run lint, when available
+- pnpm run smoke
+- Accessibility tests, when available
+
+Fix:
+
+- TypeScript errors
+- Build errors
+- Runtime errors
+- Console errors
+- Missing asset errors
+- Broken route errors
+- Metadata errors
+- JSON-LD parsing errors
+
+Do not suppress errors merely to make the build appear successful.
+
+==================================================
+21. FINAL GO-LIVE GATE
+==================================================
+
+Do not mark the site ready for indexing unless all required items pass.
+
+Required:
+
+1. Production environment removes global noindex.
+2. Prototype and preview remain noindex.
+3. Production sitemap contains only canonical indexable pages.
+4. Raw HTML contains page-specific metadata.
+5. Public marketing and guide pages are pre-rendered or an unresolved blocker is reported.
+6. Unknown routes use a genuine or best-supported 404.
+7. Structured data parses successfully.
+8. No broken internal links.
+9. No unresolved placeholders.
+10. No console errors.
+11. No TypeScript errors.
+12. No horizontal scrolling.
+13. Mobile navigation works by keyboard and touch.
+14. Draft legal pages remain noindex.
+15. Cookie Settings remains noindex.
+16. Production Lighthouse remains scheduled when not available internally.
+17. Search Console launch checklist is prepared.
+18. Rollback instructions are documented.
+
+==================================================
+22. COMPLETION REPORT
+==================================================
+
+After implementation, provide one concise report containing:
+
+SAFEGUARD
+
+- Checkpoint or commit created
+- Rollback instructions
+
+ROUTES
+
+- Updated route map
+- Indexable routes
+- Noindex routes
+- 404 behaviour
+
+SEO
+
+- Metadata inventory
+- Canonical validation
+- Sitemap contents
+- robots.txt behaviour
+- Structured-data inventory
+- Raw-HTML verification result
+
+RENDERING
+
+- Pre-rendered routes
+- Client-rendered routes
+- Any unresolved rendering limitation
+
+PERFORMANCE
+
+- Initial bundle size
+- Public asset size
+- Largest assets
+- Code-splitting result
+- Lighthouse status
+- Remaining performance risks
+
+ACCESSIBILITY
+
+- Automated findings
+- Manual checks completed
+- Remaining limitations
+
+TESTS
+
+- Build
+- TypeScript
+- Smoke
+- Link validation
+- Metadata validation
+- JSON-LD validation
+- 404 validation
+- Viewport validation
+
+LAUNCH BLOCKERS
+
+- List only genuine remaining blockers
+- Do not hide incomplete work
+- Do not claim production readiness without evidence
+
+Do not finish with vague statements such as:
+
+“SEO improved”
+“Performance optimised”
+“Everything looks good”
+
+Provide measurable results and exact unresolved items.

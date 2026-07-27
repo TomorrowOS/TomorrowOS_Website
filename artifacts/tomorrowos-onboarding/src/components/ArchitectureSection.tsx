@@ -70,7 +70,7 @@ function ArchitectureInputCard({ item }: { item: InputItem }) {
 
 function ArchitectureCenterCard() {
   return (
-    <div className="flex flex-col items-center rounded-xl border border-border bg-white px-8 py-8 shadow-sm">
+    <div className="flex w-full flex-col items-center rounded-xl border border-border bg-white px-8 py-8 shadow-sm">
       <img src={asset('brand/tomorrowos-logo.svg')} alt="TomorrowOS" className="h-7 w-auto" />
       <p className="mt-3 max-w-[180px] text-center text-sm leading-snug text-muted-foreground">
         Shared runtime, APIs and device layer
@@ -101,10 +101,10 @@ function LeftConnectors() {
   return (
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-full w-full" aria-hidden="true">
       {['16.67', '50', '83.33'].map((y) => (
-        <path key={y} d={`M0 ${y} H45`} className="stroke-border" fill="none" vectorEffect="non-scaling-stroke" />
+        <path key={y} d={`M0 ${y} H45`} className="stroke-[#71717a]" fill="none" vectorEffect="non-scaling-stroke" />
       ))}
-      <path d="M45 16.67 V83.33" className="stroke-border" fill="none" vectorEffect="non-scaling-stroke" />
-      <path d="M45 50 H100" className="stroke-border" fill="none" vectorEffect="non-scaling-stroke" />
+      <path d="M45 16.67 V83.33" className="stroke-[#71717a]" fill="none" vectorEffect="non-scaling-stroke" />
+      <path d="M45 50 H100" className="stroke-[#71717a]" fill="none" vectorEffect="non-scaling-stroke" />
     </svg>
   );
 }
@@ -113,10 +113,10 @@ function RightConnectors() {
   // One line in from the centre card, rail, five branches out (card centres at 10/30/50/70/90).
   return (
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-full w-full" aria-hidden="true">
-      <path d="M0 50 H55" className="stroke-border" fill="none" vectorEffect="non-scaling-stroke" />
-      <path d="M55 10 V90" className="stroke-border" fill="none" vectorEffect="non-scaling-stroke" />
+      <path d="M0 50 H55" className="stroke-[#71717a]" fill="none" vectorEffect="non-scaling-stroke" />
+      <path d="M55 10 V90" className="stroke-[#71717a]" fill="none" vectorEffect="non-scaling-stroke" />
       {['10', '30', '50', '70', '90'].map((y) => (
-        <path key={y} d={`M55 ${y} H100`} className="stroke-border" fill="none" vectorEffect="non-scaling-stroke" />
+        <path key={y} d={`M55 ${y} H100`} className="stroke-[#71717a]" fill="none" vectorEffect="non-scaling-stroke" />
       ))}
     </svg>
   );
@@ -149,7 +149,7 @@ function MobileInputCard({ item }: { item: { title: string; copy: string; icon: 
 function MobileMergeConnector() {
   // Three branches curve down and merge toward the centre.
   return (
-    <svg viewBox="0 0 300 40" className="w-full h-10 text-border" aria-hidden="true" fill="none">
+    <svg viewBox="0 0 300 40" className="w-full h-10 text-[#71717a]" aria-hidden="true" fill="none">
       <path d="M50 0 V10 Q50 22 62 22 H150" stroke="currentColor" vectorEffect="non-scaling-stroke" />
       <path d="M150 0 V22" stroke="currentColor" vectorEffect="non-scaling-stroke" />
       <path d="M250 0 V10 Q250 22 238 22 H150" stroke="currentColor" vectorEffect="non-scaling-stroke" />
@@ -160,7 +160,7 @@ function MobileMergeConnector() {
 
 function MobileArrowConnector() {
   return (
-    <svg viewBox="0 0 12 32" className="mx-auto h-8 w-3 text-border" aria-hidden="true" fill="none">
+    <svg viewBox="0 0 12 32" className="mx-auto h-8 w-3 text-[#71717a]" aria-hidden="true" fill="none">
       <path d="M6 0 V24" stroke="currentColor" vectorEffect="non-scaling-stroke" />
       <path d="M1.5 21 L6 27 L10.5 21" stroke="currentColor" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
     </svg>

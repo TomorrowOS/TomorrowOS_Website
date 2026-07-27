@@ -28,9 +28,15 @@ export function WebsiteLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-[100dvh] flex flex-col bg-background font-sans text-foreground">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded-md focus:border focus:border-border focus:shadow-md"
+      >
+        Skip to content
+      </a>
       <WebsiteReviewBar />
       <WebsiteHeader />
-      <main className="flex-1 w-full">
+      <main id="main-content" className="flex-1 w-full">
         {children}
       </main>
       <WebsiteFooter />

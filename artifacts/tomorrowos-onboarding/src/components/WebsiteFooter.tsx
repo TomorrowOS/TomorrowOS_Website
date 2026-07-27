@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { siteConfig } from '@/config/site';
+import { ExternalLink } from 'lucide-react';
 
 export function WebsiteFooter() {
   const currentYear = new Date().getFullYear();
@@ -23,13 +24,15 @@ export function WebsiteFooter() {
             Start building
           </Link>
           {!siteConfig.links.docs.includes('{{') && (
-            <a href={siteConfig.links.docs} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity">
+            <a href={siteConfig.links.docs} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity inline-flex items-center">
               Documentation
+              <ExternalLink className="w-3.5 h-3.5 ml-1 opacity-60" aria-hidden="true" />
             </a>
           )}
           {!siteConfig.links.github.includes('{{') && (
-            <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity">
+            <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity inline-flex items-center">
               GitHub
+              <ExternalLink className="w-3.5 h-3.5 ml-1 opacity-60" aria-hidden="true" />
             </a>
           )}
         </nav>

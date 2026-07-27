@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useGuideSeo } from '@/components/GuideSeo';
 import { useLocation, useRoute } from 'wouter';
 import { usePrototype } from '@/components/PrototypeProvider';
 import { Button } from '@/components/ui/button';
@@ -11,6 +12,7 @@ import { MagicInfoGuide } from '@/components/MagicInfoGuide';
 import { NeedHelpDrawer } from '@/components/NeedHelpDrawer';
 
 export default function SamsungTizenGuide() {
+  useGuideSeo('/guides/platforms/samsung-tizen');
   const { state, updateState } = usePrototype();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [, setLocation] = useLocation();

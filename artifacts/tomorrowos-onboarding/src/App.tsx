@@ -1,32 +1,37 @@
+import { lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Redirect, Route, Switch, Router as WouterRouter } from 'wouter';
 import { PrototypeProvider } from './components/PrototypeProvider';
 import { WebsiteLayout } from './components/WebsiteLayout';
-import Start from './pages/Start';
-import GuideSupabase from './pages/GuideSupabase';
-import GuideCloudinary from './pages/GuideCloudinary';
-import GuideVercel from './pages/GuideVercel';
-import GuideNeon from './pages/GuideNeon';
-import GuideVercelBlob from './pages/GuideVercelBlob';
-import SamsungTizenGuide from './pages/SamsungTizenGuide';
-import ContentGuide from './pages/ContentGuide';
-import Compatibility from './pages/Compatibility';
-import MediaCompatibility from './pages/MediaCompatibility';
-import PlatformGuides from './pages/PlatformGuides';
-import NotFound from './pages/not-found';
+// Homepage stays statically imported so the landing route renders immediately.
 import Home from './pages/Home';
-import About from './pages/About';
-import PlaceholderPage from './pages/PlaceholderPage';
-import Privacy from './pages/Privacy';
-import Terms from './pages/Terms';
-import CookieSettings from './pages/CookieSettings';
-import CookiePolicy from './pages/CookiePolicy';
+
+// Route-level code splitting: every other page loads on demand.
+const Start = lazy(() => import('./pages/Start'));
+const GuideSupabase = lazy(() => import('./pages/GuideSupabase'));
+const GuideCloudinary = lazy(() => import('./pages/GuideCloudinary'));
+const GuideVercel = lazy(() => import('./pages/GuideVercel'));
+const GuideNeon = lazy(() => import('./pages/GuideNeon'));
+const GuideVercelBlob = lazy(() => import('./pages/GuideVercelBlob'));
+const SamsungTizenGuide = lazy(() => import('./pages/SamsungTizenGuide'));
+const ContentGuide = lazy(() => import('./pages/ContentGuide'));
+const Compatibility = lazy(() => import('./pages/Compatibility'));
+const MediaCompatibility = lazy(() => import('./pages/MediaCompatibility'));
+const PlatformGuides = lazy(() => import('./pages/PlatformGuides'));
+const NotFound = lazy(() => import('./pages/not-found'));
+const About = lazy(() => import('./pages/About'));
+const PlaceholderPage = lazy(() => import('./pages/PlaceholderPage'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
+const CookieSettings = lazy(() => import('./pages/CookieSettings'));
+const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 
 const queryClient = new QueryClient();
 
 function Router() {
   return (
     <WebsiteLayout>
+      <Suspense fallback={<div className="min-h-[50vh]" aria-busy="true" />}>
       <Switch>
         <Route path="/" component={Home} />
         {/* Legacy URL: the quickstart page is now the homepage. */}
@@ -59,6 +64,7 @@ function Router() {
         <Route path="/compatibility" component={Compatibility} />
         <Route component={NotFound} />
       </Switch>
+      </Suspense>
     </WebsiteLayout>
   );
 }
