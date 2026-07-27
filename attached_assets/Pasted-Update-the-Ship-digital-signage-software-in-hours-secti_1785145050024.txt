@@ -1,0 +1,64 @@
+Update the "Ship digital signage software in hours" section on the homepage.
+
+PROBLEM TO FIX
+The three cards currently render as identical siblings with equal weight, and the
+middle card is elevated. That makes the section read as a three-step process and
+visually spotlights a negative. It should read as: two problems → one answer.
+
+STRUCTURE
+Keep the two-column layout (copy left, visual right). Rebuild the right column as:
+
+  [problem card] [problem card]  ——divider——  [solution card]
+
+- Cards 1 and 2 sit in a tight pair (16px gap between them).
+- Remove BOTH chevron/arrow glyphs. They currently imply sequence, which is wrong.
+- Between card 2 and card 3, insert a vertical divider: 1px, full card height,
+  colour #E5DFD5. Give it 32px of space either side.
+- On viewports under 900px, stack all three vertically; the divider becomes a
+  horizontal 1px rule with 24px margin above and below.
+
+VISUAL HIERARCHY (this is the whole point of the change)
+Problem cards (1 and 2):
+  - background #FFFFFF, border 1px #E5DFD5, no shadow, no elevation
+  - heading colour #5D554D (taupe), body colour #5D554D at 70% opacity
+  - icon stroke #5D554D
+Solution card (3):
+  - background #FFFFFF, border 1px #BD4E32 (rust)
+  - subtle elevation: box-shadow 0 4px 16px rgba(20,19,17,0.08)
+  - roughly 1.15x the width of a problem card
+  - heading colour #141311 (ink), body colour #5D554D
+  - icon stroke #BD4E32
+Remove the existing elevation from the middle card entirely.
+
+COPY — replace all card text with this exactly:
+
+  Card 1
+  Heading: Everyone starts from zero
+  Body: Same device quirks, rebuilt from scratch.
+
+  Card 2
+  Heading: The work never compounds
+  Body: Your fix helps you. Nobody else.
+
+  Card 3
+  Heading: One shared foundation
+  Body: Fixed once. Everyone ships.
+
+TYPE
+Card headings: Inter, 16px, weight 600, line-height 1.35.
+Card body: Inter, 14px, weight 400, line-height 1.5.
+Left column copy is unchanged.
+
+ICONS
+Keep the existing three icons and their positions. Only change stroke colour per
+the rules above. Icon size stays as-is.
+
+DO NOT CHANGE
+- The left column headline, paragraph, or the bold "Keep everything that makes
+  your product yours." line.
+- Section padding, background colour, or the surrounding page layout.
+- Any other section on the page.
+
+ACCESSIBILITY
+The divider is decorative — mark it aria-hidden="true". Ensure the rust border on
+card 3 is not the only signal of its role; the copy carries the meaning too.

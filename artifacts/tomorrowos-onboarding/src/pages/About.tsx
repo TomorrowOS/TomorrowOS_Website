@@ -6,7 +6,6 @@ import { siteConfig } from '@/config/site';
 import { Link } from 'wouter';
 import GithubIcon from '@/components/GithubIcon';
 import { cn } from '@/lib/utils';
-import { ChevronRight } from 'lucide-react';
 import { PlaceholderText } from '@/components/PlaceholderText';
 
 export default function About() {
@@ -42,6 +41,27 @@ export default function About() {
 function Icon({ name, className }: { name: string, className?: string }) {
   return (
     <img src={`${import.meta.env.BASE_URL}assets/icons/black/${name}`} alt="" className={cn("opacity-80", className)} />
+  );
+}
+
+function MaskIcon({ name, className, color }: { name: string, className?: string, color: string }) {
+  const url = `${import.meta.env.BASE_URL}assets/icons/black/${name}`;
+  return (
+    <span
+      aria-hidden="true"
+      className={cn('inline-block', className)}
+      style={{
+        backgroundColor: color,
+        WebkitMaskImage: `url(${url})`,
+        maskImage: `url(${url})`,
+        WebkitMaskRepeat: 'no-repeat',
+        maskRepeat: 'no-repeat',
+        WebkitMaskSize: 'contain',
+        maskSize: 'contain',
+        WebkitMaskPosition: 'center',
+        maskPosition: 'center',
+      }}
+    />
   );
 }
 
@@ -117,28 +137,43 @@ function SharedFoundationSection() {
           </p>
         </div>
         
-        <div className="flex-1 flex flex-col md:flex-row items-center justify-center lg:justify-end w-full max-w-4xl gap-3 md:gap-0">
+        <div className="flex-1 flex flex-col md:flex-row items-stretch justify-center lg:justify-end w-full max-w-4xl">
           {c.cards.map((card, i) => {
-            const isCenter = i === 1;
+            const isSolution = i === 2;
             return (
               <Fragment key={i}>
                 <div
                   className={
-                    'bg-white border border-border rounded-2xl flex flex-col items-center justify-center text-center w-full max-w-[320px] md:max-w-none md:flex-1 shrink-0 ' +
-                    (isCenter
-                      ? 'px-6 py-10 md:py-14 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.18)] md:-my-4 relative z-10'
-                      : 'px-6 py-8 md:py-10 shadow-sm')
+                    'bg-white rounded-2xl flex flex-col items-center justify-center text-center w-full max-w-[320px] md:max-w-none mx-auto md:mx-0 px-6 py-8 md:py-10 shrink-0 ' +
+                    (isSolution
+                      ? 'border border-[#BD4E32] shadow-[0_4px_16px_rgba(20,19,17,0.08)] md:flex-[1.15]'
+                      : 'border border-[#E5DFD5] md:flex-1')
                   }
                 >
-                  <Icon name={card.icon} className="w-7 h-7 mb-6" />
-                  <h3 className="font-bold text-base md:text-lg mb-2 leading-snug max-w-[190px]">{card.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed max-w-[200px]">{card.copy}</p>
+                  <MaskIcon
+                    name={card.icon}
+                    className="w-7 h-7 mb-6"
+                    color={isSolution ? '#BD4E32' : '#5D554D'}
+                  />
+                  <h3
+                    className="font-semibold text-base mb-2 leading-[1.35] max-w-[190px]"
+                    style={{ color: isSolution ? '#141311' : '#5D554D' }}
+                  >
+                    {card.title}
+                  </h3>
+                  <p
+                    className="text-sm font-normal leading-[1.5] max-w-[200px]"
+                    style={{ color: isSolution ? '#5D554D' : 'rgba(93,85,77,0.7)' }}
+                  >
+                    {card.copy}
+                  </p>
                 </div>
-                {i < c.cards.length - 1 && (
-                  <div className="flex items-center justify-center shrink-0 w-8 md:w-10 h-6 md:h-auto">
-                    <ChevronRight className="w-5 h-5 text-foreground/60 hidden md:block" strokeWidth={2.5} />
-                    <ChevronRight className="w-5 h-5 text-foreground/60 rotate-90 md:hidden" strokeWidth={2.5} />
-                  </div>
+                {i === 0 && <div aria-hidden="true" className="h-4 md:h-auto md:w-4 shrink-0" />}
+                {i === 1 && (
+                  <div
+                    aria-hidden="true"
+                    className="shrink-0 bg-[#E5DFD5] h-px w-full my-6 md:my-0 md:h-auto md:w-px md:mx-8 md:self-stretch"
+                  />
                 )}
               </Fragment>
             );

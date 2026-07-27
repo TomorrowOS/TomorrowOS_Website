@@ -11,24 +11,24 @@ export const aboutContent = {
     supportingLine: "Keep everything that makes your product yours.",
     cards: [
       {
-        title: "Different products",
-        copy: "Build the same infrastructure.",
+        title: "Everyone starts from zero",
+        copy: "Same device quirks, rebuilt from scratch.",
         icon: "supervisor_account.svg"
       },
       {
-        title: "Repeated platform work",
-        copy: "Rebuilt across every project.",
+        title: "The work never compounds",
+        copy: "Your fix helps you. Nobody else.",
         icon: "layers.svg"
       },
       {
         title: "One shared foundation",
-        copy: "Improved once for everyone.",
+        copy: "Fixed once. Everyone ships.",
         icon: "share.svg"
       }
     ]
   },
   keepOwnership: {
-    heading: "Build the product and keep\nownership of what makes\nit different.",
+    heading: "Build and keep\nownership of everything.",
     cards: [
       {
         title: "Focus on your vision",
