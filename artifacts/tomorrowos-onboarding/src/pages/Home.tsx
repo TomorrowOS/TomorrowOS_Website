@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'wouter';
 import GithubIcon from '@/components/GithubIcon';
+import StartYourWayDiagram from '@/components/StartYourWayDiagram';
 import { useSeo } from '@/hooks/use-seo';
 import { siteConfig } from '@/config/site';
 import { ChevronRight } from 'lucide-react';
@@ -131,14 +132,14 @@ export default function Home() {
 
       {/* START YOUR WAY SECTION */}
       <section id="start-new" className="py-16 md:py-24 px-4 md:px-8 max-w-[1200px] mx-auto w-full scroll-mt-24">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+        <div className="flex flex-col items-center text-center mb-12 gap-6">
           <div className="max-w-2xl">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Start your way.</h2>
             <p className="text-lg text-muted-foreground">
               Whether you build with AI-assisted tools or write against the SDK directly, you start from the same foundation.
             </p>
           </div>
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex items-center justify-center gap-4 shrink-0">
             {showDocs && (
               <a href={hasDocs ? siteConfig.links.docs : '#'} onClick={(e) => !hasDocs && e.preventDefault()} target={hasDocs ? "_blank" : undefined} rel={hasDocs ? "noopener noreferrer" : undefined} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-6">
                 {hasDocs ? 'View the docs' : <PlaceholderText value="PLACEHOLDER_DOCS_URL" fallback="View the docs" />}
@@ -154,13 +155,8 @@ export default function Home() {
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-16">
           {/* Left Diagram */}
-          <div className="flex items-center justify-center">
-             <img 
-               src={`${import.meta.env.BASE_URL}assets/illustrations/tomorrowos-architecture-2.png`} 
-               alt="Start your way architecture" 
-               className="w-full h-auto object-contain"
-               loading="lazy" 
-             />
+          <div className="flex items-start justify-center">
+             <StartYourWayDiagram />
           </div>
 
           {/* Right Content Rows */}
