@@ -88,7 +88,7 @@ export const aboutContent = {
       },
       {
         title: "Deliberate pace",
-        copy: "Compatibility and stability matter more than rushing features.",
+        copy: "Compatibility and stability matter more to us than rushing features.",
         icon: "nest_clock_farsight_analog.svg"
       }
     ],

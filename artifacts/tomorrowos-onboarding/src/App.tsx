@@ -1,6 +1,6 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Redirect, Route, Switch, Router as WouterRouter } from 'wouter';
+import { Redirect, Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import { PrototypeProvider } from './components/PrototypeProvider';
 import { WebsiteLayout } from './components/WebsiteLayout';
 // Homepage stays statically imported so the landing route renders immediately.
@@ -28,9 +28,24 @@ const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 
 const queryClient = new QueryClient();
 
+/**
+ * Scrolls to the top on every route change so navigating to a new page never
+ * preserves the previous page's scroll position. Hash anchors keep their
+ * native in-page scrolling behaviour.
+ */
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    if (window.location.hash) return;
+    window.scrollTo(0, 0);
+  }, [location]);
+  return null;
+}
+
 function Router() {
   return (
     <WebsiteLayout>
+      <ScrollToTop />
       <Suspense fallback={<div className="min-h-[50vh]" aria-busy="true" />}>
       <Switch>
         <Route path="/" component={Home} />

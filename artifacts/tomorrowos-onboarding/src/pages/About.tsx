@@ -147,6 +147,25 @@ function ShipCard({ card, isSolution }: { card: { title: string; copy: string; i
       <p className="font-sans text-sm font-normal leading-[1.5] max-w-[200px] text-muted-foreground">
         {card.copy}
       </p>
+      {isSolution ? (
+        <span
+          className="mt-6 flex h-9 w-9 items-center justify-center rounded-full bg-[#2563EB]/10"
+          aria-label="Solved with TomorrowOS"
+        >
+          <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" aria-hidden="true">
+            <path d="M2.5 8.5 6 12l7.5-8" stroke="#2563EB" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      ) : (
+        <span
+          className="mt-6 flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10"
+          aria-label="Problem"
+        >
+          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" aria-hidden="true">
+            <path d="M3.5 3.5 12.5 12.5 M12.5 3.5 3.5 12.5" stroke="#DC2626" strokeWidth="2.2" strokeLinecap="round" />
+          </svg>
+        </span>
+      )}
     </div>
   );
 }

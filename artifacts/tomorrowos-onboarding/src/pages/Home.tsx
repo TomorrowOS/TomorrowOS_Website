@@ -138,10 +138,12 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Add digital signage to any existing CMS, SaaS platform, dashboard or enterprise application.
               </p>
-              <div id="api" className="flex flex-wrap gap-4 mt-3 scroll-mt-24">
+              <p className="mt-3 mb-1.5 text-[13px] font-medium text-muted-foreground">Choose one:</p>
+              <div id="api" className="flex flex-wrap items-center gap-x-4 gap-y-2 scroll-mt-24">
                 <Link href="/connect/server-sdk" className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline">
                   Server SDK <ChevronRight className="w-4 h-4" />
                 </Link>
+                <span className="text-sm text-muted-foreground/70">or</span>
                 <Link href="/connect/api" className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline">
                   API Integration <ChevronRight className="w-4 h-4" />
                 </Link>
@@ -153,10 +155,12 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Use a Node.js capable development platform such as Replit to build a digital signage CMS, connect a screen and publish content in minutes.
               </p>
-              <div id="terminal" className="flex flex-wrap gap-4 mt-3 scroll-mt-24">
+              <p className="mt-3 mb-1.5 text-[13px] font-medium text-muted-foreground">Choose one:</p>
+              <div id="terminal" className="flex flex-wrap items-center gap-x-4 gap-y-2 scroll-mt-24">
                 <Link href="/start/guided" className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline">
                   Guided Setup <ChevronRight className="w-4 h-4" />
                 </Link>
+                <span className="text-sm text-muted-foreground/70">or</span>
                 <Link href="/start/terminal" className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline">
                   Terminal <ChevronRight className="w-4 h-4" />
                 </Link>
