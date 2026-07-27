@@ -4,6 +4,7 @@ import { aboutContent } from '@/content/about';
 import { usePrototype } from '@/components/PrototypeProvider';
 import { siteConfig } from '@/config/site';
 import { Link } from 'wouter';
+import GithubIcon from '@/components/GithubIcon';
 import { cn } from '@/lib/utils';
 import { ChevronRight } from 'lucide-react';
 import { PlaceholderText } from '@/components/PlaceholderText';
@@ -82,7 +83,7 @@ function AboutHero() {
                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8"
                  onClick={(e) => !hasGithub && e.preventDefault()}
                >
-                 {hasGithub ? c.secondaryAction : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback={c.secondaryAction} />}
+                 <GithubIcon className="w-4 h-4 mr-2" />{hasGithub ? c.secondaryAction : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback={c.secondaryAction} />}
                </a>
             ) : null}
           </div>
@@ -308,7 +309,7 @@ function CommunitySection() {
                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors bg-foreground text-background hover:bg-foreground/90 h-11 px-8"
                  onClick={(e) => !hasGithub && e.preventDefault()}
                >
-                 {hasGithub ? c.primaryAction : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback={c.primaryAction} />}
+                 <GithubIcon className="w-4 h-4 mr-2" />{hasGithub ? c.primaryAction : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback={c.primaryAction} />}
                </a>
             ) : null}
             <SmartLink href={governanceHref} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'wouter';
+import GithubIcon from '@/components/GithubIcon';
 import { useSeo } from '@/hooks/use-seo';
 import { siteConfig } from '@/config/site';
 import { ChevronRight } from 'lucide-react';
@@ -145,7 +146,7 @@ export default function Quickstart() {
             )}
             {showGithub && (
               <a href={hasGithub ? siteConfig.links.github : '#'} onClick={(e) => !hasGithub && e.preventDefault()} target={hasGithub ? "_blank" : undefined} rel={hasGithub ? "noopener noreferrer" : undefined} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium text-foreground hover:opacity-70 h-10 px-4">
-                {hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" />} <ChevronRight className="w-4 h-4 ml-1" />
+                <GithubIcon className="w-4 h-4 mr-2" />{hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" />} <ChevronRight className="w-4 h-4 ml-1" />
               </a>
             )}
           </div>
@@ -357,7 +358,7 @@ export default function Quickstart() {
           </Link>
           {showGithub && (
             <a href={hasGithub ? siteConfig.links.github : '#'} onClick={(e) => !hasGithub && e.preventDefault()} target={hasGithub ? "_blank" : undefined} rel={hasGithub ? "noopener noreferrer" : undefined} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 w-full sm:w-auto">
-              {hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" />}
+              <GithubIcon className="w-4 h-4 mr-2" />{hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" />}
             </a>
           )}
         </div>

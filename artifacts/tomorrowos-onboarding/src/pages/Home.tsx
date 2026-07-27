@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'wouter';
 import { useSeo } from '@/hooks/use-seo';
 import { siteConfig } from '@/config/site';
+import GithubIcon from '@/components/GithubIcon';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Terminal, Blocks, Package } from 'lucide-react';
 import { vercelConfig } from '@/lib/vercelConfig';
@@ -44,7 +45,7 @@ export default function Home() {
               className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 w-full sm:w-auto"
               onClick={(e) => !hasGithub && e.preventDefault()}
             >
-              {hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" />}
+              <GithubIcon className="w-4 h-4 mr-2" />{hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" />}
             </a>
           )}
         </div>
@@ -99,7 +100,7 @@ export default function Home() {
                 </Link>
                 {showGithub && (
                   <a href={hasGithub ? siteConfig.links.github : '#'} target={hasGithub ? "_blank" : undefined} rel={hasGithub ? "noopener noreferrer" : undefined} className="inline-flex items-center text-sm font-medium text-foreground hover:opacity-70 transition-opacity" onClick={(e) => !hasGithub && e.preventDefault()}>
-                    {hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" />} <ArrowRight className="w-4 h-4 ml-2" />
+                    <GithubIcon className="w-4 h-4 mr-2" />{hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" />} <ArrowRight className="w-4 h-4 ml-2" />
                   </a>
                 )}
               </div>
@@ -140,7 +141,7 @@ export default function Home() {
               className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-background bg-transparent hover:bg-background/10 h-11 px-8 w-full sm:w-auto"
               onClick={(e) => !hasGithub && e.preventDefault()}
             >
-              {hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" className="text-white bg-transparent border-white/50" />}
+              <GithubIcon className="w-4 h-4 mr-2" />{hasGithub ? 'View GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View GitHub" className="text-white bg-transparent border-white/50" />}
             </a>
           )}
         </div>

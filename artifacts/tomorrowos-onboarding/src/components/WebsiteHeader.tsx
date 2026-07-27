@@ -4,6 +4,7 @@ import { usePrototype } from './PrototypeProvider';
 import { PlaceholderText } from './PlaceholderText';
 import { siteNavigation, isConfiguredUrl } from '@/config/navigation';
 import { Menu, X } from 'lucide-react';
+import GithubIcon from './GithubIcon';
 import { cn } from '@/lib/utils';
 
 const logoSrc = `${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`;
@@ -83,10 +84,12 @@ export function WebsiteHeader() {
   const githubButton = (className: string) =>
     hasGithub ? (
       <a href={githubAction.href} target="_blank" rel="noopener noreferrer" className={className}>
+        <GithubIcon className="w-4 h-4 mr-2" />
         GitHub
       </a>
     ) : (
       <Link href="/github" className={className}>
+        <GithubIcon className="w-4 h-4 mr-2" />
         {state.prototypeReviewMode ? <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="GitHub" /> : 'GitHub'}
       </Link>
     );
