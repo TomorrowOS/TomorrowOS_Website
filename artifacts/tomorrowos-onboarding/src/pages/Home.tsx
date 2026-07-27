@@ -36,7 +36,6 @@ export default function Home() {
   const showGithub = state.prototypeReviewMode || hasGithub;
 
   const hasDocs = siteConfig.links.docs && !siteConfig.links.docs.includes('{{');
-  const showDocs = state.prototypeReviewMode || hasDocs;
 
   return (
     <div className="flex flex-col animate-in fade-in duration-500 pb-24">

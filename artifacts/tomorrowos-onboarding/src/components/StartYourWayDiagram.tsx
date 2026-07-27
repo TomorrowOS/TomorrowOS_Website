@@ -80,7 +80,7 @@ function ScreenMock() {
 
 export default function StartYourWayDiagram() {
   return (
-    <div className="relative w-full rounded-3xl px-3 py-8 md:px-6 md:py-10" style={dottedBg} role="img" aria-label="Diagram: AI-assisted tools, the SDK and existing products all build on the shared TomorrowOS foundation, which powers signage screens.">
+    <div className="relative w-full rounded-3xl px-3 py-8 md:px-6 md:py-10" style={dottedBg}>
       {/* Entry point cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 items-stretch gap-4 md:gap-5 relative z-10">
         {entryPoints.map((e) => (

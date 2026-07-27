@@ -117,24 +117,32 @@ function SharedFoundationSection() {
           </p>
         </div>
         
-        <div className="flex-1 flex flex-col md:flex-row items-center w-full max-w-4xl lg:justify-end gap-2 md:gap-0">
-          {c.cards.map((card, i) => (
-            <Fragment key={i}>
-              <div className="bg-white border border-border rounded-xl p-6 md:p-8 flex flex-col items-center text-center w-full md:w-64 shadow-sm shrink-0">
-                <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-6">
-                  <Icon name={card.icon} className="w-6 h-6" />
+        <div className="flex-1 flex flex-col md:flex-row items-center justify-center lg:justify-end w-full max-w-4xl gap-3 md:gap-0">
+          {c.cards.map((card, i) => {
+            const isCenter = i === 1;
+            return (
+              <Fragment key={i}>
+                <div
+                  className={
+                    'bg-white border border-border rounded-2xl flex flex-col items-center justify-center text-center w-full max-w-[320px] md:max-w-none md:flex-1 shrink-0 ' +
+                    (isCenter
+                      ? 'px-6 py-10 md:py-14 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.18)] md:-my-4 relative z-10'
+                      : 'px-6 py-8 md:py-10 shadow-sm')
+                  }
+                >
+                  <Icon name={card.icon} className="w-7 h-7 mb-6" />
+                  <h3 className="font-bold text-base md:text-lg mb-2 leading-snug max-w-[190px]">{card.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed max-w-[200px]">{card.copy}</p>
                 </div>
-                <h3 className="font-bold text-lg mb-3 leading-tight">{card.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{card.copy}</p>
-              </div>
-              {i < c.cards.length - 1 && (
-                <div className="flex items-center justify-center shrink-0 w-8 md:w-12 h-8 md:h-auto">
-                  <ChevronRight className="w-6 h-6 text-muted-foreground/30 hidden md:block" />
-                  <div className="w-[2px] h-6 bg-muted-foreground/30 md:hidden" />
-                </div>
-              )}
-            </Fragment>
-          ))}
+                {i < c.cards.length - 1 && (
+                  <div className="flex items-center justify-center shrink-0 w-8 md:w-10 h-6 md:h-auto">
+                    <ChevronRight className="w-5 h-5 text-foreground/60 hidden md:block" strokeWidth={2.5} />
+                    <ChevronRight className="w-5 h-5 text-foreground/60 rotate-90 md:hidden" strokeWidth={2.5} />
+                  </div>
+                )}
+              </Fragment>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -249,7 +257,7 @@ function MaintainerSection() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {c.team.map((t, i) => (
-            <TeamMember key={i} name={t.name} role={t.role} />
+            <TeamMember key={i} name={t.name} role={t.role} imagePath={t.imagePath} />
           ))}
         </div>
       </div>
@@ -257,14 +265,24 @@ function MaintainerSection() {
   );
 }
 
-function TeamMember({ name, role }: { name: string, role: string }) {
+function TeamMember({ name, role, imagePath }: { name: string, role: string, imagePath?: string }) {
   const { state } = usePrototype();
+  const hasImage = !!imagePath;
   return (
     <div className="flex flex-col items-center text-center">
       <div className="w-32 md:w-40 h-32 md:h-40 rounded-full bg-muted flex items-center justify-center mb-6 relative overflow-hidden shrink-0 border border-border/50">
-        <span className="text-4xl md:text-5xl font-medium text-muted-foreground/30">{name.charAt(0)}</span>
+        {hasImage ? (
+          <img
+            src={`${import.meta.env.BASE_URL}${imagePath}`}
+            alt={`Portrait of ${name}`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <span className="text-4xl md:text-5xl font-medium text-muted-foreground/30">{name.charAt(0)}</span>
+        )}
       </div>
-      {state.prototypeReviewMode && (
+      {state.prototypeReviewMode && !hasImage && (
         <div className="text-[10px] font-bold text-amber-900 bg-amber-100 px-2 py-0.5 rounded absolute -mt-[88px] md:-mt-[104px] z-10 pointer-events-none">
           MISSING TEAM IMAGE
         </div>
