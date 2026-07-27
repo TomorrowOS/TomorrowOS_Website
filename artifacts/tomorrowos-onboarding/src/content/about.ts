@@ -2,7 +2,7 @@ export const aboutContent = {
   hero: {
     heading: "The open source\nfoundation for digital\nsignage software.",
     copy: "TomorrowOS provides the shared SDK, runtime and device layer for teams building signage into their software, or building it from scratch.",
-    primaryAction: "Meet the community",
+    primaryAction: "Join the discussion",
     secondaryAction: "View on GitHub"
   },
   shipSoftware: {

@@ -5,7 +5,7 @@ export const siteConfig = {
     github: 'https://github.com/TomorrowOS/TomorrowOS',
     docs: 'https://docs.tomorrowos.org',
     knowledgeBase: 'https://docs.tomorrowos.org',
-    community: '{{PLACEHOLDER_COMMUNITY_URL}}',
+    community: 'https://github.com/TomorrowOS/TomorrowOS/discussions',
     governance: '{{PLACEHOLDER_GOVERNANCE_URL}}',
     license: '{{PLACEHOLDER_LICENSE_URL}}',
   },
