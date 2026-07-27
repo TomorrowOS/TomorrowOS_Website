@@ -47,28 +47,28 @@ function GuidedStep1() {
       <div className="grid sm:grid-cols-2 gap-4 mb-6">
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-gray-900">TomorrowOS</h4>
+            <img src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`} alt="TomorrowOS" className="mb-2 object-contain object-left" style={{ height: '20px', width: 'auto' }} />
             <p className="text-sm text-gray-500 font-medium mb-1">Signage foundation</p>
             <p className="text-sm text-gray-600">Device communication, playback and pairing.</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-gray-900">Replit</h4>
+            <img src={`${import.meta.env.BASE_URL}assets/platforms/replit-wordmark.svg`} alt="Replit" className="mb-2 object-contain object-left" style={{ height: '20px', width: 'auto' }} />
             <p className="text-sm text-gray-500 font-medium mb-1">Build and hosting</p>
             <p className="text-sm text-gray-600">Creates, previews and publishes your CMS.</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-gray-900">Supabase</h4>
+            <img src={`${import.meta.env.BASE_URL}assets/platforms/supabase-wordmark.svg`} alt="Supabase" className="mb-2 object-contain object-left" style={{ height: '20px', width: 'auto' }} />
             <p className="text-sm text-gray-500 font-medium mb-1">Database</p>
             <p className="text-sm text-gray-600">Stores CMS content and application data.</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-gray-900">Cloudinary</h4>
+            <img src={`${import.meta.env.BASE_URL}assets/platforms/cloudinary-wordmark.svg`} alt="Cloudinary" className="mb-2 object-contain object-left" style={{ height: '20px', width: 'auto' }} />
             <p className="text-sm text-gray-500 font-medium mb-1">Media storage</p>
             <p className="text-sm text-gray-600">Stores and delivers images and videos.</p>
           </CardContent>
