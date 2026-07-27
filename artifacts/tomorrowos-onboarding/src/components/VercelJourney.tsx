@@ -94,21 +94,21 @@ function VercelStep1({ isGuide = false }: { isGuide?: boolean }) {
       <div className="grid sm:grid-cols-2 gap-4 mb-6">
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-gray-900">TomorrowOS</h4>
+            <img src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`} alt="TomorrowOS" className="mb-2 object-contain object-left" style={{ height: '20px', width: 'auto' }} />
             <p className="text-sm text-gray-500 font-medium mb-1">Signage foundation</p>
             <p className="text-sm text-gray-600">Provides device communication, playback, pairing and platform support.</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-gray-900">v0</h4>
+            <img src={`${import.meta.env.BASE_URL}assets/platforms/v0-logo.png`} alt="v0" className="mb-2 object-contain object-left" style={{ height: '18px', width: 'auto' }} />
             <p className="text-sm text-gray-500 font-medium mb-1">AI-assisted build</p>
             <p className="text-sm text-gray-600">Generates and updates the CMS project.</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-gray-900">Vercel</h4>
+            <img src={`${import.meta.env.BASE_URL}assets/platforms/vercel-wordmark.png`} alt="Vercel" className="mb-2 object-contain object-left" style={{ height: '18px', width: 'auto' }} />
             <p className="text-sm text-gray-500 font-medium mb-1">Hosting and deployment</p>
             <p className="text-sm text-gray-600">Runs previews, stores project configuration and publishes the CMS.</p>
           </CardContent>
