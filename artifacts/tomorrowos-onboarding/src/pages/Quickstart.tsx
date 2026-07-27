@@ -2,16 +2,9 @@ import React, { useEffect } from 'react';
 import { Link } from 'wouter';
 import { useSeo } from '@/hooks/use-seo';
 import { siteConfig } from '@/config/site';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronRight, Terminal, Monitor, Code, Settings, PenTool, Database, AppWindow } from 'lucide-react';
-import { vercelConfig } from '@/lib/vercelConfig';
+import { ChevronRight } from 'lucide-react';
 import { usePrototype } from '@/components/PrototypeProvider';
 import { PlaceholderText } from '@/components/PlaceholderText';
-
-import imgTablet from '@/assets/quickstart/asset_tablet.png';
-import imgOwned from '@/assets/quickstart/asset_owned.png';
-import imgPortable from '@/assets/quickstart/asset_portable.png';
-import imgYours from '@/assets/quickstart/asset_yours.png';
 
 export default function Quickstart() {
   const { state } = usePrototype();
@@ -45,7 +38,7 @@ export default function Quickstart() {
   return (
     <div className="flex flex-col animate-in fade-in duration-500 pb-24">
       {/* HERO SECTION */}
-      <section className="py-20 md:py-32 px-4 md:px-8 text-center max-w-5xl mx-auto flex flex-col items-center">
+      <section className="pt-20 pb-12 md:pt-32 md:pb-16 px-4 md:px-8 text-center max-w-5xl mx-auto flex flex-col items-center">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6 max-w-4xl">
           Build and own your digital signage software.
         </h1>
@@ -66,83 +59,71 @@ export default function Quickstart() {
       </section>
 
       {/* ARCHITECTURE DIAGRAM SECTION */}
-      <section className="py-12 md:py-24 px-4 md:px-8 max-w-[1200px] mx-auto w-full">
-        <div className="bg-muted/30 border border-border rounded-2xl p-6 md:p-12 relative overflow-hidden flex flex-col items-center">
-          {/* subtle dotted-grid background effect */}
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMCwwLDAsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none" />
-          
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 w-full">
-            
-            {/* Left Column: Use Cases */}
-            <div className="flex flex-col gap-4 w-full md:w-80">
-              <div className="bg-background border border-border rounded-xl p-5 shadow-sm flex items-start gap-4">
-                <div className="w-8 h-8 bg-foreground rounded flex items-center justify-center shrink-0">
-                   <AppWindow className="w-4 h-4 text-background" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-sm mb-1">Build a CMS</h4>
-                  <p className="text-xs text-muted-foreground">Create your own content management system</p>
-                </div>
+      <section className="pb-12 md:pb-24 px-4 md:px-8 w-full">
+        {/* Desktop/Tablet view */}
+        <div className="hidden md:flex flex-col items-center w-full">
+          <img 
+            src={`${import.meta.env.BASE_URL}assets/illustrations/tomorrowos-architecture-1.png`} 
+            alt="TomorrowOS Architecture" 
+            className="w-full h-auto object-contain max-w-[1080px]"
+          />
+          <div className="mt-8 text-center text-sm font-medium text-muted-foreground uppercase tracking-widest">
+            One shared foundation beneath every screen experience.
+          </div>
+        </div>
+
+        {/* Mobile view */}
+        <div className="md:hidden flex flex-col items-center w-full relative">
+          {state.prototypeReviewMode && (
+            <div className="absolute -top-10 left-0 right-0 bg-amber-100 text-amber-900 text-xs px-2 py-1 text-center font-bold z-20">
+              MISSING ASSET — dedicated mobile architecture export
+            </div>
+          )}
+          <div className="flex flex-col gap-8 items-center w-full">
+            <div className="flex flex-col gap-3 w-full">
+              <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center gap-2">
+                <img src={`${import.meta.env.BASE_URL}assets/icons/black/desktop_windows.svg`} alt="CMS" className="w-5 h-5" />
+                <span className="font-semibold text-sm">Build a CMS</span>
               </div>
-              <div className="bg-background border border-border rounded-xl p-5 shadow-sm flex items-start gap-4">
-                <div className="w-8 h-8 bg-foreground rounded flex items-center justify-center shrink-0">
-                   <Code className="w-4 h-4 text-background" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-sm mb-1">Connect an app</h4>
-                  <p className="text-xs text-muted-foreground">Integrate screens into your existing application</p>
-                </div>
+              <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center gap-2">
+                <img src={`${import.meta.env.BASE_URL}assets/icons/black/code.svg`} alt="App" className="w-5 h-5" />
+                <span className="font-semibold text-sm">Connect an app</span>
               </div>
-              <div className="bg-background border border-border rounded-xl p-5 shadow-sm flex items-start gap-4">
-                <div className="w-8 h-8 bg-foreground rounded flex items-center justify-center shrink-0">
-                   <PenTool className="w-4 h-4 text-background" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-sm mb-1">Create a new experience</h4>
-                  <p className="text-xs text-muted-foreground">Build an entirely new digital signage experience</p>
-                </div>
+              <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center gap-2">
+                <img src={`${import.meta.env.BASE_URL}assets/icons/black/deployed_code.svg`} alt="Experience" className="w-5 h-5" />
+                <span className="font-semibold text-sm">Create a new experience</span>
               </div>
             </div>
 
-            {/* Center: TomorrowOS */}
-            <div className="flex flex-col items-center shrink-0 relative">
-              {/* Connectors for desktop */}
-              <div className="hidden md:block absolute right-full top-1/2 -translate-y-1/2 w-12 border-t-2 border-dashed border-muted-foreground/30" />
-              <div className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 w-12 border-t-2 border-dashed border-muted-foreground/30" />
-              
-              {/* Connectors for mobile */}
-              <div className="md:hidden h-8 border-l-2 border-dashed border-muted-foreground/30 my-2" />
+            <div className="h-8 border-l-2 border-dashed border-muted-foreground/30" />
 
-              <div className="bg-foreground text-background rounded-2xl p-8 shadow-lg text-center w-64">
-                <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 border-2 border-background/20 rounded-full flex items-center justify-center">
-                    <div className="w-6 h-6 bg-background rounded-full" />
-                  </div>
-                </div>
-                <h3 className="font-bold text-xl mb-2">TomorrowOS</h3>
-                <p className="text-sm text-background/80">Shared runtime, APIs and device layer</p>
-              </div>
-
-              {/* Connectors for mobile */}
-              <div className="md:hidden h-8 border-l-2 border-dashed border-muted-foreground/30 my-2" />
+            <div className="bg-foreground text-background rounded-2xl p-6 shadow-lg text-center w-full max-w-[280px]">
+              <h3 className="font-bold text-xl mb-1">TomorrowOS</h3>
+              <p className="text-xs text-background/80">Shared runtime, APIs and device layer</p>
             </div>
 
-            {/* Right Column: Platforms */}
-            <div className="flex flex-col gap-3 w-full md:w-64">
-              <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center text-sm font-semibold h-14">Samsung Tizen</div>
-              <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center text-sm font-semibold h-14">LG webOS</div>
-              <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center text-sm font-semibold h-14">BrightSign</div>
-              <div className="flex gap-3 h-14">
-                <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center text-sm font-semibold flex-1">Android</div>
-                <div className="bg-background border border-border rounded-xl p-4 shadow-sm flex items-center justify-center text-sm font-semibold flex-1">Windows</div>
+            <div className="h-8 border-l-2 border-dashed border-muted-foreground/30" />
+
+            <div className="grid grid-cols-2 gap-3 w-full">
+              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center col-span-2">
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/samsung-logo.svg`} alt="Samsung Tizen" className="h-4" />
+              </div>
+              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center">
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/lg-webos-logo.svg`} alt="LG webOS" className="h-4" />
+              </div>
+              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center">
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/brightsign-logo.svg`} alt="BrightSign" className="h-4" />
+              </div>
+              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center">
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/android-logo.svg`} alt="Android" className="h-4" />
+              </div>
+              <div className="bg-background border border-border rounded-xl p-3 shadow-sm flex items-center justify-center">
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/windows-logo.png`} alt="Windows" className="h-4" />
               </div>
             </div>
           </div>
-
-          <div className="mt-12 text-center relative z-10">
-            <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
-              One shared foundation beneath every screen experience.
-            </p>
+          <div className="mt-10 text-center text-xs font-medium text-muted-foreground uppercase tracking-widest px-4">
+            One shared foundation beneath every screen experience.
           </div>
         </div>
       </section>
@@ -172,38 +153,12 @@ export default function Quickstart() {
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-16">
           {/* Left Diagram */}
-          <div className="bg-muted/30 border border-border rounded-2xl p-8 flex flex-col items-center">
-             <div className="flex flex-col gap-3 w-full max-w-sm mb-6">
-               <div className="bg-background border border-border rounded-lg p-4 text-center shadow-sm">
-                 <h4 className="font-bold text-sm">AI-assisted</h4>
-                 <p className="text-xs text-muted-foreground">Replit, Lovable, Bubble, Cursor</p>
-               </div>
-               <div className="bg-background border border-border rounded-lg p-4 text-center shadow-sm">
-                 <h4 className="font-bold text-sm">SDK</h4>
-                 <p className="text-xs text-muted-foreground">Runtime, APIs, CLI</p>
-               </div>
-               <div className="bg-background border border-border rounded-lg p-4 text-center shadow-sm">
-                 <h4 className="font-bold text-sm">Existing product</h4>
-                 <p className="text-xs text-muted-foreground">CMS, SaaS, dashboards, enterprise apps</p>
-               </div>
-             </div>
-             
-             <div className="h-6 border-l-2 border-dashed border-muted-foreground/30 mb-6" />
-             
-             <div className="bg-foreground text-background rounded-xl p-5 text-center shadow-md w-full max-w-sm">
-               <h4 className="font-bold text-base">TomorrowOS</h4>
-               <p className="text-xs text-background/80">Shared foundation</p>
-             </div>
-
-             <div className="h-6 border-l-2 border-dashed border-muted-foreground/30 my-6" />
-             
+          <div className="flex items-center justify-center">
              <img 
-               src={imgTablet} 
-               alt="Tablet showing TomorrowOS Welcome screen" 
-               width={760}
-               height={400}
+               src={`${import.meta.env.BASE_URL}assets/illustrations/tomorrowos-architecture-2.png`} 
+               alt="Start your way architecture" 
+               className="w-full h-auto object-contain"
                loading="lazy" 
-               className="w-full max-w-sm h-auto shadow-lg rounded-xl"
              />
           </div>
 
@@ -257,13 +212,11 @@ export default function Quickstart() {
                 Run your TomorrowOS server on infrastructure that supports persistent processes and WebSocket connections.
               </p>
               
-              <div className="bg-muted/30 border border-border rounded-xl p-6 flex flex-col sm:flex-row items-center justify-center gap-8">
-                <div className="font-bold text-lg text-foreground/80">Render</div>
-                <div className="font-bold text-lg text-foreground/80 flex items-center gap-2">
-                   <div className="w-5 h-5 bg-foreground/80 rounded flex items-center justify-center"><div className="w-2 h-2 bg-background rounded-full"/></div>
-                   Fly.io
-                </div>
-                <div className="font-bold text-lg text-foreground/80">Northflank</div>
+              <div className="bg-muted/30 border border-border rounded-xl px-6 py-7 flex items-center justify-between gap-4">
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/railway-logo.svg`} alt="Railway" className="h-8 w-auto shrink-0 opacity-80 mix-blend-multiply dark:mix-blend-normal dark:invert" />
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/render-logo.svg`} alt="Render" className="h-7 w-auto max-w-[26%] object-contain opacity-80 mix-blend-multiply dark:mix-blend-normal dark:invert" />
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/flyio-logo.svg`} alt="Fly.io" className="h-8 w-auto max-w-[24%] object-contain opacity-80 mix-blend-multiply dark:mix-blend-normal dark:invert" />
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/northflank-logo.svg`} alt="Northflank" className="h-7 w-auto max-w-[28%] object-contain opacity-80 mix-blend-multiply dark:mix-blend-normal dark:invert" />
               </div>
             </div>
           </div>
@@ -281,14 +234,14 @@ export default function Quickstart() {
 
         <div className="grid md:grid-cols-3 gap-8">
           <div className="flex flex-col">
-            <img 
-              src={imgOwned}
-              alt="3D illustration of a dashboard showing ownership of the product"
-              width={824}
-              height={566}
-              loading="lazy"
-              className="w-full h-auto mb-6 border border-border rounded-2xl"
-            />
+            <div className="bg-[#f2f2f2] rounded-2xl mb-6 overflow-hidden flex items-center justify-center pt-8 pb-0 px-6 aspect-[4/3]">
+              <img 
+                src={`${import.meta.env.BASE_URL}assets/illustrations/owned.png`}
+                alt="3D illustration of a dashboard showing ownership of the product"
+                loading="lazy"
+                className="w-full h-auto object-cover object-top"
+              />
+            </div>
             <div className="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-2">OWNED</div>
             <h3 className="text-xl font-bold mb-3">Own your product</h3>
             <p className="text-muted-foreground text-sm mb-4 flex-1">
@@ -300,14 +253,14 @@ export default function Quickstart() {
           </div>
 
           <div className="flex flex-col">
-            <img 
-              src={imgPortable}
-              alt="3D illustration of a cloud platform showing infrastructure portability"
-              width={824}
-              height={566}
-              loading="lazy"
-              className="w-full h-auto mb-6 border border-border rounded-2xl"
-            />
+            <div className="bg-[#f2f2f2] rounded-2xl mb-6 overflow-hidden flex items-center justify-center p-6 aspect-[4/3]">
+              <img 
+                src={`${import.meta.env.BASE_URL}assets/illustrations/portable.png`}
+                alt="3D illustration of a cloud platform showing infrastructure portability"
+                loading="lazy"
+                className="w-full h-auto object-contain"
+              />
+            </div>
             <div className="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-2">PORTABLE</div>
             <h3 className="text-xl font-bold mb-3">Choose your infrastructure</h3>
             <p className="text-muted-foreground text-sm mb-4 flex-1">
@@ -319,14 +272,14 @@ export default function Quickstart() {
           </div>
 
           <div className="flex flex-col">
-            <img 
-              src={imgYours}
-              alt="3D illustration of screens and media players showing multi-platform support"
-              width={824}
-              height={566}
-              loading="lazy"
-              className="w-full h-auto mb-6 border border-border rounded-2xl"
-            />
+            <div className="bg-[#f2f2f2] rounded-2xl mb-6 overflow-hidden flex items-center justify-center p-6 aspect-[4/3]">
+              <img 
+                src={`${import.meta.env.BASE_URL}assets/illustrations/support.png`}
+                alt="3D illustration of screens and media players showing multi-platform support"
+                loading="lazy"
+                className="w-full h-auto object-contain"
+              />
+            </div>
             <div className="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-2">YOURS</div>
             <h3 className="text-xl font-bold mb-3">Support multiple platforms</h3>
             <p className="text-muted-foreground text-sm mb-4 flex-1">
@@ -353,22 +306,27 @@ export default function Quickstart() {
           <PatternCard 
             title="Digital menu boards"
             desc="Pricing, promos and scheduling across one or more screens."
+            icon="restaurant.svg"
           />
           <PatternCard 
             title="Directory boards"
             desc="Structured data, layouts and navigation for buildings or campuses."
+            icon="grid_view.svg"
           />
           <PatternCard 
             title="Retail media networks"
             desc="Campaigns, inventory, playback and proof-of-play foundations."
+            icon="volume_down.svg"
           />
           <PatternCard 
             title="Internal communications"
             desc="News, dashboards and operational content across managed screens."
+            icon="chat.svg"
           />
           <PatternCard 
             title="Custom signage products"
             desc="Your frontend and workflows on top of the shared TomorrowOS layer."
+            icon="deployed_code.svg"
           />
         </div>
 
@@ -408,11 +366,11 @@ export default function Quickstart() {
   );
 }
 
-function PatternCard({ title, desc }: { title: string, desc: string }) {
+function PatternCard({ title, desc, icon }: { title: string, desc: string, icon: string }) {
   return (
     <div className="bg-background border border-border rounded-xl p-6 shadow-sm hover:border-foreground/20 transition-colors">
-      <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center mb-4 text-foreground">
-        <div className="w-4 h-4 bg-foreground rounded-sm" />
+      <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center mb-4">
+        <img src={`${import.meta.env.BASE_URL}assets/icons/black/${icon}`} alt="" className="w-5 h-5 opacity-80" />
       </div>
       <h3 className="font-bold text-lg mb-2">{title}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>

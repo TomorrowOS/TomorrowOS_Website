@@ -1,23 +1,18 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { siteConfig } from '@/config/site';
-import { usePrototype } from './PrototypeProvider';
 
 export function WebsiteFooter() {
-  const { state } = usePrototype();
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="w-full border-t border-border bg-background py-12 px-4 md:px-8">
       <div className="container mx-auto max-w-[1200px] flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="flex flex-col gap-2">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-foreground hover:opacity-80 transition-opacity">
-            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-foreground text-background shrink-0 font-normal text-sm">
-              <span className="sr-only">Logo mark</span>
-            </div>
-            <span className="font-bold">Tomorrow</span><span className="font-light">OS</span>
+          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+            <img src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`} alt="TomorrowOS" className="h-6 w-auto" />
           </Link>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mt-2">
             Open-source digital signage foundation.
           </p>
         </div>

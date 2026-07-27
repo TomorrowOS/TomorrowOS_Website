@@ -5,6 +5,9 @@ export const siteConfig = {
     github: '{{PLACEHOLDER_GITHUB_URL}}',
     docs: '{{PLACEHOLDER_DOCS_URL}}',
     knowledgeBase: '{{PLACEHOLDER_KNOWLEDGE_BASE_URL}}',
+    community: '{{PLACEHOLDER_COMMUNITY_URL}}',
+    governance: '{{PLACEHOLDER_GOVERNANCE_URL}}',
+    license: '{{PLACEHOLDER_LICENSE_URL}}',
   },
   legal: {
     companyName: '{{PLACEHOLDER_COMPANY_NAME}}',

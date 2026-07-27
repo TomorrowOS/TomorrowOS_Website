@@ -1,7 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/fonts/roboto-variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/fonts/roboto-italic-variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/assets/fonts/jetbrains-mono-variable.ttf') format('truetype');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme inline {
   --color-background: hsl(var(--background));
@@ -30,6 +53,7 @@
   --color-cloudinary: hsl(var(--cloudinary));
 
   --font-sans: 'Roboto', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
   --radius-lg: 12px;
 }
 

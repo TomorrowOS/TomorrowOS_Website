@@ -16,6 +16,8 @@ import PlatformGuides from './pages/PlatformGuides';
 import NotFound from './pages/not-found';
 import Home from './pages/Home';
 import Quickstart from './pages/Quickstart';
+import About from './pages/About';
+import PlaceholderPage from './pages/PlaceholderPage';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import CookieSettings from './pages/CookieSettings';
@@ -28,6 +30,10 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/quickstart" component={Quickstart} />
+        <Route path="/about" component={About} />
+        <Route path="/community" component={() => <PlaceholderPage title="Community" />} />
+        <Route path="/governance" component={() => <PlaceholderPage title="Governance" />} />
+        <Route path="/license" component={() => <PlaceholderPage title="License" />} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
         <Route path="/cookie-settings" component={CookieSettings} />

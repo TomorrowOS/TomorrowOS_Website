@@ -3,7 +3,6 @@ import { Link, useLocation } from 'wouter';
 import { siteConfig } from '@/config/site';
 import { usePrototype } from './PrototypeProvider';
 import { PlaceholderText } from './PlaceholderText';
-import { Button } from './ui/button';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -71,28 +70,20 @@ export function WebsiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 md:px-8">
-        <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-foreground hover:opacity-80 transition-opacity">
-          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-foreground text-background shrink-0 font-normal text-sm">
-            <span className="sr-only">Logo mark</span>
-          </div>
-          <span className="font-bold">Tomorrow</span><span className="font-light">OS</span>
+        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+          <img src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`} alt="TomorrowOS" className="h-6 w-auto" />
         </Link>
         
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="/quickstart" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Explore
+          <Link href="/about" className={cn("text-sm font-medium transition-colors", location === '/about' ? "text-foreground" : "text-muted-foreground hover:text-foreground")}>
+            About
           </Link>
           <Link href="/quickstart" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Quickstart
+            Get Started
           </Link>
           
           <div className="flex items-center gap-4 ml-4">
-            {siteConfig.links.docs && (
-               <a href={siteConfig.links.docs.includes('{{') ? '#' : siteConfig.links.docs} target="_blank" rel="noopener noreferrer" className={cn("text-sm font-medium text-muted-foreground hover:text-foreground transition-colors", siteConfig.links.docs.includes('{{') && "opacity-50 pointer-events-none")}>
-                 {siteConfig.links.docs.includes('{{') ? <PlaceholderText value="PLACEHOLDER_DOCS_URL" fallback="Documentation" /> : 'Documentation'}
-               </a>
-            )}
             {showGithub && (
               <a 
                 href={hasGithub ? siteConfig.links.github : '#'}
@@ -126,9 +117,8 @@ export function WebsiteHeader() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-background md:hidden flex flex-col" ref={drawerRef} role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
           <div className="flex items-center justify-between h-16 px-4 border-b border-border">
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-foreground" onClick={() => setMobileMenuOpen(false)}>
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-foreground text-background shrink-0 font-normal text-sm"></div>
-              <span className="font-bold">Tomorrow</span><span className="font-light">OS</span>
+            <Link href="/" className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setMobileMenuOpen(false)}>
+              <img src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`} alt="TomorrowOS" className="h-6 w-auto" />
             </Link>
             <button 
               className="p-2 text-foreground"
@@ -139,22 +129,12 @@ export function WebsiteHeader() {
             </button>
           </div>
           <nav className="flex flex-col p-4 gap-4 flex-1 overflow-y-auto">
-            <Link href="/quickstart" className="text-lg font-medium text-foreground py-2 border-b border-border/50">
-              Explore
+            <Link href="/about" className={cn("text-lg font-medium py-2 border-b border-border/50", location === '/about' ? "text-foreground" : "text-muted-foreground")}>
+              About
             </Link>
             <Link href="/quickstart" className="text-lg font-medium text-foreground py-2 border-b border-border/50">
-              Quickstart
+              Get Started
             </Link>
-            {siteConfig.links.docs && (
-              <a 
-                href={siteConfig.links.docs.includes('{{') ? '#' : siteConfig.links.docs} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className={cn("text-lg font-medium text-foreground py-2 border-b border-border/50 flex items-center", siteConfig.links.docs.includes('{{') && "opacity-50 pointer-events-none")}
-              >
-                {siteConfig.links.docs.includes('{{') ? <PlaceholderText value="PLACEHOLDER_DOCS_URL" fallback="Documentation" /> : 'Documentation'}
-              </a>
-            )}
             {showGithub && (
               <a 
                 href={hasGithub ? siteConfig.links.github : '#'}

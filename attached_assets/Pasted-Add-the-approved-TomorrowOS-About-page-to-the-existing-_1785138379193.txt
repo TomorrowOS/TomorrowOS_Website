@@ -1,0 +1,1111 @@
+Add the approved TomorrowOS About page to the existing website.
+
+The newly attached Figma ZIP contains:
+
+- home/desktop.png
+- home/mobile.png
+- about/desktop.png
+
+Use:
+
+about/desktop.png
+
+as the authoritative visual reference for the new About page.
+
+Do not rebuild the homepage, Quickstart page, onboarding tool or existing guides.
+
+The objective is to:
+
+1. Create `/about`
+2. Match the supplied About desktop Figma design as closely as practical
+3. Replace the global navigation label “Explore” with “About”
+4. Link “About” to `/about`
+5. Reuse the approved TomorrowOS assets and local fonts
+6. Create a careful responsive mobile version without inventing a new visual style
+7. Preserve all existing website routes and functionality
+
+==================================================
+1. REVIEW BEFORE CODING
+==================================================
+
+Before making changes:
+
+1. Inspect `about/desktop.png` in full.
+2. Inspect the current global header and footer.
+3. Inspect the previously integrated site-asset package.
+4. Confirm the approved TomorrowOS logo, fonts, icons and `open-source.png` image are available.
+5. Identify the current navigation configuration.
+6. Identify whether community, governance and licence routes already exist.
+7. Identify whether original team-profile images already exist elsewhere in the project.
+8. List any missing assets or unresolved destinations.
+9. Then begin implementation without waiting for further approval.
+
+Do not treat the Figma export as loose inspiration.
+
+Match its layout, typography, section order, spacing and visual hierarchy.
+
+==================================================
+2. ROUTE AND GLOBAL NAVIGATION
+==================================================
+
+Create:
+
+`/about`
+
+Update the global website navigation.
+
+Replace:
+
+Explore
+
+with:
+
+About
+
+Link:
+
+About
+→ `/about`
+
+The final desktop header should contain:
+
+- TomorrowOS logo
+- About
+- Get Started
+- GitHub
+- Start building
+
+Use these destinations:
+
+TomorrowOS logo
+→ `/`
+
+About
+→ `/about`
+
+Get Started
+→ `/quickstart`
+
+GitHub
+→ the centrally configured GitHub URL
+
+Start building
+→ `/start`
+
+On `/about`, show a clear active state for About.
+
+Apply this change through the central navigation configuration so every website page uses the same label and destination.
+
+Do not separately hard-code navigation inside the About page.
+
+Update the mobile menu in the same way:
+
+- About
+- Get Started
+- GitHub
+- Start building
+
+==================================================
+3. DESIGN SOURCE AND VIEWPORT
+==================================================
+
+The supplied About desktop design is:
+
+- Width: 1440px
+- Height: 3696px
+
+Use 1440px as the primary screenshot-comparison viewport.
+
+Match:
+
+- Header height
+- Maximum content width
+- Section height
+- Section padding
+- Alternating white and pale-grey backgrounds
+- Heading widths and line breaks
+- Card dimensions
+- Grid gaps
+- Border colours
+- Icon sizes
+- Button sizing
+- Footer structure
+
+Do not:
+
+- Render the entire Figma export as one image
+- Use the Figma image as a page background
+- Trace text as images
+- Approximate the page with generic marketing sections
+- Add gradients
+- Add heavy shadows
+- Add decorative elements not shown in the Figma
+
+==================================================
+4. APPROVED ASSETS
+==================================================
+
+Use the approved assets already supplied to the project.
+
+Global logo:
+
+`/assets/brand/tomorrowos-logo.svg`
+
+Hero illustration:
+
+`/assets/illustrations/open-source.png`
+
+Fonts:
+
+- Roboto 400
+- Roboto 500
+- Roboto 700
+- JetBrains Mono 700 only for code where applicable
+
+Do not recreate the TomorrowOS logo using text.
+
+Do not recreate the hero artwork using CSS.
+
+Render `open-source.png` with:
+
+- Width: 100%
+- Height: auto
+- Object fit: contain
+- Transparent background preserved
+- No crop
+- No colour filter
+- No extra card background
+
+==================================================
+5. PAGE COMPONENT STRUCTURE
+==================================================
+
+Create reusable About-page sections such as:
+
+- AboutHero
+- SharedFoundationSection
+- OwnershipSection
+- ProductBoundarySection
+- MaintainerSection
+- CommunitySection
+- LicenceSection
+- SustainabilitySection
+- AboutFinalCta
+- TeamMember
+- AboutFeatureCard
+- AboutPrinciple
+- ComparisonList
+
+Do not create one oversized monolithic component.
+
+Keep content in a central file such as:
+
+`src/content/about.ts`
+
+Keep routes and external URLs in the existing site configuration.
+
+==================================================
+6. SECTION 1 — HERO
+==================================================
+
+Use a white background.
+
+Desktop layout:
+
+- Left: headline, copy and actions
+- Right: approved open-source illustration
+- Approximately balanced two-column composition
+- Match the Figma image scale and positioning
+
+Heading:
+
+The open source
+foundation for digital
+signage software.
+
+Supporting copy:
+
+TomorrowOS provides the shared SDK, runtime and device layer for teams building signage into their software, or building it from scratch.
+
+Primary action:
+
+Meet the community
+
+Secondary action:
+
+View on GitHub
+
+Use:
+
+Meet the community
+→ centrally configured community destination
+
+View on GitHub
+→ centrally configured GitHub URL
+
+When the community destination is unresolved:
+
+- Use an internal `/community` placeholder route
+- Do not allow the button to lead to a 404
+
+Use the supplied:
+
+`open-source.png`
+
+for the right-side illustration.
+
+Match the exact Figma heading width and line breaks at 1440px.
+
+==================================================
+7. SECTION 2 — SHIP SOFTWARE IN HOURS
+==================================================
+
+Use the pale-grey section background shown in Figma.
+
+Left content:
+
+Heading:
+
+Ship digital signage
+software in hours.
+
+Body:
+
+Skip the device integrations, playback logic, offline behavior and platform quirks every team rebuilds from scratch. Build on one shared open foundation instead.
+
+Supporting line:
+
+Keep everything that makes your product yours.
+
+Right content:
+
+Create a connected three-card sequence.
+
+CARD 1
+
+Title:
+
+Different products
+
+Copy:
+
+Build the same infrastructure.
+
+Icon:
+
+Use the approved `supervisor_account.svg` or the exact matching supplied icon.
+
+CARD 2
+
+Title:
+
+Repeated platform work
+
+Copy:
+
+Rebuilt across every project.
+
+Icon:
+
+Use the approved `layers.svg`.
+
+CARD 3
+
+Title:
+
+One shared foundation
+
+Copy:
+
+Improved once for everyone.
+
+Icon:
+
+Use the approved `share.svg`.
+
+Use restrained arrow connectors between the cards.
+
+Match the Figma:
+
+- Card width
+- Card radius
+- Thin border
+- Icon position
+- Arrow weight
+- Text hierarchy
+
+Do not use large shadows.
+
+==================================================
+8. SECTION 3 — KEEP OWNERSHIP
+==================================================
+
+Use a white background.
+
+Left heading:
+
+Build the product. Keep
+ownership of what makes
+it different.
+
+Right side:
+
+Create three cards.
+
+CARD 1
+
+Title:
+
+Focus on your vision
+
+Copy:
+
+Build the workflows, UX and commercial model.
+
+Icon:
+
+Use the approved wrench/build icon.
+
+CARD 2
+
+Title:
+
+Keep your IP
+
+Copy:
+
+Your CMS, your data model, your business logic stay entirely yours.
+
+Icon:
+
+Use `database.svg`.
+
+CARD 3
+
+Title:
+
+Build on proven ground
+
+Copy:
+
+Documented device behavior and real deployment lessons.
+
+Icon:
+
+Use `supervisor_account.svg` or the closest exact approved Figma icon.
+
+Match the Figma card heights, widths and padding.
+
+==================================================
+9. SECTION 4 — PRODUCT BOUNDARY
+==================================================
+
+Use the pale-grey background shown in the Figma.
+
+Left heading:
+
+The plumbing from your
+software to signage
+hardware.
+
+Right side:
+
+Create a two-column comparison.
+
+COLUMN 1
+
+Heading:
+
+TomorrowOS provides
+
+Items:
+
+- Server, SDK and APIs
+- Device communication
+- Content and policy foundations
+- On-device runtime
+- Offline playback
+- Platform adapters
+
+COLUMN 2
+
+Heading:
+
+You build and own
+
+Items:
+
+- Your CMS or application
+- User experience
+- Workflows
+- Business logic
+- Data model
+- Commercial product
+
+Use the approved tick icon.
+
+Add the vertical divider and bottom horizontal rule shown in Figma.
+
+Bottom statement:
+
+Your product stays yours forever.
+
+Use the approved copy from Figma beneath it.
+
+Current Figma wording:
+
+TomorrowOS bridges connection of hardware to the common system layer underneath.
+
+Store this sentence in content configuration so it can be edited easily.
+
+Add an internal Review Mode note suggesting:
+
+TomorrowOS connects signage hardware to the shared system layer underneath.
+
+Do not display the internal note in normal mode.
+
+==================================================
+10. SECTION 5 — BUILT BY SIGNAGE PEOPLE
+==================================================
+
+Use a white background.
+
+Left heading:
+
+Built and maintained by
+people from digital
+signage.
+
+Top-right principles:
+
+PRINCIPLE 1
+
+Title:
+
+Maintainer led
+
+Copy:
+
+Clear responsibility for the project’s quality and direction.
+
+Icon:
+
+Use `target.svg`.
+
+PRINCIPLE 2
+
+Title:
+
+Built in the open
+
+Copy:
+
+Public development, discussion and release history.
+
+Icon:
+
+Use the approved build/wrench icon.
+
+PRINCIPLE 3
+
+Title:
+
+Grounded deployment
+
+Copy:
+
+Decisions shaped by real screens and operating environments.
+
+Icon:
+
+Use `desktop_windows.svg`.
+
+PRINCIPLE 4
+
+Title:
+
+Deliberate pace
+
+Copy:
+
+Compatibility and stability matter more than rushing features.
+
+Icon:
+
+Use `nest_clock_farsight_analog.svg`.
+
+Use thin vertical dividers between principles on desktop.
+
+==================================================
+11. TEAM MEMBERS
+==================================================
+
+Below the Maintainer section heading, create the four-person team row.
+
+Team members:
+
+Dylan
+Project Lead
+
+Matt
+Industry Advisor
+
+James
+Core Platform Maintainer
+
+Kai
+Core Platform Maintainer
+
+Use a reusable `TeamMember` component.
+
+Image treatment:
+
+- Circular image
+- Match the Figma diameter
+- Preserve natural crop
+- Name beneath
+- Role in small uppercase grey text
+- Consistent spacing
+
+Do not crop the team faces from `about/desktop.png`.
+
+First search the project for original source images.
+
+When original team images are unavailable:
+
+- Use a clean circular placeholder in normal mode
+- Show the team member’s initials
+- Preserve the final dimensions
+- Display `MISSING TEAM IMAGE` only in Review Mode
+- Do not use generic stock portraits
+- Do not generate substitute faces
+
+Add these missing assets to the completion report:
+
+- Dylan headshot
+- Matt headshot
+- James headshot
+- Kai headshot
+
+==================================================
+12. SECTION 6 — COMMUNITY AND GOVERNANCE
+==================================================
+
+Use the pale-grey background shown in Figma.
+
+Left heading:
+
+The community
+contributes. Maintainers
+protect the core.
+
+Right copy:
+
+Developers, integrators and operators can contribute platform notes, fixes, adapters, examples and documentation.
+
+Maintainers review every contribution against the project architecture, compatibility requirements and long-term direction.
+
+Actions:
+
+Primary:
+
+Contribute with GitHub
+
+Secondary:
+
+Project governance
+
+Use configured destinations.
+
+Recommended configuration fields:
+
+- githubUrl
+- governanceUrl
+- communityUrl
+
+When governance is unresolved:
+
+- Create `/governance` as a restrained placeholder
+- Clearly label it as being prepared
+- Do not allow a 404
+
+==================================================
+13. SECTION 7 — APACHE 2.0
+==================================================
+
+Use a white background.
+
+Left heading:
+
+Apache 2.0,
+in plain terms.
+
+Supporting copy:
+
+The code is open. The TomorrowOS name and trademarks remain protected.
+
+Actions:
+
+Read the licence
+View licence
+
+Use separate destinations:
+
+Read the licence
+→ a plain-English internal licence explanation such as `/license`
+
+View licence
+→ the official repository licence file or centrally configured licence URL
+
+If the destinations are not yet configured:
+
+- Create `/license`
+- Provide a clean placeholder explanation
+- Hide an unresolved external destination in normal mode
+- Never allow an active link to 404
+
+Right-side four points:
+
+POINT 1
+
+Title:
+
+Build commercial products
+
+Copy:
+
+Use TomorrowOS inside free or paid products.
+
+Icon:
+
+Use `code.svg`.
+
+POINT 2
+
+Title:
+
+Modify the code
+
+Copy:
+
+Adapt the open-source foundation to your needs.
+
+Icon:
+
+Use `contract_edit.svg`.
+
+POINT 3
+
+Title:
+
+Run it yourself
+
+Copy:
+
+Deploy it on infrastructure you choose.
+
+Icon:
+
+Use `database.svg`.
+
+POINT 4
+
+Title:
+
+Keep your product proprietary
+
+Copy:
+
+Your application, workflows and commercial product remain yours.
+
+Icon:
+
+Use `lock.svg`.
+
+Use thin vertical dividers between the four points.
+
+Do not add legal claims beyond the supplied approved copy.
+
+==================================================
+14. SECTION 8 — SUSTAINABILITY
+==================================================
+
+Use the pale-grey section background shown in Figma.
+
+Left heading:
+
+Free to build on.
+Sustainable for the long
+term.
+
+Right-side four points:
+
+POINT 1
+
+Title:
+
+Open-source foundation
+
+Copy:
+
+Free to build, test, modify and share.
+
+Icon:
+
+Use `deployed_code.svg`, `code.svg` or the exact matching supplied cube icon.
+
+POINT 2
+
+Title:
+
+Support and services
+
+Copy:
+
+Optional architecture, integration and deployment assistance.
+
+Icon:
+
+Use `support_agent.svg`.
+
+POINT 3
+
+Title:
+
+Managed infrastructure
+
+Copy:
+
+Optional hosted or managed services in the future.
+
+Icon:
+
+Use `cloud.svg`.
+
+POINT 4
+
+Title:
+
+Ecosystem
+
+Copy:
+
+Hardware, connectors and extensions built around the core.
+
+Icon:
+
+Use `grid_view.svg`.
+
+Use the same principle-card structure as the Figma.
+
+==================================================
+15. SECTION 9 — FINAL CTA
+==================================================
+
+Use a white background.
+
+Centre the content.
+
+Heading:
+
+Build on TomorrowOS
+or help improve it.
+
+Supporting copy:
+
+Start building your product, explore the source or contribute what you know.
+
+Primary action:
+
+Start building
+
+Route:
+
+`/start`
+
+Secondary action:
+
+Join the community
+
+Use the configured community destination or `/community`.
+
+Match the Figma:
+
+- Heading width
+- Button placement
+- Section spacing
+- Bottom divider
+
+==================================================
+16. FOOTER
+==================================================
+
+Reuse the existing `GlobalFooter`.
+
+Match the About Figma arrangement:
+
+Top:
+
+TomorrowOS logo
+
+Bottom row:
+
+Left:
+
+Open-source digital signage foundation.
+
+Centre:
+
+Open-source digital signage foundation.
+TomorrowOS {current year}.
+
+Right:
+
+- Privacy Policy
+- Terms of Service
+- Cookie Settings
+
+Use:
+
+- `/privacy`
+- `/terms`
+- `/cookie-settings`
+
+Do not hard-code 2026.
+
+Use the current year dynamically unless legal requirements specify otherwise.
+
+Do not create a second footer component specifically for About.
+
+==================================================
+17. RESPONSIVE MOBILE BEHAVIOUR
+==================================================
+
+No About mobile Figma export was included.
+
+Do not claim pixel-perfect mobile matching.
+
+Create a careful responsive adaptation using the same mobile system as the approved homepage.
+
+Mobile rules:
+
+- Use the existing mobile global header
+- Stack hero copy above the illustration
+- Make primary and secondary actions full width or stacked as appropriate
+- Stack text/card sections vertically
+- Convert three-card horizontal flows into vertical flows
+- Replace horizontal arrow connectors with downward connectors
+- Stack ownership cards
+- Stack comparison columns
+- Use clear section headings above content
+- Display team members in a 2 × 2 grid
+- Stack community actions
+- Display Apache and sustainability points in a two-column grid where space allows, otherwise one column
+- Preserve alternating white and grey sections
+- Avoid horizontal scrolling
+- Maintain comfortable section spacing
+- Keep body text at a readable size
+- Use the approved mobile menu
+
+Add this internal Review Mode flag:
+
+MOBILE FIGMA EXPORT REQUIRED FOR FINAL PIXEL MATCHING
+
+Do not show that message to normal users.
+
+==================================================
+18. TYPOGRAPHY
+==================================================
+
+Use the approved local Roboto files.
+
+Weights:
+
+- 400 Regular
+- 500 Medium
+- 700 Bold
+
+Use JetBrains Mono only where code is displayed.
+
+Confirm through browser computed styles that the local Roboto font is loading.
+
+Match desktop Figma type hierarchy:
+
+- Large hero heading
+- Large section headings
+- Medium card titles
+- Restrained supporting text
+- Small uppercase team roles
+- Small footer copy
+
+Do not use arbitrary browser-default font sizes.
+
+==================================================
+19. ACCESSIBILITY
+==================================================
+
+Ensure:
+
+- One H1
+- Logical H2/H3 structure
+- Semantic sections
+- Buttons and links have descriptive labels
+- Icons are decorative where their adjacent text already conveys meaning
+- Team images have useful alt text
+- Colour is not the only indicator
+- Focus states are visible
+- Mobile menu is keyboard accessible
+- Contrast meets practical WCAG AA requirements
+- Arrow connectors are ignored by screen readers
+- Comparison lists use semantic list markup
+
+==================================================
+20. SEO
+==================================================
+
+Add metadata for `/about`.
+
+Title:
+
+About TomorrowOS | Open Source Digital Signage Foundation
+
+Description:
+
+Learn why TomorrowOS is building an open foundation for digital signage, helping teams avoid rebuilding device, playback and platform infrastructure.
+
+Add:
+
+- Canonical URL
+- Open Graph title
+- Open Graph description
+- Shared social image placeholder
+- Correct robots behaviour for the deployment environment
+
+Reuse the existing SEO component.
+
+==================================================
+21. REVIEW MODE
+==================================================
+
+Extend existing Review Mode for `/about`.
+
+Show:
+
+- Section boundaries
+- Figma target viewport
+- Missing team headshots
+- Missing mobile Figma export
+- Unresolved community link
+- Unresolved governance link
+- Unresolved licence destinations
+- Copy review note for the product-boundary statement
+- Current screenshot IDs where relevant
+
+Do not show review information in normal mode.
+
+==================================================
+22. VISUAL COMPARISON
+==================================================
+
+After implementation:
+
+1. Capture `/about` at exactly 1440px wide.
+2. Compare against `about/desktop.png`.
+3. Correct:
+   - Header proportions
+   - Hero heading line breaks
+   - Hero image scale
+   - Section heights
+   - Grey background values
+   - Card widths
+   - Grid gaps
+   - Icon positions
+   - Team layout
+   - CTA spacing
+   - Footer positioning
+4. Complete at least two visible correction passes.
+5. Also test:
+   - 1024px
+   - 768px
+   - 390px
+
+Do not stop after the first approximate implementation.
+
+==================================================
+23. DO NOT CHANGE
+==================================================
+
+Do not:
+
+- Rebuild `/quickstart`
+- Rebuild `/start`
+- Alter Guided Setup
+- Alter Terminal
+- Alter Server SDK
+- Alter API Integration
+- Change platform-support status
+- Change legal-page content
+- Remove existing routes
+- Add made-up biographies
+- Add fake community statistics
+- Add fake GitHub counts
+- Add unapproved team members
+- Generate substitute headshots
+- Invent governance or licensing claims
+
+==================================================
+24. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. `/about` exists.
+2. Global “Explore” is replaced with “About”.
+3. About links to `/about`.
+4. The About nav item is active on `/about`.
+5. Mobile navigation also shows About.
+6. The page follows the supplied desktop Figma structure.
+7. The real TomorrowOS SVG is used.
+8. The approved `open-source.png` illustration is used.
+9. Approved black icons are used.
+10. No emoji or generic substitute icons are visible.
+11. All nine main page sections exist.
+12. Alternating backgrounds match the Figma.
+13. The product-boundary comparison is complete.
+14. The four maintainer principles are complete.
+15. Team placeholders preserve the final layout when images are missing.
+16. No team faces are cropped from the flattened Figma image.
+17. Community actions do not lead to 404s.
+18. Governance does not lead to a 404.
+19. Licence actions do not lead to a 404.
+20. The footer is shared with other pages.
+21. The current year is dynamic.
+22. Desktop is tested at exactly 1440px.
+23. Mobile is responsive at 390px.
+24. Review Mode flags the missing mobile design and headshots.
+25. Existing pages and onboarding flows remain functional.
+26. No TypeScript, asset-path or runtime errors remain.
+27. The finished page is recognisably the supplied Figma design.
+
+==================================================
+25. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Route created
+- Navigation changes
+- Components created
+- Assets used
+- Icons used
+- Team images found or missing
+- Community/governance/licence destinations used
+- Desktop screenshot result
+- Mobile screenshot result
+- Remaining visual differences
+- Remaining missing assets
+- Any copy requiring approval
+
+Do not stop after creating a static skeleton.
+
+The About page should feel like a native continuation of the TomorrowOS homepage and Quickstart design—not a separate template.
