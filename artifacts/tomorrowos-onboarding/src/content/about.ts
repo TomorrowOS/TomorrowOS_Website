@@ -116,7 +116,7 @@ export const aboutContent = {
     ]
   },
   community: {
-    heading: "The community\ncontributes. Maintainers\nprotect the core.",
+    heading: "The community\ncontributes and maintainers\nprotect the core.",
     copy1: "Developers, integrators and operators can contribute platform notes, fixes, adapters, examples and documentation.",
     copy2: "Maintainers review every contribution against the project architecture, compatibility requirements and long-term direction.",
     primaryAction: "Contribute with GitHub",
