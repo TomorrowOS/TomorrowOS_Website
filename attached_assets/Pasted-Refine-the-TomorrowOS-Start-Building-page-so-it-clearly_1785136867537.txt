@@ -1,0 +1,351 @@
+Refine the TomorrowOS Start Building page so it clearly feels like part of the TomorrowOS website while retaining the interactive onboarding experience.
+
+Do not rebuild the onboarding pathways or change their logic.
+
+The current `/start` page has an internal prototype-style top bar containing “Review Mode” and “Reset prototype”, but it does not include the TomorrowOS website navigation or footer. This makes the page feel disconnected from the wider website.
+
+Apply the following changes.
+
+==================================================
+1. USE THE GLOBAL WEBSITE SHELL
+==================================================
+
+Wrap `/start` and all child onboarding routes in the same global website shell used by the homepage and Quickstart page.
+
+Use the existing reusable:
+
+- GlobalHeader
+- MobileNavigation
+- GlobalFooter
+- PageContainer
+
+Do not create a second unrelated header.
+
+The public header should contain:
+
+- TomorrowOS logo
+- Explore
+- Quickstart
+- Documentation
+- GitHub
+- Start building
+
+Link behaviour:
+
+TomorrowOS logo
+→ `/`
+
+Explore
+→ `/quickstart`
+
+Quickstart
+→ `/quickstart`
+
+Documentation
+→ configured documentation URL
+
+GitHub
+→ configured GitHub URL
+
+Start building
+→ `/start`
+
+Use the central site configuration for all external URLs.
+
+The active Start building navigation item should have a clear selected state.
+
+==================================================
+2. REMOVE PROTOTYPE CONTROLS FROM PUBLIC VIEW
+==================================================
+
+Remove these from the normal public header:
+
+- Review Mode: OFF
+- Reset prototype
+
+These controls may remain available only when internal Prototype Review Mode is enabled.
+
+When Review Mode is enabled:
+
+- Show the controls in a discreet internal toolbar.
+- Keep that toolbar visually separate from the customer-facing site header.
+- Display the existing simulation warning.
+- Do not allow the internal toolbar to alter public header spacing.
+
+==================================================
+3. ADD A CONTEXT BAR
+==================================================
+
+Directly below the global header, add a slim context bar.
+
+On the main `/start` page show:
+
+Quickstart / Start building
+
+On detailed pathways show:
+
+Quickstart / Start building / Guided setup
+
+or:
+
+Quickstart / Start building / Terminal
+
+or:
+
+Quickstart / Start building / Server SDK
+
+or:
+
+Quickstart / Start building / API Integration
+
+The breadcrumb items should be clickable where appropriate.
+
+On the right, show:
+
+Exit setup
+
+Exit setup should return the user to `/quickstart`.
+
+Use concise styling:
+
+- Small text
+- Light bottom border
+- White background
+- Maximum width aligned to the onboarding content
+- No oversized card
+
+==================================================
+4. KEEP THE INTERACTIVE CENTRE
+==================================================
+
+Retain the current interactive onboarding selectors:
+
+What are you building?
+
+- Start a new project
+- Connect an existing project
+
+When Start a new project is selected:
+
+How do you want to get started?
+
+- Guided setup
+- Terminal
+
+When Connect an existing project is selected:
+
+How do you want to connect?
+
+- Server SDK
+- API Integration
+
+The entire cards must remain clickable.
+
+Selected card:
+
+- Strong black border
+- Light-grey background
+- Check indicator
+- Correct `aria-pressed` or selected semantics
+
+Unselected card:
+
+- White background
+- Neutral border
+- Visible hover state
+- Pointer cursor
+
+==================================================
+5. ADD CLEAR PRIMARY CONTINUATION
+==================================================
+
+The existing small “Get started →” action inside the cards is not sufficiently clear as the primary next action.
+
+After the user selects a secondary pathway, add one prominent primary button below the cards.
+
+Examples:
+
+Guided setup selected:
+
+Continue with Guided Setup
+
+Terminal selected:
+
+Continue with Terminal
+
+Server SDK selected:
+
+Continue with Server SDK
+
+API Integration selected:
+
+Continue with API Integration
+
+Use the existing black primary button style.
+
+The button should navigate to the correct detailed route:
+
+Guided setup
+→ `/start/guided`
+
+Terminal
+→ `/start/terminal`
+
+Server SDK
+→ `/connect/server-sdk`
+
+API Integration
+→ `/connect/api`
+
+The pathway cards may keep a small descriptive link, but the dedicated Continue button must be the dominant action.
+
+Do not show a Continue button until a complete pathway has been selected.
+
+==================================================
+6. ADD ORIENTATION COPY
+==================================================
+
+Under the main heading:
+
+What are you building?
+
+Use:
+
+Choose whether you are creating a new signage product or adding TomorrowOS to an existing application.
+
+Below that, add a small contextual note:
+
+Choose a path below. You can return and change your selection before beginning setup.
+
+Keep it visually restrained.
+
+==================================================
+7. PAGE WIDTH AND POSITIONING
+==================================================
+
+Keep the interactive content centred.
+
+Recommended maximum width:
+
+900–960px for the initial selector page.
+
+Do not stretch cards across the entire browser width.
+
+Maintain:
+
+- Strong central alignment
+- Generous vertical spacing
+- Balanced card widths
+- Clear separation between the two questions
+- Consistent alignment with the global header and footer containers
+
+Reduce any excessive empty space below the selection cards by ensuring the footer follows naturally after the content.
+
+The page should still have comfortable white space but should not appear unfinished.
+
+==================================================
+8. FOOTER
+==================================================
+
+Add the existing GlobalFooter to the `/start` page and all onboarding routes.
+
+Include:
+
+- TomorrowOS name or logo
+- Quickstart
+- Documentation
+- GitHub
+- Privacy Policy
+- Terms of Service
+- Cookie Settings
+- Current copyright year
+
+Use the existing central configuration.
+
+Do not duplicate footer content inside onboarding components.
+
+==================================================
+9. DETAILED ONBOARDING ROUTES
+==================================================
+
+Once the user enters Guided Setup, Terminal, Server SDK or API Integration:
+
+- Retain the global website header.
+- Retain the context breadcrumb.
+- Retain the global footer.
+- Show the existing onboarding sidebar and active step content.
+- Collapse the large pathway-selection cards.
+- Add a small “Change pathway” action near the breadcrumb or step heading.
+
+Do not show the full “What are you building?” selector above every setup step.
+
+The detailed setup content should remain the dominant area of the page.
+
+==================================================
+10. MOBILE
+==================================================
+
+On mobile:
+
+- Use the real TomorrowOS mobile header.
+- Place the website navigation inside the hamburger menu.
+- Show a compact breadcrumb below the header.
+- Display Exit setup as a small text action.
+- Stack pathway cards vertically.
+- Make the Continue button full width.
+- Keep card touch targets large.
+- Prevent horizontal scrolling.
+- Use the existing compact step-navigation pattern once the setup begins.
+
+==================================================
+11. ACCESSIBILITY
+==================================================
+
+Ensure:
+
+- Cards are keyboard selectable.
+- Selection state is announced.
+- The Continue button has a clear accessible label.
+- Breadcrumbs use semantic navigation markup.
+- The active breadcrumb item is identified.
+- Exit setup is accessible by keyboard.
+- Mobile navigation retains focus trapping and Escape-key behaviour.
+- Header and footer links have visible focus states.
+
+==================================================
+12. ACCEPTANCE CRITERIA
+==================================================
+
+The refinement is complete only when:
+
+1. `/start` displays the TomorrowOS website header.
+2. `/start` displays the website footer.
+3. Prototype controls are hidden in normal mode.
+4. Prototype controls remain available in Review Mode.
+5. A breadcrumb/context bar appears below the header.
+6. Exit setup returns to `/quickstart`.
+7. The pathway cards remain interactive.
+8. Selected cards have an obvious state.
+9. A prominent Continue button appears after pathway selection.
+10. The Continue button opens the correct route.
+11. Detailed onboarding routes retain the global website shell.
+12. Detailed routes do not repeat the large selection interface.
+13. The layout remains centred and clean.
+14. Mobile navigation works.
+15. The page no longer feels like a detached prototype application.
+16. Existing onboarding progress and route behaviour remain intact.
+17. No TypeScript or runtime errors are introduced.
+
+Do not redesign the onboarding content.
+
+The final experience should feel like:
+
+TomorrowOS website
+→ Start building
+→ Choose a pathway
+→ Complete the interactive setup
+
+not:
+
+Website
+→ Separate prototype application.

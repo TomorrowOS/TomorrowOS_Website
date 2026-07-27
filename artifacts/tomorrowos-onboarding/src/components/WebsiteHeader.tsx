@@ -84,10 +84,15 @@ export function WebsiteHeader() {
             Explore
           </Link>
           <Link href="/quickstart" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Get Started
+            Quickstart
           </Link>
           
           <div className="flex items-center gap-4 ml-4">
+            {siteConfig.links.docs && (
+               <a href={siteConfig.links.docs.includes('{{') ? '#' : siteConfig.links.docs} target="_blank" rel="noopener noreferrer" className={cn("text-sm font-medium text-muted-foreground hover:text-foreground transition-colors", siteConfig.links.docs.includes('{{') && "opacity-50 pointer-events-none")}>
+                 {siteConfig.links.docs.includes('{{') ? <PlaceholderText value="PLACEHOLDER_DOCS_URL" fallback="Documentation" /> : 'Documentation'}
+               </a>
+            )}
             {showGithub && (
               <a 
                 href={hasGithub ? siteConfig.links.github : '#'}
@@ -99,7 +104,7 @@ export function WebsiteHeader() {
                 {hasGithub ? 'GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="GitHub" />}
               </a>
             )}
-            <Link href="/start" className="text-sm font-medium bg-foreground text-background px-4 py-2 rounded-md hover:bg-foreground/90 transition-colors">
+            <Link href="/start" className={cn("text-sm font-medium px-4 py-2 rounded-md transition-colors", location.startsWith('/start') || location.startsWith('/connect') || location.startsWith('/guides') ? "bg-black text-white hover:bg-black/90" : "bg-foreground text-background hover:bg-foreground/90")}>
               Start building
             </Link>
           </div>
@@ -138,8 +143,18 @@ export function WebsiteHeader() {
               Explore
             </Link>
             <Link href="/quickstart" className="text-lg font-medium text-foreground py-2 border-b border-border/50">
-              Get Started
+              Quickstart
             </Link>
+            {siteConfig.links.docs && (
+              <a 
+                href={siteConfig.links.docs.includes('{{') ? '#' : siteConfig.links.docs} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={cn("text-lg font-medium text-foreground py-2 border-b border-border/50 flex items-center", siteConfig.links.docs.includes('{{') && "opacity-50 pointer-events-none")}
+              >
+                {siteConfig.links.docs.includes('{{') ? <PlaceholderText value="PLACEHOLDER_DOCS_URL" fallback="Documentation" /> : 'Documentation'}
+              </a>
+            )}
             {showGithub && (
               <a 
                 href={hasGithub ? siteConfig.links.github : '#'}
@@ -151,7 +166,7 @@ export function WebsiteHeader() {
                 {hasGithub ? 'GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="GitHub" />}
               </a>
             )}
-            <Link href="/start" className="mt-8 flex justify-center text-base font-medium bg-foreground text-background px-4 py-3 rounded-md hover:bg-foreground/90 transition-colors">
+            <Link href="/start" className={cn("mt-8 flex justify-center text-base font-medium px-4 py-3 rounded-md transition-colors", location.startsWith('/start') || location.startsWith('/connect') || location.startsWith('/guides') ? "bg-black text-white hover:bg-black/90" : "bg-foreground text-background hover:bg-foreground/90")}>
               Start building
             </Link>
           </nav>

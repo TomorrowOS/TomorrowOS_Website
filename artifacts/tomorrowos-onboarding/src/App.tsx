@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
+import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { PrototypeProvider } from './components/PrototypeProvider';
-import { SharedLayout } from './components/SharedLayout';
 import { WebsiteLayout } from './components/WebsiteLayout';
 import Start from './pages/Start';
 import GuideSupabase from './pages/GuideSupabase';
@@ -24,27 +23,14 @@ import CookieSettings from './pages/CookieSettings';
 const queryClient = new QueryClient();
 
 function Router() {
-  const [location] = useLocation();
-
-  const isWebsiteRoute = ['/', '/quickstart', '/privacy', '/terms', '/cookie-settings'].includes(location);
-
-  if (isWebsiteRoute) {
-    return (
-      <WebsiteLayout>
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/quickstart" component={Quickstart} />
-          <Route path="/privacy" component={Privacy} />
-          <Route path="/terms" component={Terms} />
-          <Route path="/cookie-settings" component={CookieSettings} />
-        </Switch>
-      </WebsiteLayout>
-    );
-  }
-
   return (
-    <SharedLayout>
+    <WebsiteLayout>
       <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/quickstart" component={Quickstart} />
+        <Route path="/privacy" component={Privacy} />
+        <Route path="/terms" component={Terms} />
+        <Route path="/cookie-settings" component={CookieSettings} />
         <Route path="/start" component={Start} />
         <Route path="/start/guided" component={Start} />
         <Route path="/start/guided/replit" component={Start} />
@@ -65,7 +51,7 @@ function Router() {
         <Route path="/compatibility" component={Compatibility} />
         <Route component={NotFound} />
       </Switch>
-    </SharedLayout>
+    </WebsiteLayout>
   );
 }
 

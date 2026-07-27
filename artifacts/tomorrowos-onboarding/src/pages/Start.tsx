@@ -13,6 +13,7 @@ import { ApiJourney } from '@/components/ApiJourney';
 import { Menu, X, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { onboardingPaths } from '@/lib/onboardingPaths';
 import { cn } from '@/lib/utils';
+import { OnboardingContextBar } from '@/components/OnboardingContextBar';
 
 export default function Start() {
   const { state, updateState } = usePrototype();
@@ -20,6 +21,19 @@ export default function Start() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showSwitchConfirm, setShowSwitchConfirm] = useState(false);
   const [pendingRoute, setPendingRoute] = useState<string | null>(null);
+  const [selectedPathway, setSelectedPathway] = useState<string | null>(null);
+
+  const cardKeyHandler = (action: () => void) => (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      action();
+    }
+  };
+
+  // Clear selected pathway if project type changes
+  useEffect(() => {
+    setSelectedPathway(null);
+  }, [state.projectType]);
 
   useEffect(() => {
     if (location === onboardingPaths.newProject.replit) {
@@ -62,30 +76,43 @@ export default function Start() {
     location !== onboardingPaths.existingProject.api
   ) {
     return (
-      <div className="flex flex-col mx-auto max-w-4xl px-4 py-12 animate-in fade-in duration-500">
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">What are you building?</h1>
-        <p className="text-gray-500 text-center mb-12 max-w-2xl mx-auto">
-          Choose whether you are creating a new signage product or adding TomorrowOS to an existing application.
-        </p>
+      <>
+        <OnboardingContextBar />
+        <div className="flex flex-col mx-auto max-w-[960px] px-4 py-12 animate-in fade-in duration-500">
+          <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">What are you building?</h1>
+          <p className="text-gray-500 text-center max-w-2xl mx-auto">
+            Choose whether you are creating a new signage product or adding TomorrowOS to an existing application.
+          </p>
+          <p className="text-sm text-gray-400 text-center mb-12 mt-2">
+            Choose a path below. You can return and change your selection before beginning setup.
+          </p>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          <Card 
-            className={`cursor-pointer transition-all ${state.projectType === 'new' ? 'border-black ring-1 ring-black bg-gray-50' : 'hover:border-gray-400'}`}
-            onClick={() => updateState({ projectType: 'new' })}
-          >
-            <CardContent className="p-8">
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-gray-900">Start a new project</h3>
-                {state.projectType === 'new' && <CheckCircle2 className="w-6 h-6 text-black" />}
-              </div>
-              <p className="text-gray-600">Create a new signage product from a TomorrowOS starter.</p>
-            </CardContent>
-          </Card>
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
+            <Card 
+              className={cn("cursor-pointer transition-all", state.projectType === 'new' ? 'border-black ring-1 ring-black bg-gray-50' : 'hover:border-gray-400 bg-white border-border')}
+              onClick={() => updateState({ projectType: 'new' })}
+              onKeyDown={cardKeyHandler(() => updateState({ projectType: 'new' }))}
+              role="button"
+              tabIndex={0}
+              aria-pressed={state.projectType === 'new'}
+            >
+              <CardContent className="p-8">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-xl font-bold text-gray-900">Start a new project</h3>
+                  {state.projectType === 'new' && <CheckCircle2 className="w-6 h-6 text-black" />}
+                </div>
+                <p className="text-gray-600">Create a new signage product from a TomorrowOS starter.</p>
+              </CardContent>
+            </Card>
 
-          <Card 
-            className={`cursor-pointer transition-all ${state.projectType === 'existing' ? 'border-black ring-1 ring-black bg-gray-50' : 'hover:border-gray-400'}`}
-            onClick={() => updateState({ projectType: 'existing' })}
-          >
+            <Card 
+              className={cn("cursor-pointer transition-all", state.projectType === 'existing' ? 'border-black ring-1 ring-black bg-gray-50' : 'hover:border-gray-400 bg-white border-border')}
+              onClick={() => updateState({ projectType: 'existing' })}
+              onKeyDown={cardKeyHandler(() => updateState({ projectType: 'existing' }))}
+              role="button"
+              tabIndex={0}
+              aria-pressed={state.projectType === 'existing'}
+            >
             <CardContent className="p-8">
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl font-bold text-gray-900">Connect an existing project</h3>
@@ -103,11 +130,18 @@ export default function Start() {
             
             <div className="grid md:grid-cols-2 gap-6">
               <Card 
-                className="cursor-pointer hover:border-gray-400 transition-all flex flex-col"
-                onClick={() => setLocation(onboardingPaths.newProject.guidedChoose)}
+                className={cn("cursor-pointer transition-all flex flex-col", selectedPathway === onboardingPaths.newProject.guidedChoose ? 'border-black ring-1 ring-black bg-gray-50' : 'hover:border-gray-400 bg-white border-border')}
+                onClick={() => setSelectedPathway(onboardingPaths.newProject.guidedChoose)}
+                onKeyDown={cardKeyHandler(() => setSelectedPathway(onboardingPaths.newProject.guidedChoose))}
+                role="button"
+                tabIndex={0}
+                aria-pressed={selectedPathway === onboardingPaths.newProject.guidedChoose}
               >
                 <CardContent className="p-8 flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">GUIDED SETUP</h3>
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold text-gray-900">GUIDED SETUP</h3>
+                    {selectedPathway === onboardingPaths.newProject.guidedChoose && <CheckCircle2 className="w-6 h-6 text-black" />}
+                  </div>
                   <p className="text-gray-600 mb-6">Use AI-assisted and guided tools to create your CMS.</p>
                   <ul className="space-y-2 text-sm text-gray-700 mb-6">
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-black shrink-0" /> AI builders</li>
@@ -116,17 +150,24 @@ export default function Start() {
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-black shrink-0" /> Managed publishing</li>
                   </ul>
                   <div className="mt-auto flex items-center text-sm font-medium hover:underline">
-                    Get started <ArrowRight className="w-4 h-4 ml-1" />
+                    Learn more <ArrowRight className="w-4 h-4 ml-1" />
                   </div>
                 </CardContent>
               </Card>
 
               <Card 
-                className="cursor-pointer hover:border-gray-400 transition-all flex flex-col"
-                onClick={() => setLocation(onboardingPaths.newProject.terminal)}
+                className={cn("cursor-pointer transition-all flex flex-col", selectedPathway === onboardingPaths.newProject.terminal ? 'border-black ring-1 ring-black bg-gray-50' : 'hover:border-gray-400 bg-white border-border')}
+                onClick={() => setSelectedPathway(onboardingPaths.newProject.terminal)}
+                onKeyDown={cardKeyHandler(() => setSelectedPathway(onboardingPaths.newProject.terminal))}
+                role="button"
+                tabIndex={0}
+                aria-pressed={selectedPathway === onboardingPaths.newProject.terminal}
               >
                 <CardContent className="p-8 flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">TERMINAL</h3>
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold text-gray-900">TERMINAL</h3>
+                    {selectedPathway === onboardingPaths.newProject.terminal && <CheckCircle2 className="w-6 h-6 text-black" />}
+                  </div>
                   <p className="text-gray-600 mb-6">Use the TomorrowOS CLI in your local development environment.</p>
                   <ul className="space-y-2 text-sm text-gray-700 mb-6">
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-black shrink-0" /> TomorrowOS CLI</li>
@@ -135,7 +176,7 @@ export default function Start() {
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-black shrink-0" /> Deploy to your chosen supported host</li>
                   </ul>
                   <div className="mt-auto flex items-center text-sm font-medium hover:underline">
-                    Get started <ArrowRight className="w-4 h-4 ml-1" />
+                    Learn more <ArrowRight className="w-4 h-4 ml-1" />
                   </div>
                 </CardContent>
               </Card>
@@ -150,105 +191,89 @@ export default function Start() {
             
             <div className="grid md:grid-cols-2 gap-6">
               <Card 
-                className="cursor-pointer hover:border-gray-400 transition-all flex flex-col"
-                onClick={() => setLocation(onboardingPaths.existingProject.serverSdk)}
+                className={cn("cursor-pointer transition-all flex flex-col", selectedPathway === onboardingPaths.existingProject.serverSdk ? 'border-black ring-1 ring-black bg-gray-50' : 'hover:border-gray-400 bg-white border-border')}
+                onClick={() => setSelectedPathway(onboardingPaths.existingProject.serverSdk)}
+                onKeyDown={cardKeyHandler(() => setSelectedPathway(onboardingPaths.existingProject.serverSdk))}
+                role="button"
+                tabIndex={0}
+                aria-pressed={selectedPathway === onboardingPaths.existingProject.serverSdk}
               >
                 <CardContent className="p-8 flex-1">
-                  <div className="inline-block bg-gray-100 text-xs font-semibold px-2 py-1 rounded mb-4">Recommended for Node.js backends</div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">SERVER SDK</h3>
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <div className="inline-block bg-gray-200 text-xs font-semibold px-2 py-1 rounded mb-4">Recommended for Node.js backends</div>
+                      <h3 className="text-xl font-bold text-gray-900">SERVER SDK</h3>
+                    </div>
+                    {selectedPathway === onboardingPaths.existingProject.serverSdk && <CheckCircle2 className="w-6 h-6 text-black mt-2" />}
+                  </div>
                   <p className="text-gray-600 mb-6">Integrate TomorrowOS directly into your backend application.</p>
                   <div className="mt-auto flex items-center text-sm font-medium hover:underline">
-                    Get started <ArrowRight className="w-4 h-4 ml-1" />
+                    Learn more <ArrowRight className="w-4 h-4 ml-1" />
                   </div>
                 </CardContent>
               </Card>
 
               <Card 
-                className="cursor-pointer hover:border-gray-400 transition-all flex flex-col"
-                onClick={() => setLocation(onboardingPaths.existingProject.api)}
+                className={cn("cursor-pointer transition-all flex flex-col", selectedPathway === onboardingPaths.existingProject.api ? 'border-black ring-1 ring-black bg-gray-50' : 'hover:border-gray-400 bg-white border-border')}
+                onClick={() => setSelectedPathway(onboardingPaths.existingProject.api)}
+                onKeyDown={cardKeyHandler(() => setSelectedPathway(onboardingPaths.existingProject.api))}
+                role="button"
+                tabIndex={0}
+                aria-pressed={selectedPathway === onboardingPaths.existingProject.api}
               >
                 <CardContent className="p-8 flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">API INTEGRATION</h3>
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold text-gray-900">API INTEGRATION</h3>
+                    {selectedPathway === onboardingPaths.existingProject.api && <CheckCircle2 className="w-6 h-6 text-black" />}
+                  </div>
                   <p className="text-gray-600 mb-6">Connect your application using the TomorrowOS HTTP API.</p>
                   <div className="mt-auto flex items-center text-sm font-medium hover:underline">
-                    Get started <ArrowRight className="w-4 h-4 ml-1" />
+                    Learn more <ArrowRight className="w-4 h-4 ml-1" />
                   </div>
                 </CardContent>
               </Card>
             </div>
           </div>
         )}
+
+        {selectedPathway && (
+          <div className="mt-12 flex justify-center animate-in fade-in slide-in-from-bottom-2">
+            <Button 
+              size="lg" 
+              className="w-full md:w-auto min-w-[300px] text-lg font-medium bg-black text-white hover:bg-black/90"
+              onClick={() => setLocation(selectedPathway)}
+            >
+              Continue with {
+                selectedPathway === onboardingPaths.newProject.guidedChoose ? 'Guided Setup' : 
+                selectedPathway === onboardingPaths.newProject.terminal ? 'Terminal' : 
+                selectedPathway === onboardingPaths.existingProject.serverSdk ? 'Server SDK' : 'API Integration'
+              }
+            </Button>
+          </div>
+        )}
       </div>
+      </>
     );
   }
 
   if (location === onboardingPaths.newProject.guidedChoose) {
-    return <GuidedToolSelector onSelect={(path) => setLocation(path)} />;
+    return (
+      <>
+        <OnboardingContextBar />
+        <GuidedToolSelector onSelect={(path) => setLocation(path)} />
+      </>
+    );
   }
 
   // Detailed Journey Shell
   const isNewProject = location === onboardingPaths.newProject.replit || location === onboardingPaths.newProject.vercel || location === onboardingPaths.newProject.terminal;
-  const isExistingProject = location === onboardingPaths.existingProject.serverSdk || location === onboardingPaths.existingProject.api;
-  const isGuidedReplit = location === onboardingPaths.newProject.replit;
-  const isGuidedVercel = location === onboardingPaths.newProject.vercel;
-  const isServerSdk = location === onboardingPaths.existingProject.serverSdk;
-  
   const showSidebar = isNewProject || state.sharedStep > 0;
 
-  let breadcrumbLabel = "";
-  let switchTarget = "";
-  let switchLabel = "";
-
-  if (isNewProject) {
-    if (isGuidedReplit) {
-      breadcrumbLabel = `Start a new project › Guided setup › Replit`;
-      switchTarget = onboardingPaths.newProject.guidedChoose;
-      switchLabel = `Switch setup tool`;
-    } else if (isGuidedVercel) {
-      breadcrumbLabel = `Start a new project › Guided setup › Vercel`;
-      switchTarget = onboardingPaths.newProject.guidedChoose;
-      switchLabel = `Switch setup tool`;
-    } else {
-      breadcrumbLabel = `Start a new project › Terminal`;
-      switchTarget = onboardingPaths.newProject.guidedChoose;
-      switchLabel = `Switch to Guided Setup`;
-    }
-  } else if (isExistingProject) {
-    breadcrumbLabel = `Connect an existing project › ${isServerSdk ? 'Server SDK' : 'API Integration'}`;
-    switchTarget = isServerSdk ? onboardingPaths.existingProject.api : onboardingPaths.existingProject.serverSdk;
-    switchLabel = `Switch integration method`;
-  } else {
-    breadcrumbLabel = "Setup";
-  }
-
   return (
-    <div className="flex flex-col mx-auto max-w-[1050px] animate-in fade-in duration-500 relative px-4 md:px-0">
+    <>
+    <OnboardingContextBar />
+    <div className="flex flex-col mx-auto max-w-[1050px] animate-in fade-in duration-500 relative px-4 md:px-0 py-8">
       
-      {/* COMPACT BREADCRUMB */}
-      <div className="flex items-center justify-between py-4 mb-6 md:mb-8 border-b border-border">
-         <div className="text-sm font-medium text-gray-500 flex items-center">
-            {breadcrumbLabel}
-         </div>
-         <Button 
-            variant="outline" 
-            size="sm" 
-            className="text-xs h-8 hidden md:flex" 
-            onClick={() => handleSwitchClick(switchTarget)}
-         >
-            {switchLabel}
-         </Button>
-         {isNewProject && (
-           <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-8 w-8 md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-           >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-           </Button>
-         )}
-      </div>
-
       {showSwitchConfirm && (
         <div className="mb-6 p-4 border border-amber-200 bg-amber-50 rounded-md flex flex-col sm:flex-row justify-between items-center gap-4 animate-in fade-in">
           <p className="text-sm text-amber-900">
@@ -263,13 +288,29 @@ export default function Start() {
 
       {showSidebar ? (
         <div className="flex flex-col md:flex-row gap-6 md:gap-8 relative items-start">
+           {isNewProject && !mobileMenuOpen && (
+             <Button 
+                variant="outline" 
+                size="sm" 
+                className="md:hidden w-full flex items-center justify-between mt-2"
+                onClick={() => setMobileMenuOpen(true)}
+             >
+                <span>View Steps</span>
+                <Menu className="w-4 h-4" />
+             </Button>
+           )}
            {/* SIDEBAR */}
            <aside className={`md:block w-full md:w-[240px] shrink-0 md:sticky md:top-24 z-40 bg-background md:bg-transparent ${mobileMenuOpen ? 'block absolute top-0 left-0 right-0 p-4 border rounded-xl shadow-lg mt-14' : 'hidden'}`}>
               <div className="md:hidden flex justify-between items-center mb-4">
                 <h3 className="font-bold">Steps</h3>
-                {switchTarget && (
-                  <Button variant="outline" size="sm" onClick={() => handleSwitchClick(switchTarget)}>
-                    {switchLabel}
+                {isNewProject && (
+                  <Button 
+                     variant="ghost" 
+                     size="icon" 
+                     className="h-8 w-8"
+                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  >
+                     <X className="w-5 h-5" />
                   </Button>
                 )}
               </div>
@@ -288,6 +329,7 @@ export default function Start() {
       )}
       
     </div>
+    </>
   );
 }
 
