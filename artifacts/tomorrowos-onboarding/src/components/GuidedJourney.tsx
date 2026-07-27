@@ -7,9 +7,10 @@ import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
 import { ServiceConnectionCard } from './ServiceConnectionCard';
 import { PLACEHOLDERS } from '@/lib/constants';
 import { useLocation } from 'wouter';
-import { StatusBadge } from './StatusBadge';
-import { CheckCircle2, ChevronDown, ChevronUp, AlertCircle } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { CheckCircle2, ChevronDown, ChevronUp, AlertCircle, Check } from 'lucide-react';
+import { cn, isValidHttpsUrl } from '@/lib/utils';
+import { StepHeader } from './StepHeader';
+import { StepFooter } from './StepFooter';
 
 export function GuidedJourney() {
   const { state } = usePrototype();
@@ -38,72 +39,79 @@ function GuidedStep1() {
   const [helpOpen, setHelpOpen] = useState(false);
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Before you begin</h2>
-        <p className="text-gray-600">
-          You will use Replit, Supabase and Cloudinary during setup. Keep this TomorrowOS guide open and open each service in a separate browser tab.
-        </p>
-      </div>
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-full">
+      <StepHeader 
+        title="Before you begin" 
+        description="Prepare the accounts and services needed to build your TomorrowOS CMS."
+      />
 
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-2 gap-4 mb-6">
         <Card>
           <CardContent className="p-5">
             <h4 className="font-semibold text-gray-900">TomorrowOS</h4>
-            <p className="text-sm text-gray-500 mt-1">Provides the device, playback and signage foundation.</p>
+            <p className="text-sm text-gray-500 font-medium mb-1">Signage foundation</p>
+            <p className="text-sm text-gray-600">Device communication, playback and pairing.</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-[#F26207]">Replit</h4>
-            <p className="text-sm text-gray-500 mt-1">Builds, previews and hosts your CMS.</p>
+            <h4 className="font-semibold text-gray-900">Replit</h4>
+            <p className="text-sm text-gray-500 font-medium mb-1">Build and hosting</p>
+            <p className="text-sm text-gray-600">Creates, previews and publishes your CMS.</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-[#3ECF8E]">Supabase</h4>
-            <p className="text-sm text-gray-500 mt-1">Provides your CMS database.</p>
+            <h4 className="font-semibold text-gray-900">Supabase</h4>
+            <p className="text-sm text-gray-500 font-medium mb-1">Database</p>
+            <p className="text-sm text-gray-600">Stores CMS content and application data.</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5">
-            <h4 className="font-semibold text-[#3448C5]">Cloudinary</h4>
-            <p className="text-sm text-gray-500 mt-1">Stores and delivers images and videos.</p>
+            <h4 className="font-semibold text-gray-900">Cloudinary</h4>
+            <p className="text-sm text-gray-500 font-medium mb-1">Media storage</p>
+            <p className="text-sm text-gray-600">Stores and delivers images and videos.</p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="bg-gray-50 rounded-lg p-5 border border-border">
-        <h4 className="font-medium text-gray-900 mb-3">Requirements:</h4>
-        <ul className="list-disc pl-5 space-y-1 text-sm text-gray-600">
-          <li>Replit account</li>
-          <li>Supabase account</li>
-          <li>Cloudinary account</li>
-          <li>Approximately 15–20 minutes</li>
-          <li>Email access for account verification</li>
+      <div className="bg-gray-50 rounded-lg p-5 border border-border mb-6">
+        <h4 className="font-medium text-gray-900 mb-3">What you need</h4>
+        <ul className="space-y-2 text-sm text-gray-600 mb-4">
+          <li className="flex items-center gap-2"><Check className="w-4 h-4 text-gray-400" /> Replit account</li>
+          <li className="flex items-center gap-2"><Check className="w-4 h-4 text-gray-400" /> Supabase account</li>
+          <li className="flex items-center gap-2"><Check className="w-4 h-4 text-gray-400" /> Cloudinary account</li>
+          <li className="flex items-center gap-2"><Check className="w-4 h-4 text-gray-400" /> Approximately 15–20 minutes</li>
         </ul>
+        <p className="text-sm text-gray-500 italic">You can create each account during this setup.</p>
       </div>
 
-      <div className="flex flex-wrap gap-3">
-        <Button onClick={goToNextStep}>Open Replit</Button>
-        <Button variant="secondary" onClick={() => setLocation('/guides/supabase')}>Open Supabase guide</Button>
-        <Button variant="secondary" onClick={() => setLocation('/guides/cloudinary')}>Open Cloudinary guide</Button>
+      <div className="flex flex-col sm:flex-row gap-3 mb-8">
+        <Button variant="outline" onClick={() => setLocation('/guides/supabase')}>View Supabase guide</Button>
+        <Button variant="outline" onClick={() => setLocation('/guides/cloudinary')}>View Cloudinary guide</Button>
       </div>
 
-      <Card className="mt-8">
+      <div className="bg-white border border-border rounded-md mb-8">
         <button 
-          className="w-full flex items-center justify-between p-4 text-left font-medium text-gray-900 hover:bg-gray-50"
+          className="w-full flex items-center justify-between p-4 text-left font-medium text-sm text-gray-900 hover:bg-gray-50 transition-colors"
           onClick={() => setHelpOpen(!helpOpen)}
         >
-          Why are three services needed?
-          {helpOpen ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
+          Why are these services needed?
+          <span className="text-xs text-gray-500 font-normal flex items-center gap-1">
+            Learn more {helpOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+          </span>
         </button>
         {helpOpen && (
-          <div className="px-4 pb-4 text-sm text-gray-600 border-t border-border pt-4">
-            TomorrowOS provides the signage foundation. Replit builds and hosts the CMS. Supabase stores CMS data. Cloudinary stores media.
+          <div className="px-4 pb-4 text-sm text-gray-600 border-t border-border pt-4 bg-gray-50/50">
+            TomorrowOS powers the signage layer. Replit hosts the CMS, Supabase stores its data and Cloudinary stores its media.
           </div>
         )}
-      </Card>
+      </div>
+
+      <div className="mt-auto">
+        <StepFooter continueLabel="Continue to Replit" showBack={false} />
+      </div>
     </div>
   );
 }
@@ -115,26 +123,26 @@ function GuidedStep2() {
   const { goToNextStep } = usePrototype();
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Sign in or create your Replit account</h2>
-        <p className="text-gray-600">
-          Replit will create, preview and publish your TomorrowOS CMS.
-        </p>
-      </div>
-
-      <ScreenshotPlaceholder 
-        id="[IMAGE PLACEHOLDER — REPLIT SIGN-IN SCREEN]" 
-        description="Show the Replit authentication page"
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
+      <StepHeader 
+        title="Open Replit" 
+        description="Sign in or create your Replit account to build and host your TomorrowOS CMS."
       />
 
-      <div className="bg-gray-50 p-4 rounded-md border border-border text-sm text-gray-600">
-        <span className="font-medium text-gray-900">Note:</span> Keep this TomorrowOS page open. Replit will open in a new tab.
+      <div className="mb-6">
+        <Button onClick={() => window.open('https://replit.com', '_blank')} className="mb-6">Open Replit in new tab</Button>
+        <ScreenshotPlaceholder 
+          id="[IMAGE PLACEHOLDER — REPLIT SIGN-IN SCREEN]" 
+          description="Show the Replit authentication page"
+        />
       </div>
 
-      <div className="flex items-center gap-4">
-        <Button>Open Replit</Button>
-        <Button variant="tertiary" onClick={goToNextStep}>Already signed in? Continue</Button>
+      <div className="bg-gray-50 p-4 rounded-md border border-border text-sm text-gray-600 mb-8">
+        <span className="font-medium text-gray-900">Note:</span> Keep this TomorrowOS page open while you complete steps in Replit.
+      </div>
+
+      <div className="mt-auto">
+        <StepFooter continueLabel="I'm signed into Replit" />
       </div>
     </div>
   );
@@ -147,13 +155,13 @@ function GuidedStep3() {
   const { goToNextStep } = usePrototype();
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Create a new Replit project</h2>
-        <p className="text-gray-600">Paste this into the main Replit Agent message box.</p>
-      </div>
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
+      <StepHeader 
+        title="Create project" 
+        description="Paste this exact prompt into the main Replit Agent message box to begin setup."
+      />
 
-      <div className="bg-amber-50 border border-amber-200 rounded-md p-4 mb-4">
+      <div className="bg-amber-50 border border-amber-200 rounded-md p-4 mb-6">
         <p className="text-sm text-amber-900 m-0 font-medium">Do not paste it into:</p>
         <ul className="text-sm text-amber-800 list-disc pl-5 mt-1 space-y-0.5">
           <li>Shell</li>
@@ -172,11 +180,10 @@ function GuidedStep3() {
       
       <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — TOMORROWOS PROMPT SUBMITTED]" description="Prompt successfully entered" className="p-4 mb-6" />
 
-      <p className="text-sm text-gray-500">Tip: Choose Node.js if Replit asks you to select a project type.</p>
+      <p className="text-sm text-gray-500 mb-8">Tip: Choose Node.js if Replit asks you to select a project type.</p>
 
-      <div className="flex items-center gap-4 mt-6">
-        <Button variant="secondary">Open Replit</Button>
-        <Button onClick={goToNextStep}>I have sent the prompt</Button>
+      <div className="mt-auto">
+        <StepFooter continueLabel="I have sent the prompt" />
       </div>
     </div>
   );
@@ -189,19 +196,17 @@ function GuidedStep4() {
   const { goToNextStep } = usePrototype();
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Follow the prompts</h2>
-        <p className="text-gray-600">
-          Replit will ask the setup questions one at a time. Complete each question before the next one appears.
-        </p>
-      </div>
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
+      <StepHeader 
+        title="Follow prompts" 
+        description="Replit will ask the setup questions one at a time. Complete each question before the next one appears."
+      />
 
-      <div className="bg-blue-50 border border-blue-100 p-4 rounded-md">
+      <div className="bg-blue-50 border border-blue-100 p-4 rounded-md mb-6">
         <p className="text-sm text-blue-900 font-medium m-0">Important: The live Replit questions and this guide must use the same wording and order.</p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 mb-8">
         <div className="flex gap-4 items-stretch">
           <div className="w-8 shrink-0 flex flex-col items-center">
             <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">1</div>
@@ -262,7 +267,9 @@ function GuidedStep4() {
         </div>
       </div>
 
-      <Button onClick={goToNextStep} className="mt-4">I have completed the Replit questions</Button>
+      <div className="mt-auto">
+        <StepFooter continueLabel="I have answered all questions" />
+      </div>
     </div>
   );
 }
@@ -273,27 +280,30 @@ function GuidedStep4() {
 function GuidedStep5() {
   const { state, goToNextStep } = usePrototype();
 
-  const isReady = state.supabaseStatus === 'connected' && state.cloudinaryStatus === 'connected';
+  const isReady = state.supabaseStatus === 'confirmed' && state.cloudinaryStatus === 'confirmed';
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect Supabase and Cloudinary</h2>
-        <p className="text-gray-600">
-          Your CMS needs a database and media storage before it can be previewed or published.
-        </p>
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
+      <StepHeader 
+        title="Connect services" 
+        description="Your CMS needs a database and media storage before it can be previewed or published."
+      />
+
+      <div className="bg-gray-50 p-4 rounded-md border border-border text-sm text-gray-600 mb-6">
+        TomorrowOS does not access or store your database or media-storage credentials. Keep your keys secure inside Replit Secrets.
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
         <ServiceConnectionCard service="supabase" />
         <ServiceConnectionCard service="cloudinary" />
       </div>
 
-      <div className="pt-6 border-t border-border flex items-center justify-between">
-        <p className="text-sm text-gray-500">
-          {!isReady ? 'Connect both services to continue.' : 'Both services connected successfully.'}
-        </p>
-        <Button onClick={goToNextStep} disabled={!isReady}>Continue</Button>
+      <div className="mt-auto">
+        <StepFooter 
+          canContinue={isReady} 
+          blockedMessage={!isReady ? "Confirm Supabase and Cloudinary before continuing." : undefined}
+          continueLabel="Continue"
+        />
       </div>
     </div>
   );
@@ -307,13 +317,13 @@ function GuidedStep6() {
   const [, setLocation] = useLocation();
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Add your branding</h2>
-        <p className="text-gray-600">Replit will prompt you for your product's identity.</p>
-      </div>
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
+      <StepHeader 
+        title="Add branding" 
+        description="Replit will prompt you for your product's identity."
+      />
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
         {[
           "1. Product or venue name",
           "2. Tagline",
@@ -331,7 +341,7 @@ function GuidedStep6() {
         ))}
       </div>
 
-      <Card className="bg-blue-50 border-blue-100">
+      <Card className="bg-blue-50 border-blue-100 mb-6">
         <CardContent className="p-6">
           <h3 className="font-semibold text-blue-900 mb-2 mt-0">You will need your Cloudinary logo URL</h3>
           <p className="text-sm text-blue-800 mb-4">If you uploaded a logo:</p>
@@ -348,12 +358,18 @@ function GuidedStep6() {
         </CardContent>
       </Card>
 
-      <div className="bg-gray-50 p-4 rounded-md border border-border">
+      <div className="bg-gray-50 p-4 rounded-md border border-border mb-6">
         <h4 className="font-medium text-gray-900 text-sm mb-1">No logo yet?</h4>
-        <p className="text-sm text-gray-600">Select Skip for now. You can add one later from your CMS.</p>
+        <p className="text-sm text-gray-600">The logo URL is optional. Select Skip for now. You can add one later from your CMS.</p>
       </div>
 
-      <Button onClick={goToNextStep} className="mt-4">Branding added</Button>
+      <div className="mb-8">
+        <Button variant="outline" onClick={() => window.open('https://replit.com', '_blank')}>Open Replit</Button>
+      </div>
+
+      <div className="mt-auto">
+        <StepFooter continueLabel="I completed the branding questions" />
+      </div>
     </div>
   );
 }
@@ -364,67 +380,77 @@ function GuidedStep6() {
 function GuidedStep7() {
   const { state, updateState, goToNextStep } = usePrototype();
 
-  const handleSimulate = (status: 'success' | 'error') => {
-    updateState({ previewGenerationStatus: status });
-  };
+  const isReady = state.previewGenerationStatus === 'confirmed';
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Generate and preview your CMS</h2>
-        <p className="text-gray-600">Replit is now building your application.</p>
-      </div>
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
+      <StepHeader 
+        title="Generate and preview" 
+        description="Replit is now building your application. Follow the progress inside the Replit Agent tab."
+      />
 
-      <Card>
+      <Card className="mb-6">
         <CardContent className="p-6">
+          <h3 className="font-semibold text-gray-900 mb-4">What Replit should do next:</h3>
           <ul className="space-y-4">
             {[
-              { label: "Project files created", done: true },
-              { label: "TomorrowOS installed", done: true },
-              { label: "Supabase connected", done: state.previewGenerationStatus === 'success' },
-              { label: "Cloudinary connected", done: state.previewGenerationStatus === 'success' },
-              { label: "Branding applied", done: state.previewGenerationStatus === 'success' },
-              { label: "Example content created", done: state.previewGenerationStatus === 'success' },
-              { label: "CMS Preview running", done: state.previewGenerationStatus === 'success' }
-            ].map((item, i) => (
+              "Project files created",
+              "TomorrowOS installed",
+              "CMS Preview running",
+              "Supabase reported as connected",
+              "Cloudinary reported as connected",
+            ].map((label, i) => (
               <li key={i} className="flex items-center gap-3">
-                {item.done ? (
-                  <CheckCircle2 className="w-5 h-5 text-success shrink-0" />
-                ) : state.previewGenerationStatus === 'error' && i === 2 ? (
-                  <div className="w-5 h-5 rounded-full bg-destructive/20 flex items-center justify-center shrink-0">
-                    <div className="w-2 h-2 rounded-full bg-destructive"></div>
-                  </div>
-                ) : (
-                  <div className="w-5 h-5 rounded-full border-2 border-gray-200 shrink-0"></div>
-                )}
-                <span className={cn("text-sm", item.done ? "text-gray-900" : state.previewGenerationStatus === 'error' && i === 2 ? "text-destructive font-medium" : "text-gray-500")}>
-                  {item.label}
-                </span>
+                <div className="w-5 h-5 rounded border border-gray-300 flex items-center justify-center shrink-0"></div>
+                <span className="text-sm text-gray-700">{label}</span>
               </li>
             ))}
           </ul>
         </CardContent>
       </Card>
+      
+      <div className="bg-gray-50 border border-border p-4 rounded-md text-sm text-gray-600 mb-8">
+        <strong>Note:</strong> This checklist does not inspect your Replit project. Confirm each item inside Replit.
+      </div>
 
-      {state.previewGenerationStatus === 'error' && (
-        <Card className="border-destructive/50 bg-destructive/5">
-          <CardContent className="p-6">
-            <h3 className="font-semibold text-destructive mb-2">Supabase connection failed during preview</h3>
-            <p className="text-sm text-gray-700 mb-4">The preview server could not reach the database. Your password might be incorrect or the secret is missing.</p>
-            <div className="flex gap-3">
-              <Button variant="secondary" size="sm">Open Replit Secrets</Button>
-              <Button variant="outline" size="sm" onClick={() => handleSimulate('success')}>Retry preview</Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      <div className="mb-8">
+         <Button variant="outline" onClick={() => window.open('https://replit.com', '_blank')} className="w-full sm:w-auto">
+           Open Replit
+         </Button>
+      </div>
 
-      <div className="pt-6 border-t border-border flex items-center justify-between">
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => handleSimulate('error')}>Simulate Error</Button>
-          <Button variant="outline" size="sm" className="text-success border-success/30" onClick={() => handleSimulate('success')}>Simulate Success</Button>
-        </div>
-        <Button onClick={goToNextStep} disabled={state.previewGenerationStatus !== 'success'}>Continue</Button>
+      <div className="mt-auto flex flex-col gap-4">
+        {state.previewGenerationStatus === 'needs_help' && (
+           <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md">
+             <div className="font-medium text-amber-900 mb-1">Preview has an error?</div>
+             <p className="text-amber-800">Check the Replit console. Usually, this means Supabase credentials are missing or incorrect.</p>
+           </div>
+        )}
+        
+        {state.previewGenerationStatus === 'confirmed' && (
+           <div className="text-sm text-gray-600 bg-success/5 p-3 rounded-md border border-success/10 flex items-start gap-2">
+             <CheckCircle2 className="w-4 h-4 text-success mt-0.5 shrink-0" />
+             <div>
+               <span className="font-medium text-gray-900 block mb-1">Confirmed</span>
+               You confirmed the preview is working.
+             </div>
+           </div>
+        )}
+
+        {state.previewGenerationStatus === 'confirmed' ? (
+           <Button variant="outline" onClick={() => updateState({ previewGenerationStatus: 'not_started' })}>Undo confirmation</Button>
+        ) : (
+           <div className="flex gap-2">
+             <Button className="flex-1" onClick={() => updateState({ previewGenerationStatus: 'confirmed' })}>My preview is working</Button>
+             <Button variant="secondary" onClick={() => updateState({ previewGenerationStatus: 'needs_help' })}>My preview has an error</Button>
+           </div>
+        )}
+        
+        <StepFooter 
+          canContinue={isReady}
+          blockedMessage={!isReady ? "Confirm your preview is working before continuing." : undefined} 
+          continueLabel="Continue" 
+        />
       </div>
     </div>
   );
@@ -435,74 +461,69 @@ function GuidedStep7() {
 // ------------------------------------------
 function GuidedStep8() {
   const { state, updateState, goToNextStep } = usePrototype();
+  const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
 
-  const isReady = state.readinessStatus === 'success';
+  const isReady = state.readinessStatus === 'confirmed';
+
+  const toggleCheck = (index: number) => {
+    const next = new Set(checkedItems);
+    if (next.has(index)) next.delete(index);
+    else next.add(index);
+    setCheckedItems(next);
+  };
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Check your CMS before publishing</h2>
-        <p className="text-gray-600">This is a critical blocking step. Everything must be connected.</p>
-      </div>
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
+      <StepHeader 
+        title="Pre-publish checklist" 
+        description="Check your CMS before publishing. This is a critical blocking step. Everything must be connected."
+      />
 
-      <Card>
+      <Card className="mb-8">
         <CardContent className="p-6">
-          <div className="mb-6 flex items-center gap-3 pb-4 border-b border-border">
-            {isReady ? (
-              <CheckCircle2 className="w-8 h-8 text-success" />
-            ) : state.readinessStatus === 'error' ? (
-              <AlertCircle className="w-8 h-8 text-destructive" />
-            ) : (
-              <div className="w-8 h-8 rounded-full border-2 border-gray-200" />
-            )}
-            <div>
-              <h3 className="font-bold text-gray-900 text-lg">
-                {isReady ? 'Everything is connected' : state.readinessStatus === 'error' ? 'Your CMS is not ready to publish' : 'Checking readiness...'}
-              </h3>
-              <p className="text-sm text-gray-500">
-                {isReady ? 'Your CMS is ready to publish.' : 'Waiting for required checks.'}
-              </p>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-y-3 gap-x-8">
+          <div className="grid sm:grid-cols-2 gap-y-4 gap-x-8">
             {[
-              "CMS server running",
-              "Supabase connected",
-              "Cloudinary connected",
-              "Database initialised",
-              "Media upload tested",
-              "Required Secrets present",
-              "Preview opened successfully"
+              "Preview opens",
+              "CMS loads",
+              "Supabase reports connected",
+              "Cloudinary reports connected",
+              "Test media upload succeeds",
+              "No blocking errors appear"
             ].map((label, i) => (
-              <div key={i} className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">{label}</span>
-                {isReady ? (
-                  <span className="text-success text-xs font-medium">Passed</span>
-                ) : state.readinessStatus === 'error' && i === 2 ? (
-                  <span className="text-destructive text-xs font-medium">Failed</span>
-                ) : (
-                  <span className="text-gray-400 text-xs">Pending</span>
-                )}
-              </div>
+              <label key={i} className="flex items-start gap-3 cursor-pointer group">
+                <div className="mt-0.5 relative flex items-center justify-center w-5 h-5 border border-gray-300 rounded group-hover:border-gray-400">
+                   <input type="checkbox" className="peer absolute opacity-0" checked={checkedItems.has(i)} onChange={() => toggleCheck(i)} />
+                   <Check className={cn("w-3.5 h-3.5 text-black", checkedItems.has(i) ? "opacity-100" : "opacity-0")} />
+                </div>
+                <span className="text-sm text-gray-700 select-none">{label}</span>
+              </label>
             ))}
           </div>
-
-          {state.readinessStatus === 'error' && (
-            <div className="mt-6 flex flex-wrap gap-2">
-              <Button variant="secondary" size="sm">Fix Cloudinary</Button>
-              <Button variant="outline" size="sm" onClick={() => updateState({ readinessStatus: 'success' })}>Retry check</Button>
-            </div>
-          )}
         </CardContent>
       </Card>
 
-      <div className="pt-6 border-t border-border flex items-center justify-between">
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => updateState({ readinessStatus: 'error' })}>Simulate Error</Button>
-          <Button variant="outline" size="sm" className="text-success border-success/30" onClick={() => updateState({ readinessStatus: 'success' })}>Simulate Success</Button>
-        </div>
-        <Button onClick={goToNextStep} disabled={!isReady}>Continue to publishing</Button>
+      <div className="mt-auto flex flex-col gap-4">
+        {state.readinessStatus === 'confirmed' && (
+           <div className="text-sm text-gray-600 bg-success/5 p-3 rounded-md border border-success/10 flex items-start gap-2">
+             <CheckCircle2 className="w-4 h-4 text-success mt-0.5 shrink-0" />
+             <div>
+               <span className="font-medium text-gray-900 block mb-1">Confirmed</span>
+               You confirmed all checks.
+             </div>
+           </div>
+        )}
+
+        {state.readinessStatus === 'confirmed' ? (
+           <Button variant="outline" onClick={() => updateState({ readinessStatus: 'not_started' })}>Undo confirmation</Button>
+        ) : (
+           <Button onClick={() => updateState({ readinessStatus: 'confirmed' })}>All checks confirmed</Button>
+        )}
+
+        <StepFooter 
+          canContinue={isReady}
+          blockedMessage={!isReady ? "Confirm all checks before continuing." : undefined}
+          continueLabel="Continue to publishing" 
+        />
       </div>
     </div>
   );
@@ -512,15 +533,28 @@ function GuidedStep8() {
 // GUIDED STEP 9 — PUBLISH CMS
 // ------------------------------------------
 function GuidedStep9() {
-  const { goToNextStep } = usePrototype();
+  const { state, updateState, goToNextStep } = usePrototype();
+  const [url, setUrl] = useState(state.cmsUrl || '');
+  const [urlError, setUrlError] = useState('');
+
+  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUrl(e.target.value);
+    if (e.target.value && !isValidHttpsUrl(e.target.value)) {
+      setUrlError('URL must start with https://');
+    } else {
+      setUrlError('');
+      updateState({ cmsUrl: e.target.value });
+    }
+  };
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Publish your TomorrowOS CMS</h2>
-      </div>
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
+      <StepHeader 
+        title="Publish CMS" 
+        description="Deploy your application to production using Replit Publishing."
+      />
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div className="space-y-4">
           <h3 className="font-semibold text-gray-900">Instructions:</h3>
           <ol className="list-decimal pl-5 space-y-2 text-sm text-gray-600">
@@ -531,22 +565,40 @@ function GuidedStep9() {
             <li>Wait for publishing to finish.</li>
             <li>Open the public CMS URL.</li>
           </ol>
+          <div className="pt-4 flex flex-col gap-2">
+            <Button variant="outline" onClick={() => window.open('https://replit.com', '_blank')}>Open Replit Publishing</Button>
+            <Button variant="outline">View publishing instructions</Button>
+          </div>
         </div>
         <div className="space-y-4">
-          <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — REPLIT PUBLISHING PANEL]" description="" className="p-4" />
-          <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — PRODUCTION SECRETS]" description="" className="p-4" />
+          <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — REPLIT PUBLISHING PANEL]" description="Publishing panel" className="p-4" />
+          <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — PRODUCTION SECRETS]" description="Production secrets" className="p-4" />
         </div>
       </div>
 
-      <Card>
-        <CardContent className="p-6 text-center">
-          <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — SUCCESSFUL CMS URL]" description="" className="p-4 mb-4" />
-          <p className="text-sm text-gray-600 mb-3">Copy and save this URL. You will use it to access your CMS and continue setup.</p>
-          <CopyableText text="https://my-signage-app.replit.app" className="max-w-md mx-auto" />
+      <Card className="mb-8">
+        <CardContent className="p-6">
+          <label className="font-medium text-gray-900 block mb-2">Save your CMS link in this browser</label>
+          <p className="text-sm text-gray-500 mb-4">
+            Optional. This link is stored locally for onboarding convenience. TomorrowOS does not sign into, control or verify your CMS.
+          </p>
+          <input 
+            type="url" 
+            placeholder="https://my-signage-app.replit.app" 
+            className={cn(
+              "w-full max-w-md border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary",
+              urlError ? "border-destructive focus:ring-destructive" : "border-input"
+            )}
+            value={url}
+            onChange={handleUrlChange}
+          />
+          {urlError && <p className="text-xs text-destructive mt-2">{urlError}</p>}
         </CardContent>
       </Card>
 
-      <Button onClick={goToNextStep} className="mt-4">I have published my CMS</Button>
+      <div className="mt-auto">
+        <StepFooter continueLabel="I published my CMS" />
+      </div>
     </div>
   );
 }
@@ -556,69 +608,96 @@ function GuidedStep9() {
 // ------------------------------------------
 function GuidedStep10() {
   const { state, updateState, goToNextStep } = usePrototype();
-  const isReady = state.publishedStatus === 'success';
+  const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
+  const isReady = state.publishedStatus === 'confirmed';
+
+  const handleOpenCms = () => {
+    if (state.cmsUrl && isValidHttpsUrl(state.cmsUrl)) {
+      window.open(state.cmsUrl, '_blank');
+    } else {
+      alert("Please go back and save your valid CMS URL, or open it directly from Replit.");
+    }
+  };
+
+  const toggleCheck = (index: number) => {
+    const next = new Set(checkedItems);
+    if (next.has(index)) next.delete(index);
+    else next.add(index);
+    setCheckedItems(next);
+  };
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Confirm your published CMS</h2>
-        <p className="text-gray-600">We need to run simulated checks against the published application.</p>
-      </div>
+    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
+      <StepHeader 
+        title="Confirm your live CMS" 
+        description="Verify your published application is working correctly in production."
+      />
 
-      <Card>
+      <Card className="mb-6">
         <CardContent className="p-6">
-          <div className="mb-6 flex items-center gap-3 pb-4 border-b border-border">
-            {isReady ? (
-              <CheckCircle2 className="w-8 h-8 text-success" />
-            ) : state.publishedStatus === 'error' ? (
-              <AlertCircle className="w-8 h-8 text-destructive" />
-            ) : (
-              <div className="w-8 h-8 rounded-full border-2 border-gray-200" />
-            )}
-            <div>
-              <h3 className="font-bold text-gray-900 text-lg">
-                {isReady ? 'Your CMS is live and connected' : state.publishedStatus === 'error' ? 'Your CMS was published, but setup is incomplete' : 'Running production checks...'}
-              </h3>
+          <div className="mb-6">
+            <h3 className="font-semibold text-gray-900 mb-4">Production checklist:</h3>
+            <div className="grid sm:grid-cols-2 gap-y-4 gap-x-8">
+              {[
+                "Public CMS opens",
+                "CMS interface loads",
+                "Supabase reports connected",
+                "Cloudinary reports connected",
+                "Test media upload succeeds"
+              ].map((label, i) => (
+                <label key={i} className="flex items-start gap-3 cursor-pointer group">
+                  <div className="mt-0.5 relative flex items-center justify-center w-5 h-5 border border-gray-300 rounded group-hover:border-gray-400">
+                     <input type="checkbox" className="peer absolute opacity-0" checked={checkedItems.has(i)} onChange={() => toggleCheck(i)} />
+                     <Check className={cn("w-3.5 h-3.5 text-black", checkedItems.has(i) ? "opacity-100" : "opacity-0")} />
+                  </div>
+                  <span className="text-sm text-gray-700 select-none">{label}</span>
+                </label>
+              ))}
             </div>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-y-3 gap-x-8">
-            {[
-              "Published CMS responding",
-              "Supabase connected",
-              "Cloudinary connected",
-              "Media upload successful",
-              "CMS login available"
-            ].map((label, i) => (
-              <div key={i} className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">{label}</span>
-                {isReady ? (
-                  <span className="text-success text-xs font-medium">Passed</span>
-                ) : state.publishedStatus === 'error' && i === 1 ? (
-                  <span className="text-destructive text-xs font-medium">Failed</span>
-                ) : (
-                  <span className="text-gray-400 text-xs">Pending</span>
-                )}
-              </div>
-            ))}
+          
+          <div className="bg-gray-50 border border-border p-4 rounded-md text-sm text-gray-600">
+             <strong>Note:</strong> Check these items inside your live CMS. TomorrowOS does not verify them for you.
           </div>
-
-          {state.publishedStatus === 'error' && (
-            <div className="mt-6 flex flex-wrap gap-2">
-              <Button variant="secondary" size="sm">Open Publishing Secrets</Button>
-              <Button variant="secondary" size="sm">Fix Supabase</Button>
-              <Button variant="outline" size="sm" onClick={() => updateState({ publishedStatus: 'success' })}>Retry production check</Button>
-            </div>
-          )}
         </CardContent>
       </Card>
 
-      <div className="pt-6 border-t border-border flex items-center justify-between">
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => updateState({ publishedStatus: 'error' })}>Simulate Error</Button>
-          <Button variant="outline" size="sm" className="text-success border-success/30" onClick={() => updateState({ publishedStatus: 'success' })}>Simulate Success</Button>
-        </div>
-        <Button onClick={goToNextStep} disabled={!isReady}>Continue to device pairing</Button>
+      <div className="mb-8">
+         <Button variant="outline" onClick={handleOpenCms}>Open your CMS</Button>
+      </div>
+
+      <div className="mt-auto flex flex-col gap-4">
+        {state.publishedStatus === 'needs_help' && (
+           <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md">
+             <div className="font-medium text-amber-900 mb-1">Something is not working?</div>
+             <p className="text-amber-800">Ensure your Replit production Secrets match your local environment variables.</p>
+           </div>
+        )}
+        
+        {state.publishedStatus === 'confirmed' && (
+           <div className="text-sm text-gray-600 bg-success/5 p-3 rounded-md border border-success/10 flex items-start gap-2">
+             <CheckCircle2 className="w-4 h-4 text-success mt-0.5 shrink-0" />
+             <div>
+               <span className="font-medium text-gray-900 block mb-1">Confirmed</span>
+               You confirmed the live CMS is fully operational.
+             </div>
+           </div>
+        )}
+
+        {state.publishedStatus === 'confirmed' ? (
+           <Button variant="outline" onClick={() => updateState({ publishedStatus: 'not_started' })}>Undo confirmation</Button>
+        ) : (
+           <div className="flex gap-2">
+             <Button className="flex-1" onClick={() => updateState({ publishedStatus: 'confirmed' })}>Everything is working</Button>
+             <Button variant="secondary" onClick={() => updateState({ publishedStatus: 'needs_help' })}>Something is not working</Button>
+           </div>
+        )}
+
+        <StepFooter 
+          canContinue={isReady}
+          blockedMessage={!isReady ? "Confirm your live CMS is working before continuing." : undefined}
+          continueLabel="Continue to device pairing" 
+        />
       </div>
     </div>
   );

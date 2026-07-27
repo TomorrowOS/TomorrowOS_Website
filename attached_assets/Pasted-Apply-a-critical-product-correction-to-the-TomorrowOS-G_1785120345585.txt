@@ -1,0 +1,300 @@
+Apply a critical product correction to the TomorrowOS Guided Setup MVP.
+
+The public TomorrowOS onboarding experience is a guided instructional journey. It is not currently integrated with Replit, Supabase, Cloudinary, the generated CMS or physical TomorrowOS players.
+
+Audit every screen, button, field, status and success message.
+
+The customer-facing prototype must never imply that TomorrowOS can:
+
+- Read Replit progress
+- Access Replit Secrets
+- Test Supabase
+- Test Cloudinary
+- Generate the CMS
+- Publish through Replit
+- Detect the published CMS status
+- Retrieve a player pairing code
+- Pair a device
+- Detect a device online
+- Create or deploy content
+
+Unless a genuine integration has been implemented, these actions happen externally.
+
+Use the following interaction model:
+
+1. TomorrowOS explains the action.
+2. TomorrowOS shows screenshots and exact instructions.
+3. TomorrowOS provides a link to the external destination.
+4. The user completes the action externally.
+5. The user returns and marks the guide step complete.
+
+Allowed customer-facing interactions:
+
+- Step navigation
+- Copy prompt
+- Copy commands and variable names
+- Open Replit
+- Open Supabase and Cloudinary guides
+- Open the user’s CMS
+- Expand help content
+- Mark a step complete
+- Mark that the user is stuck
+- Save non-sensitive guide progress locally
+- Optionally save the published CMS URL locally
+
+Do not collect or store:
+
+- Supabase connection strings
+- Database passwords
+- Cloudinary API keys
+- Cloudinary API secrets
+- Replit Secrets
+- Pairing codes
+
+Replace automated-looking connection statuses with user-confirmed states.
+
+Use:
+
+- Not started
+- In progress
+- You confirmed this step
+- Needs help
+
+Do not use:
+
+- Connected
+- Healthy
+- Verified
+- Online
+- Passed
+
+unless TomorrowOS actually verifies the state.
+
+STEP-SPECIFIC CHANGES
+
+OPEN REPLIT
+
+Use:
+- Open Replit
+- I’m signed in
+
+Do not simulate account connection.
+
+CREATE PROJECT
+
+Use:
+- Copy prompt
+- Open Replit
+- I submitted the prompt
+
+FOLLOW PROMPTS
+
+Display instructional screenshots only.
+
+Use:
+- I completed the Replit questions
+
+Do not make the Replit questions answerable inside TomorrowOS.
+
+CONNECT SERVICES
+
+Do not collect credentials.
+
+For Supabase provide:
+- Open Supabase guide
+- Open Replit
+- I confirmed Supabase is connected
+- I’m stuck
+
+For Cloudinary provide:
+- Open Cloudinary guide
+- Open Replit
+- I confirmed Cloudinary is connected
+- I’m stuck
+
+Show:
+“TomorrowOS does not access or store your database or media-storage credentials.”
+
+ADD BRANDING
+
+Display the questions users should expect inside Replit.
+
+Use:
+- Open Replit
+- I completed the branding questions
+
+The logo URL remains optional.
+
+GENERATE AND PREVIEW
+
+Replace animated automatic generation with:
+“What Replit should do next”
+
+Show an instructional checklist:
+- Project files created
+- TomorrowOS installed
+- CMS Preview running
+- Supabase reported as connected
+- Cloudinary reported as connected
+
+Use:
+- Open Replit
+- My preview is working
+- My preview has an error
+
+Add:
+“This checklist does not inspect your Replit project. Confirm each item inside Replit.”
+
+READINESS CHECK
+
+Rename:
+Pre-publish checklist
+
+Use manual checkboxes:
+- Preview opens
+- CMS loads
+- Supabase reports connected
+- Cloudinary reports connected
+- Test media upload succeeds
+- No blocking errors appear
+
+Use:
+“All checks confirmed”
+
+Do not say:
+“All systems healthy”
+
+PUBLISH CMS
+
+The publishing action happens inside Replit.
+
+Use:
+- Open Replit Publishing
+- View publishing instructions
+- I published my CMS
+
+Remove any TomorrowOS button labelled:
+Publish CMS
+
+CMS URL
+
+Allow the user optionally to paste the public CMS URL copied from Replit.
+
+Label:
+“Save your CMS link in this browser”
+
+Add:
+“Optional. This link is stored locally for onboarding convenience. TomorrowOS does not sign into, control or verify your CMS.”
+
+Only validate that it is a valid HTTPS URL.
+
+PRODUCTION CHECK
+
+Rename:
+Confirm your live CMS
+
+Use manual confirmation items:
+- Public CMS opens
+- CMS interface loads
+- Supabase reports connected
+- Cloudinary reports connected
+- Test media upload succeeds
+
+Use:
+- Open your CMS
+- Everything is working
+- Something is not working
+
+DOWNLOAD PLAYERS
+
+The player download occurs inside the CMS.
+
+Use:
+- Open your CMS
+- View platform guide
+- I downloaded the player
+
+INSTALL PLAYER
+
+Use instructional content and:
+- The player is installed and showing a pairing code
+
+PAIR DEVICE
+
+Completely rebuild this screen.
+
+Heading:
+Pair your device in your CMS
+
+Copy:
+“The pairing code appears on the screen running the TomorrowOS player. This guide does not connect the device directly. Enter the code inside your published CMS.”
+
+Show two instructional screenshot placeholders:
+
+1. TomorrowOS player showing a pairing code
+Caption:
+“Your pairing code appears on the connected screen.”
+
+2. CMS Pair a device page
+Caption:
+“Enter the pairing code inside your CMS.”
+
+Instructions:
+1. Launch the TomorrowOS player.
+2. Write down the pairing code shown on screen.
+3. Open your CMS.
+4. Select Pair a device.
+5. Enter the code in the CMS.
+6. Select Connect.
+7. Confirm the device appears Online.
+
+Actions:
+- Open your CMS
+- Show me where to enter the code
+- View pairing troubleshooting
+- I’ve paired my device
+
+Remove:
+- Pairing-code input
+- Connect button
+- Automatically generated pairing code
+- Automatic screen-connected state
+
+Add:
+“Marking this step complete only updates your onboarding progress. TomorrowOS does not currently verify the device connection from this guide.”
+
+CREATE, SCHEDULE AND DEPLOY
+
+These actions occur inside the CMS.
+
+Use:
+- Open your CMS
+- View first deployment guide
+- My first content is live
+
+Do not create interactive playlist, scheduling or deployment controls.
+
+PROTOTYPE REVIEW MODE
+
+Prototype Review Mode may simulate external states for internal testing only.
+
+When enabled, show a persistent banner:
+
+“Prototype simulation — These states are simulated for review and are not connected to Replit, Supabase, Cloudinary, your CMS or a physical device.”
+
+When Prototype Review Mode is disabled, do not show simulated automatic success or failure states.
+
+FINAL AUDIT
+
+Review every action and status.
+
+For each one, identify its source:
+
+- Performed on TomorrowOS
+- Performed externally
+- User-confirmed
+- Verified by a real integration
+
+If its source is unclear, remove or rewrite it.
+
+The finished onboarding must feel useful and interactive without pretending that TomorrowOS controls external systems.

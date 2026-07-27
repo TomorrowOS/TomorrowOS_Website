@@ -19,8 +19,8 @@ export const PLACEHOLDERS = {
 export const GUIDED_STEPS = [
   { id: 1, title: 'Before you begin' },
   { id: 2, title: 'Open Replit' },
-  { id: 3, title: 'Create the project' },
-  { id: 4, title: 'Follow the prompts' },
+  { id: 3, title: 'Create project' },
+  { id: 4, title: 'Follow prompts' },
   { id: 5, title: 'Connect services' },
   { id: 6, title: 'Add branding' },
   { id: 7, title: 'Generate and preview' },
@@ -49,5 +49,5 @@ export const SHARED_STEPS = [
   { id: 1, title: 'Download players' },
   { id: 2, title: 'Install TomorrowOS' },
   { id: 3, title: 'Pair device' },
-  { id: 4, title: 'Create, schedule and deploy' }
+  { id: 4, title: 'Create and deploy' }
 ];

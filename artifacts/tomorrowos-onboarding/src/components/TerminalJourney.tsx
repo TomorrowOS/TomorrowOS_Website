@@ -7,7 +7,6 @@ import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
 import { ServiceConnectionCard } from './ServiceConnectionCard';
 import { PLACEHOLDERS } from '@/lib/constants';
 import { useLocation } from 'wouter';
-import { StatusBadge } from './StatusBadge';
 import { CheckCircle2, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -36,7 +35,7 @@ export function TerminalJourney() {
 // TERMINAL STEP 1 — BEFORE YOU BEGIN
 // ------------------------------------------
 function TerminalStep1() {
-  const { goToNextStep } = usePrototype();
+  const { state, goToNextStep } = usePrototype();
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -72,15 +71,21 @@ function TerminalStep1() {
         <CopyableText text="git --version" />
       </div>
 
-      <div className="bg-success/5 border border-success/20 p-4 rounded-md flex items-start gap-3">
-        <CheckCircle2 className="w-5 h-5 text-success shrink-0" />
-        <p className="text-sm text-gray-700 m-0 leading-relaxed">
-          <span className="font-semibold text-gray-900 block mb-1">Simulated prerequisites confirmed</span>
-          All required local tools are available.
-        </p>
-      </div>
+      {state.prototypeReviewMode ? (
+        <div className="bg-success/5 border border-success/20 p-4 rounded-md flex items-start gap-3">
+          <CheckCircle2 className="w-5 h-5 text-success shrink-0" />
+          <p className="text-sm text-gray-700 m-0 leading-relaxed">
+            <span className="font-semibold text-gray-900 block mb-1">Simulated prerequisites confirmed</span>
+            All required local tools are available.
+          </p>
+        </div>
+      ) : (
+        <div className="bg-gray-50 border border-border p-4 rounded-md text-sm text-gray-600">
+          Run the commands above in your own terminal and confirm each tool responds with a version number. This guide does not inspect your environment.
+        </div>
+      )}
 
-      <Button onClick={goToNextStep} className="mt-4">Continue</Button>
+      <Button onClick={goToNextStep} className="mt-4">I confirmed my environment</Button>
     </div>
   );
 }
@@ -221,7 +226,7 @@ CLOUDINARY_API_SECRET=`}
 // ------------------------------------------
 function TerminalStep6() {
   const { state, goToNextStep } = usePrototype();
-  const isReady = state.supabaseStatus === 'connected' && state.cloudinaryStatus === 'connected';
+  const isReady = state.supabaseStatus === 'confirmed' && state.cloudinaryStatus === 'confirmed';
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -240,10 +245,7 @@ function TerminalStep6() {
         <ServiceConnectionCard service="cloudinary" />
       </div>
 
-      <div className="pt-6 border-t border-border flex items-center justify-between">
-        <p className="text-sm text-gray-500">
-          {!isReady ? 'Connect both services to continue.' : 'Both services connected successfully.'}
-        </p>
+      <div className="pt-6 border-t border-border flex items-center justify-end">
         <Button onClick={goToNextStep} disabled={!isReady}>Continue</Button>
       </div>
     </div>
@@ -324,7 +326,7 @@ function TerminalStep8() {
 // TERMINAL STEP 9 — RUN LOCALLY
 // ------------------------------------------
 function TerminalStep9() {
-  const { goToNextStep } = usePrototype();
+  const { state, goToNextStep } = usePrototype();
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -342,27 +344,34 @@ function TerminalStep9() {
 
       <Card>
         <CardContent className="p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Simulated local health checks:</h3>
+          <h3 className="font-semibold text-gray-900 mb-4">
+            {state.prototypeReviewMode ? 'Simulated local health checks:' : 'Confirm these yourself in your local CMS:'}
+          </h3>
           <ul className="space-y-3">
             {[
               "CMS server running",
-              "Supabase connected",
+              "Supabase reports connected",
               "Database initialised",
-              "Cloudinary connected",
-              "Media upload successful",
+              "Cloudinary reports connected",
+              "Media upload succeeds",
               "Branding loaded",
               "Example content available"
             ].map((label, i) => (
               <li key={i} className="flex items-center gap-3 text-sm text-gray-700">
-                <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
+                {state.prototypeReviewMode
+                  ? <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
+                  : <span className="w-4 h-4 rounded-full border border-gray-300 shrink-0" />}
                 {label}
               </li>
             ))}
           </ul>
+          {!state.prototypeReviewMode && (
+            <p className="text-xs text-gray-500 mt-4">This checklist does not inspect your local project. Confirm each item in your terminal and browser.</p>
+          )}
         </CardContent>
       </Card>
 
-      <Button onClick={goToNextStep} className="mt-4">Continue</Button>
+      <Button onClick={goToNextStep} className="mt-4">I confirmed my local CMS is running</Button>
     </div>
   );
 }
@@ -441,7 +450,7 @@ function TerminalStep11() {
 // TERMINAL STEP 12 — DEPLOY
 // ------------------------------------------
 function TerminalStep12() {
-  const { goToNextStep } = usePrototype();
+  const { state, goToNextStep } = usePrototype();
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -453,22 +462,31 @@ function TerminalStep12() {
 
       <Card className="mt-6">
         <CardContent className="p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Simulated deployment:</h3>
+          <h3 className="font-semibold text-gray-900 mb-4">
+            {state.prototypeReviewMode ? 'Simulated deployment:' : 'What your host should report:'}
+          </h3>
           <ul className="space-y-3">
-            <li className="flex items-center gap-3 text-sm text-gray-700"><CheckCircle2 className="w-4 h-4 text-success shrink-0" /> Building project</li>
-            <li className="flex items-center gap-3 text-sm text-gray-700"><CheckCircle2 className="w-4 h-4 text-success shrink-0" /> Starting TomorrowOS server</li>
-            <li className="flex items-center gap-3 text-sm text-gray-700"><CheckCircle2 className="w-4 h-4 text-success shrink-0" /> Applying environment variables</li>
-            <li className="flex items-center gap-3 text-sm text-gray-700"><CheckCircle2 className="w-4 h-4 text-success shrink-0" /> Checking application health</li>
+            {["Building project", "Starting TomorrowOS server", "Applying environment variables", "Checking application health"].map((label, i) => (
+              <li key={i} className="flex items-center gap-3 text-sm text-gray-700">
+                {state.prototypeReviewMode
+                  ? <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
+                  : <span className="w-4 h-4 rounded-full border border-gray-300 shrink-0" />}
+                {label}
+              </li>
+            ))}
           </ul>
+          {!state.prototypeReviewMode && (
+            <p className="text-xs text-gray-500 mt-4">This guide does not monitor your deployment. Confirm each item in your host's output.</p>
+          )}
         </CardContent>
       </Card>
 
       <div className="mt-6">
-        <p className="text-sm font-medium text-gray-900 mb-2">Public CMS URL:</p>
+        <p className="text-sm font-medium text-gray-900 mb-2">Example public CMS URL (your host will print your real one):</p>
         <CopyableText text="https://my-signage-app.production-host.com" />
       </div>
 
-      <Button onClick={goToNextStep} className="mt-6">Continue to production check</Button>
+      <Button onClick={goToNextStep} className="mt-6">I deployed my CMS</Button>
     </div>
   );
 }
@@ -478,67 +496,80 @@ function TerminalStep12() {
 // ------------------------------------------
 function TerminalStep13() {
   const { state, updateState, goToNextStep } = usePrototype();
-  const isReady = state.publishedStatus === 'success';
+  const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
+  const isReady = state.publishedStatus === 'confirmed';
+
+  const toggleCheck = (index: number) => {
+    const next = new Set(checkedItems);
+    if (next.has(index)) next.delete(index);
+    else next.add(index);
+    setCheckedItems(next);
+  };
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Confirm your published CMS</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Confirm your live CMS</h2>
       </div>
 
       <Card>
         <CardContent className="p-6">
-          <div className="mb-6 flex items-center gap-3 pb-4 border-b border-border">
-            {isReady ? (
-              <CheckCircle2 className="w-8 h-8 text-success" />
-            ) : state.publishedStatus === 'error' ? (
-              <AlertCircle className="w-8 h-8 text-destructive" />
-            ) : (
-              <div className="w-8 h-8 rounded-full border-2 border-gray-200" />
-            )}
-            <div>
-              <h3 className="font-bold text-gray-900 text-lg">
-                {isReady ? 'Your CMS is live and connected' : state.publishedStatus === 'error' ? 'Your CMS was published, but setup is incomplete' : 'Running production checks...'}
-              </h3>
+          <div className="mb-6">
+            <h3 className="font-semibold text-gray-900 mb-4">Production checklist:</h3>
+            <div className="grid md:grid-cols-2 gap-y-4 gap-x-8">
+              {[
+                "Public CMS opens",
+                "CMS interface loads",
+                "Supabase reports connected",
+                "Cloudinary reports connected",
+                "Test media upload succeeds"
+              ].map((label, i) => (
+                <label key={i} className="flex items-start gap-3 cursor-pointer group">
+                  <div className="mt-0.5 relative flex items-center justify-center w-5 h-5 border border-gray-300 rounded group-hover:border-gray-400">
+                     <input type="checkbox" className="peer absolute opacity-0" checked={checkedItems.has(i)} onChange={() => toggleCheck(i)} />
+                     <CheckCircle2 className={cn("w-4 h-4 text-black", checkedItems.has(i) ? "opacity-100" : "opacity-0")} />
+                  </div>
+                  <span className="text-sm text-gray-700 select-none">{label}</span>
+                </label>
+              ))}
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-y-3 gap-x-8">
-            {[
-              "Published CMS responding",
-              "Supabase connected",
-              "Cloudinary connected",
-              "Media upload successful",
-              "CMS login available"
-            ].map((label, i) => (
-              <div key={i} className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">{label}</span>
-                {isReady ? (
-                  <span className="text-success text-xs font-medium">Passed</span>
-                ) : state.publishedStatus === 'error' && i === 1 ? (
-                  <span className="text-destructive text-xs font-medium">Failed</span>
-                ) : (
-                  <span className="text-gray-400 text-xs">Pending</span>
-                )}
-              </div>
-            ))}
+          <div className="bg-gray-50 border border-border p-4 rounded-md text-sm text-gray-600">
+             <strong>Note:</strong> Check these items inside your live CMS. TomorrowOS does not verify them for you.
           </div>
-
-          {state.publishedStatus === 'error' && (
-            <div className="mt-6 flex flex-wrap gap-2">
-              <Button variant="secondary" size="sm">Open hosting logs</Button>
-              <Button variant="secondary" size="sm">Edit production variables</Button>
-              <Button variant="outline" size="sm" onClick={() => updateState({ publishedStatus: 'success' })}>Retry health check</Button>
-            </div>
-          )}
         </CardContent>
       </Card>
 
-      <div className="pt-6 border-t border-border flex items-center justify-between">
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => updateState({ publishedStatus: 'error' })}>Simulate Error</Button>
-          <Button variant="outline" size="sm" className="text-success border-success/30" onClick={() => updateState({ publishedStatus: 'success' })}>Simulate Success</Button>
-        </div>
+      <div className="mt-6 flex flex-col gap-4">
+        {state.publishedStatus === 'needs_help' && (
+           <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md">
+             <div className="font-medium text-amber-900 mb-1">Something is not working?</div>
+             <p className="text-amber-800">Ensure your Replit production Secrets match your local environment variables.</p>
+           </div>
+        )}
+        
+        {state.publishedStatus === 'confirmed' && (
+           <div className="text-sm text-gray-600 bg-success/5 p-3 rounded-md border border-success/10 flex items-start gap-2">
+             <CheckCircle2 className="w-4 h-4 text-success mt-0.5 shrink-0" />
+             <div>
+               <span className="font-medium text-gray-900 block mb-1">Confirmed</span>
+               You confirmed the live CMS is fully operational.
+             </div>
+           </div>
+        )}
+
+        {state.publishedStatus === 'confirmed' ? (
+           <Button variant="outline" onClick={() => updateState({ publishedStatus: 'not_started' })}>Undo confirmation</Button>
+        ) : (
+           <div className="flex gap-2">
+             <Button className="flex-1" onClick={() => updateState({ publishedStatus: 'confirmed' })}>Everything is working</Button>
+             <Button variant="secondary" onClick={() => updateState({ publishedStatus: 'needs_help' })}>Something is not working</Button>
+           </div>
+        )}
+      </div>
+
+      <div className="pt-6 border-t border-border flex items-center justify-end">
         <Button onClick={goToNextStep} disabled={!isReady}>Continue to device pairing</Button>
       </div>
     </div>

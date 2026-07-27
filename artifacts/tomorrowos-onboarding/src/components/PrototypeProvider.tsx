@@ -1,35 +1,44 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 export type SetupMethod = 'guided' | 'terminal';
-export type ConnectionStatus = 'not_started' | 'connecting' | 'connected' | 'error';
-export type ActionStatus = 'pending' | 'success' | 'error';
+export type UserConfirmedStatus = 'not_started' | 'in_progress' | 'confirmed' | 'needs_help';
 
 export interface PrototypeState {
+  prototypeReviewMode: boolean;
   projectType: 'new' | 'existing';
   setupMethod: SetupMethod;
   guidedStep: number;
+  maxGuidedStep: number;
   terminalStep: number;
+  maxTerminalStep: number;
   sharedStep: number;
-  supabaseStatus: ConnectionStatus;
-  cloudinaryStatus: ConnectionStatus;
-  previewGenerationStatus: ActionStatus;
-  readinessStatus: ActionStatus;
-  publishedStatus: ActionStatus;
-  pairingStatus: ActionStatus;
+  maxSharedStep: number;
+  supabaseStatus: UserConfirmedStatus;
+  cloudinaryStatus: UserConfirmedStatus;
+  previewGenerationStatus: UserConfirmedStatus;
+  readinessStatus: UserConfirmedStatus;
+  publishedStatus: UserConfirmedStatus;
+  pairingStatus: UserConfirmedStatus;
+  cmsUrl?: string;
 }
 
 const initialState: PrototypeState = {
+  prototypeReviewMode: false,
   projectType: 'new',
   setupMethod: 'guided',
   guidedStep: 1,
+  maxGuidedStep: 1,
   terminalStep: 1,
+  maxTerminalStep: 1,
   sharedStep: 0,
+  maxSharedStep: 0,
   supabaseStatus: 'not_started',
   cloudinaryStatus: 'not_started',
-  previewGenerationStatus: 'pending',
-  readinessStatus: 'pending',
-  publishedStatus: 'pending',
-  pairingStatus: 'pending',
+  previewGenerationStatus: 'not_started',
+  readinessStatus: 'not_started',
+  publishedStatus: 'not_started',
+  pairingStatus: 'not_started',
+  cmsUrl: '',
 };
 
 interface PrototypeContextType {
@@ -38,7 +47,7 @@ interface PrototypeContextType {
   resetState: () => void;
   goToNextStep: () => void;
   goToPrevStep: () => void;
-  setStep: (step: number) => void;
+  setStep: (step: number, isShared?: boolean) => void;
 }
 
 const PrototypeContext = createContext<PrototypeContextType | undefined>(undefined);
@@ -47,7 +56,16 @@ export function PrototypeProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<PrototypeState>(() => {
     try {
       const stored = localStorage.getItem('tomorrowos_prototype');
-      if (stored) return { ...initialState, ...JSON.parse(stored) };
+      if (stored) {
+        const parsed = { ...initialState, ...JSON.parse(stored) } as PrototypeState;
+        // Migrate legacy stored state that predates max-step tracking:
+        // derive max progress from the current step fields so previously
+        // reached steps stay unlocked.
+        parsed.maxGuidedStep = Math.max(parsed.maxGuidedStep || 1, parsed.guidedStep || 1);
+        parsed.maxTerminalStep = Math.max(parsed.maxTerminalStep || 1, parsed.terminalStep || 1);
+        parsed.maxSharedStep = Math.max(parsed.maxSharedStep || 0, parsed.sharedStep || 0);
+        return parsed;
+      }
     } catch (e) {}
     return initialState;
   });
@@ -72,20 +90,23 @@ export function PrototypeProvider({ children }: { children: React.ReactNode }) {
       if (prev.setupMethod === 'guided' && prev.guidedStep <= 10) {
         if (prev.guidedStep === 10) {
           // move to shared
-          return { ...prev, guidedStep: 11, sharedStep: 1 };
+          return { ...prev, guidedStep: 11, maxGuidedStep: Math.max(prev.maxGuidedStep || 1, 11), sharedStep: 1, maxSharedStep: Math.max(prev.maxSharedStep || 0, 1) };
         }
-        return { ...prev, guidedStep: prev.guidedStep + 1 };
+        const nextGuided = prev.guidedStep + 1;
+        return { ...prev, guidedStep: nextGuided, maxGuidedStep: Math.max(prev.maxGuidedStep || 1, nextGuided) };
       }
       if (prev.setupMethod === 'terminal' && prev.terminalStep <= 13) {
         if (prev.terminalStep === 13) {
           // move to shared
-          return { ...prev, terminalStep: 14, sharedStep: 1 };
+          return { ...prev, terminalStep: 14, maxTerminalStep: Math.max(prev.maxTerminalStep || 1, 14), sharedStep: 1, maxSharedStep: Math.max(prev.maxSharedStep || 0, 1) };
         }
-        return { ...prev, terminalStep: prev.terminalStep + 1 };
+        const nextTerminal = prev.terminalStep + 1;
+        return { ...prev, terminalStep: nextTerminal, maxTerminalStep: Math.max(prev.maxTerminalStep || 1, nextTerminal) };
       }
       // Shared step
       if (prev.sharedStep < 4) {
-        return { ...prev, sharedStep: prev.sharedStep + 1 };
+        const nextShared = prev.sharedStep + 1;
+        return { ...prev, sharedStep: nextShared, maxSharedStep: Math.max(prev.maxSharedStep || 0, nextShared) };
       }
       return prev;
     });
@@ -111,8 +132,11 @@ export function PrototypeProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const setStep = (step: number) => {
+  const setStep = (step: number, isShared: boolean = false) => {
     setState(prev => {
+      if (isShared) {
+         return { ...prev, sharedStep: step };
+      }
       if (prev.setupMethod === 'guided') {
         return { ...prev, guidedStep: step, sharedStep: 0 };
       } else {

@@ -1,0 +1,1 @@
+- [Onboarding honesty model](onboarding-honesty-model.md) — prototype must never imply real integrations; user-confirmed statuses only, simulations gated behind Review Mode.

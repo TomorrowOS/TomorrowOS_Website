@@ -1,0 +1,246 @@
+Refine the current TomorrowOS onboarding MVP.
+
+For this phase, focus only on the Guided setup journey. Do not expand or redesign the Terminal journey yet.
+
+The current page has the correct content, but the layout feels disconnected. The left step navigation appears distant and disabled, the setup-selection cards consume too much space, and it is not obvious how the user should continue.
+
+Preserve the existing TomorrowOS visual design:
+
+- Roboto
+- Black and white
+- Light-grey borders
+- Minimal colour
+- Clean card styling
+- No gradients
+- No large shadows
+- Calm, enterprise product feel
+
+Make the following changes.
+
+1. COLLAPSE THE INITIAL SELECTIONS
+
+After “Start a new project” and “Guided setup” are selected, replace the large selection cards with a compact breadcrumb-style summary:
+
+Start a new project › Guided setup
+
+Place a small secondary action on the right:
+
+Switch to Terminal
+
+The Guided setup journey should now be the dominant focus.
+
+2. CREATE ONE CONNECTED ONBOARDING SHELL
+
+Place the step navigation and active content inside one centred onboarding shell.
+
+Desktop dimensions:
+
+- Sidebar: approximately 240px
+- Content: approximately 680–760px
+- Gap: 24–32px
+- Maximum combined width: approximately 1050px
+
+The sidebar and content must feel like one connected interface rather than two distant page regions.
+
+3. REBUILD THE SIDEBAR AS A CLICKABLE STEPPER
+
+Make every available step a full-width interactive button approximately 44–48px high.
+
+Current step:
+
+- Light-grey background
+- Black text
+- Strong black number or left border
+- Clear selected state
+
+Completed step:
+
+- Checkmark icon
+- Dark readable text
+
+Available step:
+
+- Normal medium-grey or black text
+- Not washed out
+- Pointer cursor
+- Visible hover state
+
+Locked step:
+
+- Lock icon
+- Reduced emphasis
+- Tooltip explaining what must be completed first
+
+Needs-attention step:
+
+- Amber warning icon
+- Clear readable label
+
+Add hover, keyboard focus and selected states.
+
+Do not use very pale text for available steps because it currently looks disabled.
+
+4. IMPROVE SIDEBAR LABELS
+
+Use concise labels:
+
+GUIDED SETUP
+
+1. Before you begin
+2. Open Replit
+3. Create project
+4. Follow prompts
+5. Connect services
+6. Add branding
+7. Generate and preview
+8. Readiness check
+9. Publish CMS
+10. Production check
+
+DEPLOYMENT
+
+1. Download players
+2. Install TomorrowOS
+3. Pair device
+4. Create and deploy
+
+Optionally show a short sublabel only for the active step.
+
+5. ADD A STEP HEADER
+
+At the top of active content show:
+
+GUIDED SETUP
+Step 1 of 10
+Before you begin
+
+Supporting copy:
+
+Prepare the accounts and services needed to build your TomorrowOS CMS.
+
+Include a small progress indicator or percentage on the right.
+
+6. REWORK THE “BEFORE YOU BEGIN” CONTENT
+
+Use four compact service cards in a 2×2 grid.
+
+TomorrowOS
+Signage foundation
+Device communication, playback and pairing.
+
+Replit
+Build and hosting
+Creates, previews and publishes your CMS.
+
+Supabase
+Database
+Stores CMS content and application data.
+
+Cloudinary
+Media storage
+Stores and delivers images and videos.
+
+Keep cards compact and visually secondary to the main step heading.
+
+7. SIMPLIFY REQUIREMENTS
+
+Replace the large requirements box with a concise checklist:
+
+What you need
+
+✓ Replit account
+✓ Supabase account
+✓ Cloudinary account
+✓ Approximately 15–20 minutes
+
+Add:
+
+You can create each account during this setup.
+
+8. USE ONE PRIMARY ACTION
+
+The dominant action for this step should be:
+
+Continue to Replit
+
+Use a black primary button.
+
+The guide links should be secondary text or outlined actions:
+
+View Supabase guide
+View Cloudinary guide
+
+Do not give all three actions equal prominence.
+
+9. MOVE THE EXPLANATION CLOSER
+
+Replace the large full-width “Why are three services needed?” accordion with a smaller contextual callout beside or below the service cards.
+
+Copy:
+
+Why are these services needed?
+
+TomorrowOS powers the signage layer. Replit hosts the CMS, Supabase stores its data and Cloudinary stores its media.
+
+Use a small “Learn more” disclosure when needed.
+
+10. ADD PERSISTENT STEP NAVIGATION
+
+At the bottom of every active content step, add a clear navigation footer:
+
+Back                                      Continue
+
+For Step 1:
+
+- Back is disabled
+- Continue says “Continue to Replit”
+
+For blocked steps:
+
+- Disable Continue
+- Explain directly above it what remains incomplete
+
+Example:
+
+Connect Supabase and Cloudinary before continuing.
+
+Keep the footer visually attached to the active content card.
+
+11. MOBILE BEHAVIOUR
+
+On mobile:
+
+- Hide the full left sidebar
+- Show a compact header:
+  Step 1 of 10 — Before you begin
+- Add a button to open the full step list
+- Keep Back and Continue sticky at the bottom
+- Stack service cards vertically
+- Keep primary actions full width
+
+12. DO NOT CHANGE
+
+Do not:
+
+- Add more setup steps
+- Add new external services
+- Expand the Terminal pathway
+- Change the Supabase or Cloudinary guide content
+- Add decorative illustrations
+- Make the page more colourful
+- Add large marketing sections
+
+13. ACCEPTANCE CRITERIA
+
+The refinement is complete when:
+
+- The Guided journey is clearly the primary experience.
+- The top setup choices no longer dominate the page.
+- The sidebar is visibly clickable.
+- Available steps do not look disabled.
+- The sidebar and active content feel connected.
+- The current step is immediately obvious.
+- Every step has a primary Continue action.
+- Guide links are clearly secondary.
+- The layout remains clean and recognisably TomorrowOS.
+- Desktop and mobile navigation are both easy to understand.

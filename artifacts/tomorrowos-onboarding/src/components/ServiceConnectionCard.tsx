@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './ui/card';
 import { Button } from './ui/button';
-import { StatusBadge } from './StatusBadge';
 import { useLocation } from 'wouter';
 import { usePrototype } from './PrototypeProvider';
+import { Check, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface ServiceConnectionCardProps {
   service: 'supabase' | 'cloudinary';
@@ -12,7 +12,6 @@ interface ServiceConnectionCardProps {
 export function ServiceConnectionCard({ service }: ServiceConnectionCardProps) {
   const [, setLocation] = useLocation();
   const { state, updateState } = usePrototype();
-  const [showErrorDetails, setShowErrorDetails] = useState(false);
 
   const isSupabase = service === 'supabase';
   const status = isSupabase ? state.supabaseStatus : state.cloudinaryStatus;
@@ -21,18 +20,12 @@ export function ServiceConnectionCard({ service }: ServiceConnectionCardProps) {
   const logoColor = isSupabase ? 'bg-[#3ECF8E]' : 'bg-[#3448C5]';
   const brandName = isSupabase ? 'Supabase' : 'Cloudinary';
 
-  const markSuccess = () => {
-    updateState(isSupabase ? { supabaseStatus: 'connected' } : { cloudinaryStatus: 'connected' });
+  const markConfirmed = () => {
+    updateState(isSupabase ? { supabaseStatus: 'confirmed' } : { cloudinaryStatus: 'confirmed' });
   };
 
-  const markError = () => {
-    updateState(isSupabase ? { supabaseStatus: 'error' } : { cloudinaryStatus: 'error' });
-    setShowErrorDetails(true);
-  };
-
-  const markConnecting = () => {
-    updateState(isSupabase ? { supabaseStatus: 'connecting' } : { cloudinaryStatus: 'connecting' });
-    setTimeout(markSuccess, 1500);
+  const markNeedsHelp = () => {
+    updateState(isSupabase ? { supabaseStatus: 'needs_help' } : { cloudinaryStatus: 'needs_help' });
   };
 
   const handleOpenGuide = () => {
@@ -51,71 +44,63 @@ export function ServiceConnectionCard({ service }: ServiceConnectionCardProps) {
             <p className="text-sm text-gray-500">{title}</p>
           </div>
         </div>
-        <StatusBadge status={status} />
       </CardHeader>
       
-      <CardContent className="flex-1 pt-4">
-        {status === 'connected' && (
-          <div className="text-sm text-gray-600 bg-success/5 p-3 rounded-md border border-success/10">
-            <span className="font-medium text-gray-900 block mb-1">{brandName} connected</span>
-            {isSupabase 
-              ? "Your TomorrowOS CMS can access its database." 
-              : "TomorrowOS can access your media storage."}
-          </div>
-        )}
-
-        {status === 'error' && (
-          <div className="text-sm">
-            <div className="font-medium text-destructive mb-2">{brandName} could not connect</div>
-            <p className="text-gray-600 mb-3">Common checks:</p>
-            <ul className="list-disc pl-5 space-y-1 text-gray-600 mb-4">
-              {isSupabase ? (
-                <>
-                  <li>Complete Postgres connection string copied</li>
-                  <li>[YOUR-PASSWORD] replaced, including brackets</li>
-                  <li>Correct database password</li>
-                  <li>Secret named exactly SUPABASE_URL</li>
-                  <li>Approved connection method selected</li>
-                </>
-              ) : (
-                <>
-                  <li>All three values added</li>
-                  <li>Correct variable names</li>
-                  <li>Values copied from the same product environment</li>
-                  <li>API key and API secret not swapped</li>
-                  <li>No spaces before or after values</li>
-                </>
-              )}
-            </ul>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={markConnecting}>Retry</Button>
-              <Button variant="secondary" size="sm">Edit credentials</Button>
+      <CardContent className="flex-1 pt-4 space-y-4">
+        {status === 'confirmed' && (
+          <div className="text-sm text-gray-600 bg-success/5 p-3 rounded-md border border-success/10 flex items-start gap-2">
+            <CheckCircle2 className="w-4 h-4 text-success mt-0.5 shrink-0" />
+            <div>
+              <span className="font-medium text-gray-900 block mb-1">Confirmed</span>
+              You confirmed {brandName} is connected.
             </div>
           </div>
         )}
 
-        {status === 'not_started' || status === 'connecting' ? (
+        {status === 'needs_help' && (
+          <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
+            <div>
+              <div className="font-medium text-amber-900 mb-1">Having trouble?</div>
+              <p className="text-amber-800 mb-2 text-xs">Review the guide carefully.</p>
+              <Button variant="outline" size="sm" onClick={handleOpenGuide} className="h-7 text-xs bg-white">View {brandName} Guide</Button>
+            </div>
+          </div>
+        )}
+
+        {status !== 'confirmed' && status !== 'needs_help' && (
           <p className="text-sm text-gray-600">
             {isSupabase 
               ? "Connect your database to store CMS content and device settings."
               : "Connect your media storage to upload and deliver images and video."}
           </p>
-        ) : null}
+        )}
+
+        <div className="flex flex-col gap-2">
+           <Button variant="outline" onClick={handleOpenGuide} className="w-full">
+             Open {brandName} guide
+           </Button>
+           <Button variant="outline" onClick={() => window.open('https://replit.com', '_blank')} className="w-full">
+             Open Replit
+           </Button>
+        </div>
       </CardContent>
 
       <CardFooter className="flex flex-col gap-2 items-start bg-gray-50 pt-4 rounded-b-[11px] border-t border-border">
-        <Button variant="tertiary" size="sm" onClick={handleOpenGuide} className="h-auto py-1">
-          Open full {brandName} guide →
-        </Button>
-        
-        {/* Prototype Controls */}
-        <div className="w-full flex items-center justify-between pt-4 mt-2 border-t border-gray-200">
-          <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Prototype Controls</span>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="h-7 text-xs" onClick={markError}>Simulate error</Button>
-            <Button variant="outline" size="sm" className="h-7 text-xs text-success border-success/30 hover:bg-success/10" onClick={markSuccess}>Simulate success</Button>
+        {status === 'confirmed' ? (
+          <Button variant="outline" size="sm" onClick={() => updateState(isSupabase ? { supabaseStatus: 'not_started' } : { cloudinaryStatus: 'not_started' })} className="w-full text-gray-500">
+            Undo confirmation
+          </Button>
+        ) : (
+          <div className="flex gap-2 w-full">
+            <Button className="flex-1" onClick={markConfirmed}>
+              I confirmed it is connected
+            </Button>
+            <Button variant="secondary" onClick={markNeedsHelp}>
+              I'm stuck
+            </Button>
           </div>
-        </div>
+        )}
       </CardFooter>
     </Card>
   );
