@@ -178,7 +178,7 @@ function SharedStep3() {
     if (state.cmsUrl && isValidHttpsUrl(state.cmsUrl)) {
       window.open(state.cmsUrl, '_blank');
     } else {
-      alert("Please open your CMS directly from Replit.");
+      alert("Please open your published CMS.");
     }
   };
 

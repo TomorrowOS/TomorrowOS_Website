@@ -82,7 +82,7 @@ export default function GuideCloudinary() {
           <thead>
             <tr className="border-b">
               <th className="pb-2">In Cloudinary</th>
-              <th className="pb-2">In Replit</th>
+              <th className="pb-2">In your environment</th>
             </tr>
           </thead>
           <tbody>
@@ -103,31 +103,31 @@ export default function GuideCloudinary() {
 
         <p><em>Do not copy the key name: the Cloudinary page may show a display name or label for the API key. TomorrowOS needs the actual Cloud name, API key value, and API secret value.</em></p>
 
-        <h2>Add the values to Replit</h2>
+        <h2>Add the values to your project</h2>
 
         <h3>3. Add your Cloud name</h3>
-        <p>In Cloudinary, copy the value labelled "Cloud name". Return to Replit and add:</p>
+        <p>In Cloudinary, copy the value labelled "Cloud name". Return to your project environment and add:</p>
         <ul>
           <li>Key: <code>CLOUDINARY_CLOUD_NAME</code></li>
           <li>Value: Your Cloudinary Cloud name (Example: <code>ukx17pqh</code>)</li>
         </ul>
 
         <h3>4. Add your API key</h3>
-        <p>In Cloudinary, copy the value labelled "API key". Return to Replit and add:</p>
+        <p>In Cloudinary, copy the value labelled "API key". Return to your project environment and add:</p>
         <ul>
           <li>Key: <code>CLOUDINARY_API_KEY</code></li>
           <li>Value: Your Cloudinary API key</li>
         </ul>
 
         <h3>5. Add your API secret</h3>
-        <p>In Cloudinary, reveal or copy the value labelled "API secret". Return to Replit and add:</p>
+        <p>In Cloudinary, reveal or copy the value labelled "API secret". Return to your project environment and add:</p>
         <ul>
           <li>Key: <code>CLOUDINARY_API_SECRET</code></li>
           <li>Value: Your Cloudinary API secret</li>
         </ul>
 
         <div className="bg-warning/10 p-4 rounded-md border border-warning/20 my-4">
-          <p className="m-0 text-sm text-amber-900"><strong>Security warning:</strong> never paste your API secret into: Replit Agent chat, application source code, GitHub, screenshots, support emails or messages, or public documentation. Store it only through Replit Secrets.</p>
+          <p className="m-0 text-sm text-amber-900"><strong>Security warning:</strong> never paste your API secret into: AI builder prompts (Replit Agent, v0), application source code, GitHub, screenshots, support emails or messages, or public documentation. Store it only through secure environment variables.</p>
         </div>
         
         <div className="mt-12 pt-8 border-t border-gray-200">

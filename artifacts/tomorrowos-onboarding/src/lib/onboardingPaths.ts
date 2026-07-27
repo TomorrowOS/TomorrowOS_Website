@@ -1,7 +1,9 @@
 export const onboardingPaths = {
   start: '/start',
   newProject: {
-    guided: '/start/guided',
+    guidedChoose: '/start/guided',
+    replit: '/start/guided/replit',
+    vercel: '/start/guided/vercel',
     terminal: '/start/terminal'
   },
   existingProject: {

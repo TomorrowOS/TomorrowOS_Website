@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { usePrototype } from './PrototypeProvider';
-import { GUIDED_STEPS, TERMINAL_STEPS, SHARED_STEPS } from '@/lib/constants';
+import { GUIDED_STEPS, TERMINAL_STEPS, SHARED_STEPS, VERCEL_STEPS } from '@/lib/constants';
 import { Check, ChevronLeft, ChevronRight, Lock, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -10,10 +10,11 @@ export function JourneyNavigator() {
   const [mobileListOpen, setMobileListOpen] = useState(false);
 
   const isGuided = state.setupMethod === 'guided';
-  const steps = isGuided ? GUIDED_STEPS : TERMINAL_STEPS;
+  const isVercel = isGuided && state.guidedTool === 'vercel';
+  const steps = isGuided ? (isVercel ? VERCEL_STEPS : GUIDED_STEPS) : TERMINAL_STEPS;
   
-  const activeStep = state.sharedStep > 0 ? state.sharedStep : (isGuided ? state.guidedStep : state.terminalStep);
-  const maxStep = isGuided ? (state.maxGuidedStep || 1) : (state.maxTerminalStep || 1);
+  const activeStep = state.sharedStep > 0 ? state.sharedStep : (isGuided ? (isVercel ? state.vercelStep : state.guidedStep) : state.terminalStep);
+  const maxStep = isGuided ? (isVercel ? (state.maxVercelStep || 1) : (state.maxGuidedStep || 1)) : (state.maxTerminalStep || 1);
   const maxSharedStep = state.maxSharedStep || 0;
   const isShared = state.sharedStep > 0;
 
@@ -24,20 +25,29 @@ export function JourneyNavigator() {
          if (stepId === 3 && state.pairingStatus === 'needs_help') return 'needs-attention';
          return 'current';
       }
-      if (maxSharedStep > stepId) return 'completed';
-      if (maxSharedStep >= stepId) return 'available'; // maxSharedStep == stepId but not current (e.g. we went back to guided)
+      if (state.prototypeReviewMode || maxSharedStep > stepId) return 'completed';
+      if (state.prototypeReviewMode || maxSharedStep >= stepId) return 'available'; // maxSharedStep == stepId but not current (e.g. we went back to guided)
       return 'locked';
     } else {
       if (!isShared && activeStep === stepId) {
-         if (isGuided) {
-           if (stepId === 7 && state.previewGenerationStatus === 'needs_help') return 'needs-attention';
-           if (stepId === 8 && state.readinessStatus === 'needs_help') return 'needs-attention';
-           if (stepId === 10 && state.publishedStatus === 'needs_help') return 'needs-attention';
+         if (isGuided && !isVercel) {
+           if (stepId === 7 && state.replitPreviewGenerationStatus === 'needs_help') return 'needs-attention';
+           if (stepId === 8 && state.replitReadinessStatus === 'needs_help') return 'needs-attention';
+           if (stepId === 10 && state.replitPublishedStatus === 'needs_help') return 'needs-attention';
+         } else if (isGuided && isVercel) {
+           if (stepId === 8 && state.vercelPreviewGenerationStatus === 'needs_help') return 'needs-attention';
+           if (stepId === 10 && state.vercelReadinessStatus === 'needs_help') return 'needs-attention';
+           if (stepId === 13 && state.vercelPublishedStatus === 'needs_help') return 'needs-attention';
          }
          return 'current';
       }
-      if (maxStep > stepId) return 'completed';
-      if (maxStep >= stepId) return 'available'; 
+      if (!isShared && !isGuided && activeStep === stepId) {
+         if (stepId === 8 && state.terminalReadinessStatus === 'needs_help') return 'needs-attention';
+         if (stepId === 13 && state.terminalPublishedStatus === 'needs_help') return 'needs-attention';
+         return 'current';
+      }
+      if (state.prototypeReviewMode || maxStep > stepId) return 'completed';
+      if (state.prototypeReviewMode || maxStep >= stepId) return 'available'; 
       return 'locked';
     }
   };
@@ -97,7 +107,7 @@ export function JourneyNavigator() {
         {state.projectType === 'new' && (
           <>
             <h4 className="text-xs font-bold text-gray-500 mb-2 px-2 uppercase tracking-wider">
-              {isGuided ? 'GUIDED SETUP' : 'TERMINAL SETUP'}
+              {isGuided ? (isVercel ? 'VERCEL SETUP' : 'GUIDED SETUP') : 'TERMINAL SETUP'}
             </h4>
             {steps.map(step => renderStep(step, false))}
           </>
@@ -142,7 +152,7 @@ export function JourneyNavigator() {
             {state.projectType === 'new' && (
               <>
                 <h4 className="text-xs font-bold text-gray-500 mb-1 px-2 uppercase tracking-wider">
-                  {isGuided ? 'GUIDED SETUP' : 'TERMINAL SETUP'}
+                  {isGuided ? (isVercel ? 'VERCEL SETUP' : 'GUIDED SETUP') : 'TERMINAL SETUP'}
                 </h4>
                 {steps.map(step => renderStep(step, false, () => setMobileListOpen(false)))}
               </>

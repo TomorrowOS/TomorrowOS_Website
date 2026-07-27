@@ -459,10 +459,10 @@ function TerminalStep8() {
       </div>
       
       <div className="flex justify-end">
-        <Button variant="ghost" className="text-gray-500" onClick={() => updateState({ readinessStatus: 'needs_help' })}>I have an error</Button>
+        <Button variant="ghost" className="text-gray-500" onClick={() => updateState({ terminalReadinessStatus: 'needs_help' })}>I have an error</Button>
       </div>
       
-      {state.readinessStatus === 'needs_help' && (
+      {state.terminalReadinessStatus === 'needs_help' && (
         <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md mt-4">
           <div className="font-medium text-amber-900 mb-1">Need help?</div>
           <p className="text-amber-800">Use the Need Help button to view common local server blockers.</p>
@@ -761,18 +761,18 @@ function TerminalStep13() {
         >
           Open my CMS
         </Button>
-        <Button variant="outline" onClick={() => updateState({ publishedStatus: 'confirmed' })}>Everything is working</Button>
-        <Button variant="outline" onClick={() => updateState({ publishedStatus: 'needs_help' })}>Something is not working</Button>
+        <Button variant="outline" onClick={() => updateState({ terminalPublishedStatus: 'confirmed' })}>Everything is working</Button>
+        <Button variant="outline" onClick={() => updateState({ terminalPublishedStatus: 'needs_help' })}>Something is not working</Button>
       </div>
 
-      {state.publishedStatus === 'needs_help' && (
+      {state.terminalPublishedStatus === 'needs_help' && (
         <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md">
           <div className="font-medium text-amber-900 mb-1">Need help?</div>
           <p className="text-amber-800">Use the Need Help button to view common deployment blockers.</p>
         </div>
       )}
 
-      {state.publishedStatus === 'confirmed' && (
+      {state.terminalPublishedStatus === 'confirmed' && (
         <div className="pt-6 border-t border-border mt-8 flex justify-end">
           <Button onClick={goToNextStep} className="gap-2">
             Production checks confirmed <ChevronRight className="w-4 h-4" />

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { usePrototype } from './PrototypeProvider';
 import { Button } from './ui/button';
 import { HelpCircle, X } from 'lucide-react';
-import { SAMSUNG_STEPS, CONTENT_STEPS, TERMINAL_STEPS } from '@/lib/constants';
+import { SAMSUNG_STEPS, CONTENT_STEPS, TERMINAL_STEPS, VERCEL_STEPS } from '@/lib/constants';
 
-export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 'content' | 'terminal' }) {
+export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 'content' | 'terminal' | 'vercel' }) {
   const [open, setOpen] = useState(false);
   const { state, updateState } = usePrototype();
 
@@ -22,16 +22,23 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
 
   const isContent = context === 'content';
   const isTerminal = context === 'terminal';
+  const isVercel = context === 'vercel';
   
-  const steps = isTerminal ? TERMINAL_STEPS : (isContent ? CONTENT_STEPS : SAMSUNG_STEPS);
-  const currentStepNum = isTerminal ? state.terminalStep : (isContent ? state.contentGuideStep : state.samsungGuideStep);
-  const maxStepNum = isTerminal ? state.maxTerminalStep : (isContent ? state.maxContentGuideStep : state.maxSamsungGuideStep);
+  const steps = isVercel ? VERCEL_STEPS : (isTerminal ? TERMINAL_STEPS : (isContent ? CONTENT_STEPS : SAMSUNG_STEPS));
+  const currentStepNum = isVercel ? state.vercelStep : (isTerminal ? state.terminalStep : (isContent ? state.contentGuideStep : state.samsungGuideStep));
+  const maxStepNum = isVercel ? state.maxVercelStep : (isTerminal ? state.maxTerminalStep : (isContent ? state.maxContentGuideStep : state.maxSamsungGuideStep));
   
   const step = steps.find(s => s.id === currentStepNum);
-  const title = step ? step.title : (isTerminal ? "Terminal Setup" : (isContent ? "Content Guide" : "Samsung Setup"));
+  const title = step ? step.title : (isVercel ? "Vercel Setup" : (isTerminal ? "Terminal Setup" : (isContent ? "Content Guide" : "Samsung Setup")));
 
   const getVisibleContent = () => {
-    if (isTerminal) {
+    if (isVercel) {
+      if (currentStepNum === 3) return "The v0 interface where the prompt is pasted.";
+      if (currentStepNum === 8) return "The generated preview of your TomorrowOS CMS in v0.";
+      if (currentStepNum === 9) return "The Vercel project dashboard showing environment variables.";
+      if (currentStepNum === 10) return "A working Vercel preview deployment.";
+      return "Refer to the step instructions for the expected Vercel or v0 interface.";
+    } else if (isTerminal) {
       if (currentStepNum === 2) return "The TomorrowOS CLI starting in your terminal.";
       if (currentStepNum === 6) return "Your code editor showing the newly created environment file.";
       if (currentStepNum === 8) return "The local CMS running at http://localhost:3000.";
@@ -49,7 +56,41 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
   };
 
   const getBlockersContent = () => {
-    if (isTerminal) {
+    if (isVercel) {
+      if (currentStepNum === 3) return (
+        <>
+          <li>Confirm the exact TomorrowOS setup prompt was used.</li>
+          <li>Confirm VERCEL_SETUP.md exists in the installed SDK version.</li>
+        </>
+      );
+      if (currentStepNum === 4) return (
+        <>
+          <li>v0 generates a different flow than expected.</li>
+          <li>Database connection fails.</li>
+        </>
+      );
+      if (currentStepNum === 9) return (
+        <>
+          <li>Marketplace integration did not automatically link variables.</li>
+          <li>Variable names differ from the mapping expectation.</li>
+          <li>Production scope is missing values that exist in Preview.</li>
+        </>
+      );
+      if (currentStepNum === 10) return (
+        <>
+          <li>Preview does not match the generated code.</li>
+          <li>Missing environment variables cause runtime crash.</li>
+        </>
+      );
+      if (currentStepNum === 13) return (
+        <>
+          <li>Device pairing fails (WebSocket issues under investigation).</li>
+          <li>Media upload fails (Vercel Blob permissions or limits).</li>
+          <li>Server actions time out on free Vercel plan.</li>
+        </>
+      );
+      return <li>No specific blockers recorded for this step.</li>;
+    } else if (isTerminal) {
       if (currentStepNum === 2) return (
         <>
           <li>Node.js unavailable</li>
@@ -130,6 +171,9 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
   };
 
   const getScreenshotId = () => {
+    if (isVercel) {
+      return `VERCEL-${String(currentStepNum).padStart(2, '0')}`;
+    }
     if (isTerminal) {
       return `TERMINAL-${String(currentStepNum).padStart(2, '0')}`;
     }
@@ -185,7 +229,8 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
           variant="outline" 
           disabled={currentStepNum <= 1}
           onClick={() => {
-            if (isTerminal) updateState({ terminalStep: currentStepNum - 1 });
+            if (isVercel) updateState({ vercelStep: currentStepNum - 1 });
+            else if (isTerminal) updateState({ terminalStep: currentStepNum - 1 });
             else if (isContent) updateState({ contentGuideStep: currentStepNum - 1 });
             else updateState({ samsungGuideStep: currentStepNum - 1 });
           }}
@@ -196,7 +241,8 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
           variant="outline" 
           disabled={currentStepNum >= steps.length || (!state.prototypeReviewMode && currentStepNum + 1 > (maxStepNum || 1))}
           onClick={() => {
-            if (isTerminal) updateState({ terminalStep: currentStepNum + 1 });
+            if (isVercel) updateState({ vercelStep: currentStepNum + 1 });
+            else if (isTerminal) updateState({ terminalStep: currentStepNum + 1 });
             else if (isContent) updateState({ contentGuideStep: currentStepNum + 1 });
             else updateState({ samsungGuideStep: currentStepNum + 1 });
           }}

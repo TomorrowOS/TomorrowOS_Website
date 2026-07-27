@@ -379,7 +379,7 @@ function GuidedStep6() {
 function GuidedStep7() {
   const { state, updateState, goToNextStep } = usePrototype();
 
-  const isReady = state.previewGenerationStatus === 'confirmed';
+  const isReady = state.replitPreviewGenerationStatus === 'confirmed';
 
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
@@ -419,14 +419,14 @@ function GuidedStep7() {
       </div>
 
       <div className="mt-auto flex flex-col gap-4">
-        {state.previewGenerationStatus === 'needs_help' && (
+        {state.replitPreviewGenerationStatus === 'needs_help' && (
            <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md">
              <div className="font-medium text-amber-900 mb-1">Preview has an error?</div>
              <p className="text-amber-800">Check the Replit console. Usually, this means Supabase credentials are missing or incorrect.</p>
            </div>
         )}
         
-        {state.previewGenerationStatus === 'confirmed' && (
+        {state.replitPreviewGenerationStatus === 'confirmed' && (
            <div className="text-sm text-gray-600 bg-success/5 p-3 rounded-md border border-success/10 flex items-start gap-2">
              <CheckCircle2 className="w-4 h-4 text-success mt-0.5 shrink-0" />
              <div>
@@ -436,12 +436,12 @@ function GuidedStep7() {
            </div>
         )}
 
-        {state.previewGenerationStatus === 'confirmed' ? (
-           <Button variant="outline" onClick={() => updateState({ previewGenerationStatus: 'not_started' })}>Undo confirmation</Button>
+        {state.replitPreviewGenerationStatus === 'confirmed' ? (
+           <Button variant="outline" onClick={() => updateState({ replitPreviewGenerationStatus: 'not_started' })}>Undo confirmation</Button>
         ) : (
            <div className="flex gap-2">
-             <Button className="flex-1" onClick={() => updateState({ previewGenerationStatus: 'confirmed' })}>My preview is working</Button>
-             <Button variant="secondary" onClick={() => updateState({ previewGenerationStatus: 'needs_help' })}>My preview has an error</Button>
+             <Button className="flex-1" onClick={() => updateState({ replitPreviewGenerationStatus: 'confirmed' })}>My preview is working</Button>
+             <Button variant="secondary" onClick={() => updateState({ replitPreviewGenerationStatus: 'needs_help' })}>My preview has an error</Button>
            </div>
         )}
         
@@ -462,7 +462,7 @@ function GuidedStep8() {
   const { state, updateState, goToNextStep } = usePrototype();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
 
-  const isReady = state.readinessStatus === 'confirmed';
+  const isReady = state.replitReadinessStatus === 'confirmed';
 
   const toggleCheck = (index: number) => {
     const next = new Set(checkedItems);
@@ -502,7 +502,7 @@ function GuidedStep8() {
       </Card>
 
       <div className="mt-auto flex flex-col gap-4">
-        {state.readinessStatus === 'confirmed' && (
+        {state.replitReadinessStatus === 'confirmed' && (
            <div className="text-sm text-gray-600 bg-success/5 p-3 rounded-md border border-success/10 flex items-start gap-2">
              <CheckCircle2 className="w-4 h-4 text-success mt-0.5 shrink-0" />
              <div>
@@ -512,10 +512,10 @@ function GuidedStep8() {
            </div>
         )}
 
-        {state.readinessStatus === 'confirmed' ? (
-           <Button variant="outline" onClick={() => updateState({ readinessStatus: 'not_started' })}>Undo confirmation</Button>
+        {state.replitReadinessStatus === 'confirmed' ? (
+           <Button variant="outline" onClick={() => updateState({ replitReadinessStatus: 'not_started' })}>Undo confirmation</Button>
         ) : (
-           <Button onClick={() => updateState({ readinessStatus: 'confirmed' })}>All checks confirmed</Button>
+           <Button onClick={() => updateState({ replitReadinessStatus: 'confirmed' })}>All checks confirmed</Button>
         )}
 
         <StepFooter 
@@ -608,7 +608,7 @@ function GuidedStep9() {
 function GuidedStep10() {
   const { state, updateState, goToNextStep } = usePrototype();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
-  const isReady = state.publishedStatus === 'confirmed';
+  const isReady = state.replitPublishedStatus === 'confirmed';
 
   const handleOpenCms = () => {
     if (state.cmsUrl && isValidHttpsUrl(state.cmsUrl)) {
@@ -675,14 +675,14 @@ function GuidedStep10() {
       </div>
 
       <div className="mt-auto flex flex-col gap-4">
-        {state.publishedStatus === 'needs_help' && (
+        {state.replitPublishedStatus === 'needs_help' && (
            <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md">
              <div className="font-medium text-amber-900 mb-1">Something is not working?</div>
              <p className="text-amber-800">Ensure your Replit production Secrets match your local environment variables.</p>
            </div>
         )}
         
-        {state.publishedStatus === 'confirmed' && (
+        {state.replitPublishedStatus === 'confirmed' && (
            <div className="text-sm text-gray-600 bg-success/5 p-3 rounded-md border border-success/10 flex items-start gap-2">
              <CheckCircle2 className="w-4 h-4 text-success mt-0.5 shrink-0" />
              <div>
@@ -692,12 +692,12 @@ function GuidedStep10() {
            </div>
         )}
 
-        {state.publishedStatus === 'confirmed' ? (
-           <Button variant="outline" onClick={() => updateState({ publishedStatus: 'not_started' })}>Undo confirmation</Button>
+        {state.replitPublishedStatus === 'confirmed' ? (
+           <Button variant="outline" onClick={() => updateState({ replitPublishedStatus: 'not_started' })}>Undo confirmation</Button>
         ) : (
            <div className="flex gap-2">
-             <Button className="flex-1" onClick={() => updateState({ publishedStatus: 'confirmed' })}>Everything is working</Button>
-             <Button variant="secondary" onClick={() => updateState({ publishedStatus: 'needs_help' })}>Something is not working</Button>
+             <Button className="flex-1" onClick={() => updateState({ replitPublishedStatus: 'confirmed' })}>Everything is working</Button>
+             <Button variant="secondary" onClick={() => updateState({ replitPublishedStatus: 'needs_help' })}>Something is not working</Button>
            </div>
         )}
 

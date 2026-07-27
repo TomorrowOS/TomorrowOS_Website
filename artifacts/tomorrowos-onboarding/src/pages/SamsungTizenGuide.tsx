@@ -143,17 +143,17 @@ function SamsungIntro({ onStart }: { onStart: () => void }) {
           </button>
           {expandCMS && (
             <div className="p-4 pt-0 border-t text-sm text-gray-600 space-y-4">
-              <p>Use the public HTTPS URL created when you published your CMS through Replit or your chosen hosting provider.</p>
+              <p>Use the public HTTPS URL created when you published your CMS.</p>
               
               <div>
                 <p className="font-semibold text-gray-900 mb-1">Correct example:</p>
-                <code className="px-2 py-1 bg-gray-100 rounded border font-mono text-sm text-green-700">https://my-signage-cms.replit.app</code>
+                <code className="px-2 py-1 bg-gray-100 rounded border font-mono text-sm text-green-700">https://my-signage-cms.com</code>
               </div>
 
               <div>
                 <p className="font-semibold text-gray-900 mb-1">Do not use:</p>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>A Replit editor URL</li>
+                  <li>An internal editor URL</li>
                   <li>A temporary preview URL</li>
                   <li>A Supabase URL</li>
                   <li>A Cloudinary URL</li>

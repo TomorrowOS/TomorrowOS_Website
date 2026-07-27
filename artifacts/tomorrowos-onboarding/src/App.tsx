@@ -5,6 +5,9 @@ import { SharedLayout } from './components/SharedLayout';
 import Start from './pages/Start';
 import GuideSupabase from './pages/GuideSupabase';
 import GuideCloudinary from './pages/GuideCloudinary';
+import GuideVercel from './pages/GuideVercel';
+import GuideNeon from './pages/GuideNeon';
+import GuideVercelBlob from './pages/GuideVercelBlob';
 import SamsungTizenGuide from './pages/SamsungTizenGuide';
 import ContentGuide from './pages/ContentGuide';
 import Compatibility from './pages/Compatibility';
@@ -20,11 +23,16 @@ function Router() {
       <Switch>
         <Route path="/start" component={Start} />
         <Route path="/start/guided" component={Start} />
+        <Route path="/start/guided/replit" component={Start} />
+        <Route path="/start/guided/vercel" component={Start} />
         <Route path="/start/terminal" component={Start} />
         <Route path="/connect/server-sdk" component={Start} />
         <Route path="/connect/api" component={Start} />
         <Route path="/guides/supabase" component={GuideSupabase} />
         <Route path="/guides/cloudinary" component={GuideCloudinary} />
+        <Route path="/guides/vercel" component={GuideVercel} />
+        <Route path="/guides/neon" component={GuideNeon} />
+        <Route path="/guides/vercel-blob" component={GuideVercelBlob} />
         <Route path="/guides/content" component={ContentGuide} />
         <Route path="/guides/platforms/samsung-tizen/magicinfo" component={SamsungTizenGuide} />
         <Route path="/guides/platforms/samsung-tizen" component={SamsungTizenGuide} />

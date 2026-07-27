@@ -61,7 +61,7 @@ export default function GuideSupabase() {
         <ul>
           <li><strong>Project name:</strong> Choose a recognisable name. Example: Acme TomorrowOS CMS</li>
           <li><strong>Database password:</strong> Create a strong database password and save it securely. You will need this password later. It is different from your Supabase account password.</li>
-          <li><strong>Region:</strong> Choose the region approved or closest to you or customers geographically for your TomorrowOS/Replit deployment.</li>
+          <li><strong>Region:</strong> Choose the region approved or closest to you or customers geographically for your TomorrowOS deployment.</li>
           <li><strong>Security settings:</strong> Leave the default security settings unchanged unless TomorrowOS specifically instructs otherwise.</li>
           <li><strong>GitHub connection:</strong> Connecting GitHub is optional and is not required for this setup.</li>
         </ul>
@@ -119,33 +119,30 @@ export default function GuideSupabase() {
         </p>
 
         <h3>5. Forgot your database password?</h3>
-        <p>From Supabase, open Database → Settings, then reset the database password. After resetting it, update the connection string in Replit before testing again. Or simply click "Reset database password" above the connection string to reset it.</p>
+        <p>From Supabase, open Database → Settings, then reset the database password. After resetting it, update the connection string in your environment before testing again. Or simply click "Reset database password" above the connection string to reset it.</p>
 
-        <h2>Connect it to Replit</h2>
+        <h2>Connect it to your project</h2>
 
-        <h3>6. Add the connection string to Replit</h3>
-        <p>Add your Supabase connection to Replit: when TomorrowOS or Replit asks for your Supabase connection, use the complete Postgres connection string prepared above.</p>
+        <h3>6. Add the connection string</h3>
+        <p>Add your Supabase connection to your project: when TomorrowOS or your setup tool asks for your Supabase connection, use the complete Postgres connection string prepared above.</p>
         
-        <p><strong>Required Replit Secret:</strong></p>
+        <p><strong>Required Environment Variable:</strong></p>
         <ul>
           <li>Key: <code>SUPABASE_URL</code></li>
           <li>Value: Your complete Supabase Postgres connection string</li>
         </ul>
 
-        <p><strong>Where to add it — in Replit:</strong></p>
-        <ol>
-          <li>Open All tools.</li>
-          <li>Open Secrets.</li>
-          <li>Select New Secret.</li>
-          <li>Enter SUPABASE_URL as the key.</li>
-          <li>Paste the complete connection string as the value.</li>
-          <li>Select Add Secret.</li>
-        </ol>
+        <p><strong>Where to add it:</strong></p>
+        <ul className="list-disc pl-5">
+           <li className="mb-2"><strong>In Replit:</strong> Open All Tools → Secrets. Create a Secret named <code>SUPABASE_URL</code> and paste the string as its value.</li>
+           <li className="mb-2"><strong>In Vercel:</strong> Open Project Settings → Environment Variables. Add <code>SUPABASE_URL</code> and map it to your environments.</li>
+           <li className="mb-2"><strong>Local/Terminal:</strong> Add <code>SUPABASE_URL=...</code> to your <code>.env</code> file.</li>
+        </ul>
 
-        <p>Replit encrypts values stored through Secrets and exposes them to the application as environment variables. Database credentials should not be hard-coded into code.</p>
+        <p>Providers encrypt values stored through Secrets and expose them to the application as environment variables. Database credentials should not be hard-coded into code.</p>
 
         <div className="bg-warning/10 p-4 rounded-md border border-warning/20 my-4">
-          <p className="m-0 text-sm text-amber-900"><strong>Security warning:</strong> never paste the connection string into: a public Replit chat, your application code, GitHub, a screenshot, or a support message.</p>
+          <p className="m-0 text-sm text-amber-900"><strong>Security warning:</strong> never paste the connection string into: a public chat prompt (e.g. Replit Agent, v0), your application code, GitHub, a screenshot, or a support message.</p>
         </div>
       </div>
     </div>

@@ -1,18 +1,28 @@
 import React from 'react';
 import { usePrototype } from './PrototypeProvider';
-import { GUIDED_STEPS, TERMINAL_STEPS, SHARED_STEPS } from '@/lib/constants';
+import { GUIDED_STEPS, TERMINAL_STEPS, SHARED_STEPS, VERCEL_STEPS } from '@/lib/constants';
 
-export function StepHeader({ title, description, stepNumber, totalSteps, eyebrow: customEyebrow }: { title: string, description?: string, stepNumber?: number, totalSteps?: number, eyebrow?: string }) {
+export function StepHeader({ title, description, stepNumber, totalSteps, eyebrow: customEyebrow, isGuide = false }: { title: string, description?: string, stepNumber?: number, totalSteps?: number, eyebrow?: string, isGuide?: boolean }) {
   const { state } = usePrototype();
   
   const isGuided = state.setupMethod === 'guided';
+  const isVercel = isGuided && state.guidedTool === 'vercel';
   const isShared = state.sharedStep > 0;
   
-  const activeStep = stepNumber ?? (isShared ? state.sharedStep : (isGuided ? state.guidedStep : state.terminalStep));
-  const maxSteps = totalSteps ?? (isShared ? SHARED_STEPS.length : (isGuided ? GUIDED_STEPS.length : TERMINAL_STEPS.length));
+  const activeStep = stepNumber ?? (isShared ? state.sharedStep : (isGuided ? (isVercel ? state.vercelStep : state.guidedStep) : state.terminalStep));
+  const maxSteps = totalSteps ?? (isShared ? SHARED_STEPS.length : (isGuided ? (isVercel ? VERCEL_STEPS.length : GUIDED_STEPS.length) : TERMINAL_STEPS.length));
   const percent = Math.round((activeStep / maxSteps) * 100);
   
-  const eyebrow = customEyebrow ?? (isShared ? 'DEPLOYMENT' : (isGuided ? 'GUIDED SETUP' : 'TERMINAL SETUP'));
+  const eyebrow = customEyebrow ?? (isShared ? 'DEPLOYMENT' : (isGuided ? (isVercel ? 'VERCEL SETUP' : 'GUIDED SETUP') : 'TERMINAL SETUP'));
+
+  if (isGuide) {
+    return (
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 tracking-tight mb-2">{title}</h2>
+        {description && <p className="text-gray-600 text-base leading-relaxed">{description}</p>}
+      </div>
+    );
+  }
 
   return (
     <div className="mb-8">
