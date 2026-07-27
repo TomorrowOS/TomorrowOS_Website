@@ -10,8 +10,8 @@ export interface NavItem {
 /** Single source of truth for the global website navigation. */
 export const siteNavigation: { primary: NavItem[]; actions: NavItem[] } = {
   primary: [
+    { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
-    { label: 'Get Started', href: '/' },
   ],
   actions: [
     { label: 'GitHub', href: siteConfig.links.github, external: true, variant: 'outline' },
