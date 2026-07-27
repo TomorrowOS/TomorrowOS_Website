@@ -124,7 +124,7 @@ export const aboutContent = {
   },
   license: {
     heading: "Apache 2.0,\nin plain terms.",
-    supportingCopy: "The code is open. The TomorrowOS name and trademarks remain protected.",
+    supportingCopy: "The code is open source. Build what you want on it, the only thing that you don't own is the TomorrowOS name and logo.",
     primaryAction: "Read the licence",
     secondaryAction: "View licence",
     points: [
