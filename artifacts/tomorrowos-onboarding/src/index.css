@@ -86,6 +86,16 @@
 }
 
 @layer base {
+  /* Gentle scrolling for all in-page anchor navigation (e.g. "Explore TomorrowOS"). */
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Respect users who prefer reduced motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
   * {
     @apply border-border;
   }
