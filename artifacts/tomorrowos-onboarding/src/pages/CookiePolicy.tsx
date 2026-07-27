@@ -3,5 +3,5 @@ import { LegalDocPage } from '@/components/LegalDocPage';
 import { cookiePolicy } from '@/content/legal';
 
 export default function CookiePolicy() {
-  return <LegalDocPage doc={cookiePolicy} />;
+  return <LegalDocPage doc={cookiePolicy} path="/cookie-policy" />;
 }

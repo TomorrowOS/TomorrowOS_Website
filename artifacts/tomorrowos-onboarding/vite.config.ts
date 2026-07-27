@@ -27,9 +27,30 @@ if (!basePath) {
   );
 }
 
+/**
+ * Injects the robots meta tag into the built HTML based on VITE_SITE_ENV.
+ * prototype/preview => noindex, follow (never indexed, links crawlable).
+ * production        => no global robots tag; per-route directives are set
+ *                      from src/lib/seoConfig.ts at runtime.
+ */
+function robotsDirectivePlugin() {
+  const env = process.env.VITE_SITE_ENV ?? 'prototype';
+  return {
+    name: 'robots-directive',
+    transformIndexHtml(html: string) {
+      const tag =
+        env === 'production'
+          ? ''
+          : '<meta name="robots" content="noindex, follow" />';
+      return html.replace('<!--robots-directive-->', tag);
+    },
+  };
+}
+
 export default defineConfig({
   base: basePath,
   plugins: [
+    robotsDirectivePlugin(),
     react(),
     tailwindcss(),
     runtimeErrorOverlay(),

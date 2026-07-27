@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'wouter';
-import { useSeo } from '@/hooks/use-seo';
+import { usePageSeo } from '@/hooks/use-page-seo';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 
@@ -15,7 +15,7 @@ type ConsentSettings = {
 const CONSENT_KEY = 'tomorrowos_cookie_consent';
 
 export default function CookieSettings() {
-  useSeo({ title: 'Cookie Settings' });
+  usePageSeo('/cookie-settings');
 
   const [settings, setSettings] = useState<ConsentSettings>({
     necessary: true,

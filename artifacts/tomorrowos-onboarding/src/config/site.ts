@@ -1,6 +1,21 @@
+/**
+ * Environment is controlled via VITE_SITE_ENV at build time:
+ *   "prototype" (default) | "preview" | "production"
+ * Only "production" allows indexing. Do not hard-code robots directives
+ * elsewhere — derive them from this config.
+ */
+const environment = (import.meta.env.VITE_SITE_ENV ?? 'prototype') as
+  | 'prototype'
+  | 'preview'
+  | 'production';
+
 export const siteConfig = {
   name: 'TomorrowOS',
-  isPrototype: true, // Used to guard indexing (noindex)
+  siteUrl: 'https://tomorrowos.org',
+  environment,
+  isPrototype: environment !== 'production', // Used to guard indexing (noindex)
+  isProduction: environment === 'production',
+  allowIndexing: environment === 'production',
   links: {
     github: 'https://github.com/TomorrowOS/TomorrowOS',
     docs: 'https://docs.tomorrowos.org',

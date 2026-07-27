@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSeo } from '@/hooks/use-seo';
+import { usePageSeo } from '@/hooks/use-page-seo';
 import type { LegalDoc, LegalBlock } from '@/content/legal';
 
 function Block({ block }: { block: LegalBlock }) {
@@ -42,11 +42,20 @@ function Block({ block }: { block: LegalBlock }) {
   }
 }
 
-export function LegalDocPage({ doc }: { doc: LegalDoc }) {
-  useSeo({ title: doc.title });
+export function LegalDocPage({ doc, path, draft = true }: { doc: LegalDoc; path: string; draft?: boolean }) {
+  usePageSeo(path);
 
   return (
     <div className="container mx-auto max-w-3xl py-24 px-4">
+      {draft && (
+        <div
+          className="mb-8 rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900"
+          role="note"
+        >
+          <strong className="font-semibold">Draft</strong> — this document has not
+          been legally reviewed and is not final.
+        </div>
+      )}
       <h1 className="text-4xl font-bold mb-3 tracking-tight">{doc.title}</h1>
       <p className="text-sm text-muted-foreground mb-12">
         Effective date: {doc.effectiveDate} · Last updated: {doc.lastUpdated}

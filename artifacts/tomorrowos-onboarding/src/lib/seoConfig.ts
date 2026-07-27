@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site";
 /**
  * Central SEO configuration for every route.
  *
@@ -36,7 +37,7 @@ export const seoRoutes: Record<string, RouteSeo> = {
     description:
       'Choose how to build with TomorrowOS: start a new signage product or connect an existing application via the Server SDK or HTTP API.',
     canonicalPath: '/start',
-    indexable: true,
+    indexable: false, // interactive onboarding app stays noindex in production
   },
   '/start/guided': {
     title: 'Guided setup',
@@ -123,6 +124,12 @@ export const seoRoutes: Record<string, RouteSeo> = {
     canonicalPath: '/guides/platforms/samsung-tizen',
     indexable: true,
   },
+  '/guides/platforms/samsung-tizen/magicinfo': {
+    title: 'Samsung Tizen MagicINFO troubleshooting',
+    description: 'Troubleshoot MagicINFO conflicts when installing the TomorrowOS player on Samsung Tizen displays.',
+    canonicalPath: '/guides/platforms/samsung-tizen/magicinfo',
+    indexable: false, // troubleshooting subpath of the main Tizen guide
+  },
   '/compatibility': {
     title: 'Compatibility',
     description: 'Check device and platform compatibility for TomorrowOS.',
@@ -139,19 +146,19 @@ export const seoRoutes: Record<string, RouteSeo> = {
     title: 'Privacy Policy',
     description: 'How TomorrowOS collects, uses and protects your information.',
     canonicalPath: '/privacy',
-    indexable: true,
+    indexable: false, // draft until legally reviewed — flip to true at launch
   },
   '/terms': {
     title: 'Terms of Service',
     description: 'The terms that govern your use of TomorrowOS.',
     canonicalPath: '/terms',
-    indexable: true,
+    indexable: false, // draft until legally reviewed — flip to true at launch
   },
   '/cookie-policy': {
     title: 'Cookie Policy',
     description: 'How TomorrowOS uses cookies and similar technologies.',
     canonicalPath: '/cookie-policy',
-    indexable: true,
+    indexable: false, // draft until legally reviewed — flip to true at launch
   },
   '/cookie-settings': {
     title: 'Cookie Settings',
@@ -166,12 +173,11 @@ export function getRouteSeo(path: string): RouteSeo | undefined {
 }
 
 /**
- * Builds an absolute URL from a router path, honouring the deployment base
- * path (BASE_URL). Use this for canonical URLs, og:url and structured data
- * so subpath deployments emit correct URLs.
+ * Builds an absolute URL from a router path against the canonical production
+ * hostname (siteConfig.siteUrl). Canonicals, og:url and structured-data URLs
+ * must always point at the production domain — never a preview domain.
  */
 export function absoluteUrl(path: string): string {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   const suffix = path.startsWith('/') ? path : `/${path}`;
-  return `${window.location.origin}${base}${suffix === '/' && base ? '/' : suffix}`;
+  return `${siteConfig.siteUrl}${suffix === '/' ? '/' : suffix}`;
 }

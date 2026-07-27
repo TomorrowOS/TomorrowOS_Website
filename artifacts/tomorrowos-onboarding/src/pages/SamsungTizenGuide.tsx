@@ -12,7 +12,11 @@ import { MagicInfoGuide } from '@/components/MagicInfoGuide';
 import { NeedHelpDrawer } from '@/components/NeedHelpDrawer';
 
 export default function SamsungTizenGuide() {
-  useGuideSeo('/guides/platforms/samsung-tizen');
+  // Use the actual location so the /magicinfo troubleshooting subpath emits
+  // its own (noindex) policy instead of the parent guide's indexable one.
+  useGuideSeo(window.location.pathname.includes('/samsung-tizen/magicinfo')
+    ? '/guides/platforms/samsung-tizen/magicinfo'
+    : '/guides/platforms/samsung-tizen');
   const { state, updateState } = usePrototype();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [, setLocation] = useLocation();

@@ -59,21 +59,24 @@ export function useSeo({ title, fullTitle = false, description, canonicalPath, s
       upsertMeta('meta[property="og:url"]', () => metaByProperty('og:url'), url);
     }
 
-    if (socialImage) {
-      const img = socialImage.startsWith('http') ? socialImage : `${window.location.origin}${socialImage}`;
-      upsertMeta('meta[property="og:image"]', () => metaByProperty('og:image'), img);
-    }
+    const img = socialImage
+      ? socialImage.startsWith('http')
+        ? socialImage
+        : absoluteUrl(socialImage)
+      : absoluteUrl('/og-image.png');
+    upsertMeta('meta[property="og:image"]', () => metaByProperty('og:image'), img);
+    upsertMeta('meta[name="twitter:card"]', () => metaByName('twitter:card'), 'summary_large_image');
 
+    // Robots policy is always explicit and derived from environment config:
+    // - prototype/preview: everything noindex, follow
+    // - production: index, follow only for routes not flagged noindex
     let metaRobots = document.querySelector('meta[name="robots"]');
-    if (noindex) {
-      if (!metaRobots) {
-        metaRobots = document.createElement('meta');
-        metaRobots.setAttribute('name', 'robots');
-        document.head.appendChild(metaRobots);
-      }
-      metaRobots.setAttribute('content', 'noindex,nofollow');
-    } else if (metaRobots) {
-      metaRobots.remove();
+    if (!metaRobots) {
+      metaRobots = document.createElement('meta');
+      metaRobots.setAttribute('name', 'robots');
+      document.head.appendChild(metaRobots);
     }
+    const allowed = siteConfig.allowIndexing && !noindex;
+    metaRobots.setAttribute('content', allowed ? 'index, follow' : 'noindex, follow');
   }, [title, fullTitle, description, canonicalPath, socialImage, noindex]);
 }

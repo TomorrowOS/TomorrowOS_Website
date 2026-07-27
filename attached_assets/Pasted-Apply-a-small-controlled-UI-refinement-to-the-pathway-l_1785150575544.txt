@@ -1,0 +1,409 @@
+Apply a small, controlled UI refinement to the pathway links on the TomorrowOS homepage.
+
+This is an existing working page. Do not redesign or rebuild the section.
+
+The objective is to:
+
+1. Make the pathway links more obviously interactive.
+2. Clarify that paired links are alternative choices, not sequential steps.
+3. Preserve the approved Figma appearance at rest.
+4. Avoid changing any existing journey, route or page structure.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a Replit checkpoint or Git commit named:
+
+   pre-homepage-pathway-link-refinement
+
+2. Record:
+   - The component containing these links
+   - Their current destinations
+   - Their current CSS classes
+   - Desktop and mobile screenshots
+
+If the existing page has build or runtime errors, report them before making unrelated changes.
+
+==================================================
+2. STRICT PRESERVATION RULES
+==================================================
+
+Do not change:
+
+- Section headings
+- Section descriptions
+- Existing link wording
+- Link destinations
+- Section order
+- Layout structure
+- Typography hierarchy
+- Divider positions
+- Homepage spacing outside the pathway-link rows
+- Other homepage components
+- Header or footer
+- Existing routes
+- Onboarding logic
+- Mobile navigation
+
+Do not convert the links into:
+
+- Cards
+- Tiles
+- Filled buttons
+- Outlined buttons
+- Pills
+- Badges
+
+The only new visible wording permitted is the lowercase separator:
+
+or
+
+==================================================
+3. AFFECTED LINKS
+==================================================
+
+Apply the refinement only to:
+
+- Server SDK
+- API Integration
+- Guided Setup
+- Terminal
+- Explore the Server SDK
+
+Preserve their existing destinations exactly.
+
+Before editing, verify that every destination currently works.
+
+==================================================
+4. CLARIFY ALTERNATIVE CHOICES
+==================================================
+
+Add a small, non-clickable lowercase “or” between paired choices.
+
+CONNECT YOUR PRODUCT
+
+Display:
+
+Server SDK ›   or   API Integration ›
+
+START SIMPLE
+
+Display:
+
+Guided Setup ›   or   Terminal ›
+
+Do not add “or” beside:
+
+Explore the Server SDK
+
+because it is a single action rather than a choice.
+
+Do not add:
+
+- Choose one
+- Option 1
+- Option 2
+- Numbering
+- Additional explanatory copy
+
+The “or” should quietly clarify the relationship without adding visual weight.
+
+==================================================
+5. STYLE THE “OR” SEPARATOR
+==================================================
+
+Use:
+
+- Roboto Regular
+- Approximately 12–13px
+- Muted neutral grey
+- Lowercase
+- No background
+- No border
+- No hover state
+- No focus state
+- No pointer cursor
+- Not included inside either link
+
+Give it enough spacing to distinguish the two click targets.
+
+Suggested desktop spacing:
+
+- 10–14px between a link and “or”
+- 10–14px between “or” and the next link
+
+Tune the final spacing against the existing Figma layout.
+
+==================================================
+6. PRESERVE THE DEFAULT LINK APPEARANCE
+==================================================
+
+At rest, links must remain visually close to the approved Figma:
+
+- Plain text
+- Small right chevron
+- No permanent background
+- No permanent border
+- No permanent shadow
+- No badge
+- No supporting subtitle
+- Existing font size and weight
+- Existing text colour
+
+A user looking at a static screenshot should see almost no visual change other than the subtle “or” separators.
+
+==================================================
+7. INCREASE THE CLICKABLE AREA
+==================================================
+
+Increase each link’s interactive area without making it look like a button.
+
+Use approximately:
+
+- 8px vertical padding
+- 8–10px horizontal padding
+- Minimum practical touch height of 40–44px
+
+Use:
+
+display: inline-flex;
+align-items: center;
+gap: 6px;
+
+The extra click area should remain visually transparent in the default state.
+
+Do not significantly change the position of surrounding text or dividers.
+
+==================================================
+8. HOVER STATE
+==================================================
+
+On pointer hover, apply only to the link being hovered:
+
+- Very light neutral-grey background
+- Approximately 6px radius
+- Slightly darker text if needed
+- Chevron shifts approximately 2px to the right
+- Transition duration approximately 120–160ms
+
+Suggested visual direction:
+
+background: rgba(0, 0, 0, 0.035);
+
+Do not add:
+
+- Permanent borders
+- Strong colours
+- Heavy shadows
+- Scaling
+- Large movement
+- Underlines that clash with the Figma design
+
+Respect `prefers-reduced-motion`.
+
+When reduced motion is enabled, do not animate the chevron.
+
+==================================================
+9. KEYBOARD FOCUS STATE
+==================================================
+
+Add a clear but restrained `:focus-visible` state.
+
+Suggested treatment:
+
+outline: 2px solid currentColor;
+outline-offset: 2px;
+border-radius: 6px;
+
+Only show the strong focus outline for keyboard navigation through `:focus-visible`.
+
+Do not leave a permanent outline after mouse clicks.
+
+Do not remove browser focus behaviour without replacing it.
+
+==================================================
+10. ACTIVE OR PRESSED STATE
+==================================================
+
+While a link is actively pressed:
+
+- Use a slightly darker neutral-grey background than hover
+- Keep text readable
+- Do not move or resize the surrounding layout
+- Do not add a shadow
+
+This state should last only during the press interaction.
+
+==================================================
+11. CHEVRON BEHAVIOUR
+==================================================
+
+Keep the existing chevron design.
+
+Requirements:
+
+- Align vertically with the link text
+- Maintain consistent spacing from the label
+- Mark decorative chevrons as hidden from assistive technology
+- Move no more than 2px on hover
+- Do not replace the chevrons with larger arrows
+- Do not use emojis
+
+==================================================
+12. SEMANTIC STRUCTURE
+==================================================
+
+Each pathway must remain a semantic anchor.
+
+Preferred structure:
+
+<div className="pathway-choice-group">
+  <a className="pathway-link" href="EXISTING_DESTINATION">
+    <span>Server SDK</span>
+    <Chevron aria-hidden="true" />
+  </a>
+
+  <span className="pathway-choice-separator" aria-hidden="true">
+    or
+  </span>
+
+  <a className="pathway-link" href="EXISTING_DESTINATION">
+    <span>API Integration</span>
+    <Chevron aria-hidden="true" />
+  </a>
+</div>
+
+Do not:
+
+- Use clickable divs
+- Nest links inside buttons
+- Include the separator inside either anchor
+- Change the accessible name of existing links unnecessarily
+
+A screen reader should encounter two independent links, not one combined control.
+
+==================================================
+13. MOBILE BEHAVIOUR
+==================================================
+
+At mobile widths:
+
+- Preserve large, comfortable touch targets
+- Allow the group to wrap naturally
+- Avoid horizontal scrolling
+- Keep each link separate
+- Keep “or” visually associated with the alternatives
+- Do not convert the links into full-width cards or buttons
+
+Preferred behaviour when the row does not fit:
+
+Server SDK ›   or
+API Integration ›
+
+or:
+
+Server SDK ›
+or
+API Integration ›
+
+Choose whichever layout fits the existing mobile Figma system more naturally.
+
+Do not leave “or” alone at the end of a line where avoidable.
+
+Use flex wrapping and sensible row/column gaps rather than fixed widths.
+
+==================================================
+14. REUSABLE IMPLEMENTATION
+==================================================
+
+Use or create a lightweight reusable component only when it reduces duplication.
+
+Possible component:
+
+PathwayLinkGroup
+
+It may accept:
+
+- First link label
+- First link destination
+- Second link label
+- Second link destination
+- Optional separator
+- Single-link mode
+
+Do not undertake a wider component refactor.
+
+Do not modify unrelated navigation or CTA components.
+
+==================================================
+15. VISUAL QA
+==================================================
+
+Compare before and after at:
+
+- 390px
+- 768px
+- 1024px
+- 1440px
+
+Check:
+
+- Default appearance remains close to Figma
+- “or” clearly communicates alternatives
+- Paired links remain on one line where practical
+- Clickable areas do not overlap
+- Hover affects one link only
+- Keyboard focus is clearly visible
+- Dividers remain aligned
+- No content jumps on hover
+- No horizontal overflow
+- Section heights are not materially increased
+
+Test each link destination after implementation.
+
+==================================================
+16. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. All existing wording remains unchanged.
+2. The only new visible text is lowercase “or”.
+3. Server SDK and API Integration clearly appear as alternatives.
+4. Guided Setup and Terminal clearly appear as alternatives.
+5. Explore the Server SDK remains a single action.
+6. Links remain simple text actions at rest.
+7. No permanent cards, borders or backgrounds are introduced.
+8. Every link has a larger click target.
+9. Hover styling is subtle.
+10. Only the hovered link receives a hover background.
+11. Keyboard focus is visible.
+12. Pressed state is restrained.
+13. Chevrons remain aligned.
+14. Existing destinations remain unchanged and functional.
+15. Desktop layout remains visually consistent.
+16. Mobile layout remains clean and usable.
+17. There is no horizontal scrolling.
+18. No unrelated components are changed.
+19. No TypeScript, build, runtime or console errors are introduced.
+
+==================================================
+17. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Checkpoint or commit created
+- Component and stylesheet changed
+- Confirmation that destinations were preserved
+- Screenshot at 1440px
+- Screenshot at 390px
+- Hover-state screenshot
+- Keyboard-focus screenshot
+- Build and TypeScript result
+- Exact rollback instruction
+
+Do not make additional homepage design changes during this task.

@@ -1,0 +1,120 @@
+Clarify that the paired homepage pathway links are alternative options, not sequential steps.
+
+Do not change:
+
+- Section headings
+- Existing descriptions
+- Link wording
+- Link destinations
+- Page structure
+- Typography hierarchy
+- Existing subtle link hover treatment
+
+Do not convert the links into cards, buttons or tiles.
+
+Apply only the following small UI refinement.
+
+1. ADD A SMALL CHOICE LABEL
+
+Above paired pathway links, add:
+
+Choose one:
+
+Use:
+
+- Small Roboto text
+- Muted grey colour
+- Approximately 12–13px
+- Medium weight
+- Approximately 6–8px bottom spacing
+
+Add this only where multiple alternative routes are shown.
+
+CONNECT YOUR PRODUCT
+
+Display:
+
+Choose one:
+
+Server SDK   or   API Integration
+
+START SIMPLE
+
+Display:
+
+Choose one:
+
+Guided Setup   or   Terminal
+
+Do not add “Choose one” above a single action such as:
+
+Explore the Server SDK
+
+2. ADD “OR” BETWEEN ALTERNATIVES
+
+Place a small muted “or” between each pair.
+
+Use:
+
+- Lowercase “or”
+- Lighter grey than the links
+- Regular font weight
+- Adequate spacing on both sides
+- No chevron
+- Not clickable
+
+The layout should read naturally as:
+
+Server SDK  ›   or   API Integration  ›
+
+and:
+
+Guided Setup  ›   or   Terminal  ›
+
+3. KEEP LINKS VISUALLY LIGHT
+
+Retain the existing:
+
+- Text-link appearance
+- Small chevron
+- Subtle hover background
+- Larger click target
+- Keyboard focus state
+
+Do not add permanent borders or backgrounds.
+
+4. MOBILE
+
+On narrow screens, allow the alternatives to wrap or stack cleanly.
+
+Preferred mobile behaviour:
+
+Choose one:
+
+Server SDK  ›
+or
+API Integration  ›
+
+Keep “or” visually centred or aligned consistently.
+
+Do not create horizontal overflow.
+
+5. ACCESSIBILITY
+
+Use semantic text for “Choose one” and “or”.
+
+Do not include “or” inside either link’s accessible name.
+
+Each option must remain a separate anchor.
+
+6. ACCEPTANCE CRITERIA
+
+The change is complete when:
+
+- Server SDK and API Integration clearly appear as alternatives.
+- Guided Setup and Terminal clearly appear as alternatives.
+- The sections no longer feel like sequential steps.
+- Existing wording and destinations remain unchanged.
+- Single links remain unchanged.
+- Desktop and mobile layouts remain clean.
+- No TypeScript or runtime errors are introduced.
