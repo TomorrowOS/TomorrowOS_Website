@@ -1,0 +1,382 @@
+Correct the global TomorrowOS website header so it matches the approved Figma navigation exactly.
+
+Do not redesign any page content.
+
+The current implementation is incorrect because:
+
+- The TomorrowOS wordmark is too small.
+- About and Get Started are positioned near the right side instead of beside the logo.
+- The GitHub button is missing.
+- The header is too short.
+- Navigation spacing and grouping do not match the Figma.
+- Different pages appear to be using inconsistent header layouts.
+
+Use the attached Figma header screenshot as the authoritative reference.
+
+==================================================
+1. REQUIRED DESKTOP STRUCTURE
+==================================================
+
+The desktop header must use two primary groups:
+
+LEFT GROUP
+
+1. TomorrowOS logo
+2. About
+3. Get Started
+
+RIGHT GROUP
+
+1. GitHub
+2. Start building
+
+The visual order must be:
+
+TomorrowOS logo   About   Get Started               GitHub   Start building
+
+Do not centre About and Get Started independently.
+
+Do not distribute every navigation item evenly across the header.
+
+Do not place About and Get Started inside the right action group.
+
+Use a structure similar to:
+
+<header>
+  <div class="header-inner">
+    <div class="header-left">
+      <Logo />
+      <nav class="primary-navigation">
+        <About />
+        <GetStarted />
+      </nav>
+    </div>
+
+    <div class="header-actions">
+      <GitHub />
+      <StartBuilding />
+    </div>
+  </div>
+</header>
+
+==================================================
+2. HEADER DIMENSIONS
+==================================================
+
+Match the Figma desktop header proportions.
+
+Use approximately:
+
+- Header height: 96px
+- Horizontal page padding: 64px
+- Header content width: 100%
+- Maximum usable width: approximately 1312px–1320px on a 1440px viewport
+- Bottom border: 1px solid neutral grey
+- White background
+- No large shadow
+- No rounded outer header container
+
+The header should span the full browser width.
+
+The inner content must be vertically centred.
+
+Do not use the current compressed approximately 60px-high header.
+
+==================================================
+3. TOMORROWOS LOGO
+==================================================
+
+Use the approved SVG asset:
+
+/assets/brand/tomorrowos-logo.svg
+
+Do not recreate the logo with:
+
+- Typed text
+- A generic circle
+- Separate “Tomorrow” and “OS” text
+- CSS-drawn shapes
+
+Desktop rendered width should visually match the Figma, approximately:
+
+- Width: 220px
+- Height: auto
+
+Preserve the SVG aspect ratio.
+
+Link the logo to:
+
+/
+
+Accessible label:
+
+TomorrowOS home
+
+==================================================
+4. LEFT NAVIGATION SPACING
+==================================================
+
+Place the primary navigation immediately after the logo.
+
+Recommended layout:
+
+- Gap between logo and About: approximately 32px
+- Gap between About and Get Started: approximately 28px
+
+Navigation labels:
+
+About
+Get Started
+
+Destinations:
+
+About
+→ /about
+
+Get Started
+→ /quickstart
+
+Use:
+
+- Roboto Regular or Medium according to the Figma
+- Approximately 15–16px
+- Black text
+- No uppercase transformation
+- No background by default
+
+Hover:
+
+- Subtle opacity or underline
+- No large pill background
+
+Active page:
+
+- Use a subtle active treatment
+- Do not make it look like a large button
+- `aria-current="page"` must be set
+
+==================================================
+5. RIGHT ACTION GROUP
+==================================================
+
+The right side must contain both:
+
+GitHub
+Start building
+
+GITHUB BUTTON
+
+Style:
+
+- White background
+- Black border
+- Black text
+- Approximately 84–88px wide
+- Approximately 42px high
+- Small or no border radius, matching Figma
+- No fill on hover that changes the visual language
+
+Destination:
+
+Use the centrally configured GitHub URL.
+
+Open in a new tab with:
+
+rel="noopener noreferrer"
+
+START BUILDING BUTTON
+
+Style:
+
+- Black background
+- White text
+- Approximately 126–130px wide
+- Approximately 42px high
+- Match the Figma radius
+- Roboto Medium or Bold
+
+Destination:
+
+/start
+
+Gap between GitHub and Start building:
+
+Approximately 14px
+
+Do not omit the GitHub button.
+
+==================================================
+6. CENTRAL NAVIGATION CONFIGURATION
+==================================================
+
+Update the shared central navigation configuration.
+
+Use one source of truth such as:
+
+siteNavigation = {
+  primary: [
+    {
+      label: "About",
+      href: "/about"
+    },
+    {
+      label: "Get Started",
+      href: "/quickstart"
+    }
+  ],
+  actions: [
+    {
+      label: "GitHub",
+      href: siteConfig.githubUrl,
+      external: true,
+      variant: "outline"
+    },
+    {
+      label: "Start building",
+      href: "/start",
+      external: false,
+      variant: "primary"
+    }
+  ]
+}
+
+Do not hard-code different navigation arrays inside:
+
+- Homepage
+- About
+- Quickstart
+- Start Building
+- Guides
+
+==================================================
+7. ONE SHARED GLOBAL HEADER
+==================================================
+
+Ensure all public-facing routes use the same GlobalHeader component:
+
+- /
+- /about
+- /quickstart
+- /start
+- /start/guided
+- /start/terminal
+- /connect/server-sdk
+- /connect/api
+- /privacy
+- /terms
+- /cookie-settings
+- All public guide routes
+
+Do not maintain separate header implementations for different pages.
+
+Internal prototype controls must not appear inside the public header.
+
+Review Mode controls should remain in a separate internal toolbar visible only when Review Mode is active.
+
+==================================================
+8. MOBILE HEADER
+==================================================
+
+On mobile:
+
+Show:
+
+- TomorrowOS SVG wordmark
+- Hamburger menu button
+
+Hide the desktop navigation and right-side actions.
+
+The mobile menu must contain:
+
+1. About
+2. Get Started
+3. GitHub
+4. Start building
+
+Use the same wording and destinations as desktop.
+
+Start building should remain visually prominent inside the mobile menu.
+
+Requirements:
+
+- Keyboard accessible
+- Escape closes the menu
+- Focus is trapped while open
+- Background scrolling is disabled
+- Clear close button
+- Visible focus states
+
+Do not shrink the desktop navigation until it becomes cramped.
+
+Switch cleanly to the mobile menu at the appropriate breakpoint.
+
+==================================================
+9. REMOVE INCORRECT HEADER CODE
+==================================================
+
+Remove or stop rendering:
+
+- The small current wordmark implementation
+- Generic circle logo code
+- Typed “TomorrowOS” fallback branding
+- Centred or right-floating primary navigation
+- Headers without GitHub
+- Duplicate page-specific headers
+- Excessively narrow header containers
+- Current compressed header-height styling
+
+Search the project for all alternate header components and consolidate them.
+
+==================================================
+10. FIGMA COMPARISON
+==================================================
+
+Compare the corrected header at exactly:
+
+- 1440px desktop width
+- 390px mobile width
+
+At 1440px confirm:
+
+- Logo begins approximately 64px from the left edge.
+- Logo width visually matches the Figma.
+- About and Get Started sit beside the logo.
+- GitHub and Start building sit at the right edge.
+- Both action buttons are present.
+- Header height matches the Figma.
+- Navigation is vertically centred.
+- Left and right page padding are balanced.
+- Bottom border is visible and subtle.
+
+Do not accept the current arrangement as close enough.
+
+==================================================
+11. ACCEPTANCE CRITERIA
+==================================================
+
+The correction is complete only when:
+
+1. The supplied SVG logo is used.
+2. The logo is approximately the same size as the Figma.
+3. About appears directly beside the logo.
+4. Get Started appears directly after About.
+5. GitHub appears as an outlined button.
+6. Start building appears as a black button.
+7. The right action group is aligned to the right.
+8. Header height matches the Figma more closely.
+9. Header content uses approximately 64px desktop padding.
+10. All public routes use the same header.
+11. The active navigation page is identified.
+12. Mobile navigation contains all four destinations.
+13. Prototype controls do not appear in the public header.
+14. No duplicate header components remain visible.
+15. Browser back and forward navigation work.
+16. No TypeScript or runtime errors are introduced.
+
+After implementation, provide:
+
+- A 1440px screenshot of the About-page header
+- A 1440px screenshot of the Quickstart-page header
+- A 390px screenshot of the mobile header
+- The final GlobalHeader component path
+- A list of old header implementations removed

@@ -1,10 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
-import { siteConfig } from '@/config/site';
 import { usePrototype } from './PrototypeProvider';
 import { PlaceholderText } from './PlaceholderText';
+import { siteNavigation, isConfiguredUrl } from '@/config/navigation';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+const logoSrc = `${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`;
+
+function isActive(location: string, href: string) {
+  if (href === '/start') {
+    return location.startsWith('/start') || location.startsWith('/connect') || location.startsWith('/guides');
+  }
+  return location === href;
+}
 
 export function WebsiteHeader() {
   const { state } = usePrototype();
@@ -13,18 +22,20 @@ export function WebsiteHeader() {
   const drawerRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
-  const hasGithub = siteConfig.links.github && !siteConfig.links.github.includes('{{');
+  const githubAction = siteNavigation.actions.find((a) => a.label === 'GitHub')!;
+  const startAction = siteNavigation.actions.find((a) => a.label === 'Start building')!;
+  const hasGithub = isConfiguredUrl(githubAction.href);
   const showGithub = state.prototypeReviewMode || hasGithub;
 
   // Focus trap & scroll lock for mobile menu
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
-      
+
       const focusableElements = drawerRef.current?.querySelectorAll(
         'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
       ) as NodeListOf<HTMLElement>;
-      
+
       const firstElement = focusableElements?.[0];
       const lastElement = focusableElements?.[focusableElements.length - 1];
 
@@ -51,7 +62,7 @@ export function WebsiteHeader() {
           }
         }
       };
-      
+
       document.addEventListener('keydown', handleKeyDown);
       return () => {
         document.body.style.overflow = '';
@@ -67,42 +78,60 @@ export function WebsiteHeader() {
     setMobileMenuOpen(false);
   }, [location]);
 
+  const githubButton = (className: string) =>
+    showGithub ? (
+      <a
+        href={hasGithub ? githubAction.href : '#'}
+        target={hasGithub ? '_blank' : undefined}
+        rel={hasGithub ? 'noopener noreferrer' : undefined}
+        className={cn(className, !hasGithub && 'opacity-50')}
+        onClick={(e) => !hasGithub && e.preventDefault()}
+      >
+        {hasGithub ? 'GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="GitHub" />}
+      </a>
+    ) : null;
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 md:px-8">
-        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-          <img src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`} alt="TomorrowOS" className="h-6 w-auto" />
-        </Link>
-        
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          <Link href="/about" className={cn("text-sm font-medium transition-colors", location === '/about' ? "text-foreground" : "text-muted-foreground hover:text-foreground")}>
-            About
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-white">
+      <div className="mx-auto flex h-16 md:h-24 w-full max-w-[1440px] items-center justify-between px-4 md:px-16">
+        {/* Left group: logo + primary navigation */}
+        <div className="flex items-center gap-8">
+          <Link href="/" aria-label="TomorrowOS home" className="flex items-center hover:opacity-80 transition-opacity">
+            <img src={logoSrc} alt="TomorrowOS" className="h-6 w-auto md:h-auto md:w-[220px]" />
           </Link>
-          <Link href="/quickstart" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Get Started
-          </Link>
-          
-          <div className="flex items-center gap-4 ml-4">
-            {showGithub && (
-              <a 
-                href={hasGithub ? siteConfig.links.github : '#'}
-                target={hasGithub ? "_blank" : undefined}
-                rel={hasGithub ? "noopener noreferrer" : undefined}
-                className={cn("text-sm font-medium border border-border px-4 py-2 rounded-md hover:bg-muted transition-colors", !hasGithub && "opacity-50")}
-                onClick={(e) => !hasGithub && e.preventDefault()}
+          <nav className="hidden md:flex items-center gap-7" aria-label="Primary">
+            {siteNavigation.primary.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive(location, item.href) ? 'page' : undefined}
+                className={cn(
+                  'text-[15px] font-medium text-foreground transition-opacity hover:opacity-70',
+                  isActive(location, item.href) && 'underline underline-offset-8 decoration-foreground/60'
+                )}
               >
-                {hasGithub ? 'GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="GitHub" />}
-              </a>
-            )}
-            <Link href="/start" className={cn("text-sm font-medium px-4 py-2 rounded-md transition-colors", location.startsWith('/start') || location.startsWith('/connect') || location.startsWith('/guides') ? "bg-black text-white hover:bg-black/90" : "bg-foreground text-background hover:bg-foreground/90")}>
-              Start building
-            </Link>
-          </div>
-        </nav>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        {/* Right group: actions */}
+        <div className="hidden md:flex items-center gap-3.5">
+          {githubButton(
+            'inline-flex h-[42px] items-center justify-center rounded-md border border-foreground bg-white px-6 text-[15px] font-medium text-foreground transition-opacity hover:opacity-70'
+          )}
+          <Link
+            href={startAction.href}
+            aria-current={isActive(location, startAction.href) ? 'page' : undefined}
+            className="inline-flex h-[42px] items-center justify-center rounded-md bg-foreground px-6 text-[15px] font-medium text-background transition-colors hover:bg-foreground/90"
+          >
+            {startAction.label}
+          </Link>
+        </div>
 
         {/* Mobile Nav Toggle */}
-        <button 
+        <button
           ref={menuButtonRef}
           className="md:hidden p-2 text-foreground"
           onClick={() => setMobileMenuOpen(true)}
@@ -117,10 +146,10 @@ export function WebsiteHeader() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-background md:hidden flex flex-col" ref={drawerRef} role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
           <div className="flex items-center justify-between h-16 px-4 border-b border-border">
-            <Link href="/" className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setMobileMenuOpen(false)}>
-              <img src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`} alt="TomorrowOS" className="h-6 w-auto" />
+            <Link href="/" aria-label="TomorrowOS home" className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setMobileMenuOpen(false)}>
+              <img src={logoSrc} alt="TomorrowOS" className="h-6 w-auto" />
             </Link>
-            <button 
+            <button
               className="p-2 text-foreground"
               onClick={() => setMobileMenuOpen(false)}
               aria-label="Close menu"
@@ -128,26 +157,26 @@ export function WebsiteHeader() {
               <X className="w-6 h-6" />
             </button>
           </div>
-          <nav className="flex flex-col p-4 gap-4 flex-1 overflow-y-auto">
-            <Link href="/about" className={cn("text-lg font-medium py-2 border-b border-border/50", location === '/about' ? "text-foreground" : "text-muted-foreground")}>
-              About
-            </Link>
-            <Link href="/quickstart" className="text-lg font-medium text-foreground py-2 border-b border-border/50">
-              Get Started
-            </Link>
-            {showGithub && (
-              <a 
-                href={hasGithub ? siteConfig.links.github : '#'}
-                target={hasGithub ? "_blank" : undefined}
-                rel={hasGithub ? "noopener noreferrer" : undefined}
-                className="text-lg font-medium text-foreground py-2 border-b border-border/50 flex items-center"
-                onClick={(e) => !hasGithub && e.preventDefault()}
+          <nav className="flex flex-col p-4 gap-4 flex-1 overflow-y-auto" aria-label="Mobile">
+            {siteNavigation.primary.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive(location, item.href) ? 'page' : undefined}
+                className={cn(
+                  'text-lg font-medium py-2 border-b border-border/50',
+                  isActive(location, item.href) ? 'text-foreground underline underline-offset-8' : 'text-foreground'
+                )}
               >
-                {hasGithub ? 'GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="GitHub" />}
-              </a>
-            )}
-            <Link href="/start" className={cn("mt-8 flex justify-center text-base font-medium px-4 py-3 rounded-md transition-colors", location.startsWith('/start') || location.startsWith('/connect') || location.startsWith('/guides') ? "bg-black text-white hover:bg-black/90" : "bg-foreground text-background hover:bg-foreground/90")}>
-              Start building
+                {item.label}
+              </Link>
+            ))}
+            {githubButton('text-lg font-medium text-foreground py-2 border-b border-border/50 flex items-center')}
+            <Link
+              href={startAction.href}
+              className="mt-8 flex justify-center text-base font-medium px-4 py-3 rounded-md bg-foreground text-background hover:bg-foreground/90 transition-colors"
+            >
+              {startAction.label}
             </Link>
           </nav>
         </div>
