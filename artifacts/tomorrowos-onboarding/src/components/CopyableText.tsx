@@ -33,6 +33,7 @@ export function CopyableText({ text, className, multiline }: CopyableTextProps) 
       >
         {copied ? <Check className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
       </Button>
+      <span aria-live="polite" className="sr-only">{copied ? 'Copied to clipboard' : ''}</span>
     </div>
   );
 }

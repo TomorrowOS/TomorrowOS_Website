@@ -1,0 +1,441 @@
+Correct the existing TomorrowOS Server SDK onboarding page.
+
+The current page contains several unverified placeholders:
+
+- Command available soon
+- Code snippet available soon
+- Device pairing code available soon
+- Content delivery code available soon
+- Policy-control code available soon
+
+The current copy also says:
+
+“Configure the SDK with your API credentials.”
+
+That credential model has not yet been verified.
+
+The supplied TomorrowOS repository material confirms only:
+
+1. The installation command:
+   npm install @tomorrowos/sdk
+
+2. The Server SDK’s intended responsibilities:
+   - Devices
+   - Content
+   - Policies
+   - Commands
+   - Events
+
+3. The architecture:
+   User product
+   → TomorrowOS Server SDK and APIs
+   → TomorrowOS Runtime
+   → Supported screen platforms
+
+4. The project is under active development and APIs may evolve before version 1.0.
+
+Do not invent:
+
+- Import names
+- Constructor names
+- API-key variable names
+- Initialisation options
+- Device methods
+- Content methods
+- Policy methods
+- Command methods
+- Event syntax
+- Storage options
+- Node.js requirements
+- Authentication flows
+
+==================================================
+1. PAGE STATUS
+==================================================
+
+Preserve the route:
+
+/connect/server-sdk
+
+Add a centrally configured status:
+
+serverSdkStatus
+
+Allowed values:
+
+- preview
+- package-available
+- beta
+- stable
+
+Set the current default to:
+
+package-available
+
+Customer-facing label:
+
+Package available
+
+Add a status callout:
+
+The Server SDK package and architecture are available. Detailed method-level examples are being verified against the current release.
+
+==================================================
+2. PAGE HEADER
+==================================================
+
+Heading:
+
+Integrate the Server SDK
+
+Supporting copy:
+
+Add TomorrowOS to an existing Node.js or TypeScript backend application.
+
+Actions:
+
+- View SDK documentation
+- View npm package
+- View on GitHub
+
+Use centrally configured and verified destinations.
+
+Do not allow unresolved links to return a 404.
+
+==================================================
+3. REMOVE UNVERIFIED PLACEHOLDERS
+==================================================
+
+Remove the large placeholder boxes containing:
+
+- Command available soon
+- Code snippet available soon
+
+Do not replace them with invented code.
+
+Remove or rewrite:
+
+Configure the SDK with your API credentials.
+
+Do not mention an API key until engineering confirms the credential model.
+
+==================================================
+4. PATH COMPARISON
+==================================================
+
+Add:
+
+Is the Server SDK right for your project?
+
+Create two columns.
+
+Choose the Server SDK when:
+
+- Your backend uses Node.js or TypeScript.
+- You want TomorrowOS integrated directly into your application.
+- You require backend access to devices, content, policies, commands and events.
+- You control the backend deployment environment.
+
+Choose the HTTP API when:
+
+- Your backend uses another language.
+- You need a language-neutral integration.
+- You prefer standard HTTP requests.
+
+Action:
+
+Switch to HTTP API
+
+Route:
+
+/connect/api
+
+==================================================
+5. VERIFIED INSTALLATION
+==================================================
+
+Heading:
+
+Install the package
+
+Show this verified command:
+
+npm install @tomorrowos/sdk
+
+Use a real code block with:
+
+- Copy
+- Copied confirmation
+- Accessible label
+- View npm package link
+
+Do not show package names from old mockups such as:
+
+@tomorrowos/server
+
+The source of truth is:
+
+@tomorrowos/sdk
+
+==================================================
+6. ARCHITECTURE
+==================================================
+
+Heading:
+
+How the Server SDK fits
+
+Create this responsive flow:
+
+Your product
+CMS · SaaS · Application
+
+→
+
+TomorrowOS Server SDK
+Devices · Content · Policies · Commands · Events
+
+→
+
+TomorrowOS Runtime
+Playback · Storage · Offline operation
+
+→
+
+Supported screens
+
+Supporting copy:
+
+Your application owns the user experience, workflows, business logic and data. TomorrowOS provides the shared screen and playback infrastructure underneath.
+
+Mobile:
+
+Stack vertically.
+
+==================================================
+7. CAPABILITY AREAS
+==================================================
+
+Heading:
+
+What the Server SDK provides
+
+Show four concise cards.
+
+Device management
+
+Copy:
+Onboard and manage supported screens.
+
+Content and policies
+
+Copy:
+Manage content, playlists, schedules and playback rules.
+
+Commands
+
+Copy:
+Send supported device and runtime commands.
+
+Events
+
+Copy:
+Receive device, playback and system updates.
+
+Do not display method names until they are verified.
+
+==================================================
+8. BACKEND SECURITY
+==================================================
+
+Heading:
+
+Use the SDK from your backend
+
+Copy:
+
+The Server SDK is intended for secure backend environments.
+
+Show:
+
+- Do not expose privileged credentials in frontend code.
+- Do not bundle the Server SDK into browser applications.
+- Store secrets through protected environment variables.
+- Do not commit credentials to Git.
+
+Do not claim a specific credential or API-key mechanism.
+
+==================================================
+9. SDK READINESS
+==================================================
+
+Heading:
+
+Server SDK readiness
+
+Show a compact table:
+
+npm package
+Available
+
+Installation command
+Available
+
+Project architecture
+Available
+
+Device and runtime foundation
+Available
+
+Initialisation reference
+Being verified
+
+Device-pairing examples
+Being verified
+
+Content and policy examples
+Being verified
+
+Commands and events examples
+Being verified
+
+Stable method reference
+In progress
+
+Supporting copy:
+
+We will publish method-level examples only after they have been verified against the current package release.
+
+==================================================
+10. DEVELOPER RESOURCES
+==================================================
+
+Heading:
+
+Continue with the current SDK
+
+Create three cards.
+
+Review the package
+
+Copy:
+Inspect the current package metadata, README and release history.
+
+Action:
+View npm package
+
+Review the source
+
+Copy:
+Follow implementation progress, issues and changes.
+
+Actions:
+View GitHub
+Join the discussion
+
+Read the documentation
+
+Copy:
+Use the latest verified setup and integration guidance.
+
+Action:
+Open SDK docs
+
+Use only configured destinations.
+
+==================================================
+11. FUTURE STABLE MODE
+==================================================
+
+Build a configuration-driven stable state.
+
+Only enable stable mode when engineering provides:
+
+- Verified import statement
+- Verified initialisation method
+- Verified configuration options
+- Credential-generation process
+- Device-pairing example
+- Content example
+- Policy example
+- Command example
+- Event-subscription example
+- Error-handling guidance
+- Required runtime versions
+
+When stable mode is incomplete:
+
+- Fall back to package-available mode.
+- Show missing details only in Prototype Review Mode.
+- Never show unresolved placeholders to developers.
+
+==================================================
+12. SHARED DEVICE JOURNEY
+==================================================
+
+Do not unlock:
+
+- Player download
+- Player installation
+- Pairing
+- Content deployment
+
+merely because the package was installed.
+
+Only unlock the shared journey after the user completes a verified integration milestone configured by engineering.
+
+Remove any generic completion action that implies the SDK is working when it has not been tested.
+
+==================================================
+13. PROTOTYPE REVIEW MODE
+==================================================
+
+Show the remaining engineering requirements:
+
+- Actual package export name
+- Initialisation method
+- Configuration schema
+- Authentication model
+- Environment-variable names
+- Node.js support range
+- Device registration method
+- Pairing method
+- Content method
+- Policy method
+- Command method
+- Event-subscription method
+- Error and retry behaviour
+- Storage-adapter interface
+- Stable API guarantees
+
+Hide these internal notes in normal mode.
+
+==================================================
+14. ACCEPTANCE CRITERIA
+==================================================
+
+The correction is complete only when:
+
+1. The verified npm installation command is shown.
+2. No invented constructor is shown.
+3. No invented API-key variable is shown.
+4. No invented device or content method is shown.
+5. Placeholder code boxes are removed.
+6. The Server SDK and HTTP API are clearly compared.
+7. The architecture is clear.
+8. The four capability areas are shown.
+9. Backend security guidance is present.
+10. SDK readiness is shown honestly.
+11. npm, GitHub and docs links are accessible.
+12. The device journey remains locked until a verified milestone exists.
+13. Stable mode is configuration-driven.
+14. Mobile and desktop layouts work.
+15. No TypeScript or runtime errors remain.
+
+After implementation, provide:
+
+- Updated screenshot
+- Server SDK configuration path
+- Verified links used
+- List of missing SDK contract details
+- Confirmation that no unverified code remains

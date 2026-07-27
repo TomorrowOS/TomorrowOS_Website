@@ -1,0 +1,231 @@
+Perform a controlled UX, accessibility, SEO, performance and go-live hardening pass on the existing TomorrowOS website.
+
+Do not redesign the approved Figma pages.
+Do not rebuild the application.
+Do not change established routes, onboarding logic, guide content or platform statuses unless specifically required to fix a verified issue.
+
+The objective is to make the current website easier to use, safer to navigate, more discoverable by search engines, faster on mobile and desktop, and ready for structured go-live testing.
+
+PHASE 1 — AUDIT ONLY
+
+Before editing:
+
+1. Record the current route map.
+2. Record all localStorage keys.
+3. Identify all shared headers, footers and layouts.
+4. Identify broken or placeholder links.
+5. Identify routes missing titles, descriptions or canonical URLs.
+6. Identify indexable prototype, review and draft routes.
+7. Identify oversized assets and unused dependencies.
+8. Identify layout shifts and missing image dimensions.
+9. Identify inaccessible controls.
+10. Record the current deployment type and build commands.
+11. Create a baseline screenshot at 390px, 768px, 1024px and 1440px.
+12. Then proceed without waiting for approval.
+
+PHASE 2 — UX HARDENING
+
+Create reusable components for:
+
+- ExternalStepHandoff
+- ExpectedResult
+- UserConfirmation
+- ContextualHelpDrawer
+- ResumeSetup
+- StickyStepNavigation
+- GuideSearch
+- ErrorRecoveryCard
+
+Every external handoff must state:
+
+- Where the action occurs
+- That it opens in a new tab
+- What the user must do
+- What result they should see
+- How to return
+- How to get help
+
+Do not create fake Upload, Publish, Pair, Connect or Verify controls.
+
+Use user-confirmed wording when no integration exists.
+
+Preserve existing setup progress.
+
+PHASE 3 — ACCESSIBILITY
+
+Ensure:
+
+- One H1 per page
+- Logical heading order
+- Skip-to-content link
+- Keyboard-operable navigation
+- Visible focus states
+- Accessible selected-card semantics
+- Accessible mobile menu
+- 44px minimum touch targets where practical
+- Correct form labels
+- Status not communicated by colour alone
+- Reduced-motion support
+- Useful image alt text
+- Decorative images hidden appropriately
+
+PHASE 4 — SEO
+
+Create one central SEO configuration.
+
+For every public route add:
+
+- Unique title
+- Unique meta description
+- Canonical URL
+- Open Graph metadata
+- One descriptive H1
+
+Generate:
+
+- sitemap.xml
+- robots.txt
+
+Index useful public marketing and guide routes.
+
+Apply noindex to:
+
+- Prototype Review Mode
+- Preview-only routes
+- Draft legal pages
+- Internal test pages
+- Temporary placeholders
+- Duplicate setup-state URLs
+
+Add JSON-LD:
+
+- Organization on the homepage
+- SoftwareApplication only on a suitable visible software-overview page
+- BreadcrumbList on public guides
+
+Do not add misleading structured data.
+
+Ensure all public navigation uses crawlable anchor elements.
+
+PHASE 5 — RENDERING
+
+Pre-render or server-render the public marketing and guide routes so meaningful HTML is present before client JavaScript runs.
+
+Keep interactive onboarding behaviour hydrated on the client.
+
+Do not break browser Back and Forward navigation.
+
+PHASE 6 — PERFORMANCE
+
+Target:
+
+- LCP ≤ 2.5 seconds
+- INP < 200 milliseconds
+- CLS < 0.1
+
+Implement:
+
+- Explicit image dimensions
+- Responsive image srcsets
+- WebP/AVIF where suitable
+- SVG logos and icons
+- Below-the-fold lazy loading
+- No hero-image lazy loading
+- Local Roboto 400/500/700
+- JetBrains Mono only for code
+- font-display: swap
+- Route-level code splitting
+- Removal of unused dependencies
+- No Prototype Review code in the normal production bundle
+- Reserved layout space for all images
+- Deferred optional analytics
+- No unnecessary third-party scripts
+
+Do not reduce approved visual quality or alter Figma layouts.
+
+PHASE 7 — ROUTE AND LINK SAFETY
+
+Test every internal and external link.
+
+Requirements:
+
+- No unexpected 404
+- No href="#"
+- No empty buttons
+- No placeholder external URL exposed
+- External links use noopener noreferrer
+- Browser Back and Forward work
+- Deep guide anchors work
+- Custom domain is canonical
+- Preview deployment is noindex
+
+PHASE 8 — REPLIT SAFETY
+
+Do not change the current deployment type unless the audit proves it is unsuitable.
+
+Confirm:
+
+- Preview works
+- Publishing succeeds
+- Public URL loads
+- Homepage responds quickly
+- Production variables are present
+- No files rely on persistent local filesystem storage
+- Custom-domain redirects work
+- Mobile layout works in the published environment
+
+Do not alter secrets or production data.
+
+PHASE 9 — TESTS
+
+Add automated checks where practical:
+
+- Route smoke test
+- Broken-link test
+- Metadata test
+- Canonical test
+- Sitemap test
+- Robots test
+- Noindex test
+- Accessibility smoke test
+- Mobile overflow test
+- Build and TypeScript test
+
+Test at:
+
+- 320px
+- 390px
+- 768px
+- 1024px
+- 1440px
+
+PHASE 10 — ACCEPTANCE
+
+The work is complete only when:
+
+1. No established route is broken.
+2. No setup progress is lost.
+3. No fake external integration is introduced.
+4. Every public page has complete metadata.
+5. Sitemap and robots.txt work.
+6. Review and draft routes are not indexable.
+7. Shared navigation works on mobile and desktop.
+8. No horizontal scrolling occurs.
+9. No console or TypeScript errors remain.
+10. Internal links return valid pages.
+11. Public marketing pages return meaningful initial HTML.
+12. Core Web Vitals meet or closely approach the required targets.
+13. Preview and production both pass.
+14. A completion report identifies remaining issues honestly.
+
+After implementation, provide:
+
+- Updated route map
+- SEO metadata inventory
+- Index/noindex list
+- Performance report
+- Accessibility report
+- Broken-link report
+- Mobile and desktop screenshots
+- Remaining launch blockers
+- Exact rollback instructions
