@@ -411,11 +411,12 @@ function GuidedToolSelector({ onSelect }: { onSelect: (path: string) => void }) 
         >
           <CardContent className="p-8 flex-1 flex flex-col">
             <div className="flex justify-between items-start mb-4 min-h-[26px]">
-              {vercelStatusConfig.badge ? (
+              <div className="inline-block text-xs font-semibold px-2 py-1 rounded bg-gray-100 text-gray-900 self-start">Recommended</div>
+              {vercelStatusConfig.badge && (
                 <div className={cn("inline-block text-xs font-medium px-2 py-1 rounded border", vercelStatusConfig.badgeClass)}>
                   {vercelStatusConfig.badge}
                 </div>
-              ) : <span />}
+              )}
             </div>
             <img src={`${import.meta.env.BASE_URL}assets/platforms/vercel-wordmark.png`} alt="Vercel" className="mb-3 object-contain object-left self-start" style={{ height: '20px', width: 'auto' }} />
             <p className="text-gray-600 mb-6">{vercelConfig.guidedTools.vercel.description}</p>
