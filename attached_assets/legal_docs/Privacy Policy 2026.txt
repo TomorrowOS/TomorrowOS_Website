@@ -1,0 +1,336 @@
+1. Privacy Policy
+Effective date: 20/07/2026Last updated: 20/07/2026
+1. About this Privacy Policy
+TomorrowOS is an open-source foundation for building digital signage software.
+This Privacy Policy explains how TomorrowOS Pty Ltd, trading as TomorrowOS, collects, uses, stores and discloses personal information when you:
+visit the TomorrowOS website;
+read or use our documentation;
+contact us;
+subscribe to updates;
+participate in our community;
+submit a project or contribution;
+report a security issue;
+interact with our GitHub organisation or other linked services; or
+otherwise communicate with us.
+In this policy, “TomorrowOS,” “we,” “us” and “our” refer to:
+TomorrowOS Pty Ltd ACN:TBD ABN: TBD Registered address: TBD Australia Email: hello@tomorrowos.org
+This policy applies to information handled by TomorrowOS as an organisation. It does not govern information independently collected by GitHub, hosting providers, analytics providers, community platforms or other third-party services under their own privacy policies.
+Australian organisations covered by the Privacy Act must maintain a clearly expressed and current privacy policy describing matters including the information collected, purposes, access and correction processes, complaints and likely overseas disclosures.
+2. Our role
+Depending on the context, TomorrowOS may act as:
+a data controller or equivalent entity when we decide why and how information is handled through our website, mailing list, community or enquiries; or
+a service provider or processor where we handle information strictly on behalf of another organisation under a separate written agreement.
+The open-source TomorrowOS SDK and runtime ordinarily run within infrastructure selected and controlled by the developer or organisation using them. Information handled inside a third party’s own TomorrowOS-based product is generally controlled by that third party, not by TomorrowOS.
+3. Information we may collect
+3.1 Information you provide directly
+We may collect:
+your name;
+email address;
+employer, organisation or project name;
+job title or professional role;
+country or region;
+GitHub username or profile;
+contact and enquiry content;
+newsletter preferences;
+community profile information;
+documentation feedback;
+bug reports and feature requests;
+contribution details;
+project submissions;
+security vulnerability reports;
+correspondence with maintainers;
+event or meeting details;
+support enquiries;
+any other information you voluntarily provide.
+Please do not send us sensitive personal information unless it is reasonably necessary and we have specifically requested it.
+3.2 Information collected automatically
+When you visit our website, documentation or related services, we may receive:
+IP address;
+browser type and version;
+operating system;
+device type;
+language and approximate region;
+referring page;
+pages viewed;
+date and time of access;
+links clicked;
+session and diagnostic information;
+cookie consent preferences;
+security and abuse-prevention information;
+performance and error logs.
+We should only collect the minimum information reasonably required for the relevant purpose.
+3.3 GitHub and public community information
+If you interact with TomorrowOS through GitHub or another public development platform, we may view or process information that you make publicly available, including:
+your username;
+profile image;
+public profile details;
+issues;
+pull requests;
+discussions;
+commit authorship;
+release participation;
+technical comments;
+contribution history.
+Public contributions may remain visible in repository history even if you later delete your account or stop participating, subject to the relevant platform’s operation and the project’s applicable licence.
+3.4 Information from third parties
+We may receive information from:
+GitHub;
+community platforms;
+analytics and hosting providers;
+email and newsletter providers;
+event organisers;
+service providers;
+professional advisers;
+business partners;
+publicly available professional sources.
+We do not purchase consumer data lists for behavioural advertising.
+4. Why we use personal information
+We may use personal information to:
+operate, maintain and secure the website;
+provide documentation and examples;
+respond to enquiries;
+administer mailing lists;
+send requested project and release updates;
+operate community discussions;
+review issues and contributions;
+recognise contributors;
+manage project submissions;
+coordinate maintainers;
+provide support and professional services;
+investigate bugs and security reports;
+prevent fraud, abuse and unauthorised access;
+improve website performance and usability;
+understand adoption and documentation usage;
+maintain records;
+enforce our legal terms and community standards;
+comply with legal and regulatory obligations;
+establish, exercise or defend legal claims;
+evaluate partnerships, enterprise enquiries and project opportunities.
+We do not use website visitor information to make decisions that produce legal or similarly significant effects about individuals.
+5. Legal bases for processing
+Where European or UK data-protection law applies, we rely on one or more of the following bases:
+Consent
+For example:
+optional analytics cookies;
+newsletter subscriptions where consent is required;
+optional marketing communications;
+other processing you specifically agree to.
+You may withdraw consent at any time. Withdrawal does not affect processing already carried out lawfully.
+Contract or steps before contract
+For example:
+responding to a request for services;
+progressing an enterprise enquiry;
+administering an agreed support arrangement.
+Legitimate interests
+For example:
+operating and securing the website;
+maintaining project records;
+improving documentation;
+preventing abuse;
+responding to professional enquiries;
+managing the open-source community.
+We consider whether those interests are overridden by your rights and interests.
+Legal obligation
+Where processing is necessary to meet accounting, regulatory, security, court or other legal requirements.
+Privacy notices under the GDPR should identify the organisation, purposes, categories, legal basis, retention, recipients, international transfers and applicable individual rights.
+6. Cookies and similar technologies
+We use cookies and similar technologies as described in our Cookie Policy.
+Strictly necessary technologies may operate without optional consent where legally permitted. Optional analytics, preference or marketing technologies will only be activated where required consent has been obtained.
+Users must be told what storage and access technologies do, and prior consent is generally required for non-essential technologies under UK rules.
+You can change your preferences at any time through Cookie Settings in the website footer.
+7. Direct marketing
+We may send you:
+release notices;
+documentation updates;
+community news;
+event information;
+service information;
+other TomorrowOS updates you requested.
+You may unsubscribe using the link in any marketing email or by contacting us.
+We may still send non-marketing communications where reasonably necessary, such as responses to enquiries, security notices or changes affecting a service you use.
+We will not sell your contact details to third parties for their own marketing.
+8. When we disclose information
+We may disclose personal information to:
+website and infrastructure providers;
+cloud hosting providers;
+email and newsletter platforms;
+analytics providers;
+security and abuse-prevention providers;
+community and collaboration platforms;
+GitHub and related development services;
+customer-support tools;
+professional advisers;
+auditors and insurers;
+contractors working under confidentiality obligations;
+regulators, courts or law-enforcement bodies where legally required;
+a purchaser, investor or successor in connection with a genuine corporate transaction.
+Service providers may only use information for authorised purposes and subject to appropriate contractual restrictions.
+9. Current service providers
+TomorrowOS may use providers such as:
+Provider
+Purpose
+Likely location
+[Hosting provider]
+Website and documentation hosting
+[Countries]
+GitHub
+Source code, issues and community contributions
+Global/United States
+[Email provider]
+Newsletter and transactional emails
+[Countries]
+[Analytics provider]
+Consent-based usage analytics
+[Countries]
+[Form provider]
+Contact and submission forms
+[Countries]
+[Security/CDN provider]
+Security, performance and abuse prevention
+Global
+10. International transfers
+TomorrowOS is based in Australia, but our website and service providers may operate globally.
+Your information may be processed in Australia, the United States, the United Kingdom, the European Economic Area, Singapore or other countries where our providers operate.
+Where required, we use reasonable transfer safeguards, such as:
+contractual data-protection terms;
+standard contractual clauses;
+UK international data-transfer safeguards;
+access controls and minimisation;
+vendor security reviews;
+other legally recognised transfer mechanisms.
+Australian APP privacy policies should disclose whether overseas disclosure is likely and, where practicable, the relevant countries.
+11. Data retention
+We retain personal information only for as long as reasonably required for the purposes described in this policy, including legal, security, accounting and project-record requirements.
+Indicative periods may include:
+Information
+Indicative retention
+Contact enquiries
+Up to 24 months after the last interaction
+Newsletter records
+Until unsubscribe, plus a limited suppression record
+Cookie consent records
+24 months or as legally appropriate
+Website security logs
+180 days
+Analytics data
+Via Analytics provider
+Enterprise correspondence
+Up to 7 years where relevant to a transaction
+Financial and contractual records
+As required by applicable law
+Security reports
+For the life of the affected project or longer where necessary
+Public GitHub contributions
+In accordance with repository history and applicable licences
+We may retain limited information longer where required to:
+comply with law;
+resolve disputes;
+prevent abuse;
+protect project integrity;
+preserve open-source contribution history;
+enforce agreements.
+12. Security
+We use reasonable administrative, technical and organisational safeguards appropriate to the information and our size, which may include:
+access controls;
+multifactor authentication;
+encrypted transport;
+least-privilege access;
+vendor access controls;
+secure development practices;
+backups;
+vulnerability reporting;
+incident response procedures;
+logging and monitoring;
+staff and contractor confidentiality obligations.
+No internet transmission or storage system is completely secure. We cannot guarantee absolute security.
+Where Australian breach-notification law applies, eligible breaches likely to cause serious harm may require notification to affected individuals and the OAIC.
+Security vulnerabilities should be reported through nightwatch@tomorrowos.org, not through public GitHub issues.
+13. Your privacy rights
+Your rights depend on your location and applicable law.
+13.1 Australia
+You may request:
+access to personal information we hold about you;
+correction of inaccurate or incomplete information;
+information about our handling practices;
+review of a privacy complaint.
+13.2 EEA and United Kingdom
+Where applicable, you may have rights to:
+be informed;
+access your personal data;
+correct inaccurate data;
+request deletion;
+restrict processing;
+object to processing;
+receive portable data;
+withdraw consent;
+complain to a supervisory authority.
+These are recognised GDPR rights, although each right has conditions and exceptions.
+13.3 California and other United States states
+Where applicable, you may have rights to:
+know what personal information is collected and used;
+access specific information;
+request deletion;
+request correction;
+opt out of sale or sharing;
+limit certain uses of sensitive personal information;
+receive equal service without unlawful discrimination.
+TomorrowOS does not sell or share personal information for cross-context behavioural advertising.
+California’s notice-at-collection rules require disclosure of categories collected and purposes at or before collection, with a link to the fuller privacy policy.
+13.4 Exercising rights
+Email requests to:
+privacy@tomorrowos.org
+Please include:
+your name;
+the email address connected with the request;
+the right you wish to exercise;
+enough information to locate the relevant records.
+We may verify your identity before completing a request. We may refuse or limit a request where permitted by law and will explain the reason where required.
+Authorised agents may submit requests where applicable, subject to verification.
+14. Anonymity and pseudonyms
+Where practical, you may browse public documentation and open-source resources without identifying yourself.
+Some activities require identification, such as:
+receiving email updates;
+entering a contract;
+obtaining support;
+submitting certain security reports;
+participating through services that require an account.
+15. Children
+TomorrowOS is intended for developers, organisations and professional users.
+Our website is not directed to children under 16, and we do not knowingly collect personal information from children for commercial purposes.
+If you believe a child has provided information without appropriate consent, contact us so we can assess and delete it where required.
+16. Third-party links and services
+Our website may link to GitHub, documentation providers, community platforms, social networks and external websites.
+Those services have their own terms and privacy practices. We are not responsible for their independent handling of information.
+17. Public content
+Issues, discussions, pull requests, comments, contributor profiles and submitted projects may be public.
+Do not publish:
+passwords;
+private keys;
+confidential customer information;
+personal information belonging to others;
+security vulnerabilities through public channels;
+proprietary code you are not entitled to disclose.
+18. Changes to this policy
+We may update this Privacy Policy when our project, providers, legal obligations or information-handling practices change.
+We will publish the updated policy with a revised effective date. For material changes, we may provide an additional notice where appropriate.
+19. Privacy complaints
+You may submit a complaint to:
+Privacy OfficerTomorrowOS Pty Ltdprivacy@tomorrowos.org
+Please describe:
+what happened;
+the information concerned;
+the outcome you are seeking.
+We will acknowledge and investigate complaints within a reasonable period.
+If you are not satisfied, you may contact the relevant regulator, including:
+the Office of the Australian Information Commissioner;
+your local EEA data-protection authority;
+the UK Information Commissioner’s Office;
+another applicable state or national privacy regulator.
+20. Contact us
+Privacy questions and requests:
+privacy@tomorrowos.org
+General enquiries:
+hello@tomorrowos.org
+Security reports:
+nightwatch@tomorrowos.org
+

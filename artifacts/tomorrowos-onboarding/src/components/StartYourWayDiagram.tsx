@@ -20,10 +20,10 @@ const dottedBg: React.CSSProperties = {
 
 function EntryCard({ icon: Icon, title, subtitle }: { icon: typeof Star; title: string; subtitle: string }) {
   return (
-    <div className="h-full flex flex-col items-center text-center bg-white rounded-2xl border border-border/60 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.15)] px-3 py-6 md:px-4 md:py-7">
-      <Icon className="w-6 h-6 mb-3 shrink-0" strokeWidth={2} aria-hidden="true" />
-      <div className="text-sm md:text-base font-bold text-foreground whitespace-nowrap">{title}</div>
-      <div className="text-xs md:text-sm text-muted-foreground mt-1.5 leading-snug max-w-[170px] mx-auto">{subtitle}</div>
+    <div className="h-full flex flex-col items-center text-center bg-white rounded-2xl border border-border/60 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.15)] px-2 py-5 sm:px-3 sm:py-6 md:px-4 md:py-7">
+      <Icon className="w-5 h-5 sm:w-6 sm:h-6 mb-2.5 sm:mb-3 shrink-0" strokeWidth={2} aria-hidden="true" />
+      <div className="text-xs sm:text-sm md:text-base font-bold text-foreground sm:whitespace-nowrap leading-snug">{title}</div>
+      <div className="text-[10px] sm:text-xs md:text-sm text-muted-foreground mt-1 sm:mt-1.5 leading-snug max-w-[170px] mx-auto">{subtitle}</div>
     </div>
   );
 }
@@ -82,20 +82,18 @@ export default function StartYourWayDiagram() {
   return (
     <div className="relative w-full rounded-3xl px-3 py-8 md:px-6 md:py-10" style={dottedBg}>
       {/* Entry point cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 items-stretch gap-4 md:gap-5 relative z-10">
+      <div className="grid grid-cols-3 items-stretch gap-2.5 sm:gap-4 md:gap-5 relative z-10">
         {entryPoints.map((e) => (
           <EntryCard key={e.title} {...e} />
         ))}
       </div>
 
-      {/* Connectors: three branches merging into one (desktop/tablet) */}
-      <div className="hidden sm:block h-12 md:h-16" aria-hidden="true">
+      {/* Connectors: three branches merging into one */}
+      <div className="h-10 sm:h-12 md:h-16" aria-hidden="true">
         <svg className="w-full h-full" viewBox="0 0 300 60" preserveAspectRatio="none" fill="none">
           <path d="M50 0 V18 Q50 30 62 30 H150 M250 0 V18 Q250 30 238 30 H150 M150 0 V60" stroke="#d4d4d8" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
         </svg>
       </div>
-      {/* Mobile connector */}
-      <div className="sm:hidden mx-auto h-8 w-px bg-[#d4d4d8]" aria-hidden="true" />
 
       {/* TomorrowOS card */}
       <div className="flex justify-center relative z-10">

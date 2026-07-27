@@ -126,6 +126,64 @@ function VerticalConnector() {
   return <div className="mx-auto h-8 w-px bg-border" aria-hidden="true" />;
 }
 
+/* Mobile-only pieces (per mobile diagram reference) */
+
+const mobileInputs = [
+  { title: 'Build', copy: 'SDK', icon: 'code.svg' },
+  { title: 'Connect', copy: 'API', icon: 'deployed_code.svg' },
+  { title: 'Create', copy: 'Custom app', icon: 'animated_images.svg' },
+];
+
+function MobileInputCard({ item }: { item: { title: string; copy: string; icon: string } }) {
+  return (
+    <div className="flex flex-col items-center rounded-xl border border-border bg-white px-2 py-5 text-center">
+      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-foreground">
+        <img src={asset(`icons/black/${item.icon}`)} alt="" className="h-5 w-5 invert" />
+      </div>
+      <div className="mt-3 text-sm font-bold text-foreground">{item.title}</div>
+      <div className="mt-0.5 text-xs text-muted-foreground">{item.copy}</div>
+    </div>
+  );
+}
+
+function MobileMergeConnector() {
+  // Three branches curve down and merge toward the centre.
+  return (
+    <svg viewBox="0 0 300 40" className="w-full h-10 text-border" aria-hidden="true" fill="none">
+      <path d="M50 0 V10 Q50 22 62 22 H150" stroke="currentColor" vectorEffect="non-scaling-stroke" />
+      <path d="M150 0 V22" stroke="currentColor" vectorEffect="non-scaling-stroke" />
+      <path d="M250 0 V10 Q250 22 238 22 H150" stroke="currentColor" vectorEffect="non-scaling-stroke" />
+      <path d="M150 22 V40" stroke="currentColor" vectorEffect="non-scaling-stroke" />
+    </svg>
+  );
+}
+
+function MobileArrowConnector() {
+  return (
+    <svg viewBox="0 0 12 32" className="mx-auto h-8 w-3 text-border" aria-hidden="true" fill="none">
+      <path d="M6 0 V24" stroke="currentColor" vectorEffect="non-scaling-stroke" />
+      <path d="M1.5 21 L6 27 L10.5 21" stroke="currentColor" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function MobilePlatformsCard() {
+  return (
+    <div className="rounded-xl border border-border bg-white px-5 py-6">
+      <h3 className="text-center text-base font-bold text-foreground">Supported platforms</h3>
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-7 gap-y-5">
+        {platforms.map((item) => (
+          <span key={item.name} className="flex items-center gap-2" aria-label={item.name}>
+            {item.logos.map((logo) => (
+              <img key={logo.src} src={asset(logo.src)} alt={logo.alt} className="h-5 w-auto object-contain" />
+            ))}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------------ */
 /* Section                                                             */
 /* ------------------------------------------------------------------ */
@@ -134,7 +192,7 @@ export function ArchitectureSection() {
   return (
     <section
       aria-label="TomorrowOS architecture"
-      className="border-b border-border bg-background px-4 py-20 md:px-8 md:py-24"
+      className="border-b border-border bg-background px-4 py-8 md:px-8 md:py-24"
     >
       <div
         className="mx-auto max-w-[1280px] rounded-2xl px-2 py-10 md:px-4 md:py-12 lg:px-10 lg:py-14"
@@ -162,21 +220,17 @@ export function ArchitectureSection() {
           </div>
         </div>
 
-        {/* Mobile: stacked flow with simple downward connectors */}
+        {/* Mobile: compact three-up cards converging into TomorrowOS, then platforms */}
         <div className="md:hidden">
-          <div className="flex flex-col gap-4">
-            {inputs.map((item) => (
-              <ArchitectureInputCard key={item.title} item={item} />
+          <div className="grid grid-cols-3 gap-3">
+            {mobileInputs.map((item) => (
+              <MobileInputCard key={item.title} item={item} />
             ))}
           </div>
-          <VerticalConnector />
+          <MobileMergeConnector />
           <ArchitectureCenterCard />
-          <VerticalConnector />
-          <div className="flex flex-col gap-4">
-            {platforms.map((item) => (
-              <ArchitecturePlatformCard key={item.name} item={item} />
-            ))}
-          </div>
+          <MobileArrowConnector />
+          <MobilePlatformsCard />
         </div>
       </div>
     </section>

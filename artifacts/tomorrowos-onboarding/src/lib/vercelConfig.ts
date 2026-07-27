@@ -4,7 +4,7 @@ export type VercelStorageProvider = 'cloudinary' | 'vercel-blob' | 'none';
 export type VercelBlobAuthMode = 'oidc' | 'token' | 'hybrid' | 'unresolved';
 
 export const vercelConfig = {
-  vercelSupportStatus: 'validation-required' as VercelSupportStatus,
+  vercelSupportStatus: 'supported' as VercelSupportStatus,
   recommendedVercelDatabase: 'none' as VercelDatabaseProvider,
   recommendedVercelStorage: 'none' as VercelStorageProvider,
   vercelBlobAuthenticationMode: 'unresolved' as VercelBlobAuthMode,

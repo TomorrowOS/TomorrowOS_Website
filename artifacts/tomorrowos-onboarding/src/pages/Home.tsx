@@ -38,9 +38,9 @@ export default function Home() {
   const hasDocs = siteConfig.links.docs && !siteConfig.links.docs.includes('{{');
 
   return (
-    <div className="flex flex-col animate-in fade-in duration-500 pb-24">
+    <div className="flex flex-col animate-in fade-in duration-500 pb-10 md:pb-24">
       {/* HERO SECTION */}
-      <section className="pt-20 pb-12 md:pt-32 md:pb-16 px-4 md:px-8 text-center max-w-5xl mx-auto flex flex-col items-center">
+      <section className="pt-16 pb-6 md:pt-32 md:pb-16 px-4 md:px-8 text-center max-w-5xl mx-auto flex flex-col items-center">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6 max-w-4xl">
           Build and own your digital signage software.
         </h1>
@@ -51,10 +51,22 @@ export default function Home() {
           Open source, self-hosted and free to build on your own infrastructure.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-          <Link href="/start" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors bg-foreground text-background hover:bg-foreground/90 h-11 px-8 w-full sm:w-auto">
+          <Link href="/start" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-semibold transition-colors bg-foreground text-background hover:bg-foreground/90 h-11 px-8 w-full sm:w-auto">
             Get started
           </Link>
-          <a href="#start-new" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 w-full sm:w-auto">
+          {showGithub && (
+            <a
+              href={hasGithub ? siteConfig.links.github : '#'}
+              onClick={(e) => !hasGithub && e.preventDefault()}
+              target={hasGithub ? '_blank' : undefined}
+              rel={hasGithub ? 'noopener noreferrer' : undefined}
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-semibold transition-colors border-2 border-foreground bg-background text-foreground hover:bg-foreground hover:text-background h-11 px-8 w-full sm:w-auto"
+            >
+              <GithubIcon className="w-4 h-4 mr-2" />
+              {hasGithub ? 'View on GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="View on GitHub" />}
+            </a>
+          )}
+          <a href="#start-new" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors text-muted-foreground hover:text-foreground h-11 px-8 w-full sm:w-auto sm:border sm:border-input sm:bg-background sm:text-foreground sm:hover:bg-accent">
             Explore TomorrowOS
           </a>
         </div>
@@ -167,12 +179,12 @@ export default function Home() {
 
         <div className="grid md:grid-cols-3 gap-8">
           <div className="flex flex-col">
-            <div className="bg-[#f2f2f2] rounded-2xl mb-6 overflow-hidden flex items-center justify-center pt-8 pb-0 px-6 aspect-[4/3]">
+            <div className="bg-[#f2f2f2] rounded-2xl mb-6 overflow-hidden flex items-center justify-center p-6 aspect-[4/3]">
               <img 
                 src={`${import.meta.env.BASE_URL}assets/illustrations/owned.png`}
                 alt="3D illustration of a dashboard showing ownership of the product"
                 loading="lazy"
-                className="w-full h-auto object-cover object-top"
+                className="max-w-full max-h-full object-contain"
               />
             </div>
             <div className="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-2">OWNED</div>
@@ -225,7 +237,8 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5 mb-12">
+        {/* Mobile: horizontal snap carousel with next-card peek. sm+: grid. */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 -mx-4 px-4 pb-2 scrollbar-none sm:grid sm:overflow-visible sm:snap-none sm:mx-0 sm:px-0 sm:pb-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-5 mb-10 md:mb-12">
           <PatternCard 
             title="Digital menu boards"
             desc="Pricing, promos and scheduling across one or more screens."
@@ -266,7 +279,7 @@ export default function Home() {
       </section>
 
       {/* FINAL CTA SECTION */}
-      <section className="py-24 px-4 md:px-8 text-center max-w-3xl mx-auto flex flex-col items-center">
+      <section className="pt-16 pb-8 md:py-24 px-4 md:px-8 text-center max-w-3xl mx-auto flex flex-col items-center">
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
           Build the signage product only you can build.
         </h2>
@@ -290,7 +303,7 @@ export default function Home() {
 
 function PatternCard({ title, desc, icon }: { title: string, desc: string, icon: string }) {
   return (
-    <div className="bg-background border border-border rounded-xl p-5 shadow-sm hover:border-foreground/20 transition-colors">
+    <div className="bg-background border border-border rounded-xl p-5 shadow-sm hover:border-foreground/20 transition-colors shrink-0 w-[70vw] max-w-[260px] snap-start sm:shrink sm:w-auto sm:max-w-none sm:snap-align-none">
       <img src={`${import.meta.env.BASE_URL}assets/icons/black/${icon}`} alt="" className="w-6 h-6 opacity-90 mb-5" />
       <h3 className="font-bold text-sm mb-2">{title}</h3>
       <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>

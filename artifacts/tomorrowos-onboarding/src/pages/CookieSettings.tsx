@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'wouter';
 import { useSeo } from '@/hooks/use-seo';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -30,7 +31,8 @@ export default function CookieSettings() {
     const stored = localStorage.getItem(CONSENT_KEY);
     if (stored) {
       try {
-        setSettings(JSON.parse(stored));
+        // Coerce legacy marketing consent to false — no marketing cookies are used.
+        setSettings({ ...JSON.parse(stored), marketing: false });
       } catch (e) {
         // Fallback to default
       }
@@ -52,7 +54,7 @@ export default function CookieSettings() {
     const newSettings = {
       ...settings,
       analytics: true,
-      marketing: true,
+      marketing: false,
       updatedAt: new Date().toISOString()
     };
     localStorage.setItem(CONSENT_KEY, JSON.stringify(newSettings));
@@ -131,23 +133,12 @@ export default function CookieSettings() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-8 border-b border-border">
-          <div className="flex-1">
-            <h3 className="text-lg font-semibold mb-2 text-foreground">Marketing Cookies</h3>
-            <p className="text-sm text-muted-foreground">
-              These cookies may be set through our site by our advertising partners. 
-              They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 shrink-0 mt-2 sm:mt-0">
-            <span className="text-sm font-medium text-foreground">{settings.marketing ? 'On' : 'Off'}</span>
-            <Switch 
-              checked={settings.marketing} 
-              onCheckedChange={(checked) => setSettings(s => ({ ...s, marketing: checked }))} 
-            />
-          </div>
-        </div>
       </div>
+
+      <p className="mt-8 text-sm text-muted-foreground">
+        TomorrowOS does not currently use marketing or behavioural-advertising cookies.
+        See our <Link href="/cookie-policy" className="underline hover:text-foreground">Cookie Policy</Link> for details.
+      </p>
 
       <div className="mt-10 flex flex-col sm:flex-row flex-wrap items-center gap-4">
         <Button onClick={handleSave} className="w-full sm:w-auto min-w-[120px]">

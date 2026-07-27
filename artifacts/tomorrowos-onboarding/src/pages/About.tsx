@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSeo } from '@/hooks/use-seo';
 import { aboutContent } from '@/content/about';
 import { usePrototype } from '@/components/PrototypeProvider';
@@ -83,8 +83,8 @@ function AboutHero() {
   
   return (
     <section id="hero" className="scroll-mt-24 bg-white py-20 md:py-32 px-4 md:px-8 w-full">
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-8">
-        <div className="flex-1 max-w-xl">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-8">
+        <div className="flex-1 max-w-xl order-2 md:order-none">
           <h1 className="text-4xl md:text-[3.5rem] md:leading-[1.1] font-bold tracking-tight mb-6 whitespace-pre-line text-foreground">
             {c.heading}
           </h1>
@@ -108,7 +108,7 @@ function AboutHero() {
             ) : null}
           </div>
         </div>
-        <div className="flex-1 flex justify-center md:justify-end w-full">
+        <div className="flex-1 flex justify-center md:justify-end w-full order-1 md:order-none">
           <img 
             src={`${import.meta.env.BASE_URL}assets/illustrations/open-source.png`}
             alt="Open source foundation illustration"
@@ -117,6 +117,35 @@ function AboutHero() {
         </div>
       </div>
     </section>
+  );
+}
+
+function ShipCard({ card, isSolution }: { card: { title: string; copy: string; icon: string }, isSolution: boolean }) {
+  return (
+    <div
+      className={
+        'font-sans bg-white rounded-2xl flex flex-col items-center justify-center text-center w-full max-w-[320px] md:max-w-none mx-auto md:mx-0 px-6 py-8 md:py-10 ' +
+        (isSolution
+          ? 'border border-[#2563EB] shadow-[0_4px_16px_rgba(37,99,235,0.12)]'
+          : 'border border-border md:flex-1')
+      }
+    >
+      {isSolution ? (
+        <img
+          src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`}
+          alt="TomorrowOS"
+          className="h-6 w-auto mb-6"
+        />
+      ) : (
+        <MaskIcon name={card.icon} className="w-7 h-7 mb-6" color="hsl(var(--foreground))" />
+      )}
+      <h3 className="font-sans font-semibold text-base mb-2 leading-[1.35] max-w-[190px] text-foreground">
+        {card.title}
+      </h3>
+      <p className="font-sans text-sm font-normal leading-[1.5] max-w-[200px] text-muted-foreground">
+        {card.copy}
+      </p>
+    </div>
   );
 }
 
@@ -138,46 +167,23 @@ function SharedFoundationSection() {
         </div>
         
         <div className="flex-1 flex flex-col md:flex-row items-stretch justify-center lg:justify-end w-full max-w-4xl">
-          {c.cards.map((card, i) => {
-            const isSolution = i === 2;
-            return (
-              <Fragment key={i}>
-                <div
-                  className={
-                    'bg-white rounded-2xl flex flex-col items-center justify-center text-center w-full max-w-[320px] md:max-w-none mx-auto md:mx-0 px-6 py-8 md:py-10 shrink-0 ' +
-                    (isSolution
-                      ? 'border border-[#BD4E32] shadow-[0_4px_16px_rgba(20,19,17,0.08)] md:flex-[1.15]'
-                      : 'border border-[#E5DFD5] md:flex-1')
-                  }
-                >
-                  <MaskIcon
-                    name={card.icon}
-                    className="w-7 h-7 mb-6"
-                    color={isSolution ? '#BD4E32' : '#5D554D'}
-                  />
-                  <h3
-                    className="font-semibold text-base mb-2 leading-[1.35] max-w-[190px]"
-                    style={{ color: isSolution ? '#141311' : '#5D554D' }}
-                  >
-                    {card.title}
-                  </h3>
-                  <p
-                    className="text-sm font-normal leading-[1.5] max-w-[200px]"
-                    style={{ color: isSolution ? '#5D554D' : 'rgba(93,85,77,0.7)' }}
-                  >
-                    {card.copy}
-                  </p>
-                </div>
-                {i === 0 && <div aria-hidden="true" className="h-4 md:h-auto md:w-4 shrink-0" />}
-                {i === 1 && (
-                  <div
-                    aria-hidden="true"
-                    className="shrink-0 bg-[#E5DFD5] h-px w-full my-6 md:my-0 md:h-auto md:w-px md:mx-8 md:self-stretch"
-                  />
-                )}
-              </Fragment>
-            );
-          })}
+          {/* Problem cards */}
+          <div className="flex flex-col md:flex-row items-stretch gap-4 md:flex-[2]">
+            {c.cards.slice(0, 2).map((card, i) => (
+              <ShipCard key={i} card={card} isSolution={false} />
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div
+            aria-hidden="true"
+            className="shrink-0 bg-border h-px w-full my-6 md:my-0 md:h-auto md:w-px md:mx-8 md:self-stretch"
+          />
+
+          {/* Solution card */}
+          <div className="flex items-stretch md:flex-[1.15]">
+            <ShipCard card={c.cards[2]} isSolution />
+          </div>
         </div>
       </div>
     </section>

@@ -20,6 +20,7 @@ import PlaceholderPage from './pages/PlaceholderPage';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import CookieSettings from './pages/CookieSettings';
+import CookiePolicy from './pages/CookiePolicy';
 
 const queryClient = new QueryClient();
 
@@ -33,11 +34,11 @@ function Router() {
         <Route path="/about" component={About} />
         <Route path="/github" component={() => <PlaceholderPage title="GitHub" />} />
         <Route path="/community" component={() => <PlaceholderPage title="Community" />} />
-        <Route path="/governance" component={() => <PlaceholderPage title="Governance" />} />
         <Route path="/license" component={() => <PlaceholderPage title="License" />} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
         <Route path="/cookie-settings" component={CookieSettings} />
+        <Route path="/cookie-policy" component={CookiePolicy} />
         <Route path="/start" component={Start} />
         <Route path="/start/guided" component={Start} />
         <Route path="/start/guided/replit" component={Start} />

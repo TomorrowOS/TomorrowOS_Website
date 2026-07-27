@@ -33,7 +33,7 @@ export function CookieBanner() {
     const settings: ConsentSettings = {
       necessary: true,
       analytics: true,
-      marketing: true,
+      marketing: false,
       updatedAt: new Date().toISOString(),
       version: '1.0'
     };

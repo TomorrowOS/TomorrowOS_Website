@@ -202,7 +202,7 @@ export default function Start() {
                   <div className="flex justify-between items-start mb-2">
                     <div>
                       <div className="inline-block bg-gray-200 text-xs font-semibold px-2 py-1 rounded mb-4">Recommended for Node.js backends</div>
-                      <h3 className="text-xl font-bold text-gray-900">SERVER SDK</h3>
+                      <h3 className="text-xl font-bold text-gray-900">Server SDK</h3>
                     </div>
                     {selectedPathway === onboardingPaths.existingProject.serverSdk && <CheckCircle2 className="w-6 h-6 text-black mt-2" />}
                   </div>
@@ -223,8 +223,11 @@ export default function Start() {
               >
                 <CardContent className="p-8 flex-1">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-900">API INTEGRATION</h3>
-                    {selectedPathway === onboardingPaths.existingProject.api && <CheckCircle2 className="w-6 h-6 text-black" />}
+                    <div>
+                      <div className="inline-block text-xs font-semibold px-2 py-1 rounded mb-4 invisible" aria-hidden="true">&nbsp;</div>
+                      <h3 className="text-xl font-bold text-gray-900">API Integration</h3>
+                    </div>
+                    {selectedPathway === onboardingPaths.existingProject.api && <CheckCircle2 className="w-6 h-6 text-black mt-2" />}
                   </div>
                   <p className="text-gray-600 mb-6">Connect your application using the TomorrowOS HTTP API.</p>
                   <div className="mt-auto flex items-center text-sm font-medium hover:underline">
@@ -383,7 +386,7 @@ function GuidedToolSelector({ onSelect }: { onSelect: (path: string) => void }) 
             <div className={cn("inline-block text-xs font-semibold px-2 py-1 rounded mb-4 self-start", vercelConfig.guidedTools.replit.status === 'recommended' ? 'bg-gray-100 text-gray-900' : 'bg-transparent text-gray-500 border border-border')}>
               {vercelConfig.guidedTools.replit.status === 'recommended' ? 'Recommended' : vercelConfig.guidedTools.replit.status}
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{vercelConfig.guidedTools.replit.label}</h3>
+            <img src={`${import.meta.env.BASE_URL}assets/platforms/replit-wordmark.svg`} alt="Replit" className="mb-3 object-contain object-left self-start" style={{ height: '24px', width: 'auto' }} />
             <p className="text-gray-600 mb-6">{vercelConfig.guidedTools.replit.description}</p>
             <ul className="space-y-2 text-sm text-gray-700 mb-8">
               <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-black shrink-0" /> Replit Agent</li>
@@ -415,7 +418,7 @@ function GuidedToolSelector({ onSelect }: { onSelect: (path: string) => void }) 
                 </div>
               )}
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{vercelConfig.guidedTools.vercel.label}</h3>
+            <img src={`${import.meta.env.BASE_URL}assets/platforms/vercel-wordmark.png`} alt="Vercel" className="mb-3 object-contain object-left self-start" style={{ height: '20px', width: 'auto' }} />
             <p className="text-gray-600 mb-6">{vercelConfig.guidedTools.vercel.description}</p>
             <ul className="space-y-2 text-sm text-gray-700 mb-8">
               <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-black shrink-0" /> v0 AI builder</li>

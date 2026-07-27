@@ -1,0 +1,267 @@
+2. Terms of Service
+Effective date: 20/06/2026Last updated: 20/06/2026
+1. About these Terms
+These Terms of Service govern your access to and use of:
+the TomorrowOS website;
+public documentation;
+examples;
+community areas operated by us;
+contact and submission forms;
+newsletters;
+non-code materials made available through our website.
+The website is operated by:
+TomorrowOS Pty Ltd ACN:TBD ABN: TBD Registered address: TBD Australia Email: hello@tomorrowos.org
+By using the website, you agree to these Terms.
+If you do not agree, do not use the website.
+2. Important distinction: website terms and open-source licences
+These Terms govern the website and related organisational services.
+TomorrowOS source code and software packages are licensed separately under the licence identified in the relevant repository or package, currently intended to be the Apache License 2.0.
+Where there is a conflict between these Terms and the applicable open-source licence concerning use of the code, the open-source licence controls for that code.
+Third-party dependencies may be subject to their own licences.
+These Terms do not remove or reduce rights granted under an applicable open-source licence.
+3. Who may use the website
+You must:
+be legally capable of agreeing to these Terms;
+comply with applicable laws;
+have authority to act for an organisation if using the website on its behalf.
+If you use TomorrowOS for an organisation, “you” includes that organisation, and you confirm you are authorised to bind it.
+4. No mandatory hosted service
+The TomorrowOS open-source project is designed to be self-hosted and does not require a mandatory TomorrowOS-hosted account unless a separate hosted or managed service is expressly offered and accepted.
+Any future commercial, managed, support or cloud service may be governed by separate terms, an order form or written agreement.
+5. Documentation and examples
+Documentation, examples and technical content are provided for general information and development assistance.
+They may:
+contain errors;
+be incomplete;
+relate to a pre-release version;
+change without notice;
+not cover every hardware model, firmware version or deployment environment.
+You are responsible for:
+validating code and instructions;
+reviewing platform compatibility;
+testing before production;
+maintaining backups;
+assessing security;
+complying with legal and operational requirements;
+determining whether TomorrowOS is suitable for your use.
+Do not rely on documentation as a substitute for professional security, legal, engineering or compliance advice.
+6. Pre-release software
+TomorrowOS may be labelled alpha, beta, preview, experimental or pre-1.0.
+Pre-release components may:
+change materially;
+contain defects;
+have limited compatibility;
+lose or corrupt data;
+be unsuitable for production;
+lack support or migration paths.
+You use pre-release components at your own risk.
+Release notes and stability documentation should be reviewed before upgrading or deploying.
+7. Accounts and third-party platforms
+TomorrowOS may not require a website account at launch. Some activities may require an account with a third party such as GitHub.
+You are responsible for:
+your third-party account;
+protecting credentials;
+all activity conducted through your account;
+complying with third-party terms.
+We are not responsible for outages, suspensions, security events or policy changes affecting third-party services.
+8. Acceptable use
+You must not use the website, community or TomorrowOS-operated services to:
+break the law;
+infringe intellectual-property rights;
+distribute malware;
+gain unauthorised access;
+interfere with systems or users;
+conduct denial-of-service activity;
+scrape or overload services in an abusive manner;
+evade security controls;
+impersonate another person;
+publish private credentials or personal information;
+harass or threaten others;
+submit intentionally false security reports;
+use the project to facilitate unlawful surveillance;
+distribute content you do not have the right to use;
+misuse TomorrowOS trademarks or imply endorsement;
+exploit minors;
+engage in fraudulent or deceptive conduct.
+Good-faith security research must follow our Security Policy and coordinated-disclosure process.
+9. Community standards
+Participation may also be subject to:
+the Code of Conduct;
+Contribution Guidelines;
+Security Policy;
+repository-specific rules;
+maintainer decisions.
+We may remove content or restrict participation where reasonably necessary to:
+protect participants;
+preserve project quality;
+address abuse;
+comply with law;
+enforce these Terms or community standards.
+10. User submissions
+You may submit:
+feedback;
+documentation changes;
+issues;
+examples;
+project listings;
+suggestions;
+comments;
+other content.
+You confirm that:
+you have the right to submit it;
+it does not violate confidentiality obligations;
+it does not infringe third-party rights;
+it does not contain unlawful material;
+it does not contain secrets or credentials.
+You retain ownership of your content, subject to the permissions needed to host, display, review, reproduce and administer it.
+11. Code contributions
+Code contributions are governed by:
+the licence of the relevant repository;
+the Contribution Guidelines;
+any Developer Certificate of Origin, contributor agreement or contribution process adopted for that repository.
+Do not state that a CLA or DCO applies unless one is actually implemented.
+Unless expressly agreed otherwise, submitting a contribution does not make you an employee, partner, agent or representative of TomorrowOS.
+Maintainers may accept, reject, modify or close contributions in accordance with project governance.
+12. Contributor recognition
+TomorrowOS may publicly recognise contributors using information such as:
+name or username;
+profile image;
+contribution area;
+GitHub profile;
+accepted contribution.
+Recognition does not create ownership, employment, governance rights or maintainer status.
+Maintainer access is granted through the project’s governance process and may be changed or revoked to protect the project.
+13. Project submissions and showcase listings
+If you submit a project for possible inclusion in a TomorrowOS showcase, you grant us a non-exclusive, worldwide, royalty-free licence to:
+display the project name;
+reproduce submitted descriptions;
+display submitted logos or screenshots;
+link to the project;
+promote its relationship with TomorrowOS.
+You confirm that you have authority to provide those materials.
+We may edit descriptions for length and clarity and may decline or remove listings at our discretion.
+A listing does not represent certification, endorsement or security approval.
+14. Intellectual property
+TomorrowOS code
+Governed by the applicable repository licence.
+Website content
+Unless otherwise stated, website copy, design, illustrations, branding and non-code material are owned by or licensed to [LEGAL ENTITY NAME].
+You may not reproduce or commercially exploit that material except:
+as permitted by law;
+under an express licence;
+with written permission.
+Trademarks
+“TomorrowOS,” associated logos and branding are trademarks or protected brand identifiers of [LEGAL ENTITY NAME].
+The Apache 2.0 licence does not grant rights to use TomorrowOS trademarks, logos or brand names except as necessary for reasonable descriptive use.
+You must not imply:
+endorsement;
+official certification;
+partnership;
+affiliation;
+that your modified product is the official TomorrowOS project.
+A separate trademark policy should be published before widespread commercial adoption.
+15. Third-party content and dependencies
+TomorrowOS may reference or depend on third-party:
+libraries;
+runtimes;
+platforms;
+hardware;
+APIs;
+documentation;
+services.
+Third-party materials remain subject to their own licences and terms.
+We do not control or guarantee third-party products, firmware, hardware compatibility, availability or security.
+16. Security
+You are responsible for securing:
+your application;
+infrastructure;
+credentials;
+API keys;
+customer data;
+networks;
+deployment environment;
+hardware;
+operational processes.
+TomorrowOS does not certify the complete product you build.
+Security issues relating to TomorrowOS should be privately reported using [SECURITY REPORTING LINK].
+17. Export controls and sanctions
+You must comply with applicable export-control, sanctions and trade laws.
+You must not knowingly use or provide TomorrowOS in violation of applicable restrictions.
+This clause does not restrict lawful access to publicly available open-source software beyond what applicable law requires.
+18. Availability and changes
+We may:
+modify the website;
+update documentation;
+change links;
+discontinue website features;
+alter community services;
+restrict abusive access.
+We do not guarantee uninterrupted or error-free availability.
+Open-source code already lawfully obtained remains subject to its applicable licence.
+19. No professional advice
+TomorrowOS content is not:
+legal advice;
+compliance advice;
+cybersecurity certification;
+financial advice;
+engineering certification;
+a guarantee of production readiness.
+Obtain appropriate professional advice for your deployment.
+20. Disclaimers
+To the maximum extent permitted by law:
+the website and documentation are provided “as is” and “as available”;
+we exclude implied warranties not required by law;
+we do not guarantee accuracy, completeness, compatibility, security or fitness for a particular purpose;
+we do not guarantee that code or documentation will be error-free;
+we do not guarantee compatibility with every display, player, operating system, firmware or third-party service.
+Nothing in these Terms excludes rights that cannot lawfully be excluded, including applicable rights under the Australian Consumer Law.
+21. Limitation of liability
+To the maximum extent permitted by law, [LEGAL ENTITY NAME], its directors, maintainers, contributors, employees and contractors will not be liable for indirect, consequential, special, exemplary or incidental loss, including:
+lost profits;
+lost revenue;
+lost data;
+business interruption;
+loss of goodwill;
+deployment failure;
+hardware failure;
+content outage;
+loss arising from third-party systems.
+For website services supplied without charge, our aggregate liability arising from the website and these Terms is limited to AUD $100.
+For paid services, liability should be governed by the applicable commercial agreement.
+This limitation does not apply where liability cannot legally be limited.
+22. Indemnity
+To the extent permitted by law, you agree to indemnify [LEGAL ENTITY NAME] against third-party claims, losses and reasonable costs arising from:
+your unlawful use;
+your breach of these Terms;
+your submitted content;
+your infringement of third-party rights;
+the product or deployment you build using TomorrowOS.
+This does not require you to indemnify us for loss caused by our fraud, wilful misconduct or liability that cannot lawfully be excluded.
+23. Suspension and termination
+We may restrict access to TomorrowOS-operated community or website services where reasonably necessary because of:
+breach;
+abuse;
+security risk;
+legal requirements;
+harm to the project or users.
+Termination of website access does not terminate rights already granted under an open-source licence for code you lawfully obtained.
+24. Governing law
+These Terms are governed by the laws of Western Australia, Australia.
+Subject to rights that cannot be excluded, courts located in Western Australia have jurisdiction.
+For consumers, nothing in this clause removes mandatory rights or forums available under applicable law.
+25. Changes to these Terms
+We may update these Terms.
+Updated Terms apply from the published effective date. Material changes may be highlighted on the website.
+Your continued use after the effective date constitutes acceptance where permitted by law.
+26. General terms
+If a provision is unenforceable, the remaining provisions continue.
+Failure to enforce a provision is not a waiver.
+These Terms, together with referenced policies, form the agreement governing the website.
+27. Contact
+Legal enquiries:
+[LEGAL EMAIL]
+General enquiries:
+[GENERAL EMAIL]
+Security reports:
+[SECURITY REPORTING LINK]
+

@@ -103,3 +103,10 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

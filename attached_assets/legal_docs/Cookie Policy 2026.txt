@@ -1,0 +1,114 @@
+3. Cookie Policy
+Effective date: 20/06/2026Last updated: 20/06/2026
+1. About this Cookie Policy
+This Cookie Policy explains how TomorrowOS uses cookies and similar technologies on its website and documentation.
+“Cookies” includes, where relevant:
+browser cookies;
+local storage;
+pixels;
+tags;
+SDK storage;
+similar technologies that store or access information on a device.
+2. What cookies are
+Cookies are small data files placed on or read from your device when you use a website.
+They can be used to:
+operate a website;
+remember choices;
+protect services;
+measure usage;
+diagnose problems;
+support embedded content;
+provide advertising.
+3. Categories we use
+Strictly necessary
+Required for the website to operate or to provide a feature you request.
+Examples:
+security;
+load balancing;
+consent choices;
+form operation;
+session continuity;
+abuse prevention.
+These cannot usually be disabled through our settings.
+Preferences
+Remember optional choices, such as:
+theme;
+language;
+documentation preferences;
+display settings.
+These should remain disabled until consent where required.
+Analytics
+Help us understand:
+which pages are used;
+where visitors encounter errors;
+how documentation performs;
+broad traffic patterns.
+Analytics should only activate after consent in jurisdictions requiring it.
+Functional and embedded content
+Enable optional third-party features, such as:
+videos;
+interactive examples;
+GitHub widgets;
+embedded community content.
+These may allow the third party to collect information.
+Marketing
+Used for advertising, campaign measurement or cross-site tracking.
+Recommended MVP position:
+TomorrowOS does not currently use marketing or behavioural-advertising cookies.
+Do not include a marketing category in the live banner unless marketing technology is actually installed.
+4. Cookie inventory
+Complete this table after running a real cookie scan on production.
+Name
+Provider
+Purpose
+Category
+Duration
+[consent cookie]
+TomorrowOS
+Stores consent choices
+Necessary
+[12 months]
+[security cookie]
+[Provider]
+Security and abuse prevention
+Necessary
+[Duration]
+[analytics cookie]
+[Provider]
+Consent-based analytics
+Analytics
+[Duration]
+[preference key]
+TomorrowOS
+Stores theme or preference
+Preferences
+[Duration]
+The cookie inventory must match the deployed website—not the planned design.
+5. Your choices
+You can:
+accept all optional technologies;
+reject all non-essential technologies;
+choose categories individually;
+withdraw consent at any time.
+Use the Cookie Settings link in the footer.
+Withdrawing consent will not invalidate processing that occurred before withdrawal.
+Some features may not work as expected if optional technologies are disabled.
+6. Browser controls
+You can also block or delete cookies using browser settings.
+Blocking all cookies may affect essential website functionality.
+7. Third-party technologies
+Third-party services may set their own cookies when activated.
+Their handling of information is governed by their own privacy policies.
+We will not activate non-essential third-party embeds before consent where consent is legally required.
+8. Global Privacy Control
+Recommended if analytics or advertising could qualify as “sharing”:
+Where legally required and technically supported, we recognise Global Privacy Control or another valid browser-based opt-out signal.
+If TomorrowOS uses no advertising and does not sell or share data, state:
+TomorrowOS does not sell or share personal information for cross-context behavioural advertising.
+9. Changes
+We may update this Cookie Policy when technologies or providers change.
+We may request consent again when changes materially affect previous choices.
+10. Contact
+Questions about cookies:
+[PRIVACY EMAIL]
+
