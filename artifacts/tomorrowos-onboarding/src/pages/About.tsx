@@ -341,12 +341,10 @@ function CommunitySection() {
 }
 
 function LicenceSection() {
-  const { state } = usePrototype();
   const c = aboutContent.license;
   
   const hasLicense = siteConfig.links.license && !siteConfig.links.license.includes('{{');
   const licenseExtHref = hasLicense ? siteConfig.links.license : '#';
-  const licenseIntHref = '/license';
   
   return (
     <section id="licence" className="scroll-mt-24 bg-white py-20 md:py-32 px-4 md:px-8 w-full">
@@ -359,20 +357,14 @@ function LicenceSection() {
             {c.supportingCopy}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-auto items-start">
-            <Link href={licenseIntHref} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors bg-foreground text-background hover:bg-foreground/90 h-11 px-8">
+            <a
+              href={licenseExtHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors bg-foreground text-background hover:bg-foreground/90 h-11 px-8"
+            >
               {c.primaryAction}
-            </Link>
-            {state.prototypeReviewMode || hasLicense ? (
-               <a 
-                 href={licenseExtHref} 
-                 target={hasLicense ? "_blank" : undefined}
-                 rel={hasLicense ? "noopener noreferrer" : undefined}
-                 className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8"
-                 onClick={(e) => !hasLicense && e.preventDefault()}
-               >
-                 {hasLicense ? c.secondaryAction : <PlaceholderText value="PLACEHOLDER_LICENSE_URL" fallback={c.secondaryAction} />}
-               </a>
-            ) : null}
+            </a>
           </div>
         </div>
         

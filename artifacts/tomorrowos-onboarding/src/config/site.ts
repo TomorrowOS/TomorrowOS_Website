@@ -7,7 +7,7 @@ export const siteConfig = {
     knowledgeBase: 'https://docs.tomorrowos.org',
     community: 'https://github.com/TomorrowOS/TomorrowOS/discussions',
     governance: '{{PLACEHOLDER_GOVERNANCE_URL}}',
-    license: '{{PLACEHOLDER_LICENSE_URL}}',
+    license: 'https://github.com/TomorrowOS/TomorrowOS?tab=Apache-2.0-1-ov-file',
   },
   legal: {
     companyName: '{{PLACEHOLDER_COMPANY_NAME}}',
