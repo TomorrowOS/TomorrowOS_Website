@@ -1,2 +1,7 @@
 User-agent: *
-Allow: /
+Disallow: /
+
+# NOTE: For production launch:
+# 1. Change siteConfig.isPrototype to false in src/config/site.ts
+# 2. Change this file to:
+# Allow: /

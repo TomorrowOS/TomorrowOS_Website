@@ -1,0 +1,1134 @@
+Extend the existing TomorrowOS website and onboarding project.
+
+The attached ZIP contains:
+
+- Home.png
+- Home@2x.png
+
+These exports contain the approved desktop and mobile design.
+
+For this phase:
+
+1. Reposition the attached Figma homepage design as the TomorrowOS Quickstart page.
+2. Create a simple placeholder homepage at the root URL.
+3. Preserve the existing interactive onboarding application.
+4. Connect the Quickstart page to the onboarding pathways.
+5. Create placeholder Privacy Policy, Terms of Service and Cookie Settings pages.
+6. Add a consistent global header and footer.
+7. Configure external links centrally, including GitHub and documentation.
+8. Make the result ready for internal flow testing.
+
+Do not redesign the attached Figma page.
+
+The goal is to reproduce it as closely as possible using semantic React components, HTML and CSS—not by displaying the exported design as one large image.
+
+==================================================
+1. REVIEW BEFORE CODING
+==================================================
+
+Before changing the project:
+
+1. Inspect the existing routes, components and styling.
+2. Inspect Home.png and Home@2x.png in full.
+3. Identify the desktop and mobile portions of the design.
+4. Map each visible Figma section to a reusable component.
+5. Identify existing onboarding routes that must remain functional.
+6. Identify existing global styles that can be reused safely.
+7. List any missing visual assets or unresolved links.
+8. Then begin implementing without waiting for further approval.
+
+Do not delete, replace or rebuild the existing Guided Setup, Terminal, Server SDK, API, Supabase, Cloudinary, Samsung or content-guide work.
+
+==================================================
+2. REQUIRED ROUTE STRUCTURE
+==================================================
+
+Create or preserve these routes:
+
+/                       Placeholder homepage
+/quickstart             Figma-designed Quickstart page
+/start                  Interactive onboarding entry
+/start/guided            Existing Guided Setup pathway
+/start/terminal          Existing Terminal pathway
+/connect/server-sdk      Existing Server SDK pathway
+/connect/api             Existing API pathway
+/privacy                 Privacy Policy placeholder
+/terms                   Terms of Service placeholder
+/cookie-settings         Cookie preference page
+
+Preserve all existing internal guide routes, including:
+
+/guides/supabase
+/guides/cloudinary
+/guides/vercel
+/guides/content
+/guides/platforms/samsung-tizen
+
+Do not allow any existing working route to begin returning a 404.
+
+==================================================
+3. PAGE RELATIONSHIP
+==================================================
+
+The intended user journey is:
+
+Homepage
+→ Quickstart
+→ Interactive onboarding
+→ Guided, Terminal, Server SDK or API path
+→ Shared device and content guides
+
+Use the following responsibilities:
+
+Homepage:
+Briefly explains what TomorrowOS is and directs users to Quickstart.
+
+Quickstart:
+Explains the ways TomorrowOS can be used and helps users choose a direction.
+
+Interactive onboarding:
+Provides the complete step-by-step setup experience.
+
+Do not duplicate the entire interactive onboarding flow on the Quickstart page.
+
+==================================================
+4. GLOBAL DESIGN SYSTEM
+==================================================
+
+Follow the visual design in the supplied Figma exports.
+
+Typography:
+
+- Roboto
+- Use only the weights visible in the design
+- Strong black headings
+- Restrained grey supporting copy
+- Accurate line heights and letter spacing
+
+Colour:
+
+- White background
+- Black primary text and actions
+- Neutral grey borders
+- Light-grey card backgrounds where shown
+- Minimal accent colour
+- No gradients
+- No decorative colour blocks not present in Figma
+
+Components:
+
+- Thin borders
+- Subtle corner radii
+- Restrained or no shadows
+- Generous white space
+- Clean diagrams
+- Simple icons
+- Clear selected and hover states
+
+Do not introduce a new visual language.
+
+==================================================
+5. CENTRAL SITE CONFIGURATION
+==================================================
+
+Create a single central configuration file such as:
+
+src/config/site.ts
+
+Include:
+
+siteConfig = {
+  name: "TomorrowOS",
+  siteUrl: "https://tomorrowos.org",
+  githubUrl: "{{TOMORROWOS_GITHUB_URL}}",
+  docsUrl: "{{TOMORROWOS_DOCS_URL}}",
+  communityUrl: "{{TOMORROWOS_COMMUNITY_URL}}",
+  contactEmail: "{{TOMORROWOS_CONTACT_EMAIL}}",
+  quickstartPath: "/quickstart",
+  onboardingPath: "/start",
+  privacyPath: "/privacy",
+  termsPath: "/terms",
+  cookieSettingsPath: "/cookie-settings"
+}
+
+Before using placeholders:
+
+1. Search the existing codebase for an already-configured official URL.
+2. Reuse the existing value when found.
+3. Do not invent organisation names or external URLs.
+4. Do not leave a broken external link in customer-facing mode.
+
+When an optional external URL is not configured:
+
+- Hide the link in normal mode.
+- Show the unresolved setting only in internal review mode.
+
+External links should:
+
+- Open in a new tab
+- Use `rel="noopener noreferrer"`
+- Have accessible labels
+
+==================================================
+6. GLOBAL HEADER
+==================================================
+
+Create one reusable global header based on the Figma design.
+
+Desktop should include:
+
+- TomorrowOS wordmark/logo
+- Explore
+- Quickstart or Get Started
+- Documentation
+- GitHub
+- Start building
+
+Recommended behaviour:
+
+Logo
+→ `/`
+
+Explore
+→ homepage content section or `/quickstart`
+
+Quickstart / Get Started
+→ `/quickstart`
+
+Documentation
+→ configured docs URL
+
+GitHub
+→ configured GitHub URL
+
+Start building
+→ `/start`
+
+Use the exact labels shown in the final design where they differ.
+
+Mobile:
+
+- TomorrowOS logo
+- Hamburger menu
+- Accessible menu drawer
+- Same destinations as desktop
+- Clear close control
+- Escape-key support
+- Focus trapping
+- Prevent background scrolling while open
+
+Do not allow navigation links to point to `#` unless they intentionally scroll to an existing section on the current page.
+
+==================================================
+7. PLACEHOLDER HOMEPAGE
+==================================================
+
+Create a restrained placeholder homepage at `/`.
+
+This is not the final Figma homepage.
+
+It should be visually complete enough to test the website journey without competing with the Quickstart design.
+
+Use the TomorrowOS design system.
+
+------------------------------------------
+HOMEPAGE HERO
+------------------------------------------
+
+Eyebrow:
+
+OPEN-SOURCE DIGITAL SIGNAGE FOUNDATION
+
+Heading:
+
+Build and own your digital signage software.
+
+Supporting copy:
+
+TomorrowOS provides the shared device, playback and platform foundation for teams building digital signage products.
+
+Primary action:
+
+Explore Quickstart
+
+Route:
+
+/quickstart
+
+Secondary action:
+
+View GitHub
+
+Use the configured GitHub URL.
+
+When the GitHub URL is not configured, hide the secondary action in customer-facing mode.
+
+------------------------------------------
+HOMEPAGE PATHS
+------------------------------------------
+
+Heading:
+
+Choose how to use TomorrowOS
+
+Create three concise cards.
+
+CARD 1
+
+Start a new project
+
+Description:
+
+Create a new signage product using Guided Setup or the TomorrowOS CLI.
+
+Action:
+
+Start with Quickstart
+
+Route:
+
+/quickstart
+
+CARD 2
+
+Connect an existing product
+
+Description:
+
+Add TomorrowOS to an application using the Server SDK or HTTP API.
+
+Action:
+
+Explore integration paths
+
+Route:
+
+/quickstart#connect-existing
+
+CARD 3
+
+Explore the project
+
+Description:
+
+Review the documentation, source code and supported platforms.
+
+Actions:
+
+- View documentation
+- View GitHub
+
+Only show configured external links.
+
+------------------------------------------
+HOMEPAGE FOUNDATION STRIP
+------------------------------------------
+
+Add one simple architecture strip:
+
+Your product
+→ TomorrowOS Server
+→ TomorrowOS Runtime
+→ Supported screens
+
+Do not create a complex new illustration.
+
+Use the same visual vocabulary as the Figma Quickstart diagrams.
+
+------------------------------------------
+HOMEPAGE PLATFORM STRIP
+------------------------------------------
+
+Show:
+
+- Samsung Tizen — Available
+- BrightSign — Preserve current status
+- LG webOS — Coming soon
+- Android — Coming soon
+- Windows — Coming soon
+
+Use the same support status configuration already used by the onboarding project.
+
+Do not duplicate platform status values in the homepage component.
+
+------------------------------------------
+HOMEPAGE FINAL CTA
+------------------------------------------
+
+Heading:
+
+Start building with TomorrowOS.
+
+Primary action:
+
+Open Quickstart
+
+Secondary action:
+
+View GitHub
+
+Keep the homepage concise.
+
+Do not add testimonials, pricing, customer logos, statistics or claims that were not provided.
+
+==================================================
+8. QUICKSTART PAGE
+==================================================
+
+Create `/quickstart` using the attached Home.png and Home@2x.png as the authoritative visual reference.
+
+The page should reproduce the supplied desktop and mobile Figma design as closely as practical.
+
+Do not treat the image as vague inspiration.
+
+Match:
+
+- Container widths
+- Section heights
+- Typography
+- Font weights
+- Line heights
+- Text alignment
+- Card dimensions
+- Grid columns
+- Diagram scale
+- Borders
+- Corner radii
+- Spacing
+- Icon sizes
+- CTA positions
+- Mobile stacking order
+- Header and footer behaviour
+
+------------------------------------------
+QUICKSTART CONTENT STRUCTURE
+------------------------------------------
+
+Build reusable sections corresponding to the Figma design.
+
+Expected structure:
+
+1. Header
+2. Hero
+3. Main TomorrowOS architecture diagram
+4. Start your way
+5. AI-assisted pathway
+6. SDK pathway
+7. Existing-product pathway
+8. Connect your product
+9. Start simple
+10. Develop with the SDK
+11. Deploy using supported platforms or cloud environments
+12. Built to be owned
+13. Ownership and infrastructure benefits
+14. Supported-platform explanation
+15. Working patterns
+16. Final call to action
+17. Footer
+
+Use the exact approved Figma copy wherever it is legible.
+
+Do not rewrite approved headlines merely to make them sound different.
+
+When any text cannot be confidently read:
+
+- Store a clear content placeholder.
+- Flag it in Review Mode.
+- Do not invent product claims.
+
+------------------------------------------
+QUICKSTART PATHWAY ACTIONS
+------------------------------------------
+
+Map Quickstart actions into the existing onboarding tool.
+
+Start a new project
+→ `/start`
+
+Guided Setup
+→ `/start/guided`
+
+Terminal
+→ `/start/terminal`
+
+Connect existing product
+→ `/connect/server-sdk`
+
+Server SDK
+→ `/connect/server-sdk`
+
+API Integration
+→ `/connect/api`
+
+Get started / Start building
+→ `/start`
+
+GitHub
+→ configured external GitHub URL
+
+Documentation
+→ configured docs URL
+
+Do not recreate the onboarding questions directly on the Quickstart page.
+
+------------------------------------------
+QUICKSTART ANCHORS
+------------------------------------------
+
+Add useful anchors:
+
+/quickstart#start-new
+/quickstart#guided
+/quickstart#terminal
+/quickstart#connect-existing
+/quickstart#server-sdk
+/quickstart#api
+/quickstart#ownership
+/quickstart#platforms
+/quickstart#patterns
+
+Ensure anchor navigation accounts for the fixed header and does not hide headings beneath it.
+
+==================================================
+9. FIGMA IMPLEMENTATION RULES
+==================================================
+
+Do not:
+
+- Insert Home.png as the entire webpage
+- Use the export as a CSS background for the page
+- Trace text as images
+- Use absolute positioning for the entire desktop page
+- Build separate unrelated desktop and mobile DOM trees
+- Approximate icons with emojis
+- Introduce a UI library that changes the visual language
+
+Do:
+
+- Build semantic React components
+- Use responsive CSS
+- Use shared design tokens
+- Use SVG assets where available
+- Create CSS-based diagrams when practical
+- Use accessible HTML headings and landmarks
+- Maintain one logical content structure across breakpoints
+
+==================================================
+10. RESPONSIVE BEHAVIOUR
+==================================================
+
+Use the mobile design in the supplied export as the source of truth.
+
+Desktop:
+
+- Wide centred container
+- Multi-column sections
+- Horizontal architecture flows
+- Full navigation
+
+Tablet:
+
+- Preserve hierarchy
+- Reduce column count where required
+- Avoid squeezed text or diagrams
+- Use intermediate responsive layouts rather than jumping directly from desktop to mobile
+
+Mobile:
+
+- Stack cards in the Figma order
+- Convert horizontal architecture diagrams to vertical flows
+- Use mobile navigation
+- Maintain readable text sizes
+- Use full-width primary actions where shown
+- Avoid horizontal scrolling
+- Keep section spacing aligned with the Figma export
+- Do not hide important architecture information merely to simplify mobile
+
+Suggested initial breakpoints may be used, but tune them based on the design:
+
+- Mobile: below 768px
+- Tablet: 768px–1023px
+- Desktop: 1024px and above
+
+Do not force those values when a different transition better matches the Figma.
+
+==================================================
+11. GLOBAL FOOTER
+==================================================
+
+Create one reusable footer matching the Figma design.
+
+Include:
+
+- TomorrowOS name or logo
+- Short approved positioning statement
+- Quickstart
+- Documentation
+- GitHub
+- Privacy Policy
+- Terms of Service
+- Cookie Settings
+- Copyright
+
+Suggested copyright:
+
+© {current year} TomorrowOS
+
+Do not hard-code an old year.
+
+Legal links:
+
+Privacy Policy
+→ `/privacy`
+
+Terms of Service
+→ `/terms`
+
+Cookie Settings
+→ `/cookie-settings`
+
+Cookie Settings must also open the preference interface when used from the footer.
+
+==================================================
+12. PRIVACY POLICY PLACEHOLDER
+==================================================
+
+Create `/privacy`.
+
+This must be clearly presented as a structured draft placeholder requiring legal review.
+
+Do not invent definitive legal promises.
+
+Header:
+
+Privacy Policy
+
+Status badge:
+
+Draft — legal review required
+
+Supporting copy:
+
+This page is being prepared for the TomorrowOS website and will be finalised before public launch.
+
+Use structured placeholder sections:
+
+1. Scope
+2. Information collected
+3. How information may be used
+4. Service providers
+5. Cookies and analytics
+6. Data retention
+7. Security
+8. International data handling
+9. User choices and rights
+10. Contact
+11. Updates to this policy
+
+Each section should contain concise placeholder copy or an internal content token such as:
+
+{{PRIVACY_INFORMATION_COLLECTED_COPY}}
+
+Do not publish fictional claims about:
+
+- Data locations
+- Retention periods
+- Information sales
+- Regulatory compliance
+- User rights
+- Named service providers
+
+Create the visual page fully, while keeping unresolved legal content clearly marked for legal review.
+
+In customer-facing production mode, do not launch the website until required legal placeholders have been replaced.
+
+==================================================
+13. TERMS OF SERVICE PLACEHOLDER
+==================================================
+
+Create `/terms`.
+
+Header:
+
+Terms of Service
+
+Status badge:
+
+Draft — legal review required
+
+Supporting copy:
+
+These website terms are being prepared and must be reviewed before the TomorrowOS website is publicly launched.
+
+Use structured sections:
+
+1. Acceptance of terms
+2. Website use
+3. TomorrowOS software and open-source licences
+4. Documentation and examples
+5. User responsibilities
+6. Prohibited use
+7. Intellectual property
+8. Third-party services and links
+9. Disclaimers
+10. Limitation of liability
+11. Suspension or changes
+12. Governing law
+13. Contact
+14. Changes to these terms
+
+Use content placeholders for legal decisions.
+
+Do not copy another company’s terms.
+
+Do not imply the website Terms replace the licence governing open-source repositories or packages.
+
+Add a neutral note:
+
+Specific TomorrowOS software is governed by the licence included with that software or repository.
+
+Only retain that sentence when it accurately reflects the repository structure.
+
+==================================================
+14. COOKIE SETTINGS PAGE
+==================================================
+
+Create `/cookie-settings`.
+
+Heading:
+
+Cookie settings
+
+Supporting copy:
+
+Choose which optional website technologies may be used in this browser.
+
+Create three preference categories.
+
+------------------------------------------
+STRICTLY NECESSARY
+------------------------------------------
+
+Status:
+
+Always active
+
+Description:
+
+Required for core website functions, security and saved preferences.
+
+Cannot be disabled.
+
+------------------------------------------
+ANALYTICS
+------------------------------------------
+
+Default:
+
+Off
+
+Description:
+
+Helps understand how the website is used.
+
+Toggle:
+
+Optional
+
+------------------------------------------
+MARKETING
+------------------------------------------
+
+Default:
+
+Off
+
+Description:
+
+Used for advertising or campaign measurement when configured.
+
+Toggle:
+
+Optional
+
+------------------------------------------
+ACTIONS
+------------------------------------------
+
+- Save preferences
+- Accept optional cookies
+- Reject optional cookies
+- Reset preferences
+
+Store only the consent preference locally.
+
+Do not enable analytics or marketing scripts merely because the page exists.
+
+Create a central consent service:
+
+cookieConsent = {
+  necessary: true,
+  analytics: boolean,
+  marketing: boolean,
+  updatedAt: timestamp,
+  version: string
+}
+
+All optional scripts added in the future must read this consent state before loading.
+
+Do not load an analytics or marketing script before permission is granted.
+
+When no optional scripts are currently configured, show:
+
+No optional analytics or marketing tools are currently active. Your saved preference will be available when optional services are added.
+
+Do not claim the settings block technologies that have not actually been integrated with the consent system.
+
+==================================================
+15. OPTIONAL COOKIE BANNER
+==================================================
+
+Add a restrained cookie banner only when optional cookies or tracking scripts are configured.
+
+For the current placeholder build:
+
+- Keep the banner capability implemented.
+- Do not show it by default when no optional scripts are active.
+- Allow Review Mode to display it.
+
+Banner copy:
+
+TomorrowOS uses necessary website storage and may use optional analytics when you allow it.
+
+Actions:
+
+- Accept optional cookies
+- Reject optional cookies
+- Manage settings
+
+Manage settings
+→ `/cookie-settings`
+
+==================================================
+16. SEO AND PAGE METADATA
+==================================================
+
+Add route-specific metadata.
+
+Homepage:
+
+Title:
+TomorrowOS | Open-Source Digital Signage Foundation
+
+Description:
+Build a new CMS, connect an existing product or create custom digital signage software with TomorrowOS.
+
+Quickstart:
+
+Title:
+Quickstart | Build with TomorrowOS
+
+Description:
+Choose Guided Setup, the TomorrowOS CLI, Server SDK or API integration to begin building digital signage software.
+
+Privacy:
+
+Title:
+Privacy Policy | TomorrowOS
+
+Terms:
+
+Title:
+Terms of Service | TomorrowOS
+
+Cookie settings:
+
+Title:
+Cookie Settings | TomorrowOS
+
+Use the existing SEO system when one is already present.
+
+Add:
+
+- Canonical URLs
+- Open Graph defaults
+- Social preview placeholders
+- Descriptive page titles
+- Favicon support
+- Robots configuration appropriate to the environment
+
+During prototype review, prevent accidental indexing when the deployment is not intended for public launch.
+
+==================================================
+17. ACCESSIBILITY
+==================================================
+
+Meet practical WCAG AA requirements.
+
+Include:
+
+- Semantic landmarks
+- One clear H1 per page
+- Logical heading structure
+- Keyboard navigation
+- Visible focus indicators
+- Accessible mobile menu
+- Descriptive button labels
+- Alt text for meaningful images
+- Decorative images hidden from screen readers
+- Sufficient contrast
+- No interaction communicated only by colour
+- Reduced-motion support
+- Touch targets of suitable size
+- Skip-to-content link
+
+Ensure diagrams have concise text alternatives.
+
+==================================================
+18. PERFORMANCE
+==================================================
+
+Do not ship the large Figma exports as production page images.
+
+Use them only as implementation references.
+
+Optimise:
+
+- SVG assets
+- Responsive images
+- Lazy loading below the fold
+- Font loading
+- CSS
+- JavaScript bundles
+- Route-level code splitting where useful
+
+Avoid:
+
+- Heavy animation libraries
+- Unnecessary dependencies
+- Layout shifts
+- Oversized uncompressed assets
+- Duplicate mobile and desktop images
+
+==================================================
+19. FIGMA REVIEW MODE
+==================================================
+
+Add an internal-only review mode accessible through the existing Prototype Review Mode or a development query parameter.
+
+Review Mode may show:
+
+- Current viewport dimensions
+- Figma target viewport
+- Section names
+- Component boundaries
+- Missing asset markers
+- Unresolved text
+- Unconfigured external links
+- Route map
+- Legal placeholders
+- Cookie-consent state
+
+Do not show this information in normal customer-facing mode.
+
+Add a route checklist:
+
+- Homepage
+- Quickstart desktop
+- Quickstart tablet
+- Quickstart mobile
+- Privacy
+- Terms
+- Cookie settings
+- Header desktop
+- Header mobile
+- Footer
+
+==================================================
+20. VISUAL COMPARISON PROCESS
+==================================================
+
+After implementation, compare `/quickstart` to the supplied Figma exports.
+
+Test at the exact export viewport widths where identifiable.
+
+For each section compare:
+
+- X and Y position
+- Container width
+- Text width
+- Font size
+- Weight
+- Line height
+- Section spacing
+- Card height
+- Grid gap
+- Border colour
+- Radius
+- Icon scale
+- Diagram alignment
+- Button dimensions
+- Mobile ordering
+
+Correct visible mismatches rather than accepting a merely similar result.
+
+Do not stop after the first pass.
+
+Complete at least:
+
+1. Structural pass
+2. Typography and spacing pass
+3. Responsive pass
+4. Interaction pass
+5. Final screenshot comparison pass
+
+==================================================
+21. CONTENT AND LINK SAFETY
+==================================================
+
+Do not introduce:
+
+- Fake customer claims
+- Fake statistics
+- Fake partner logos
+- Fake GitHub counts
+- Fake availability claims
+- Unverified platform support
+- Invented documentation URLs
+- Placeholder links that silently fail
+- Final legal claims without review
+
+When a destination is unavailable:
+
+- Hide the optional action in customer-facing mode, or
+- Show a clearly labelled Coming soon page
+
+Never leave an active link pointing to nowhere.
+
+==================================================
+22. COMPONENT STRUCTURE
+==================================================
+
+Create or reuse components such as:
+
+- GlobalHeader
+- MobileNavigation
+- GlobalFooter
+- PageContainer
+- HeroSection
+- ArchitectureFlow
+- PathwayCard
+- OwnershipCard
+- PatternCard
+- PlatformStrip
+- CallToAction
+- LegalPageLayout
+- CookiePreferencePanel
+- ExternalLink
+- ReviewMarker
+- MissingAssetPlaceholder
+- SeoMetadata
+
+Keep content separate from layout where practical.
+
+Create central files for:
+
+- Site configuration
+- Navigation
+- Footer
+- Quickstart copy
+- Platform statuses
+- Legal placeholders
+- Cookie categories
+
+Do not duplicate URLs or support statuses across components.
+
+==================================================
+23. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. `/` loads a clean placeholder homepage.
+2. `/quickstart` contains the Figma-designed page.
+3. The Quickstart page is built from components, not one large image.
+4. Desktop styling closely matches the Figma export.
+5. Mobile styling closely matches the Figma export.
+6. The Quickstart CTAs open the correct onboarding routes.
+7. The existing interactive onboarding remains functional.
+8. Guided Setup remains functional.
+9. Terminal remains functional.
+10. Server SDK remains functional.
+11. API Integration remains functional.
+12. Existing guide routes remain functional.
+13. The header is shared across website pages.
+14. The footer is shared across website pages.
+15. GitHub and Docs URLs come from central configuration.
+16. Unconfigured external links are not exposed as broken links.
+17. `/privacy` exists.
+18. `/terms` exists.
+19. `/cookie-settings` exists.
+20. Legal pages are visibly marked as draft placeholders.
+21. Cookie preferences persist locally.
+22. No optional scripts load without consent.
+23. Navigation works with browser Back and Forward.
+24. Mobile navigation is accessible.
+25. There is no horizontal scrolling at normal viewport sizes.
+26. The Figma source exports are not shipped as full-page production images.
+27. SEO metadata exists for all new routes.
+28. Prototype deployments can be prevented from indexing.
+29. All TypeScript and runtime errors are fixed.
+30. No existing onboarding progress is lost.
+31. No route unexpectedly returns a 404.
+32. Normal mode contains no unresolved internal placeholders.
+33. Review Mode clearly identifies unresolved links, assets and legal copy.
+34. The implementation remains recognisably TomorrowOS.
+35. The result is suitable for internal flow testing.
+
+==================================================
+24. DELIVERY PROCESS
+==================================================
+
+Before coding:
+
+1. Inspect the attached Figma exports.
+2. Inspect the existing application.
+3. Document the current route map.
+4. Identify reusable components.
+5. Identify missing assets.
+6. Identify unresolved external URLs.
+7. Preserve the onboarding application.
+8. Then begin implementing.
+
+After coding:
+
+1. Run the project.
+2. Test every new route.
+3. Test every navigation link.
+4. Test all onboarding entry links.
+5. Test GitHub and documentation link handling.
+6. Test desktop, tablet and mobile.
+7. Test the mobile menu.
+8. Test cookie preferences.
+9. Test legal-page placeholders.
+10. Test browser Back and Forward.
+11. Run TypeScript checks.
+12. Fix runtime errors.
+13. Run a final Figma comparison.
+14. Provide a concise completion report with:
+    - Routes created
+    - Components created
+    - Missing assets
+    - Unresolved URLs
+    - Legal content still requiring review
+    - Visual differences still remaining
+
+Do not stop after creating static placeholders.
+
+The finished build must establish a coherent website journey:
+
+Homepage
+→ Quickstart
+→ Interactive onboarding
+→ Setup guides
+→ Published CMS and first screen.

@@ -1,0 +1,15 @@
+export const siteConfig = {
+  name: 'TomorrowOS',
+  isPrototype: true, // Used to guard indexing (noindex)
+  links: {
+    github: '{{PLACEHOLDER_GITHUB_URL}}',
+    docs: '{{PLACEHOLDER_DOCS_URL}}',
+    knowledgeBase: '{{PLACEHOLDER_KNOWLEDGE_BASE_URL}}',
+  },
+  legal: {
+    companyName: '{{PLACEHOLDER_COMPANY_NAME}}',
+    contactEmail: '{{PLACEHOLDER_CONTACT_EMAIL}}',
+    address: '{{PLACEHOLDER_COMPANY_ADDRESS}}',
+    jurisdiction: '{{PLACEHOLDER_JURISDICTION}}',
+  }
+};

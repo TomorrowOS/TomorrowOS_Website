@@ -1,7 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Route, Switch, Router as WouterRouter } from 'wouter';
+import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import { PrototypeProvider } from './components/PrototypeProvider';
 import { SharedLayout } from './components/SharedLayout';
+import { WebsiteLayout } from './components/WebsiteLayout';
 import Start from './pages/Start';
 import GuideSupabase from './pages/GuideSupabase';
 import GuideCloudinary from './pages/GuideCloudinary';
@@ -14,10 +15,33 @@ import Compatibility from './pages/Compatibility';
 import MediaCompatibility from './pages/MediaCompatibility';
 import PlatformGuides from './pages/PlatformGuides';
 import NotFound from './pages/not-found';
+import Home from './pages/Home';
+import Quickstart from './pages/Quickstart';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import CookieSettings from './pages/CookieSettings';
 
 const queryClient = new QueryClient();
 
 function Router() {
+  const [location] = useLocation();
+
+  const isWebsiteRoute = ['/', '/quickstart', '/privacy', '/terms', '/cookie-settings'].includes(location);
+
+  if (isWebsiteRoute) {
+    return (
+      <WebsiteLayout>
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/quickstart" component={Quickstart} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/cookie-settings" component={CookieSettings} />
+        </Switch>
+      </WebsiteLayout>
+    );
+  }
+
   return (
     <SharedLayout>
       <Switch>
@@ -39,9 +63,6 @@ function Router() {
         <Route path="/guides/platforms" component={PlatformGuides} />
         <Route path="/compatibility/media" component={MediaCompatibility} />
         <Route path="/compatibility" component={Compatibility} />
-        <Route path="/">
-          <Start />
-        </Route>
         <Route component={NotFound} />
       </Switch>
     </SharedLayout>

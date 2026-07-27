@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin: 0; padding: 0; background: #eee; }
+    .container { position: relative; display: inline-block; }
+    img { display: block; max-width: none; }
+    .grid {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+    }
+    .hline {
+      position: absolute;
+      left: 0; right: 0; height: 1px;
+      background: red;
+    }
+    .hline::after {
+      content: attr(data-y);
+      position: absolute;
+      top: -12px; left: 0;
+      background: red; color: white;
+      font-size: 10px; padding: 0 2px;
+    }
+    .vline {
+      position: absolute;
+      top: 0; bottom: 0; width: 1px;
+      background: blue;
+    }
+    .vline::after {
+      content: attr(data-x);
+      position: absolute;
+      top: 0; left: 2px;
+      background: blue; color: white;
+      font-size: 10px; padding: 0 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="/home/runner/workspace/attached_assets/extracted/tomorrowos-website/Home.png" id="img" />
+    <div class="grid" id="grid"></div>
+  </div>
+  <script>
+    const grid = document.getElementById('grid');
+    // Horizontal lines every 500px
+    for(let y=0; y<7128; y+=500) {
+      const line = document.createElement('div');
+      line.className = 'hline';
+      line.style.top = y + 'px';
+      line.setAttribute('data-y', y);
+      grid.appendChild(line);
+    }
+    // Vertical lines every 100px
+    for(let x=0; x<1440; x+=100) {
+      const line = document.createElement('div');
+      line.className = 'vline';
+      line.style.left = x + 'px';
+      line.setAttribute('data-x', x);
+      grid.appendChild(line);
+    }
+  </script>
+</body>
+</html>

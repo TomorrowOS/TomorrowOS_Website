@@ -1,1 +1,2 @@
 - [Onboarding honesty model](onboarding-honesty-model.md) — prototype must never imply real integrations; user-confirmed statuses only, simulations gated behind Review Mode.
+- [Verify subagent claims](verify-subagent-claims.md) — subagent reports have claimed fixes that weren't applied; grep for claimed identifiers before accepting.
