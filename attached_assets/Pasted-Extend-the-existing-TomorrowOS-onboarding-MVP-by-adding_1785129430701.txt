@@ -1,0 +1,1482 @@
+Extend the existing TomorrowOS onboarding MVP by adding Vercel as a second Guided Setup tool alongside Replit.
+
+Do not rebuild the existing Guided Setup, Terminal, Server SDK or API Integration pathways.
+
+The objective is to add:
+
+Start a new project
+→ Guided setup
+→ Choose Replit or Vercel
+→ Complete the selected tool-specific setup
+→ Publish the CMS
+→ Merge into the existing shared player, pairing and content journey
+
+Use the attached file:
+
+Vercel Setup 2026.docx
+
+as a starting content reference, but apply all of the requirements and corrections in this prompt.
+
+Preserve the existing TomorrowOS design:
+
+- Roboto
+- White background
+- Black primary actions
+- Light-grey cards and borders
+- Minimal colour
+- No gradients
+- No large decorative illustrations
+- Clear selected states
+- Calm, premium and instructional
+- Responsive desktop and mobile layouts
+
+==================================================
+1. CRITICAL PRODUCT POSITIONING
+==================================================
+
+Replit and Vercel are both Guided Setup options, but they are not identical.
+
+Replit path:
+
+- Build using Replit Agent
+- Configure Replit Secrets
+- Preview inside Replit
+- Publish through Replit
+
+Vercel path:
+
+- Build using v0
+- Connect Vercel Marketplace services or external services
+- Configure Vercel Environment Variables
+- Preview through a Vercel deployment
+- Publish to Vercel
+
+Use this terminology consistently:
+
+Vercel
+Build with v0 and deploy to Vercel.
+
+Do not call the AI builder simply “Vercel”.
+
+v0 is the AI-assisted building interface.
+Vercel is the hosting and deployment platform.
+
+==================================================
+2. SUPPORT STATUS AND VALIDATION WARNING
+==================================================
+
+The Vercel pathway must use a central configuration field:
+
+vercelSupportStatus
+
+Supported values:
+
+- validation-required
+- beta
+- supported
+- unavailable
+
+For the prototype, default to:
+
+validation-required
+
+Customer-facing status label:
+
+Validation required
+
+Supporting copy:
+
+TomorrowOS is validating persistent device connectivity on Vercel. Complete this setup only in an approved test environment until the platform is marked supported.
+
+Prototype Review Mode should show the internal reason:
+
+Vercel runtime and WebSocket behaviour must be confirmed through an end-to-end TomorrowOS device test.
+
+Do not mark Vercel fully supported until engineering confirms:
+
+- CMS deployment succeeds
+- Device connection remains stable
+- WebSocket or realtime communication works
+- Connections recover after function recycling
+- Reconnect works after display restart
+- Offline and online recovery works
+- Published production environment variables remain available
+- Media upload works
+- Device commands and events work
+- Runtime behaviour is acceptable under Vercel execution limits
+
+When vercelSupportStatus becomes supported, hide the validation warning through configuration rather than component changes.
+
+==================================================
+3. UPDATE THE GUIDED SETUP TOOL SELECTION
+==================================================
+
+Within:
+
+Start a new project
+→ Guided setup
+
+show:
+
+Choose your preferred tool
+
+Add two equal cards.
+
+------------------------------------------
+REPLIT CARD
+------------------------------------------
+
+Heading:
+
+Replit
+
+Description:
+
+Build and host your TomorrowOS CMS with Replit Agent.
+
+Supporting points:
+
+- Replit Agent
+- Replit Secrets
+- Replit Preview
+- Replit Publishing
+
+Status:
+
+Recommended
+
+Primary action:
+
+Start with Replit
+
+Preserve the existing Replit journey unchanged.
+
+------------------------------------------
+VERCEL CARD
+------------------------------------------
+
+Heading:
+
+Vercel
+
+Supporting label:
+
+Build with v0
+
+Description:
+
+Create your TomorrowOS CMS with v0 and deploy it to Vercel.
+
+Supporting points:
+
+- v0 AI builder
+- Vercel Marketplace
+- Vercel Environment Variables
+- Vercel Deployments
+
+Status:
+
+Use the configured vercelSupportStatus.
+
+Primary action:
+
+Start with Vercel
+
+If validation-required, allow access but show the validation callout before continuing.
+
+------------------------------------------
+SELECTION BEHAVIOUR
+------------------------------------------
+
+Use:
+
+- Entire card clickable
+- Strong selected border
+- Light-grey selected background
+- Small selected indicator
+- Keyboard focus
+- Clear hover state
+
+Once the user enters a detailed path, collapse the large selector into:
+
+Start a new project › Guided setup › Vercel
+
+Add:
+
+Switch setup tool
+
+Selecting it returns to the Replit/Vercel choice without deleting the other path’s saved progress.
+
+==================================================
+4. CREATE THE VERCEL GUIDED JOURNEY
+==================================================
+
+Create a Vercel-specific Guided Setup journey.
+
+Suggested route:
+
+/start/guided/vercel
+
+Create these steps:
+
+VERCEL SETUP
+
+1. Before you begin
+2. Open v0
+3. Create the project
+4. Follow the questions
+5. Choose a database
+6. Choose media storage
+7. Add branding
+8. Review the generated CMS
+9. Configure Vercel
+10. Preview the deployment
+11. Pre-publish checklist
+12. Publish the CMS
+13. Confirm the live CMS
+
+SHARED DEPLOYMENT
+
+1. Download players
+2. Install TomorrowOS
+3. Pair device
+4. Create and deploy content
+
+After Step 13 is manually confirmed, merge into the existing shared deployment journey.
+
+Do not duplicate the shared Samsung, BrightSign, pairing or content guides.
+
+==================================================
+5. VERCEL STEP 1 — BEFORE YOU BEGIN
+==================================================
+
+Heading:
+
+Before you begin
+
+Supporting copy:
+
+You will use v0 to create your CMS and Vercel to host it.
+
+Show four responsibility cards.
+
+TomorrowOS
+
+Signage foundation
+
+Provides device communication, playback, pairing and platform support.
+
+v0
+
+AI-assisted build
+
+Generates and updates the CMS project.
+
+Vercel
+
+Hosting and deployment
+
+Runs previews, stores project configuration and publishes the CMS.
+
+Database and media services
+
+Application infrastructure
+
+Stores CMS data and uploaded media.
+
+Requirements:
+
+- v0 or Vercel account
+- Database provider
+- Media-storage provider
+- Approximately 15–25 minutes
+- Email access for account verification
+- Approved TomorrowOS Vercel test access while support remains under validation
+
+Add:
+
+The first build may take several minutes while v0 generates the project and installs its dependencies.
+
+Do not promise a precise build time.
+
+Add plan note:
+
+v0 generation usage and Vercel hosting usage are separate. The available free allowances depend on the current account and plan. A commercial deployment may require a paid Vercel plan.
+
+Actions:
+
+- Open v0
+- View Vercel requirements
+- Continue
+
+==================================================
+6. VERCEL STEP 2 — OPEN V0
+==================================================
+
+Heading:
+
+Sign in to v0
+
+Copy:
+
+Open v0 and sign in using your Vercel account.
+
+Primary action:
+
+Open v0
+
+Use:
+
+https://v0.app
+
+Open in a new browser tab.
+
+Add:
+
+Keep this TomorrowOS guide open. You will return here while configuring the project.
+
+Screenshot placeholders:
+
+VERCEL-01A
+
+Interface:
+v0 sign-in page
+
+Highlight:
+Sign-in or Get Started action
+
+Caption:
+Sign in to v0 using your Vercel account.
+
+VERCEL-01B
+
+Interface:
+v0 workspace
+
+Highlight:
+Main prompt area
+
+Caption:
+Use the main v0 prompt area to begin the TomorrowOS build.
+
+Completion action:
+
+I am signed in to v0
+
+The TomorrowOS guide cannot verify the account.
+
+==================================================
+7. VERCEL STEP 3 — CREATE THE PROJECT
+==================================================
+
+Heading:
+
+Create your TomorrowOS CMS
+
+Show the official setup prompt as live, selectable text:
+
+Follow @tomorrowos/sdk VERCEL_SETUP.md and set up my TomorrowOS CMS.
+
+Buttons:
+
+- Copy prompt
+- Copied
+- Open v0
+
+Supporting instruction:
+
+Paste this into the main v0 prompt area.
+
+Do not paste it into:
+
+- A public code file
+- Environment-variable values
+- Vercel project settings
+- A database console
+
+Add:
+
+Do not paste database passwords, API secrets or storage tokens into the v0 conversation. Add sensitive values using Vercel Environment Variables or approved Marketplace integrations.
+
+Screenshot placeholder:
+
+VERCEL-02
+
+Interface:
+v0 prompt area
+
+Highlight:
+Where the TomorrowOS prompt should be pasted
+
+Caption:
+Paste the TomorrowOS setup prompt into v0.
+
+Completion action:
+
+I submitted the setup prompt
+
+==================================================
+8. VERCEL STEP 4 — FOLLOW THE QUESTIONS
+==================================================
+
+Heading:
+
+Follow the v0 questions
+
+Copy:
+
+v0 should ask the setup questions one at a time. Complete each question before continuing.
+
+Store the questions in a central Vercel setup configuration.
+
+Expected question categories:
+
+1. Project name
+2. Database provider
+3. Media-storage provider
+4. Include example content
+5. Branding
+6. Deployment configuration
+
+Use exact live wording from VERCEL_SETUP.md once confirmed.
+
+Do not invent permanent question wording.
+
+Use configuration placeholders where unresolved:
+
+{{VERCEL_QUESTION_PROJECT_NAME}}
+{{VERCEL_QUESTION_DATABASE}}
+{{VERCEL_QUESTION_STORAGE}}
+{{VERCEL_QUESTION_EXAMPLE_CONTENT}}
+{{VERCEL_QUESTION_BRANDING}}
+{{VERCEL_QUESTION_DEPLOYMENT}}
+
+Screenshot placeholders:
+
+VERCEL-03A
+Project name question
+
+VERCEL-03B
+Database choice
+
+VERCEL-03C
+Media-storage choice
+
+VERCEL-03D
+Example-content choice
+
+VERCEL-03E
+Branding questions
+
+Add:
+
+The screenshots and wording on this guide must match the current v0 flow.
+
+Completion action:
+
+I completed the v0 questions
+
+==================================================
+9. VERCEL STEP 5 — CHOOSE A DATABASE
+==================================================
+
+Heading:
+
+Choose your database
+
+Supporting copy:
+
+TomorrowOS needs a Postgres database for the sample CMS.
+
+Do not display Vercel Postgres as an option.
+
+Show two cards.
+
+------------------------------------------
+SUPABASE
+------------------------------------------
+
+Heading:
+
+Supabase
+
+Description:
+
+Use a Supabase Postgres database.
+
+Supporting label:
+
+Existing TomorrowOS guide available
+
+Actions:
+
+- Connect through Vercel Marketplace
+- View Supabase guide
+
+Guide route:
+
+/guides/supabase
+
+Status:
+
+Available
+
+------------------------------------------
+NEON
+------------------------------------------
+
+Heading:
+
+Neon
+
+Description:
+
+Use Neon Postgres through Vercel Marketplace.
+
+Supporting label:
+
+Vercel-native Marketplace option
+
+Actions:
+
+- Connect Neon
+- View Neon setup guide
+
+Guide route:
+
+/guides/neon
+
+When the Neon guide is not complete, create a proper internal placeholder:
+
+Neon guide being prepared
+
+Do not allow a 404.
+
+Do not show Neon as fully guided until the route contains:
+
+- Account or Marketplace setup
+- Database creation
+- Environment-variable mapping
+- Preview check
+- Production check
+- Troubleshooting
+
+------------------------------------------
+RECOMMENDATION LOGIC
+------------------------------------------
+
+Use central configuration:
+
+recommendedVercelDatabase
+
+Allowed values:
+
+- supabase
+- neon
+- none
+
+Do not hard-code a recommendation until engineering confirms which TomorrowOS starter path is most reliable.
+
+When none:
+
+Show:
+
+Choose either supported option based on your existing infrastructure.
+
+------------------------------------------
+MARKETPLACE EXPLANATION
+------------------------------------------
+
+Add a concise callout:
+
+Vercel Marketplace can connect the database to your project and add provider environment variables automatically.
+
+Add:
+
+TomorrowOS may still require a specific variable name. v0 must map the provider’s generated database variable to the name expected by the TomorrowOS starter.
+
+Do not expose database values on TomorrowOS.org.
+
+Do not ask the user to paste a database password into this guide.
+
+Completion action:
+
+I connected my database
+
+Supporting note:
+
+This confirmation updates guide progress only. TomorrowOS.org does not inspect the Vercel project or database.
+
+==================================================
+10. DATABASE VARIABLE MAPPING
+==================================================
+
+Create a reusable component:
+
+EnvironmentVariableMapping
+
+It should show:
+
+Provider variable
+→
+TomorrowOS variable
+
+Do not hard-code uncertain names.
+
+Use configuration:
+
+vercelDatabaseMappings = {
+  supabase: {
+    providerVariables: [],
+    tomorrowOsVariable: "{{CONFIRMED_TOMORROWOS_DATABASE_VARIABLE}}"
+  },
+  neon: {
+    providerVariables: [],
+    tomorrowOsVariable: "{{CONFIRMED_TOMORROWOS_DATABASE_VARIABLE}}"
+  }
+}
+
+Prototype Review Mode may show unresolved placeholders.
+
+Customer-facing mode must not display unresolved placeholders.
+
+Add warning:
+
+Do not create duplicate database variables with conflicting values.
+
+Add:
+
+Changes to Vercel Environment Variables require a new deployment before they affect the live CMS.
+
+==================================================
+11. VERCEL STEP 6 — CHOOSE MEDIA STORAGE
+==================================================
+
+Heading:
+
+Choose media storage
+
+Supporting copy:
+
+Select where your CMS will store and deliver uploaded media.
+
+Show two cards.
+
+------------------------------------------
+CLOUDINARY
+------------------------------------------
+
+Heading:
+
+Cloudinary
+
+Description:
+
+Store and deliver images and videos through Cloudinary.
+
+Supporting label:
+
+Existing TomorrowOS guide available
+
+Action:
+
+View Cloudinary guide
+
+Route:
+
+/guides/cloudinary
+
+Required values:
+
+- CLOUDINARY_CLOUD_NAME
+- CLOUDINARY_API_KEY
+- CLOUDINARY_API_SECRET
+
+Do not collect these values inside TomorrowOS.org.
+
+Add them through Vercel project Environment Variables.
+
+------------------------------------------
+VERCEL BLOB
+------------------------------------------
+
+Heading:
+
+Vercel Blob
+
+Description:
+
+Store uploaded CMS media in a Vercel Blob store.
+
+Action:
+
+Set up Vercel Blob
+
+Route:
+
+/guides/vercel-blob
+
+When this guide does not yet exist, create a complete internal guide shell or clearly label:
+
+Guide being prepared
+
+Do not allow a 404.
+
+Explain that the Vercel Blob implementation may use:
+
+- Vercel-supported project authentication when running on Vercel
+- BLOB_READ_WRITE_TOKEN when required by the approved upload architecture
+
+Do not tell every user to manually create or expose a token without engineering confirmation.
+
+Use central configuration:
+
+vercelBlobAuthenticationMode
+
+Allowed values:
+
+- oidc
+- token
+- hybrid
+- unresolved
+
+Default to:
+
+unresolved
+
+Customer-facing mode must not expose unresolved implementation guidance.
+
+------------------------------------------
+STORAGE RECOMMENDATION
+------------------------------------------
+
+Use central configuration:
+
+recommendedVercelStorage
+
+Allowed values:
+
+- cloudinary
+- vercel-blob
+- none
+
+Do not declare Vercel Blob recommended until TomorrowOS confirms:
+
+- Image upload
+- Video upload
+- Asset delivery
+- Delete behaviour
+- Public or private access choice
+- Large-file behaviour
+- Player access to generated URLs
+- Content caching
+- Offline playback compatibility
+
+Completion action:
+
+I connected media storage
+
+==================================================
+12. VERCEL STEP 7 — ADD BRANDING
+==================================================
+
+Heading:
+
+Add your branding
+
+Show the questions expected inside v0:
+
+- Product or venue name
+- Tagline
+- Primary colour
+- Secondary or accent colour
+- Timezone
+- Logo URL
+
+Use real screenshots when available.
+
+When Cloudinary is selected:
+
+Link to the Cloudinary logo URL instructions.
+
+When Vercel Blob is selected:
+
+Link to the Vercel Blob asset URL instructions once confirmed.
+
+Add:
+
+No logo yet?
+
+Skip this question for now. A logo should not block the CMS build.
+
+Completion action:
+
+I completed the branding questions
+
+==================================================
+13. VERCEL STEP 8 — REVIEW THE GENERATED CMS
+==================================================
+
+Heading:
+
+Review what v0 created
+
+Supporting copy:
+
+v0 should generate the CMS project and a working preview.
+
+Show instructional expected results:
+
+- CMS project created
+- TomorrowOS SDK installed
+- Database integration added
+- Media-storage integration added
+- Branding configuration created
+- Example content created when selected
+- Preview available
+
+Use:
+
+You should now see
+
+Do not use:
+
+TomorrowOS verified
+
+Add:
+
+The first build may take several minutes. Keep the v0 page open while it generates files and resolves dependencies.
+
+Actions:
+
+- Open v0
+- My preview is ready
+- My build has an error
+
+Add:
+
+This guide does not inspect the v0 project.
+
+==================================================
+14. VERCEL STEP 9 — CONFIGURE VERCEL
+==================================================
+
+Heading:
+
+Configure your Vercel project
+
+Create three instructional sections.
+
+------------------------------------------
+PROJECT CONNECTION
+------------------------------------------
+
+Confirm that the v0 project is connected to a Vercel project.
+
+Use screenshots:
+
+VERCEL-04A
+v0 project deployment connection
+
+VERCEL-04B
+Vercel project dashboard
+
+------------------------------------------
+ENVIRONMENT VARIABLES
+------------------------------------------
+
+Instructions:
+
+1. Open the Vercel project.
+2. Select Settings.
+3. Open Environment Variables.
+4. Add or confirm all required variables.
+5. Apply each variable to the correct environment.
+6. Save the configuration.
+
+Show environment scopes:
+
+- Development
+- Preview
+- Production
+
+Add:
+
+A variable available in Preview may still be missing from Production.
+
+Do not display real secret values.
+
+Use the reusable variable-mapping component.
+
+------------------------------------------
+SENSITIVE VALUES
+------------------------------------------
+
+Add security callout:
+
+Keep credentials private
+
+- Do not paste secrets into public prompts.
+- Do not expose server credentials in browser code.
+- Do not put secret values in screenshots.
+- Do not commit `.env` files.
+- Use sensitive Vercel Environment Variables where appropriate.
+
+Completion action:
+
+I configured the Vercel project
+
+==================================================
+15. VERCEL STEP 10 — PREVIEW THE DEPLOYMENT
+==================================================
+
+Heading:
+
+Open your preview deployment
+
+Copy:
+
+Vercel creates Preview Deployments while the application is being developed.
+
+Manual checklist:
+
+- Preview URL opens
+- CMS interface loads
+- Database-backed content loads
+- Media storage works
+- Example content is visible when selected
+- No blocking error appears
+
+Actions:
+
+- Open preview
+- My preview works
+- My preview has an error
+
+Do not label this an automated health check.
+
+Add:
+
+This guide does not inspect the deployment.
+
+==================================================
+16. VERCEL STEP 11 — PRE-PUBLISH CHECKLIST
+==================================================
+
+Heading:
+
+Check your CMS before publishing
+
+This is a manual checklist.
+
+Required confirmations:
+
+- v0 build completed
+- Preview opens
+- Database is configured
+- Database-backed action works
+- Media storage is configured
+- Test media upload works
+- Branding loads
+- Required Production Environment Variables are present
+- No blocking errors appear
+
+Use:
+
+All checks confirmed
+
+Do not use:
+
+All systems verified
+
+Disable the Continue action until the user manually confirms all items.
+
+==================================================
+17. VERCEL STEP 12 — PUBLISH THE CMS
+==================================================
+
+Heading:
+
+Publish your CMS to Vercel
+
+Copy:
+
+Complete publishing through v0 or the connected Vercel project.
+
+Instructions:
+
+1. Confirm the current version is ready.
+2. Open the deployment action in v0 or Vercel.
+3. Deploy to Production.
+4. Wait for the production deployment to complete.
+5. Open the production URL.
+6. Copy the public HTTPS CMS URL.
+
+Primary actions:
+
+- Open v0
+- Open Vercel dashboard
+- View publishing screenshot
+- I published my CMS
+
+Do not create a TomorrowOS button that publishes the Vercel project directly.
+
+Show the CMS URL field:
+
+Save your CMS link in this browser
+
+Validate only:
+
+- Valid URL
+- Begins with https://
+
+Add:
+
+This URL is stored locally for onboarding convenience. TomorrowOS.org does not sign into, control or verify your CMS.
+
+Do not use:
+
+Publish CMS
+
+as a TomorrowOS action.
+
+Use:
+
+Open Vercel to publish
+
+==================================================
+18. BUILD AND CREDIT MESSAGING
+==================================================
+
+Do not say:
+
+Depending on credits used during build, you may be asked to upgrade to launch your CMS.
+
+Use:
+
+v0 uses plan-based message and generation credits. If the account reaches its current allowance, v0 may ask the user to wait, add usage or change plan before continuing.
+
+Add separately:
+
+Vercel hosting has its own plans and usage limits. Choose a plan suitable for the intended personal or commercial use of the CMS.
+
+Keep this inside an expandable:
+
+Plans and usage
+
+Do not make billing the dominant part of onboarding.
+
+Do not promise that the free plan is suitable for a commercial TomorrowOS CMS.
+
+==================================================
+19. VERCEL STEP 13 — CONFIRM THE LIVE CMS
+==================================================
+
+Heading:
+
+Confirm your live CMS
+
+Manual checklist:
+
+- Production HTTPS URL opens
+- CMS interface loads
+- Database-backed content works
+- Media upload works
+- Uploaded media can be retrieved
+- CMS login or access flow works where included
+- No blocking production errors appear
+- Device communication test has been completed when Vercel support is under validation
+
+Actions:
+
+- Open my CMS
+- Everything is working
+- Something is not working
+
+Use:
+
+Production checks confirmed
+
+Add:
+
+This status is based on your confirmation.
+
+When vercelSupportStatus is validation-required, add a required validation item:
+
+I completed an approved TomorrowOS device-connectivity test.
+
+Do not unlock shared deployment for general users until the configured support policy allows it.
+
+==================================================
+20. SHARED JOURNEY AFTER PUBLISHING
+==================================================
+
+After the Vercel CMS is published and manually confirmed, reuse the existing shared journey:
+
+- Download players
+- Samsung Tizen guide
+- Existing BrightSign behaviour
+- Android coming soon
+- LG coming soon
+- Windows coming soon
+- Install TomorrowOS
+- Pair the device inside the CMS
+- Create and publish the first playlist
+
+Do not duplicate these guides for Vercel.
+
+Use the Vercel production CMS URL saved during onboarding.
+
+All shared guide language must remain provider-neutral.
+
+Do not say:
+
+Open your Replit CMS
+
+Use:
+
+Open your published CMS
+
+==================================================
+21. UPDATE PROVIDER-NEUTRAL COPY
+==================================================
+
+Audit the existing shared sections and replace Replit-only language where the section is shared.
+
+Replace:
+
+Your Replit CMS URL
+
+with:
+
+Your published CMS URL
+
+Replace:
+
+Open Replit
+
+with the appropriate provider-specific action before the shared merge.
+
+After the merge, use:
+
+Open your CMS
+
+Replace:
+
+Replit published CMS
+
+with:
+
+Published CMS
+
+Do not remove Replit wording from steps that genuinely occur only in Replit.
+
+==================================================
+22. CREATE A VERCEL GUIDE ROUTE
+==================================================
+
+Create:
+
+/guides/vercel
+
+This should be the complete Vercel setup reference.
+
+Include deep links:
+
+/guides/vercel#open-v0
+/guides/vercel#create-project
+/guides/vercel#database
+/guides/vercel#storage
+/guides/vercel#environment-variables
+/guides/vercel#preview
+/guides/vercel#publish
+/guides/vercel#production-check
+/guides/vercel#troubleshooting
+
+The detailed Vercel Guided Setup steps may reuse the same content configuration and components.
+
+Do not duplicate copy in separate code files.
+
+==================================================
+23. TROUBLESHOOTING
+==================================================
+
+Extend the Need help? drawer with Vercel-specific content.
+
+------------------------------------------
+V0 DOES NOT FOLLOW THE SETUP GUIDE
+------------------------------------------
+
+- Confirm the exact TomorrowOS setup prompt was used.
+- Confirm `VERCEL_SETUP.md` exists in the installed SDK version.
+- Start a new focused v0 chat when prior instructions conflict.
+- Do not paste secrets into the chat.
+
+------------------------------------------
+THE BUILD STOPS OR RUNS OUT OF CREDITS
+------------------------------------------
+
+- Save the current project.
+- Review the current v0 plan and usage.
+- Continue when additional usage is available.
+- Avoid repeatedly regenerating the entire application for a small change.
+
+------------------------------------------
+DATABASE DOES NOT CONNECT
+------------------------------------------
+
+- Confirm the Marketplace integration is connected to the correct Vercel project.
+- Confirm the required variable exists.
+- Confirm it is enabled for Preview and Production.
+- Confirm the TomorrowOS variable mapping is correct.
+- Redeploy after changing variables.
+
+Links:
+
+- Open Supabase guide
+- Open Neon guide
+- Open Vercel Environment Variables
+
+------------------------------------------
+MEDIA STORAGE DOES NOT CONNECT
+------------------------------------------
+
+For Cloudinary:
+
+- Confirm all three credentials exist.
+- Confirm they are enabled in the correct environments.
+- Confirm the values come from the same Cloudinary environment.
+
+For Vercel Blob:
+
+- Confirm a Blob store is connected.
+- Confirm the approved authentication method is configured.
+- Confirm the upload route matches the TomorrowOS implementation.
+- Redeploy after changing configuration.
+
+------------------------------------------
+PREVIEW WORKS BUT PRODUCTION FAILS
+------------------------------------------
+
+- Confirm Production Environment Variables are present.
+- Confirm the production database is reachable.
+- Confirm storage variables are available in Production.
+- Confirm a redeployment occurred after configuration changes.
+- Review Vercel Runtime Logs.
+
+------------------------------------------
+DEVICE CANNOT STAY CONNECTED
+------------------------------------------
+
+- Confirm the current TomorrowOS Vercel support status.
+- Review function and connection limits.
+- Confirm Fluid compute or the approved realtime architecture is configured.
+- Review Runtime logs.
+- Move the backend connection service to an approved persistent host when required.
+
+Do not present unverified WebSocket fixes as guaranteed solutions.
+
+==================================================
+24. SCREENSHOT PLACEHOLDERS
+==================================================
+
+Use the existing ScreenshotPlaceholder component.
+
+Required IDs:
+
+- VERCEL-01A
+- VERCEL-01B
+- VERCEL-02
+- VERCEL-03A
+- VERCEL-03B
+- VERCEL-03C
+- VERCEL-03D
+- VERCEL-03E
+- VERCEL-04A
+- VERCEL-04B
+- VERCEL-05A
+- VERCEL-05B
+- VERCEL-06A
+- VERCEL-06B
+- VERCEL-07A
+- VERCEL-07B
+
+Each placeholder must show:
+
+- Screenshot ID
+- v0 or Vercel interface
+- Exact control to highlight
+- Recommended caption
+- Replace-image action in Prototype Review Mode
+
+Optional review metadata:
+
+- v0 version or capture date
+- Vercel project type
+- TomorrowOS SDK version
+- Database choice
+- Storage choice
+
+==================================================
+25. CENTRAL CONFIGURATION
+==================================================
+
+Store the Vercel pathway in central TypeScript configuration.
+
+Suggested structure:
+
+guidedTools = {
+  replit: {
+    status,
+    route,
+    label,
+    description
+  },
+  vercel: {
+    status,
+    route,
+    label,
+    description
+  }
+}
+
+vercelConfig = {
+  supportStatus,
+  setupPrompt,
+  buildTimeCopy,
+  databaseOptions,
+  recommendedDatabase,
+  databaseMappings,
+  storageOptions,
+  recommendedStorage,
+  blobAuthenticationMode,
+  questionSequence,
+  requiredEnvironmentVariables,
+  deploymentRequirements,
+  validationRequirements,
+  guideRoutes
+}
+
+Do not duplicate:
+
+- Prompt text
+- Environment-variable mappings
+- Support status
+- Question wording
+- Database choices
+- Storage choices
+- Validation warnings
+
+across multiple components.
+
+==================================================
+26. PROTOTYPE REVIEW MODE
+==================================================
+
+Prototype Review Mode may:
+
+- Switch between Replit and Vercel
+- Jump to any Vercel step
+- Show unresolved mappings
+- Change Vercel support status
+- Simulate build and deployment errors
+- Show screenshot IDs
+- Show engineering validation requirements
+- Reset Vercel progress
+
+Show the persistent banner:
+
+Prototype simulation — These states are for internal review and are not connected to v0, Vercel, a database, media storage, your CMS or a physical device.
+
+Normal mode must not simulate:
+
+- v0 generation
+- Database connection
+- Blob connection
+- Deployment
+- Production health
+- Device connection
+- Playback
+
+==================================================
+27. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. Guided Setup displays both Replit and Vercel.
+2. Vercel is labelled Build with v0.
+3. Replit remains recommended unless configuration changes it.
+4. Vercel support status comes from configuration.
+5. The complete thirteen-step Vercel journey exists.
+6. The Vercel path opens v0.app.
+7. The setup prompt is live and copyable.
+8. Sensitive values are never requested by TomorrowOS.org.
+9. Supabase and Neon are the database choices.
+10. Vercel Postgres is not shown.
+11. Cloudinary and Vercel Blob are the storage choices.
+12. Supabase links to its existing guide.
+13. Cloudinary links to its existing guide.
+14. Neon and Vercel Blob routes do not 404.
+15. Database variable mapping is explicit.
+16. Preview and Production variables are distinguished.
+17. Environment-variable changes instruct users to redeploy.
+18. Build time is not guaranteed.
+19. v0 credits and Vercel hosting plans are explained separately.
+20. A free commercial deployment is not promised.
+21. Publishing occurs in v0 or Vercel—not TomorrowOS.org.
+22. The CMS URL can be saved locally.
+23. Production checks are user-confirmed.
+24. Vercel runtime validation is not falsely presented as complete.
+25. Shared player and content guides remain provider-neutral.
+26. Samsung and BrightSign behaviour is preserved.
+27. Android, LG and Windows remain Coming soon.
+28. Desktop and mobile layouts work.
+29. Prototype Review Mode supports Vercel.
+30. No unresolved placeholders appear in normal production mode.
+31. No raw errors such as `[object Object]` or `undefined` appear.
+32. All TypeScript and runtime errors are resolved.
+
+==================================================
+28. DELIVERY PROCESS
+==================================================
+
+Before coding:
+
+1. Review the existing Guided Setup architecture.
+2. Review Vercel Setup 2026.docx.
+3. Review the existing Replit tool selector.
+4. Identify shared provider-neutral steps.
+5. Identify Replit-only wording that currently leaks into shared steps.
+6. List unresolved Vercel engineering decisions.
+7. Then begin implementing without waiting for further approval.
+
+After coding:
+
+1. Run the application.
+2. Test Guided Setup → Replit.
+3. Test Guided Setup → Vercel.
+4. Test switching between tools.
+5. Test Supabase selection.
+6. Test Neon selection.
+7. Test Cloudinary selection.
+8. Test Vercel Blob selection.
+9. Test Preview and Production variable guidance.
+10. Test publishing instructions.
+11. Test returning to the shared player journey.
+12. Test customer-facing mode.
+13. Test Prototype Review Mode.
+14. Test mobile and keyboard navigation.
+15. Confirm no secrets are stored.
+16. Fix all TypeScript and runtime errors.
+17. Provide a concise completion report.
+
+The finished Guided Setup selection must communicate:
+
+Replit:
+Build and host with Replit Agent.
+
+Vercel:
+Build with v0 and deploy to Vercel.
+
+After either CMS is live, both follow the same TomorrowOS player, pairing and content journey.
