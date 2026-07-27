@@ -19,8 +19,8 @@ export function WebsiteFooter() {
         </div>
 
         <nav aria-label="Footer" className="flex flex-row flex-wrap gap-x-8 gap-y-3">
-          <Link href="/" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity">
-            Quickstart
+          <Link href="/start" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity">
+            Start building
           </Link>
           {!siteConfig.links.docs.includes('{{') && (
             <a href={siteConfig.links.docs} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity">

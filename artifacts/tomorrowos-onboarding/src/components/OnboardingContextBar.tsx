@@ -17,8 +17,6 @@ export function OnboardingContextBar() {
       <div className="mx-auto max-w-[1050px] px-4 md:px-0 h-12 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <nav aria-label="Breadcrumb" className="flex text-sm text-muted-foreground items-center space-x-2">
-            <Link href="/" className="hover:text-foreground transition-colors">Quickstart</Link>
-            <ChevronRight className="w-4 h-4" />
             {pathwayName ? (
               <>
                 <Link href="/start" className="hover:text-foreground transition-colors">Start building</Link>
