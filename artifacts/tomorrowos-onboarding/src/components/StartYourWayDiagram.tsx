@@ -30,29 +30,38 @@ function EntryCard({ icon: Icon, title, subtitle }: { icon: typeof Star; title: 
 
 function ScreenMock() {
   return (
-    <div className="w-full max-w-[560px] bg-black rounded-xl p-1.5 md:p-2 shadow-[0_20px_45px_-18px_rgba(0,0,0,0.35)]">
-      <div className="bg-white rounded-lg overflow-hidden text-left">
+    // TV: thick black bezel around a fixed 16:9 panel.
+    <div className="w-full max-w-[560px] bg-black rounded-2xl p-2 md:p-2.5 shadow-[0_24px_50px_-18px_rgba(0,0,0,0.4)]">
+      <div className="relative w-full aspect-video bg-white rounded-lg overflow-hidden text-left flex flex-col">
         {/* Status bar */}
-        <div className="flex items-center justify-between px-3 py-1.5 text-[9px] md:text-[10px] text-foreground">
+        <div className="flex items-center justify-between px-3 md:px-4 py-1.5 md:py-2 text-[9px] md:text-[10px] text-foreground shrink-0">
           <span className="font-semibold">
             Lobby 01 <span className="text-green-600 font-normal ml-1">&bull; Online</span>
           </span>
           <span className="text-muted-foreground">9:41 AM &nbsp; 22&deg;</span>
         </div>
-        {/* Body */}
-        <div className="flex gap-2 px-2 pb-1">
-          <div className="flex-[1.6] rounded-md bg-gradient-to-br from-[#f4f5f7] via-[#e9ecf0] to-[#d8dde3] p-3 md:p-5 min-h-[110px] md:min-h-[150px]">
-            <div className="text-base md:text-2xl font-bold text-foreground">Welcome</div>
-            <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5">Every moment connected.</div>
+        {/* Body fills the remaining 16:9 area */}
+        <div className="flex gap-2 md:gap-2.5 px-2 md:px-2.5 flex-1 min-h-0">
+          <div className="relative flex-[1.8] rounded-md overflow-hidden bg-[#f4f5f7]">
+            {/* Soft waves, like the reference render */}
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 360 200" preserveAspectRatio="none" aria-hidden="true">
+              <rect width="360" height="200" fill="#f2f3f5" />
+              <path d="M0 120 C 80 60, 150 190, 240 120 S 340 60, 360 90 V200 H0 Z" fill="#e2e6ea" />
+              <path d="M0 160 C 90 110, 180 210, 270 150 S 350 120, 360 140 V200 H0 Z" fill="#cfd6dd" />
+            </svg>
+            <div className="relative p-3 md:p-5">
+              <div className="text-base md:text-2xl font-bold text-foreground">Welcome</div>
+              <div className="text-[10px] md:text-xs text-muted-foreground mt-0.5">Every moment connected.</div>
+            </div>
           </div>
-          <div className="flex-1 py-1 pr-1">
-            <div className="text-[9px] md:text-[10px] font-bold text-foreground border-b border-border pb-1 mb-1.5">Announcements</div>
+          <div className="flex-1 py-0.5 pr-1 overflow-hidden">
+            <div className="text-[9px] md:text-[10px] font-bold text-foreground border-b border-border pb-1 mb-1 md:mb-1.5">Announcements</div>
             {[
               ['All hands', '10:00 AM'],
               ['Product update', '1:00 PM'],
               ['Happy hour', '5:00 PM'],
             ].map(([t, time]) => (
-              <div key={t} className="border-b border-border/60 last:border-0 py-1">
+              <div key={t} className="border-b border-border/60 last:border-0 py-0.5 md:py-1">
                 <div className="text-[9px] md:text-[10px] font-semibold text-foreground">{t}</div>
                 <div className="text-[8px] md:text-[9px] text-muted-foreground">{time}</div>
               </div>
@@ -60,7 +69,7 @@ function ScreenMock() {
           </div>
         </div>
         {/* Footer */}
-        <div className="flex items-center justify-between px-3 py-1.5 text-[8px] md:text-[9px] text-muted-foreground">
+        <div className="flex items-center justify-between px-3 md:px-4 py-1.5 md:py-2 text-[8px] md:text-[9px] text-muted-foreground shrink-0">
           <span className="font-semibold text-foreground">tomorrowos</span>
           <span>TomorrowOS is open source &nbsp;&bull;&nbsp; tomorrowos.org</span>
         </div>
