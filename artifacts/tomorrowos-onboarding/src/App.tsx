@@ -31,6 +31,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/quickstart" component={Quickstart} />
         <Route path="/about" component={About} />
+        <Route path="/github" component={() => <PlaceholderPage title="GitHub" />} />
         <Route path="/community" component={() => <PlaceholderPage title="Community" />} />
         <Route path="/governance" component={() => <PlaceholderPage title="Governance" />} />
         <Route path="/license" component={() => <PlaceholderPage title="License" />} />

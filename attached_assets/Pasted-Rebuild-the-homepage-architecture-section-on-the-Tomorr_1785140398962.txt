@@ -1,0 +1,301 @@
+Rebuild the homepage architecture section on the TomorrowOS homepage so it is no longer a single flat image.
+
+The current implementation uses an image-based section for the homepage architecture diagram. Replace that implementation with a fully component-based responsive section that visually matches the approved design as closely as possible.
+
+Do not redesign the section.
+Do not change the messaging.
+Do not remove any of the existing architecture items.
+The goal is to preserve the same look while making it responsive, crisp and maintainable.
+
+==================================================
+1. OBJECTIVE
+==================================================
+
+Rebuild the homepage architecture section using:
+
+- real text
+- separate SVG/logo assets
+- separate icon assets
+- CSS layout
+- CSS or SVG connector lines
+- responsive behaviour
+
+Do not render the whole section as one image on desktop.
+
+The rebuilt section must still look extremely close to the approved Figma / reference image.
+
+==================================================
+2. SECTION CONTENT STRUCTURE
+==================================================
+
+The section contains 3 input cards on the left, 1 central TomorrowOS card, and 5 platform cards on the right.
+
+LEFT INPUT CARDS
+
+1. Build a CMS
+Copy:
+Create your own content management system
+
+2. Connect an app
+Copy:
+Integrate screens into your existing application
+
+3. Create a new experience
+Copy:
+Build an entirely new digital signage experience
+
+CENTRE CARD
+
+TomorrowOS
+Copy:
+Shared runtime, APIs and device layer
+
+RIGHT PLATFORM CARDS
+
+1. Samsung Tizen
+2. LG webOS
+3. BrightSign
+4. Android
+5. Windows
+
+==================================================
+3. REQUIRED ASSETS
+==================================================
+
+Use the separate approved assets already supplied in the project.
+
+Use separate icon/logo files for:
+
+LEFT ICONS
+- Build a CMS icon
+- Connect an app icon
+- Create a new experience icon
+
+CENTRE
+- TomorrowOS SVG wordmark
+
+RIGHT PLATFORM LOGOS
+- Samsung logo
+- Tizen logo
+- LG webOS logo
+- BrightSign logo
+- Android logo
+- Windows logo
+
+Do not rasterise the logos into a single image.
+Do not type the platform names as substitutes when approved logo assets exist.
+
+Preserve official logo aspect ratios and colours.
+
+==================================================
+4. DESKTOP LAYOUT
+==================================================
+
+At desktop sizes, build the same 3-column composition:
+
+LEFT COLUMN
+- 3 stacked cards
+- equal width
+- even vertical spacing
+
+CENTRE COLUMN
+- single featured TomorrowOS card
+- vertically centred against the overall structure
+
+RIGHT COLUMN
+- 5 stacked platform cards
+- Samsung and LG and BrightSign as full-width cards
+- Android and Windows on their own rows/cards matching the design
+
+The layout should closely match the screenshot proportions.
+
+Suggested structure:
+- overall max width around 1280px–1320px
+- centred on page
+- generous whitespace around the section
+
+==================================================
+5. CARD STYLING
+==================================================
+
+Match the approved design closely.
+
+All cards should use:
+
+- white background
+- light grey 1px border
+- rounded corners
+- subtle or no shadow
+- clean spacing
+- black headings
+- muted supporting copy
+
+LEFT CARDS
+- small black icon tile on the left
+- title and copy on the right
+
+CENTRE CARD
+- slightly more visually prominent
+- TomorrowOS wordmark at top/centre
+- supporting copy below
+
+RIGHT PLATFORM CARDS
+- white cards with official logos centred vertically
+- keep the Samsung/Tizen lockup, LG webOS, BrightSign, Android, Windows visually consistent with the Figma
+
+==================================================
+6. CONNECTOR LINES
+==================================================
+
+Recreate the connector lines so the section feels like the original architecture diagram.
+
+Build them using CSS or inline SVG.
+
+Requirements:
+- lines must stay sharp and responsive
+- lines should be light grey
+- lines must connect:
+  - each left card into the central TomorrowOS card
+  - the central card out to each right platform card
+- connector lines should adapt as the layout changes
+- avoid absolute-position hacks that break on resize
+
+If SVG gives a cleaner result, use SVG overlay lines.
+If CSS gives a cleaner result, use CSS pseudo-elements.
+Use the most robust method.
+
+==================================================
+7. DOTTED BACKGROUND
+==================================================
+
+Recreate the subtle dotted grid background behind the architecture section.
+
+Do not use a large raster background image.
+
+Implement it using CSS background patterns or a lightweight SVG pattern.
+
+Requirements:
+- subtle light-grey dots
+- visible behind the full architecture area
+- must scale cleanly
+- must not overpower the cards
+
+==================================================
+8. RESPONSIVE BEHAVIOUR
+==================================================
+
+The section must be truly responsive.
+
+DESKTOP
+- 3-column architecture layout
+
+TABLET
+- preserve left → centre → right flow
+- allow columns to reduce gracefully
+- keep cards readable
+- maintain connector logic where possible
+
+MOBILE
+Do not simply shrink the desktop diagram into an unreadable cluster.
+
+Instead create a mobile-friendly stacked flow:
+- left cards first
+- central TomorrowOS card second
+- platform cards below
+- use downward or simplified connectors
+- maintain the same content and visual language
+
+The mobile version should still feel like the same architecture section, not a different design.
+
+No horizontal scrolling.
+
+==================================================
+9. ACCESSIBILITY
+==================================================
+
+Use semantic HTML.
+
+Requirements:
+- text must be real text, not baked into an image
+- logos should have sensible alt text or be decorative where appropriate
+- section should have a meaningful heading or aria label
+- contrast must remain readable
+- focus styles should exist if cards or links are interactive
+
+==================================================
+10. PERFORMANCE
+==================================================
+
+Do not use the previous full flattened image for desktop.
+
+Use:
+- SVG assets where possible
+- optimised logo files
+- CSS background pattern for dots
+- lightweight connector implementation
+
+The rebuilt section should load crisply and remain high quality on retina screens.
+
+==================================================
+11. COMPONENT STRUCTURE
+==================================================
+
+Create reusable components such as:
+
+- ArchitectureSection
+- ArchitectureInputCard
+- ArchitectureCenterCard
+- ArchitecturePlatformCard
+- ArchitectureConnectors
+
+Keep content separate from layout if practical.
+
+Suggested content config:
+- title
+- description
+- icon/logo asset
+- type (input / platform / centre)
+
+==================================================
+12. PRESERVE VISUAL MATCH
+==================================================
+
+Compare the rebuilt section to the approved design and match:
+
+- card sizes
+- spacing
+- border radius
+- typography
+- logo sizes
+- connector placement
+- overall proportions
+- white space
+- dotted background density
+
+This should feel like the same design, just rebuilt properly.
+
+==================================================
+13. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. The homepage architecture section is no longer one flat image on desktop.
+2. Each logo is a separate asset.
+3. Each left-side card is built with real text.
+4. The TomorrowOS centre card uses the proper logo asset.
+5. Each platform card uses the correct individual logo asset.
+6. Connector lines are rebuilt responsively.
+7. The dotted background is recreated without a flattened screenshot.
+8. The section remains visually very close to the approved design.
+9. The section is responsive on desktop, tablet and mobile.
+10. There is no horizontal scroll.
+11. Logos remain crisp on high-resolution displays.
+12. No TypeScript or runtime errors are introduced.
+
+After implementation, provide:
+- one desktop screenshot
+- one tablet screenshot
+- one mobile screenshot
+- short note on how the connector lines were implemented
+- list of assets used

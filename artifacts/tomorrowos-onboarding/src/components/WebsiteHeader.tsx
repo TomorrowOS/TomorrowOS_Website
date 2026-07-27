@@ -25,7 +25,6 @@ export function WebsiteHeader() {
   const githubAction = siteNavigation.actions.find((a) => a.label === 'GitHub')!;
   const startAction = siteNavigation.actions.find((a) => a.label === 'Start building')!;
   const hasGithub = isConfiguredUrl(githubAction.href);
-  const showGithub = state.prototypeReviewMode || hasGithub;
 
   // Focus trap & scroll lock for mobile menu
   useEffect(() => {
@@ -78,18 +77,19 @@ export function WebsiteHeader() {
     setMobileMenuOpen(false);
   }, [location]);
 
+  // The GitHub button always renders. While the official URL is unconfigured it
+  // routes to the internal /github placeholder page (no dead '#' links); once
+  // siteConfig.links.github is set it becomes an external new-tab link.
   const githubButton = (className: string) =>
-    showGithub ? (
-      <a
-        href={hasGithub ? githubAction.href : '#'}
-        target={hasGithub ? '_blank' : undefined}
-        rel={hasGithub ? 'noopener noreferrer' : undefined}
-        className={cn(className, !hasGithub && 'opacity-50')}
-        onClick={(e) => !hasGithub && e.preventDefault()}
-      >
-        {hasGithub ? 'GitHub' : <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="GitHub" />}
+    hasGithub ? (
+      <a href={githubAction.href} target="_blank" rel="noopener noreferrer" className={className}>
+        GitHub
       </a>
-    ) : null;
+    ) : (
+      <Link href="/github" className={className}>
+        {state.prototypeReviewMode ? <PlaceholderText value="PLACEHOLDER_GITHUB_URL" fallback="GitHub" /> : 'GitHub'}
+      </Link>
+    );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-white">

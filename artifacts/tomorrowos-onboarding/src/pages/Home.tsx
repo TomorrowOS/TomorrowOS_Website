@@ -7,6 +7,7 @@ import { ArrowRight, Terminal, Blocks, Package } from 'lucide-react';
 import { vercelConfig } from '@/lib/vercelConfig';
 import { usePrototype } from '@/components/PrototypeProvider';
 import { PlaceholderText } from '@/components/PlaceholderText';
+import { ArchitectureSection } from '@/components/ArchitectureSection';
 
 export default function Home() {
   const { state } = usePrototype();
@@ -107,22 +108,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOUNDATION STRIP */}
-      <section className="py-24 px-4 md:px-8 border-b border-border bg-background overflow-hidden relative">
-        <div className="container mx-auto max-w-[1200px] flex flex-col items-center">
-          <div className="w-full max-w-4xl border border-border rounded-xl p-8 md:p-12 relative bg-background z-10 text-center">
-             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 font-medium">
-               <div className="bg-muted px-6 py-3 rounded-lg border border-border">Your product</div>
-               <ArrowRight className="w-5 h-5 text-muted-foreground rotate-90 md:rotate-0" />
-               <div className="bg-foreground text-background px-6 py-3 rounded-lg">TomorrowOS Server</div>
-               <ArrowRight className="w-5 h-5 text-muted-foreground rotate-90 md:rotate-0" />
-               <div className="bg-foreground text-background px-6 py-3 rounded-lg">TomorrowOS Runtime</div>
-               <ArrowRight className="w-5 h-5 text-muted-foreground rotate-90 md:rotate-0" />
-               <div className="bg-muted px-6 py-3 rounded-lg border border-border">Supported screens</div>
-             </div>
-          </div>
-        </div>
-      </section>
+      {/* ARCHITECTURE DIAGRAM */}
+      <ArchitectureSection />
 
       {/* PLATFORM STRIP */}
       <section className="py-20 px-4 md:px-8">

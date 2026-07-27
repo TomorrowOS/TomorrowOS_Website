@@ -1,0 +1,281 @@
+Correct the global TomorrowOS desktop navigation.
+
+The approved Figma header contains two navigation groups:
+
+LEFT
+- TomorrowOS logo
+- About
+- Get Started
+
+RIGHT
+- GitHub
+- Start building
+
+The current implementation is missing the entire right-side action group.
+
+Do not redesign the header. Restore the approved structure exactly.
+
+==================================================
+1. REQUIRED HEADER STRUCTURE
+==================================================
+
+Use one shared GlobalHeader component with this structure:
+
+<header className="global-header">
+  <div className="global-header__inner">
+
+    <div className="global-header__left">
+      <TomorrowOSLogo />
+
+      <nav className="global-header__nav">
+        <AboutLink />
+        <GetStartedLink />
+      </nav>
+    </div>
+
+    <div className="global-header__actions">
+      <GitHubLink />
+      <StartBuildingLink />
+    </div>
+
+  </div>
+</header>
+
+Do not place all navigation links in one centred group.
+
+The logo, About and Get Started belong on the left.
+
+GitHub and Start building belong on the far right.
+
+==================================================
+2. BUTTONS MUST ALWAYS RENDER
+==================================================
+
+GITHUB
+
+Label:
+
+GitHub
+
+Destination:
+
+Use the official TomorrowOS GitHub URL from central site configuration.
+
+Do not hide the GitHub button merely because a previous optional-link rule exists.
+
+If the URL is not currently configured:
+
+- Search the existing project for the official TomorrowOS GitHub URL.
+- Add it to `siteConfig.githubUrl`.
+- Do not leave the button absent.
+- Do not use `#`.
+
+Open GitHub in a new tab with:
+
+target="_blank"
+rel="noopener noreferrer"
+
+Style:
+
+- White background
+- Black border
+- Black text
+- Approximately 84–90px wide
+- Approximately 42px high
+- Match the Figma corner radius
+- No large shadow
+
+START BUILDING
+
+Label:
+
+Start building
+
+Destination:
+
+/start
+
+This button is internal and must always render.
+
+Style:
+
+- Black background
+- White text
+- Approximately 126–132px wide
+- Approximately 42px high
+- Match the Figma corner radius
+- Roboto Medium or Bold
+
+Gap between GitHub and Start building:
+
+Approximately 14px
+
+==================================================
+3. DESKTOP ALIGNMENT
+==================================================
+
+At a 1440px viewport:
+
+- Header spans the full browser width.
+- Inner content aligns with the approved Figma.
+- Horizontal page padding is approximately 64px.
+- Logo and primary navigation align left.
+- GitHub and Start building align right.
+- Use `justify-content: space-between` between the left and right groups.
+- Vertically centre all elements.
+- Header height should closely match the Figma, approximately 96px.
+
+Suggested CSS structure:
+
+.global-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1312px;
+  margin: 0 auto;
+  padding: 0 64px;
+}
+
+.global-header__left {
+  display: flex;
+  align-items: center;
+}
+
+.global-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-left: 32px;
+}
+
+.global-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+
+Tune the final measurements against the supplied Figma rather than blindly retaining these approximations.
+
+==================================================
+4. CHECK FOR OLD HEADER VARIANTS
+==================================================
+
+Search the project for:
+
+- GlobalHeader
+- SiteHeader
+- PublicHeader
+- WebsiteHeader
+- AboutHeader
+- QuickstartHeader
+- HeaderActions
+- hideExternalLinks
+- githubUrl
+- showGitHub
+- showActions
+
+Remove or stop using page-specific public header variants.
+
+All public pages must use the same GlobalHeader:
+
+- /
+- /about
+- /quickstart
+- /start
+- /privacy
+- /terms
+- /cookie-settings
+- Public guide routes
+
+Do not allow About or Quickstart to use a stripped-down header without GitHub and Start building.
+
+==================================================
+5. CENTRAL CONFIGURATION
+==================================================
+
+Use one navigation configuration:
+
+siteNavigation = {
+  primary: [
+    {
+      label: "About",
+      href: "/about"
+    },
+    {
+      label: "Get Started",
+      href: "/quickstart"
+    }
+  ],
+  actions: [
+    {
+      label: "GitHub",
+      href: siteConfig.githubUrl,
+      external: true,
+      variant: "outline"
+    },
+    {
+      label: "Start building",
+      href: "/start",
+      external: false,
+      variant: "primary"
+    }
+  ]
+}
+
+Do not define separate navigation lists for different pages.
+
+==================================================
+6. MOBILE
+==================================================
+
+On desktop, both right-side buttons must remain visible.
+
+Only hide the desktop navigation at the intended mobile breakpoint.
+
+On mobile, place these four destinations inside the menu:
+
+- About
+- Get Started
+- GitHub
+- Start building
+
+Do not hide the desktop actions at tablet or desktop widths because of an incorrect breakpoint.
+
+Check for overly broad CSS such as:
+
+@media (max-width: 1440px) {
+  .global-header__actions {
+    display: none;
+  }
+}
+
+The desktop action group should normally remain visible until the actual mobile-navigation breakpoint.
+
+==================================================
+7. ACCEPTANCE CRITERIA
+==================================================
+
+This correction is complete only when:
+
+1. GitHub appears in the desktop header.
+2. Start building appears in the desktop header.
+3. GitHub uses the outlined Figma style.
+4. Start building uses the black Figma style.
+5. Both buttons align to the far right.
+6. About and Get Started remain beside the logo.
+7. Start building links to `/start`.
+8. GitHub opens the configured official URL.
+9. The buttons appear on Homepage, About and Quickstart.
+10. Mobile navigation contains the same destinations.
+11. There are no duplicate or page-specific public headers.
+12. The header is compared against the Figma at exactly 1440px.
+13. No TypeScript or runtime errors remain.
+
+After implementing, provide screenshots of the corrected header on:
+
+- Homepage at 1440px
+- About at 1440px
+- Quickstart at 1440px
+- Mobile at 390px
