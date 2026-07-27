@@ -7,6 +7,7 @@ import { StepHeader } from './StepHeader';
 import { useLocation } from 'wouter';
 import { ChevronRight, ChevronDown, CheckCircle2, Copy } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
+import { PlaceholderText } from './PlaceholderText';
 
 export function SamsungTizenJourney({ onViewAllSteps }: { onViewAllSteps?: () => void }) {
   const { state } = usePrototype();
@@ -463,7 +464,7 @@ function SamsungStep7() {
           <li>Confirm the published CMS is currently available.</li>
           <li>Restart the TomorrowOS Runtime.</li>
           <li>Check the display for an error message.</li>
-          <li className="text-red-500 font-mono text-xs mt-4">{"{{CONFIRM_APPROVED_RUNTIME_RESET_PROCESS}}"}</li>
+          <li className="mt-4"><PlaceholderText value="{{CONFIRM_APPROVED_RUNTIME_RESET_PROCESS}}" fallback="Restart your display to clear the previous configuration." className="text-xs font-mono" /></li>
         </ul>
       </TroubleshootingAccordion>
 

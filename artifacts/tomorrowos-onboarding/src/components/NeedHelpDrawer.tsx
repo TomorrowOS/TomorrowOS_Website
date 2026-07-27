@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { usePrototype } from './PrototypeProvider';
 import { Button } from './ui/button';
 import { HelpCircle, X } from 'lucide-react';
-import { SAMSUNG_STEPS, CONTENT_STEPS } from '@/lib/constants';
+import { SAMSUNG_STEPS, CONTENT_STEPS, TERMINAL_STEPS } from '@/lib/constants';
 
-export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 'content' }) {
+export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 'content' | 'terminal' }) {
   const [open, setOpen] = useState(false);
   const { state, updateState } = usePrototype();
 
@@ -21,15 +21,23 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
   }
 
   const isContent = context === 'content';
-  const steps = isContent ? CONTENT_STEPS : SAMSUNG_STEPS;
-  const currentStepNum = isContent ? state.contentGuideStep : state.samsungGuideStep;
-  const maxStepNum = isContent ? state.maxContentGuideStep : state.maxSamsungGuideStep;
+  const isTerminal = context === 'terminal';
+  
+  const steps = isTerminal ? TERMINAL_STEPS : (isContent ? CONTENT_STEPS : SAMSUNG_STEPS);
+  const currentStepNum = isTerminal ? state.terminalStep : (isContent ? state.contentGuideStep : state.samsungGuideStep);
+  const maxStepNum = isTerminal ? state.maxTerminalStep : (isContent ? state.maxContentGuideStep : state.maxSamsungGuideStep);
   
   const step = steps.find(s => s.id === currentStepNum);
-  const title = step ? step.title : (isContent ? "Content Guide" : "Samsung Setup");
+  const title = step ? step.title : (isTerminal ? "Terminal Setup" : (isContent ? "Content Guide" : "Samsung Setup"));
 
   const getVisibleContent = () => {
-    if (isContent) {
+    if (isTerminal) {
+      if (currentStepNum === 2) return "The TomorrowOS CLI starting in your terminal.";
+      if (currentStepNum === 6) return "Your code editor showing the newly created environment file.";
+      if (currentStepNum === 8) return "The local CMS running at http://localhost:3000.";
+      if (currentStepNum === 12) return "Your deployment host's log output.";
+      return "Refer to the step instructions for the expected terminal or browser interface.";
+    } else if (isContent) {
       if (currentStepNum === 3) return "The browser file selector or the asset appearing in the CMS Assets area after a successful upload.";
       if (currentStepNum === 11) return "The physical screen showing the newly assigned playlist content.";
       return "Refer to the step screenshot for the expected interface.";
@@ -41,7 +49,43 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
   };
 
   const getBlockersContent = () => {
-    if (isContent) {
+    if (isTerminal) {
+      if (currentStepNum === 2) return (
+        <>
+          <li>Node.js unavailable</li>
+          <li>Command not recognised</li>
+          <li>Package registry unavailable</li>
+          <li>Directory permission issue</li>
+        </>
+      );
+      if (currentStepNum === 6) return (
+        <>
+          <li>Wrong environment filename</li>
+          <li>Variable name misspelled</li>
+          <li>Secret committed to Git</li>
+          <li>Browser and server variables confused</li>
+        </>
+      );
+      if (currentStepNum === 8) return (
+        <>
+          <li>Port already in use</li>
+          <li>Missing environment variable</li>
+          <li>Database unavailable</li>
+          <li>Build error</li>
+          <li>Unsupported Node.js version</li>
+        </>
+      );
+      if (currentStepNum === 12) return (
+        <>
+          <li>Host lacks required runtime</li>
+          <li>Production variables missing</li>
+          <li>Build command incorrect</li>
+          <li>Start command incorrect</li>
+          <li>HTTPS URL not available</li>
+        </>
+      );
+      return <li>No specific blockers recorded for this step.</li>;
+    } else if (isContent) {
       if (currentStepNum === 3) return (
         <>
           <li>Media format is unsupported.</li>
@@ -86,6 +130,9 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
   };
 
   const getScreenshotId = () => {
+    if (isTerminal) {
+      return `TERMINAL-${String(currentStepNum).padStart(2, '0')}`;
+    }
     if (isContent) {
       return `CONTENT-${String(currentStepNum).padStart(2, '0')}`;
     }
@@ -138,7 +185,8 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
           variant="outline" 
           disabled={currentStepNum <= 1}
           onClick={() => {
-            if (isContent) updateState({ contentGuideStep: currentStepNum - 1 });
+            if (isTerminal) updateState({ terminalStep: currentStepNum - 1 });
+            else if (isContent) updateState({ contentGuideStep: currentStepNum - 1 });
             else updateState({ samsungGuideStep: currentStepNum - 1 });
           }}
         >
@@ -148,7 +196,8 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
           variant="outline" 
           disabled={currentStepNum >= steps.length || (!state.prototypeReviewMode && currentStepNum + 1 > (maxStepNum || 1))}
           onClick={() => {
-            if (isContent) updateState({ contentGuideStep: currentStepNum + 1 });
+            if (isTerminal) updateState({ terminalStep: currentStepNum + 1 });
+            else if (isContent) updateState({ contentGuideStep: currentStepNum + 1 });
             else updateState({ samsungGuideStep: currentStepNum + 1 });
           }}
         >

@@ -94,12 +94,16 @@ export function JourneyNavigator() {
     <div className="flex flex-col">
       {/* Desktop */}
       <div className="hidden md:flex flex-col gap-1">
-        <h4 className="text-xs font-bold text-gray-500 mb-2 px-2 uppercase tracking-wider">
-          {isGuided ? 'GUIDED SETUP' : 'TERMINAL SETUP'}
-        </h4>
-        {steps.map(step => renderStep(step, false))}
+        {state.projectType === 'new' && (
+          <>
+            <h4 className="text-xs font-bold text-gray-500 mb-2 px-2 uppercase tracking-wider">
+              {isGuided ? 'GUIDED SETUP' : 'TERMINAL SETUP'}
+            </h4>
+            {steps.map(step => renderStep(step, false))}
+          </>
+        )}
 
-        <h4 className="text-xs font-bold text-gray-500 mt-8 mb-2 px-2 uppercase tracking-wider">
+        <h4 className={cn("text-xs font-bold text-gray-500 mb-2 px-2 uppercase tracking-wider", state.projectType === 'new' ? "mt-8" : "")}>
           DEPLOYMENT
         </h4>
         {SHARED_STEPS.map(step => renderStep(step, true))}
@@ -110,7 +114,7 @@ export function JourneyNavigator() {
         <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-border">
            <div className="flex flex-col">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-                Step {activeStep} of {isShared ? SHARED_STEPS.length : steps.length}
+                Step {activeStep} of {isShared ? SHARED_STEPS.length : (state.projectType === 'new' ? steps.length : SHARED_STEPS.length)}
               </span>
               <span className="text-sm font-medium text-gray-900">
                  {isShared ? SHARED_STEPS.find(s => s.id === activeStep)?.title : steps.find(s => s.id === activeStep)?.title}
@@ -135,11 +139,15 @@ export function JourneyNavigator() {
         </Button>
         {mobileListOpen && (
           <div className="flex flex-col gap-1 border border-border rounded-lg p-2 bg-white">
-            <h4 className="text-xs font-bold text-gray-500 mb-1 px-2 uppercase tracking-wider">
-              {isGuided ? 'GUIDED SETUP' : 'TERMINAL SETUP'}
-            </h4>
-            {steps.map(step => renderStep(step, false, () => setMobileListOpen(false)))}
-            <h4 className="text-xs font-bold text-gray-500 mt-4 mb-1 px-2 uppercase tracking-wider">
+            {state.projectType === 'new' && (
+              <>
+                <h4 className="text-xs font-bold text-gray-500 mb-1 px-2 uppercase tracking-wider">
+                  {isGuided ? 'GUIDED SETUP' : 'TERMINAL SETUP'}
+                </h4>
+                {steps.map(step => renderStep(step, false, () => setMobileListOpen(false)))}
+              </>
+            )}
+            <h4 className={cn("text-xs font-bold text-gray-500 mb-1 px-2 uppercase tracking-wider", state.projectType === 'new' ? "mt-4" : "")}>
               DEPLOYMENT
             </h4>
             {SHARED_STEPS.map(step => renderStep(step, true, () => setMobileListOpen(false)))}

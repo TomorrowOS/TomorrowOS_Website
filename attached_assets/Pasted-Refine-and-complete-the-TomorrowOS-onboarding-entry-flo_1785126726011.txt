@@ -1,0 +1,1262 @@
+Refine and complete the TomorrowOS onboarding entry flow and Terminal journey.
+
+The application already contains:
+
+- Guided Setup
+- A partial Terminal flow
+- A Server SDK integration example
+- An API Integration option
+- Shared player installation, pairing and content guides
+
+Do not rebuild the Guided Setup journey.
+
+The objective of this task is to:
+
+1. Create one consistent onboarding entry flow.
+2. Clearly separate creating a new product from connecting an existing product.
+3. Build the complete Start a new project → Terminal journey.
+4. Remove Supabase, Cloudinary and Replit assumptions from the primary Terminal path.
+5. Preserve Server SDK and API Integration as the two paths for an existing application.
+6. Merge all successful paths into the shared player, pairing and content journey.
+
+Preserve the existing TomorrowOS visual language:
+
+- Roboto
+- White background
+- Black primary actions
+- Light-grey cards and borders
+- Minimal colour
+- No gradients
+- No decorative marketing illustrations
+- Clear hierarchy
+- Calm, premium developer-product feel
+- Responsive desktop and mobile layouts
+
+==================================================
+1. THE COMPLETE ENTRY FLOW
+==================================================
+
+The first screen must ask:
+
+What are you building?
+
+Supporting copy:
+
+Choose whether you are creating a new signage product or adding TomorrowOS to an existing application.
+
+Show two selectable cards.
+
+CARD 1
+
+Start a new project
+
+Description:
+
+Create a new signage product from a TomorrowOS starter.
+
+CARD 2
+
+Connect an existing project
+
+Description:
+
+Add TomorrowOS signage capabilities to an application you already operate.
+
+Use the existing selected-card styling:
+
+- Light-grey selected background
+- Strong black border
+- Small selected indicator
+- Clear keyboard focus
+- Entire card clickable
+
+Do not show the detailed onboarding journey until the user selects one of these two cards.
+
+==================================================
+2. START A NEW PROJECT BRANCH
+==================================================
+
+When Start a new project is selected, show:
+
+How do you want to get started?
+
+Two selectable cards.
+
+GUIDED SETUP
+
+Description:
+
+Use AI-assisted and guided tools to create your CMS.
+
+Supporting points:
+
+- Replit Agent
+- Replit Secrets
+- Replit Preview
+- Replit Publishing
+
+TERMINAL
+
+Description:
+
+Use the TomorrowOS CLI in your local development environment.
+
+Supporting points:
+
+- TomorrowOS CLI
+- Local development
+- Bring your own infrastructure
+- Deploy to your chosen supported host
+
+Guided Setup may remain selected by default for first-time users.
+
+When Terminal is selected:
+
+- Replace the Guided journey beneath the selector.
+- Do not show Replit-specific instructions.
+- Do not require Supabase.
+- Do not require Cloudinary.
+- Do not assume Replit hosting.
+- Do not reload the page.
+
+Use a compact breadcrumb after selection:
+
+Start a new project › Terminal
+
+Add a secondary action:
+
+Switch to Guided Setup
+
+==================================================
+3. CONNECT AN EXISTING PROJECT BRANCH
+==================================================
+
+When Connect an existing project is selected, show:
+
+How do you want to connect?
+
+Two selectable cards.
+
+SERVER SDK
+
+Description:
+
+Integrate TomorrowOS directly into your backend application.
+
+Label:
+
+Recommended for Node.js backends
+
+API INTEGRATION
+
+Description:
+
+Connect your application using the TomorrowOS HTTP API.
+
+Do not show Guided Setup or Terminal beneath this branch.
+
+Selecting Server SDK should open the existing Server SDK integration content.
+
+Selecting API Integration should open the existing API integration content.
+
+Do not rewrite those integration guides during this task unless required to connect the selection flow.
+
+Use a compact breadcrumb:
+
+Connect an existing project › Server SDK
+
+or:
+
+Connect an existing project › API Integration
+
+Add:
+
+Switch integration method
+
+==================================================
+4. ROUTING AND STATE
+==================================================
+
+Use clear route or state handling for the four pathways:
+
+Start new project → Guided Setup
+Start new project → Terminal
+Existing project → Server SDK
+Existing project → API Integration
+
+Suggested routes:
+
+/start/guided
+/start/terminal
+/connect/server-sdk
+/connect/api
+
+Preserve compatibility with existing routes where possible.
+
+Store only non-sensitive journey selection and guide progress in localStorage.
+
+Do not store:
+
+- API keys
+- Database credentials
+- Storage credentials
+- Environment-variable values
+- Pairing codes
+- CMS passwords
+
+Changing the first selection must reset incompatible child-path progress only after a clear confirmation.
+
+Example:
+
+Changing this selection will switch onboarding paths. Your current guide progress for this path will remain saved.
+
+==================================================
+5. TERMINAL PATH POSITIONING
+==================================================
+
+The Terminal path is for developers who are comfortable with:
+
+- Node.js
+- Git
+- Environment variables
+- Backend services
+- Application hosting
+- Deployment logs
+
+Use this introductory copy:
+
+Start from the terminal
+
+Create a new TomorrowOS project using the command line and connect it to your preferred infrastructure.
+
+Add an explanatory callout:
+
+Bring your own stack
+
+Use your existing database, media storage, CDN and hosting environment where supported. TomorrowOS provides the signage, device and playback foundation.
+
+Add a secondary disclosure:
+
+Need a starter stack?
+
+Supporting copy:
+
+You can still use the TomorrowOS Supabase and Cloudinary guides when you do not already have database or media infrastructure.
+
+Links:
+
+View Supabase guide
+View Cloudinary guide
+
+These links must be optional and visually secondary.
+
+Do not place Supabase or Cloudinary in the Terminal requirements checklist.
+
+==================================================
+6. TERMINAL JOURNEY STRUCTURE
+==================================================
+
+Create the following Terminal steps.
+
+TERMINAL SETUP
+
+1. Before you begin
+2. Create the project
+3. Follow CLI questions
+4. Review the generated project
+5. Choose your infrastructure
+6. Configure environment variables
+7. Initialise the project
+8. Run locally
+9. Confirm local setup
+10. Choose a deployment host
+11. Add production variables
+12. Deploy
+13. Confirm the live CMS
+
+SHARED DEPLOYMENT
+
+1. Download players
+2. Install TomorrowOS
+3. Pair device
+4. Create and deploy content
+
+The Terminal path merges into the same shared deployment guides used by Guided Setup only after the live CMS has been manually confirmed.
+
+==================================================
+7. TERMINAL STEP 1 — BEFORE YOU BEGIN
+==================================================
+
+Heading:
+
+Prepare your development environment
+
+Supporting copy:
+
+This path is for developers building locally and deploying through their own engineering workflow.
+
+Requirements:
+
+- Node.js {{SUPPORTED_NODE_VERSION}}
+- {{APPROVED_PACKAGE_MANAGERS}}
+- Git
+- Terminal
+- Code editor
+- Database or data service supported by the starter
+- Media storage or CDN supported by the starter
+- A suitable Node.js deployment environment
+
+Do not list Supabase or Cloudinary as required.
+
+Show live, selectable commands:
+
+node --version
+
+npm --version
+
+git --version
+
+Each command must include:
+
+- Copy button
+- Copied confirmation
+
+Add:
+
+Run these commands in your own terminal and confirm each tool returns a version number.
+
+Clarification:
+
+This guide does not inspect your computer or verify the result.
+
+Completion action:
+
+I confirmed my environment
+
+==================================================
+8. TERMINAL STEP 2 — CREATE THE PROJECT
+==================================================
+
+Heading:
+
+Create your TomorrowOS project
+
+Display the official command using live, selectable text:
+
+{{OFFICIAL_TOMORROWOS_CREATE_COMMAND}}
+
+Do not invent the production command.
+
+Until engineering confirms it, Prototype Review Mode should display the placeholder clearly.
+
+Customer-facing production mode must not expose an unresolved placeholder.
+
+Buttons:
+
+- Copy command
+- Open CLI documentation
+
+Instructions:
+
+1. Open your terminal.
+2. Navigate to your development-project directory.
+3. Paste the command.
+4. Press Enter.
+5. Wait for the TomorrowOS CLI to start.
+
+Add screenshot placeholders:
+
+TERMINAL-01
+Empty terminal before the command.
+
+TERMINAL-02
+TomorrowOS create command entered.
+
+TERMINAL-03
+TomorrowOS CLI successfully started.
+
+Completion action:
+
+The CLI has started
+
+==================================================
+9. TERMINAL STEP 3 — FOLLOW CLI QUESTIONS
+==================================================
+
+Heading:
+
+Follow the CLI questions
+
+The website must use the same wording and sequence as the actual CLI.
+
+Do not assume the Terminal user is choosing Supabase or Cloudinary.
+
+The recommended CLI question sequence should be represented as configurable content:
+
+1. Project name
+2. Project template or starter
+3. Database integration
+4. Media-storage integration
+5. Include example content
+6. Package manager
+
+Use engineering placeholders until the exact choices are confirmed:
+
+{{CLI_QUESTION_PROJECT_NAME}}
+{{CLI_QUESTION_TEMPLATE}}
+{{CLI_DATABASE_OPTIONS}}
+{{CLI_MEDIA_OPTIONS}}
+{{CLI_EXAMPLE_CONTENT_OPTIONS}}
+{{CLI_PACKAGE_MANAGER_OPTIONS}}
+
+For infrastructure questions, the interface should support options such as:
+
+- Use my existing service
+- Configure later
+- Use a recommended starter service
+
+Do not display a specific vendor option unless the CLI genuinely supports it.
+
+Add:
+
+The questions appear individually in your terminal. Complete each question before the next one appears.
+
+Clarification:
+
+Your answers should generate configuration files or prompts; they should not require sensitive secrets to be typed into the public TomorrowOS guide.
+
+Screenshot placeholders:
+
+TERMINAL-04A
+Project-name question.
+
+TERMINAL-04B
+Template selection.
+
+TERMINAL-04C
+Database integration selection.
+
+TERMINAL-04D
+Media-storage selection.
+
+TERMINAL-04E
+Example-content selection.
+
+TERMINAL-04F
+Package-manager selection.
+
+Completion action:
+
+I completed the CLI questions
+
+==================================================
+10. TERMINAL STEP 4 — REVIEW THE GENERATED PROJECT
+==================================================
+
+Heading:
+
+Review the generated project
+
+Show the expected result as an instructional checklist:
+
+- Project directory created
+- TomorrowOS dependencies added
+- Environment template created
+- Starter configuration created
+- Example content included when selected
+- README or setup instructions generated
+
+Show:
+
+cd {{PROJECT_NAME}}
+
+with a Copy button.
+
+Add:
+
+Open the generated README before changing project files. It contains the configuration required by the selected starter.
+
+Do not automatically claim these files exist.
+
+Use:
+
+You should now see
+
+not:
+
+TomorrowOS verified
+
+Completion action:
+
+I opened the generated project
+
+==================================================
+11. TERMINAL STEP 5 — CHOOSE YOUR INFRASTRUCTURE
+==================================================
+
+Heading:
+
+Connect your infrastructure
+
+Supporting copy:
+
+Use the database, storage and hosting services appropriate for your application and supported by the TomorrowOS starter.
+
+Show three architecture cards.
+
+DATABASE
+
+Heading:
+
+Application data
+
+Description:
+
+Connect the database or data service used by your CMS.
+
+Examples should only be shown when confirmed by engineering.
+
+Display:
+
+{{SUPPORTED_DATABASE_OPTIONS}}
+
+MEDIA STORAGE
+
+Heading:
+
+Media storage and delivery
+
+Description:
+
+Connect your object storage, asset service or CDN.
+
+Display:
+
+{{SUPPORTED_MEDIA_STORAGE_OPTIONS}}
+
+HOSTING
+
+Heading:
+
+Application hosting
+
+Description:
+
+Choose an environment capable of running the TomorrowOS backend requirements.
+
+Display:
+
+{{SUPPORTED_HOSTING_REQUIREMENTS}}
+
+Add a clear rule:
+
+Do not imply that TomorrowOS supports every provider.
+
+Every displayed provider or infrastructure type must have one of these labels:
+
+- Tested
+- Supported
+- Community supported
+- Not yet validated
+
+Add optional starter links:
+
+Need a database?
+View Supabase guide
+
+Need media storage?
+View Cloudinary guide
+
+Keep these secondary.
+
+Completion action:
+
+I selected my infrastructure
+
+==================================================
+12. TERMINAL STEP 6 — CONFIGURE ENVIRONMENT VARIABLES
+==================================================
+
+Heading:
+
+Configure local environment variables
+
+Use the exact environment filename confirmed by engineering:
+
+{{CONFIRMED_LOCAL_ENV_FILENAME}}
+
+Display a configurable environment template.
+
+Do not hard-code Supabase or Cloudinary variables into the main example.
+
+Use:
+
+{{REQUIRED_CORE_ENVIRONMENT_VARIABLES}}
+
+{{SELECTED_DATABASE_ENVIRONMENT_VARIABLES}}
+
+{{SELECTED_MEDIA_ENVIRONMENT_VARIABLES}}
+
+{{OPTIONAL_ENVIRONMENT_VARIABLES}}
+
+Show separate tabs or sections:
+
+Core TomorrowOS
+Database
+Media storage
+Optional
+
+Every variable must include:
+
+- Variable name
+- Short explanation
+- Whether it is required
+- Where the user obtains it
+- Copy-variable-name button
+
+Do not collect secret values on TomorrowOS.org.
+
+Security callout:
+
+Keep secrets out of source control
+
+- Do not commit your environment file.
+- Do not hard-code secrets.
+- Do not paste secrets into screenshots.
+- Do not expose server credentials to browser code.
+
+Show:
+
+Environment file excluded from Git
+
+as a manual check, not an automatically verified result.
+
+Completion action:
+
+I configured my local environment
+
+==================================================
+13. TERMINAL STEP 7 — INITIALISE THE PROJECT
+==================================================
+
+Heading:
+
+Initialise your project
+
+Display each official command independently:
+
+{{INSTALL_DEPENDENCIES_COMMAND}}
+
+{{DATABASE_INITIALISATION_COMMAND}}
+
+{{OPTIONAL_SAMPLE_CONTENT_COMMAND}}
+
+Each command must show:
+
+- What the command does
+- Where to run it
+- Copy button
+- Expected output
+- Common recovery action
+
+Do not show a command when it does not apply to the user’s selected infrastructure.
+
+Example:
+
+Database initialisation
+
+Only show this command when the selected starter requires a migration or schema setup step.
+
+Completion action:
+
+I initialised the project
+
+==================================================
+14. TERMINAL STEP 8 — RUN LOCALLY
+==================================================
+
+Heading:
+
+Run your CMS locally
+
+Display:
+
+{{OFFICIAL_DEVELOPMENT_COMMAND}}
+
+Show the expected local address:
+
+http://localhost:{{DEFAULT_PORT}}
+
+Buttons:
+
+- Copy command
+- Open local CMS
+
+Only enable Open local CMS using the configured placeholder URL in Prototype Review Mode or after the user manually saves a local URL.
+
+Add:
+
+Keep the terminal process running while using the local CMS.
+
+Completion actions:
+
+- My local CMS opened
+- I have an error
+
+Error action opens contextual troubleshooting.
+
+==================================================
+15. TERMINAL STEP 9 — CONFIRM LOCAL SETUP
+==================================================
+
+Heading:
+
+Confirm your local CMS
+
+This must be a manual checklist.
+
+Do not present it as an automated health check.
+
+Checklist:
+
+- Development server is running
+- CMS opens in the browser
+- Required application data is available
+- Media upload or retrieval works
+- Branding or starter configuration loads
+- No blocking error appears
+
+Use:
+
+Local checks confirmed
+
+Do not use:
+
+All systems verified
+
+Add:
+
+This guide does not inspect your local application. Confirm each result in your terminal and browser.
+
+Actions:
+
+- Open local CMS
+- View troubleshooting
+- I confirmed the local CMS works
+
+==================================================
+16. TERMINAL STEP 10 — CHOOSE A DEPLOYMENT HOST
+==================================================
+
+Heading:
+
+Choose where to deploy
+
+Supporting copy:
+
+Deploy to a hosting environment that satisfies the TomorrowOS backend and runtime requirements.
+
+Show provider-neutral requirements first:
+
+- {{NODE_RUNTIME_REQUIREMENT}}
+- {{PERSISTENT_PROCESS_REQUIREMENT}}
+- {{WEBSOCKET_REQUIREMENT}}
+- {{ENVIRONMENT_VARIABLE_REQUIREMENT}}
+- {{STORAGE_OR_STATE_REQUIREMENT}}
+- {{HTTPS_REQUIREMENT}}
+
+Only show named provider cards when engineering has tested or approved them.
+
+Provider cards must include:
+
+- Provider name
+- Support level
+- Runtime type
+- Environment-variable support
+- Deployment-guide availability
+
+Possible statuses:
+
+- Recommended
+- Tested
+- Supported
+- Community guide
+- Not yet validated
+
+Do not list Replit as the assumed Terminal host.
+
+It may be included only as one optional tested provider when appropriate.
+
+Add:
+
+Using another host?
+
+View deployment requirements
+
+Completion action:
+
+I selected a deployment host
+
+==================================================
+17. TERMINAL STEP 11 — ADD PRODUCTION VARIABLES
+==================================================
+
+Heading:
+
+Add production environment variables
+
+Supporting copy:
+
+Your local environment file is not automatically available to your deployed application.
+
+Show the variable groups selected earlier:
+
+- Core TomorrowOS variables
+- Database variables
+- Media-storage variables
+- Deployment-specific variables
+
+Do not display secret values.
+
+Instructions:
+
+1. Open the environment-variable or secrets area for your host.
+2. Add each required production variable.
+3. Confirm the names match exactly.
+4. Save the configuration.
+5. Redeploy when required.
+
+Clarification:
+
+This guide does not read or verify your production secrets.
+
+Completion action:
+
+I added the production variables
+
+==================================================
+18. TERMINAL STEP 12 — DEPLOY
+==================================================
+
+Heading:
+
+Deploy your CMS
+
+Display either:
+
+{{APPROVED_DEPLOYMENT_COMMAND}}
+
+or:
+
+{{APPROVED_DEPLOYMENT_WORKFLOW}}
+
+depending on the selected host.
+
+Do not use one generic deployment command for every provider.
+
+Show the expected stages:
+
+- Install dependencies
+- Build application
+- Start backend
+- Apply production variables
+- Expose HTTPS URL
+
+Use instructional wording:
+
+Your host should now
+
+not:
+
+TomorrowOS is deploying
+
+After deployment, ask the user to copy the public HTTPS CMS URL.
+
+Allow them to optionally save it locally in the onboarding guide.
+
+Label:
+
+Save your CMS link in this browser
+
+Add:
+
+This optional URL is stored locally for onboarding convenience. TomorrowOS does not sign into, control or verify your CMS.
+
+Validate only:
+
+- URL begins with https://
+- URL is syntactically valid
+
+Do not make a network request and call it verified unless a real supported health check exists.
+
+Completion action:
+
+I deployed my CMS
+
+==================================================
+19. TERMINAL STEP 13 — CONFIRM THE LIVE CMS
+==================================================
+
+Heading:
+
+Confirm your live CMS
+
+Manual checklist:
+
+- Public HTTPS URL opens
+- CMS interface loads
+- Backend starts successfully
+- Database or application data is available
+- Media storage works
+- Test media can be uploaded or retrieved
+- No blocking production error is visible
+
+Actions:
+
+- Open my CMS
+- Everything is working
+- Something is not working
+
+Do not label this:
+
+Production health check
+
+unless a real integration exists.
+
+Use:
+
+Production checks confirmed
+
+Add:
+
+This status is based on your confirmation.
+
+When complete, unlock the shared deployment path.
+
+==================================================
+20. SHARED DEPLOYMENT PATH
+==================================================
+
+After either Guided Setup or Terminal reaches a live CMS, both paths use the same existing guides:
+
+1. Download players
+2. Install TomorrowOS
+3. Pair device
+4. Create and deploy content
+
+Do not duplicate these guides for Terminal.
+
+Reuse:
+
+- Samsung Tizen setup guide
+- Existing BrightSign behaviour
+- Coming soon Android
+- Coming soon LG
+- Coming soon Windows
+- Pairing guide
+- Content and playlist guide
+
+The shared guide must use the CMS URL saved by either pathway when one is available.
+
+==================================================
+21. SERVER SDK EXISTING-PROJECT PATH
+==================================================
+
+Preserve the existing Server SDK page shown in the current prototype.
+
+Ensure the top selections remain visible:
+
+What are you building?
+Connect an existing project
+
+How do you want to connect?
+Server SDK
+
+Use a compact breadcrumb after selection:
+
+Connect an existing project › Server SDK
+
+The Server SDK page should continue to show:
+
+- Install SDK
+- Initialise client
+- Backend-only security guidance
+- Device pairing
+- Content delivery
+- Policy control
+- Commands and events
+- Architecture flow
+
+Do not mix the full Terminal CMS-creation journey into the Server SDK path.
+
+Server SDK means:
+
+Add TomorrowOS to an existing backend.
+
+Terminal means:
+
+Create a new TomorrowOS project locally.
+
+==================================================
+22. API INTEGRATION EXISTING-PROJECT PATH
+==================================================
+
+Preserve or complete the API Integration page.
+
+Breadcrumb:
+
+Connect an existing project › API Integration
+
+Explain:
+
+Use the TomorrowOS HTTP API when direct SDK integration is not appropriate for your backend or technology stack.
+
+Show only verified API content.
+
+Use placeholders for unresolved technical details:
+
+{{API_BASE_URL}}
+{{API_AUTHENTICATION_METHOD}}
+{{FIRST_API_REQUEST}}
+{{EVENT_OR_WEBHOOK_SETUP}}
+
+Do not invent endpoints, headers or payloads.
+
+Do not mix CLI project-creation instructions into this path.
+
+==================================================
+23. DESIGN REFINEMENT
+==================================================
+
+The first two decision sections should match the supplied visual references.
+
+Use:
+
+- Large centred heading
+- Two balanced cards
+- Clear selected indicator
+- Thin divider between questions
+- Strong black headings
+- Small supporting descriptions
+- Subtle selected background
+
+Once the user moves into a detailed journey:
+
+- Collapse the large selections into a breadcrumb
+- Show a Switch path action
+- Use the connected sidebar and content shell
+- Do not keep the large option cards above every Terminal step
+
+Desktop onboarding shell:
+
+- Sidebar approximately 220–240px
+- Main content approximately 650–760px
+- Gap approximately 24–32px
+- Maximum overall width approximately 1050px
+
+Mobile:
+
+- Replace sidebar with Step X of Y
+- Add View all steps
+- Keep Back and Continue visible
+- Stack architecture and infrastructure cards
+
+==================================================
+24. CONTEXTUAL HELP
+==================================================
+
+Extend the existing Need help? drawer for the Terminal path.
+
+The drawer should understand the current step.
+
+Examples:
+
+CREATE PROJECT
+
+Common blockers:
+
+- Node.js unavailable
+- Command not recognised
+- Package registry unavailable
+- Directory permission issue
+
+ENVIRONMENT VARIABLES
+
+Common blockers:
+
+- Wrong environment filename
+- Variable name misspelled
+- Secret committed to Git
+- Browser and server variables confused
+
+RUN LOCALLY
+
+Common blockers:
+
+- Port already in use
+- Missing environment variable
+- Database unavailable
+- Build error
+- Unsupported Node.js version
+
+DEPLOY
+
+Common blockers:
+
+- Host lacks required runtime
+- Production variables missing
+- Build command incorrect
+- Start command incorrect
+- HTTPS URL not available
+
+Every help state should include:
+
+- You are here
+- What should happen
+- Common blockers
+- Relevant documentation
+- Return to step
+- View technical details
+
+==================================================
+25. PROTOTYPE REVIEW MODE
+==================================================
+
+Prototype Review Mode may:
+
+- Jump to any pathway
+- Switch between all four branches
+- Mark steps complete
+- Show unresolved engineering placeholders
+- Simulate manual success and failure states
+- Reset pathway progress
+- Show content-source keys
+
+Display the persistent banner:
+
+Prototype simulation — These states are for internal review and are not connected to your terminal, infrastructure, hosting provider, CMS or physical devices.
+
+Normal mode must not simulate automatic:
+
+- Environment detection
+- Database connection
+- Media connection
+- Deployment
+- Production health
+- Player installation
+- Pairing
+- Playback
+
+==================================================
+26. CENTRAL CONFIGURATION
+==================================================
+
+Store the path definitions and technical placeholders in central TypeScript configuration.
+
+Suggested structure:
+
+onboardingPaths = {
+  newProject: {
+    guided: {...},
+    terminal: {...}
+  },
+  existingProject: {
+    serverSdk: {...},
+    api: {...}
+  }
+}
+
+terminalConfig = {
+  supportedNodeVersion,
+  approvedPackageManagers,
+  officialCreateCommand,
+  cliQuestions,
+  localEnvFilename,
+  coreEnvironmentVariables,
+  supportedDatabaseOptions,
+  supportedMediaOptions,
+  hostingRequirements,
+  initialiseCommands,
+  developmentCommand,
+  defaultPort,
+  approvedHosts,
+  deploymentWorkflows
+}
+
+Do not duplicate commands, environment-variable names or technical copy across components.
+
+==================================================
+27. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. The first question is What are you building?
+2. Start a new project and Connect an existing project are selectable.
+3. Start a new project reveals Guided Setup and Terminal.
+4. Connect an existing project reveals Server SDK and API Integration.
+5. Guided Setup remains functional and unchanged.
+6. Terminal no longer requires Supabase.
+7. Terminal no longer requires Cloudinary.
+8. Terminal no longer assumes Replit hosting.
+9. Supabase and Cloudinary remain available as optional starter guides.
+10. The Terminal path supports bringing existing infrastructure.
+11. The Terminal path contains all thirteen setup steps.
+12. All commands are live and copyable.
+13. No unresolved command is invented.
+14. Infrastructure support levels are visible.
+15. Local checks are clearly user-confirmed.
+16. Production checks are clearly user-confirmed.
+17. No secrets are collected by TomorrowOS.org.
+18. The Server SDK path remains separate from Terminal.
+19. The API Integration path remains separate from Terminal.
+20. All successful paths merge into the shared player journey.
+21. The Samsung and content guides remain linked.
+22. Android, LG and Windows remain Coming soon.
+23. Existing BrightSign behaviour is preserved.
+24. The design matches the supplied visual references.
+25. Large selection cards collapse once a detailed path begins.
+26. Desktop and mobile layouts work.
+27. Browser back and forward navigation preserve the selected route.
+28. Prototype Review Mode can test all four pathways.
+29. Normal mode contains no fake automatic verification.
+30. No TypeScript or runtime errors remain.
+
+==================================================
+28. DELIVERY PROCESS
+==================================================
+
+Before coding:
+
+1. Review the current project architecture.
+2. Identify the existing selection components.
+3. Identify the Guided, Terminal, SDK and API routes.
+4. Preserve all existing Guided Setup work.
+5. List unresolved engineering placeholders.
+6. Then begin implementing without waiting for further approval.
+
+After coding:
+
+1. Run the application.
+2. Test Start new project → Guided.
+3. Test Start new project → Terminal.
+4. Test Existing project → Server SDK.
+5. Test Existing project → API Integration.
+6. Test browser navigation.
+7. Test local progress persistence.
+8. Test customer-facing mode.
+9. Test Prototype Review Mode.
+10. Test mobile responsiveness.
+11. Confirm no secrets are stored.
+12. Fix all TypeScript and runtime errors.
+13. Provide a concise completion report.
+
+The finished experience should clearly communicate:
+
+Start a new product:
+Choose Guided Setup or Terminal.
+
+Connect an existing product:
+Choose Server SDK or API Integration.
+
+No user should have to guess which route applies to them.

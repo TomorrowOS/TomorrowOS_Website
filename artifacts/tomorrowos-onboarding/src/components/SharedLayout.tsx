@@ -22,7 +22,7 @@ export function SharedLayout({ children }: { children: React.ReactNode }) {
       {state.prototypeReviewMode && (
         <div className="bg-amber-100 border-b border-amber-200 text-amber-900 px-4 py-2 text-sm flex items-center justify-center gap-2 text-center">
           <AlertCircle className="w-4 h-4 shrink-0" />
-          <span><strong>Prototype simulation</strong> — These states are for internal review and are not connected to a Samsung display, your CMS or the TomorrowOS Runtime.</span>
+          <span><strong>Prototype simulation</strong> — These states are for internal review and are not connected to your terminal, infrastructure, hosting provider, CMS or physical devices.</span>
         </div>
       )}
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

@@ -5,7 +5,6 @@ import { Card, CardContent } from './ui/card';
 import { CopyableText } from './CopyableText';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
 import { ServiceConnectionCard } from './ServiceConnectionCard';
-import { PLACEHOLDERS } from '@/lib/constants';
 import { useLocation } from 'wouter';
 import { CheckCircle2, ChevronDown, ChevronUp, AlertCircle, Check } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';

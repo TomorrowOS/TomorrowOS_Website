@@ -19,6 +19,10 @@ function Router() {
     <SharedLayout>
       <Switch>
         <Route path="/start" component={Start} />
+        <Route path="/start/guided" component={Start} />
+        <Route path="/start/terminal" component={Start} />
+        <Route path="/connect/server-sdk" component={Start} />
+        <Route path="/connect/api" component={Start} />
         <Route path="/guides/supabase" component={GuideSupabase} />
         <Route path="/guides/cloudinary" component={GuideCloudinary} />
         <Route path="/guides/content" component={ContentGuide} />

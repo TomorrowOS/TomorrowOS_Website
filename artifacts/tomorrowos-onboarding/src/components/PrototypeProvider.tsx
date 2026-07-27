@@ -1,12 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 export type SetupMethod = 'guided' | 'terminal';
+export type ProjectType = 'new' | 'existing' | null;
+export type NewProjectMethod = 'guided' | 'terminal' | null;
+export type ExistingProjectMethod = 'server-sdk' | 'api' | null;
 export type UserConfirmedStatus = 'not_started' | 'in_progress' | 'confirmed' | 'needs_help';
 
 export interface PrototypeState {
   prototypeReviewMode: boolean;
-  projectType: 'new' | 'existing';
-  setupMethod: SetupMethod;
+  projectType: ProjectType;
+  newProjectMethod: NewProjectMethod;
+  existingProjectMethod: ExistingProjectMethod;
+  setupMethod: SetupMethod; // Legacy field, kept for mapping
   guidedStep: number;
   maxGuidedStep: number;
   terminalStep: number;
@@ -30,7 +35,9 @@ export interface PrototypeState {
 
 const initialState: PrototypeState = {
   prototypeReviewMode: false,
-  projectType: 'new',
+  projectType: null,
+  newProjectMethod: null,
+  existingProjectMethod: null,
   setupMethod: 'guided',
   guidedStep: 1,
   maxGuidedStep: 1,
@@ -70,6 +77,17 @@ export function PrototypeProvider({ children }: { children: React.ReactNode }) {
       const stored = localStorage.getItem('tomorrowos_prototype');
       if (stored) {
         const parsed = { ...initialState, ...JSON.parse(stored) } as PrototypeState;
+        
+        // Migrate legacy setupMethod to new fields if new fields are null
+        if (parsed.projectType === null) {
+           parsed.projectType = 'new';
+           if (parsed.setupMethod === 'terminal') {
+             parsed.newProjectMethod = 'terminal';
+           } else {
+             parsed.newProjectMethod = 'guided';
+           }
+        }
+        
         // Migrate legacy stored state that predates max-step tracking:
         // derive max progress from the current step fields so previously
         // reached steps stay unlocked.
