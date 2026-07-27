@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'TomorrowOS',
   isPrototype: true, // Used to guard indexing (noindex)
   links: {
-    github: '{{PLACEHOLDER_GITHUB_URL}}',
+    github: 'https://github.com/TomorrowOS/TomorrowOS',
     docs: '{{PLACEHOLDER_DOCS_URL}}',
     knowledgeBase: '{{PLACEHOLDER_KNOWLEDGE_BASE_URL}}',
     community: '{{PLACEHOLDER_COMMUNITY_URL}}',
