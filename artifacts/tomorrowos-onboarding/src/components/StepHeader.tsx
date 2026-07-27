@@ -2,17 +2,17 @@ import React from 'react';
 import { usePrototype } from './PrototypeProvider';
 import { GUIDED_STEPS, TERMINAL_STEPS, SHARED_STEPS } from '@/lib/constants';
 
-export function StepHeader({ title, description }: { title: string, description: string }) {
+export function StepHeader({ title, description, stepNumber, totalSteps, eyebrow: customEyebrow }: { title: string, description?: string, stepNumber?: number, totalSteps?: number, eyebrow?: string }) {
   const { state } = usePrototype();
   
   const isGuided = state.setupMethod === 'guided';
   const isShared = state.sharedStep > 0;
   
-  const activeStep = isShared ? state.sharedStep : (isGuided ? state.guidedStep : state.terminalStep);
-  const totalSteps = isShared ? SHARED_STEPS.length : (isGuided ? GUIDED_STEPS.length : TERMINAL_STEPS.length);
-  const percent = Math.round((activeStep / totalSteps) * 100);
+  const activeStep = stepNumber ?? (isShared ? state.sharedStep : (isGuided ? state.guidedStep : state.terminalStep));
+  const maxSteps = totalSteps ?? (isShared ? SHARED_STEPS.length : (isGuided ? GUIDED_STEPS.length : TERMINAL_STEPS.length));
+  const percent = Math.round((activeStep / maxSteps) * 100);
   
-  const eyebrow = isShared ? 'DEPLOYMENT' : (isGuided ? 'GUIDED SETUP' : 'TERMINAL SETUP');
+  const eyebrow = customEyebrow ?? (isShared ? 'DEPLOYMENT' : (isGuided ? 'GUIDED SETUP' : 'TERMINAL SETUP'));
 
   return (
     <div className="mb-8">
@@ -23,10 +23,10 @@ export function StepHeader({ title, description }: { title: string, description:
             {eyebrow}
           </div>
           <div className="text-sm font-medium text-gray-400 mb-3">
-            Step {activeStep} of {totalSteps}
+            Step {activeStep} of {maxSteps}
           </div>
           <h2 className="text-3xl font-bold text-gray-900 tracking-tight mb-3">{title}</h2>
-          <p className="text-gray-600 text-lg leading-relaxed">{description}</p>
+          {description && <p className="text-gray-600 text-lg leading-relaxed">{description}</p>}
         </div>
         <div className="flex flex-col items-end shrink-0 ml-8">
           <div className="w-12 h-12 rounded-full border-[3px] border-gray-100 flex items-center justify-center relative">
@@ -42,9 +42,9 @@ export function StepHeader({ title, description }: { title: string, description:
       {/* Mobile Header (compact) */}
       <div className="md:hidden">
         <h2 className="text-xl font-bold text-gray-900 tracking-tight mb-2">
-          Step {activeStep} of {totalSteps} — {title}
+          Step {activeStep} of {maxSteps} — {title}
         </h2>
-        <p className="text-gray-600 text-sm">{description}</p>
+        {description && <p className="text-gray-600 text-sm">{description}</p>}
       </div>
     </div>
   );

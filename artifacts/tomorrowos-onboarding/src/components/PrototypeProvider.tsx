@@ -13,6 +13,9 @@ export interface PrototypeState {
   maxTerminalStep: number;
   sharedStep: number;
   maxSharedStep: number;
+  samsungGuideStep: number;
+  maxSamsungGuideStep: number;
+  samsungCompletedSteps: number[];
   supabaseStatus: UserConfirmedStatus;
   cloudinaryStatus: UserConfirmedStatus;
   previewGenerationStatus: UserConfirmedStatus;
@@ -32,6 +35,9 @@ const initialState: PrototypeState = {
   maxTerminalStep: 1,
   sharedStep: 0,
   maxSharedStep: 0,
+  samsungGuideStep: 1,
+  maxSamsungGuideStep: 1,
+  samsungCompletedSteps: [],
   supabaseStatus: 'not_started',
   cloudinaryStatus: 'not_started',
   previewGenerationStatus: 'not_started',
@@ -64,6 +70,8 @@ export function PrototypeProvider({ children }: { children: React.ReactNode }) {
         parsed.maxGuidedStep = Math.max(parsed.maxGuidedStep || 1, parsed.guidedStep || 1);
         parsed.maxTerminalStep = Math.max(parsed.maxTerminalStep || 1, parsed.terminalStep || 1);
         parsed.maxSharedStep = Math.max(parsed.maxSharedStep || 0, parsed.sharedStep || 0);
+        parsed.maxSamsungGuideStep = Math.max(parsed.maxSamsungGuideStep || 1, parsed.samsungGuideStep || 1);
+        parsed.samsungCompletedSteps = parsed.samsungCompletedSteps || [];
         return parsed;
       }
     } catch (e) {}

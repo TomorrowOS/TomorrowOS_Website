@@ -51,3 +51,16 @@ export const SHARED_STEPS = [
   { id: 3, title: 'Pair device' },
   { id: 4, title: 'Create and deploy' }
 ];
+
+export const SAMSUNG_STEPS = [
+  { id: 1, title: 'Choose your starting point' },
+  { id: 2, title: 'Set Play via to Custom App' },
+  { id: 3, title: 'Open Custom App' },
+  { id: 4, title: 'Install the TomorrowOS Runtime' },
+  { id: 5, title: 'Select screen orientation' },
+  { id: 6, title: 'Connect the Runtime to your CMS' },
+  { id: 7, title: 'Wait for the pairing code' },
+  { id: 8, title: 'Pair the screen in your CMS' },
+  { id: 9, title: 'Confirm the installation' },
+  { id: 10, title: 'Create and deploy content' }
+];

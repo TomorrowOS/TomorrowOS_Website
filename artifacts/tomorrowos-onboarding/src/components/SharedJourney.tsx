@@ -26,43 +26,99 @@ export function SharedJourney() {
 // ------------------------------------------
 function SharedStep1() {
   const { state } = usePrototype();
+  const [, setLocation] = useLocation();
 
   const handleOpenCms = () => {
     if (state.cmsUrl && isValidHttpsUrl(state.cmsUrl)) {
       window.open(state.cmsUrl, '_blank');
     } else {
-      alert("Please open your CMS directly from Replit.");
+      alert("Open the public CMS URL copied after publishing your project.");
     }
   };
 
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
       <StepHeader 
-        title="Download players" 
-        description="From the bottom-left navigation of your CMS, select Download Players."
+        title="Choose your screen platform" 
+        description="Open Download Players inside your published CMS, then select the platform you want to install."
       />
 
-      <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — DOWNLOAD PLAYERS LOCATION IN CMS]" description="CMS Sidebar Highlight" className="mb-8" />
-
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-        {["Samsung", "BrightSign", "Android", "LG", "Windows"].map((platform) => (
-          <Card key={platform}>
-            <CardContent className="p-5">
-              <div className="w-10 h-10 bg-gray-100 rounded-md mb-3 flex items-center justify-center font-bold text-xs text-gray-400">ICO</div>
-              <h3 className="font-semibold text-gray-900">{platform}</h3>
-              <p className="text-xs text-gray-500 mb-4 mt-1">Min version: {"{{VERSION}}"}</p>
-              <Button variant="secondary" size="sm" className="w-full">View platform guide</Button>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="bg-gray-50 border border-border p-4 rounded-md text-sm text-gray-600 mb-8">
+        Player downloads and installation actions take place inside your CMS or on the physical display. This guide provides the instructions but does not install the player for you.
       </div>
-      
+
       <div className="mb-8">
          <Button variant="outline" onClick={handleOpenCms}>Open your CMS</Button>
       </div>
 
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+        {/* SAMSUNG CARD */}
+        <Card>
+          <CardContent className="p-5 flex flex-col h-full">
+            <div className="flex justify-between items-start mb-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center font-bold text-xs text-gray-400">SAM</div>
+              <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 bg-gray-100 text-gray-700 rounded-full">Available</span>
+            </div>
+            <h3 className="font-semibold text-gray-900">Samsung</h3>
+            <p className="text-xs font-medium text-gray-500 mt-1 mb-2">Tizen 6.5 and Tizen 7.0</p>
+            <p className="text-sm text-gray-600 mb-4 flex-grow">Install the TomorrowOS Runtime on a supported Samsung commercial signage display.</p>
+            <Button variant="secondary" size="sm" className="w-full mb-3" onClick={() => setLocation('/guides/platforms/samsung-tizen')}>View Samsung setup guide</Button>
+            <p className="text-xs text-gray-400 text-center">Installed directly on the display using the TomorrowOS installation URL.</p>
+          </CardContent>
+        </Card>
+
+        {/* BRIGHTSIGN CARD */}
+        <Card>
+          <CardContent className="p-5 flex flex-col h-full">
+            <div className="flex justify-between items-start mb-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center font-bold text-xs text-gray-400">BSN</div>
+            </div>
+            <h3 className="font-semibold text-gray-900">BrightSign</h3>
+            <p className="text-sm text-gray-600 mb-4 flex-grow mt-3">TomorrowOS player support and installation instructions are being prepared.</p>
+            <div className="text-center text-sm font-medium text-gray-500 py-1.5 bg-gray-50 rounded border border-gray-200 mt-auto">Guide being prepared</div>
+          </CardContent>
+        </Card>
+
+        {/* ANDROID CARD */}
+        <Card className="opacity-60 bg-gray-50">
+          <CardContent className="p-5 flex flex-col h-full">
+            <div className="flex justify-between items-start mb-3">
+              <div className="w-10 h-10 bg-gray-200 rounded-md flex items-center justify-center font-bold text-xs text-gray-400">AND</div>
+              <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 bg-gray-200 text-gray-600 rounded-full">Coming soon</span>
+            </div>
+            <h3 className="font-semibold text-gray-900">Android</h3>
+            <p className="text-sm text-gray-600 mb-4 flex-grow mt-3">TomorrowOS player support and installation instructions are being prepared.</p>
+          </CardContent>
+        </Card>
+
+        {/* LG CARD */}
+        <Card className="opacity-60 bg-gray-50">
+          <CardContent className="p-5 flex flex-col h-full">
+            <div className="flex justify-between items-start mb-3">
+              <div className="w-10 h-10 bg-gray-200 rounded-md flex items-center justify-center font-bold text-xs text-gray-400">LG</div>
+              <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 bg-gray-200 text-gray-600 rounded-full">Coming soon</span>
+            </div>
+            <h3 className="font-semibold text-gray-900">LG</h3>
+            <p className="text-xs font-medium text-gray-500 mt-1 mb-2">webOS</p>
+            <p className="text-sm text-gray-600 mb-4 flex-grow">TomorrowOS player support and installation instructions are being prepared.</p>
+          </CardContent>
+        </Card>
+
+        {/* WINDOWS CARD */}
+        <Card className="opacity-60 bg-gray-50">
+          <CardContent className="p-5 flex flex-col h-full">
+            <div className="flex justify-between items-start mb-3">
+              <div className="w-10 h-10 bg-gray-200 rounded-md flex items-center justify-center font-bold text-xs text-gray-400">WIN</div>
+              <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 bg-gray-200 text-gray-600 rounded-full">Coming soon</span>
+            </div>
+            <h3 className="font-semibold text-gray-900">Windows</h3>
+            <p className="text-sm text-gray-600 mb-4 flex-grow mt-3">TomorrowOS player support and installation instructions are being prepared.</p>
+          </CardContent>
+        </Card>
+      </div>
+
       <div className="mt-auto">
-        <StepFooter continueLabel="I downloaded the player" />
+        <StepFooter continueLabel="Continue" />
       </div>
     </div>
   );
