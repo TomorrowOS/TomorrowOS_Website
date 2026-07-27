@@ -410,13 +410,12 @@ function GuidedToolSelector({ onSelect }: { onSelect: (path: string) => void }) 
           onKeyDown={(e) => !vercelDisabled && e.key === 'Enter' && onSelect(onboardingPaths.newProject.vercel)}
         >
           <CardContent className="p-8 flex-1 flex flex-col">
-            <div className="flex justify-between items-start mb-4">
-              <div className="inline-block bg-blue-50 text-blue-800 border border-blue-100 text-xs font-semibold px-2 py-1 rounded">Build with v0</div>
-              {vercelStatusConfig.badge && (
+            <div className="flex justify-between items-start mb-4 min-h-[26px]">
+              {vercelStatusConfig.badge ? (
                 <div className={cn("inline-block text-xs font-medium px-2 py-1 rounded border", vercelStatusConfig.badgeClass)}>
                   {vercelStatusConfig.badge}
                 </div>
-              )}
+              ) : <span />}
             </div>
             <img src={`${import.meta.env.BASE_URL}assets/platforms/vercel-wordmark.png`} alt="Vercel" className="mb-3 object-contain object-left self-start" style={{ height: '20px', width: 'auto' }} />
             <p className="text-gray-600 mb-6">{vercelConfig.guidedTools.vercel.description}</p>
