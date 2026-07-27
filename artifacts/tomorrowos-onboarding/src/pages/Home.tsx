@@ -220,7 +220,6 @@ export default function Home() {
       {/* PATTERNS SECTION */}
       <section id="patterns" className="py-16 md:py-24 px-4 md:px-8 max-w-[1200px] mx-auto w-full bg-muted/30 border-y border-border scroll-mt-24">
         <div className="mb-12 text-center flex flex-col items-center">
-          <div className="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">USE CASES</div>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Start from a working pattern.</h2>
           <p className="text-lg text-muted-foreground max-w-2xl">
             Start with a proven structure, then shape it around your product.
