@@ -28,7 +28,7 @@ export const aboutContent = {
     ]
   },
   keepOwnership: {
-    heading: "Build the product. Keep\nownership of what makes\nit different.",
+    heading: "Build the product and keep\nownership of what makes\nit different.",
     cards: [
       {
         title: "Focus on your vision",
