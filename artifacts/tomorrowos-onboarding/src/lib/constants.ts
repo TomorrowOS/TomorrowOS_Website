@@ -64,3 +64,18 @@ export const SAMSUNG_STEPS = [
   { id: 9, title: 'Confirm the installation' },
   { id: 10, title: 'Create and deploy content' }
 ];
+
+export const CONTENT_STEPS = [
+  { id: 1, title: 'Open Playlists', hash: '#create-playlist' },
+  { id: 2, title: 'Name your playlist', hash: '' },
+  { id: 3, title: 'Upload your media', hash: '#upload-media' },
+  { id: 4, title: 'Add media to the playlist', hash: '' },
+  { id: 5, title: 'Arrange playback', hash: '' },
+  { id: 6, title: 'Configure the schedule', hash: '#schedule' },
+  { id: 7, title: 'Save the playlist', hash: '' },
+  { id: 8, title: 'Select a screen', hash: '#publish-to-screen' },
+  { id: 9, title: 'Open Publish', hash: '' },
+  { id: 10, title: 'Choose the playlist', hash: '' },
+  { id: 11, title: 'Wait for the screen to update', hash: '' },
+  { id: 12, title: 'Confirm playback', hash: '#confirm-playback' }
+];

@@ -496,6 +496,7 @@ function TerminalStep12() {
 // ------------------------------------------
 function TerminalStep13() {
   const { state, updateState, goToNextStep } = usePrototype();
+  const [, setLocation] = useLocation();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const isReady = state.publishedStatus === 'confirmed';
 
@@ -535,8 +536,12 @@ function TerminalStep13() {
             </div>
           </div>
 
-          <div className="bg-gray-50 border border-border p-4 rounded-md text-sm text-gray-600">
+          <div className="bg-gray-50 border border-border p-4 rounded-md text-sm text-gray-600 mb-6">
              <strong>Note:</strong> Check these items inside your live CMS. TomorrowOS does not verify them for you.
+          </div>
+          
+          <div className="flex gap-3">
+             <Button variant="outline" onClick={() => setLocation('/guides/content')}>View content guide</Button>
           </div>
         </CardContent>
       </Card>

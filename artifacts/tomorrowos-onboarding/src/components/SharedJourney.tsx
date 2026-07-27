@@ -172,6 +172,7 @@ function SharedStep2() {
 // ------------------------------------------
 function SharedStep3() {
   const { state } = usePrototype();
+  const [, setLocation] = useLocation();
 
   const handleOpenCms = () => {
     if (state.cmsUrl && isValidHttpsUrl(state.cmsUrl)) {
@@ -214,6 +215,7 @@ function SharedStep3() {
          <Button variant="outline" onClick={handleOpenCms}>Open your CMS</Button>
          <Button variant="outline">Show me where to enter the code</Button>
          <Button variant="outline">View pairing troubleshooting</Button>
+         <Button variant="outline" onClick={() => setLocation('/guides/content')}>Open content guide</Button>
       </div>
 
       <div className="mt-auto">
@@ -235,12 +237,8 @@ function SharedStep4() {
     setLocation('/start');
   };
 
-  const handleOpenCms = () => {
-    if (state.cmsUrl && isValidHttpsUrl(state.cmsUrl)) {
-      window.open(state.cmsUrl, '_blank');
-    } else {
-      alert("Please open your CMS directly from Replit.");
-    }
+  const handleOpenGuide = () => {
+    setLocation('/guides/content');
   };
 
   return (
@@ -251,56 +249,51 @@ function SharedStep4() {
       />
 
       <div className="grid sm:grid-cols-2 gap-4 mb-8">
+        {/* CARD 1 */}
         <Card>
-          <CardContent className="p-6 flex gap-4">
-            <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm shrink-0">1</div>
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-1">Create content</h3>
-              <p className="text-sm text-gray-500">Upload or create your media.</p>
-            </div>
+          <CardContent className="p-6">
+            <h3 className="font-semibold text-gray-900 mb-1">Create content</h3>
+            <p className="text-sm text-gray-500 mb-4">Upload an image or video into the Assets area of your CMS.</p>
+            <Button variant="secondary" size="sm" onClick={() => setLocation('/guides/content#upload-media')}>View media upload guide</Button>
           </CardContent>
         </Card>
 
+        {/* CARD 2 */}
         <Card>
-          <CardContent className="p-6 flex gap-4">
-            <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm shrink-0">2</div>
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-1">Create a playlist</h3>
-              <p className="text-sm text-gray-500">Arrange content in playback order.</p>
-            </div>
+          <CardContent className="p-6">
+            <h3 className="font-semibold text-gray-900 mb-1">Create a playlist</h3>
+            <p className="text-sm text-gray-500 mb-4">Arrange your uploaded media in playback order.</p>
+            <Button variant="secondary" size="sm" onClick={() => setLocation('/guides/content#create-playlist')}>Create your first playlist</Button>
           </CardContent>
         </Card>
 
+        {/* CARD 3 */}
         <Card>
-          <CardContent className="p-6 flex gap-4">
-            <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm shrink-0">3</div>
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-1">Create a schedule</h3>
-              <p className="text-sm text-gray-500">Choose when the content should play.</p>
-            </div>
+          <CardContent className="p-6">
+            <h3 className="font-semibold text-gray-900 mb-1">Add a schedule</h3>
+            <p className="text-sm text-gray-500 mb-4">Choose when the playlist should be available to play.</p>
+            <Button variant="secondary" size="sm" onClick={() => setLocation('/guides/content#schedule')}>View scheduling guide</Button>
           </CardContent>
         </Card>
 
+        {/* CARD 4 */}
         <Card>
-          <CardContent className="p-6 flex gap-4">
-            <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm shrink-0">4</div>
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-1">Deploy</h3>
-              <p className="text-sm text-gray-500">Assign the playlist to your screen.</p>
-            </div>
+          <CardContent className="p-6">
+            <h3 className="font-semibold text-gray-900 mb-1">Publish to your screen</h3>
+            <p className="text-sm text-gray-500 mb-4">Assign the saved playlist to your paired device and confirm playback.</p>
+            <Button variant="secondary" size="sm" onClick={() => setLocation('/guides/content#publish-to-screen')}>View publishing guide</Button>
           </CardContent>
         </Card>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-12">
-         <Button variant="outline" onClick={handleOpenCms}>Open your CMS</Button>
-         <Button variant="outline">View first deployment guide</Button>
+      <div className="mb-12">
+         <Button onClick={handleOpenGuide}>Open complete content guide</Button>
       </div>
 
       <div className="text-center p-12 bg-gray-50 border border-border rounded-xl">
         <h2 className="text-3xl font-bold text-gray-900 mb-2 tracking-tight">Finish your onboarding</h2>
         <p className="text-gray-600 mb-8 max-w-md mx-auto">Once you have deployed your first content inside your CMS and can see it on your screen, confirm below. This only updates your onboarding progress — TomorrowOS does not verify your deployment.</p>
-        <Button size="lg" onClick={handleFinish} className="bg-black text-white hover:bg-gray-800">My first content is live (Finish)</Button>
+        <Button size="lg" onClick={handleFinish} className="bg-black text-white hover:bg-gray-800">My first content is live</Button>
       </div>
       
       <div className="mt-auto hidden" />

@@ -6,7 +6,10 @@ import Start from './pages/Start';
 import GuideSupabase from './pages/GuideSupabase';
 import GuideCloudinary from './pages/GuideCloudinary';
 import SamsungTizenGuide from './pages/SamsungTizenGuide';
+import ContentGuide from './pages/ContentGuide';
 import Compatibility from './pages/Compatibility';
+import MediaCompatibility from './pages/MediaCompatibility';
+import PlatformGuides from './pages/PlatformGuides';
 import NotFound from './pages/not-found';
 
 const queryClient = new QueryClient();
@@ -18,8 +21,11 @@ function Router() {
         <Route path="/start" component={Start} />
         <Route path="/guides/supabase" component={GuideSupabase} />
         <Route path="/guides/cloudinary" component={GuideCloudinary} />
+        <Route path="/guides/content" component={ContentGuide} />
         <Route path="/guides/platforms/samsung-tizen/magicinfo" component={SamsungTizenGuide} />
         <Route path="/guides/platforms/samsung-tizen" component={SamsungTizenGuide} />
+        <Route path="/guides/platforms" component={PlatformGuides} />
+        <Route path="/compatibility/media" component={MediaCompatibility} />
         <Route path="/compatibility" component={Compatibility} />
         <Route path="/">
           <Start />

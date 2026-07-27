@@ -629,7 +629,7 @@ function SamsungStep10() {
 
       <div className="flex flex-col sm:flex-row gap-3 mb-8">
          <Button onClick={handleOpenCms}>Open my CMS</Button>
-         <Button variant="outline">View content deployment guide</Button>
+         <Button variant="outline" onClick={() => setLocation('/guides/content#publish-to-screen')}>View content deployment guide</Button>
       </div>
 
       <TroubleshootingAccordion title="The screen pairs but shows no content">
@@ -642,7 +642,7 @@ function SamsungStep10() {
           <li>Confirm the content format is supported by the display.</li>
           <li>Confirm the CMS changes were saved.</li>
         </ul>
-        <Button variant="outline" size="sm">View content deployment guide</Button>
+        <Button variant="outline" size="sm" onClick={() => setLocation('/guides/content#publish-to-screen')}>View content deployment guide</Button>
       </TroubleshootingAccordion>
 
       {isCompleted ? (

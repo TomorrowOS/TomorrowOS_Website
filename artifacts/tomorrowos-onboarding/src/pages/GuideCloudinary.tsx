@@ -129,6 +129,14 @@ export default function GuideCloudinary() {
         <div className="bg-warning/10 p-4 rounded-md border border-warning/20 my-4">
           <p className="m-0 text-sm text-amber-900"><strong>Security warning:</strong> never paste your API secret into: Replit Agent chat, application source code, GitHub, screenshots, support emails or messages, or public documentation. Store it only through Replit Secrets.</p>
         </div>
+        
+        <div className="mt-12 pt-8 border-t border-gray-200">
+          <h2 className="mt-0">Next steps</h2>
+          <div className="flex gap-4 mt-6">
+            <Button onClick={() => setLocation('/guides/content#upload-media')}>Continue to media upload</Button>
+            <Button variant="outline" onClick={() => setLocation('/start')}>Return to setup</Button>
+          </div>
+        </div>
       </div>
     </div>
   );

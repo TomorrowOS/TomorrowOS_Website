@@ -1,0 +1,1577 @@
+Extend the existing TomorrowOS Guided Setup onboarding MVP by adding a complete content, playlist, scheduling and publishing guide.
+
+This must integrate into the existing onboarding journey after:
+
+- CMS published
+- Player installed
+- Screen paired
+
+The guide must demonstrate how to:
+
+1. Upload media
+2. Create a playlist
+3. Arrange playback
+4. Configure an optional schedule
+5. Save the playlist
+6. Assign it to a connected screen
+7. Confirm playback on the physical display
+
+Use the attached file:
+
+FINAL Upload Media and Create and Deploy a Playlist in TomorrowOS sample CMS.docx
+
+as the primary content source.
+
+Preserve the current TomorrowOS application structure, design system, progress tracking and Prototype Review Mode.
+
+Do not rebuild unrelated sections.
+
+==================================================
+1. CRITICAL PRODUCT RULE
+==================================================
+
+TomorrowOS.org is providing an instructional guide.
+
+The content upload, playlist creation, scheduling and publishing actions happen inside the user’s published CMS.
+
+The onboarding website is not currently integrated with:
+
+- The CMS media library
+- Cloudinary uploads
+- CMS playlists
+- CMS schedules
+- CMS devices
+- Physical screen playback
+- Runtime telemetry
+
+Therefore, the guide must not imply it can:
+
+- Upload a file
+- Create a playlist
+- Save a playlist
+- Publish content
+- Confirm content is playing
+- Remove content from a device
+- Read the current screen state
+
+The guide may:
+
+- Explain the process
+- Show screenshots
+- Link to the CMS
+- Link to Cloudinary and compatibility guides
+- Copy example values
+- Save non-sensitive onboarding progress locally
+- Let the user confirm they completed an external action
+- Show troubleshooting information
+
+Use user-confirmed language:
+
+- I uploaded my media
+- I created and saved my playlist
+- I published my playlist
+- My playlist is playing correctly
+- You confirmed this step
+
+Do not use verified language unless a real integration exists:
+
+- Upload successful
+- Playlist created
+- Content deployed
+- Screen verified
+- Playback confirmed by TomorrowOS
+
+==================================================
+2. CREATE THE CONTENT GUIDE ROUTE
+==================================================
+
+Create the internal route:
+
+/guides/content
+
+The guide must open inside the existing TomorrowOS application shell.
+
+Include:
+
+- TomorrowOS header
+- Back to Guided Setup
+- Back to deployment steps
+- Guide progress
+- Persistent Need help? control
+- Mobile navigation
+- Screenshot placeholders
+- Troubleshooting
+- User-confirmed completion actions
+
+When opened from onboarding, preserve the current Guided Setup progress.
+
+When the user returns, take them back to the relevant deployment step.
+
+Add deep-link support for:
+
+/guides/content#upload-media
+/guides/content#create-playlist
+/guides/content#schedule
+/guides/content#publish-to-screen
+/guides/content#confirm-playback
+/guides/content#troubleshooting
+
+When a deep link is opened:
+
+- Scroll to the correct section
+- Highlight the destination briefly
+- Update the guide stepper
+- Preserve the Back to Guided Setup action
+
+==================================================
+3. GUIDE HEADER
+==================================================
+
+Eyebrow:
+
+CONTENT AND PUBLISHING GUIDE
+
+Heading:
+
+Create and publish your first playlist
+
+Supporting copy:
+
+Upload media, arrange it into a playlist and assign it to a connected screen using the TomorrowOS sample CMS.
+
+Add guide information:
+
+CMS:
+TomorrowOS sample CMS
+
+Estimated time:
+Approximately 2–5 minutes
+
+Recommended first test:
+One image, one short video and one connected screen
+
+Add an important callout:
+
+This guide demonstrates the interface included with the TomorrowOS sample CMS. A custom CMS built with TomorrowOS may organise media, playlists and publishing differently.
+
+Primary action:
+
+Start guide
+
+Secondary action:
+
+Open my CMS
+
+Open my CMS behaviour:
+
+- Use the locally saved published CMS URL when available.
+- Open it in a new tab.
+- When no CMS URL has been saved, explain:
+  “Open the public CMS URL copied when you published your project.”
+- Do not request CMS credentials.
+- Do not store CMS passwords.
+
+==================================================
+4. BEFORE YOU BEGIN
+==================================================
+
+Heading:
+
+Before you begin
+
+Checklist:
+
+- Published TomorrowOS sample CMS
+- Supabase and Cloudinary configured
+- At least one paired screen
+- Screen shown as online or connected by the CMS
+- One image or video file
+- Approximately 2–5 minutes
+
+Add a small note:
+
+Keep your CMS and physical display visible during the final publishing step.
+
+Add actions:
+
+- Open my CMS
+- View Cloudinary guide
+- Check media compatibility
+- View device setup guides
+
+Use existing routes where available:
+
+/guides/cloudinary
+/compatibility/media
+/guides/platforms
+
+When a route does not yet exist, create a clean internal placeholder page rather than allowing a 404.
+
+==================================================
+5. GUIDE STRUCTURE
+==================================================
+
+Create twelve instructional steps:
+
+PART 1 — CREATE YOUR PLAYLIST
+
+1. Open Playlists
+2. Name your playlist
+3. Upload your media
+4. Add media to the playlist
+5. Arrange playback
+6. Configure the schedule
+7. Save the playlist
+
+PART 2 — PUBLISH TO A SCREEN
+
+8. Select a screen
+9. Open Publish
+10. Choose the playlist
+11. Wait for the screen to update
+12. Confirm playback
+
+Desktop:
+
+- Use the connected sidebar stepper and content layout already established in the onboarding project.
+- Sidebar width approximately 220–240px.
+- Current step clearly highlighted.
+- Completed steps use a checkmark.
+- Available steps must remain readable and clickable.
+- Sidebar and active content must feel like one interface.
+
+Mobile:
+
+- Show “Step X of 12”.
+- Include View all steps.
+- Keep Back and Continue controls visible.
+- Stack screenshots and instructions vertically.
+
+Every guide step must contain:
+
+- Step number
+- Heading
+- Short explanation
+- Instructions
+- Screenshot placeholder
+- Expected result
+- Relevant troubleshooting
+- Back
+- Continue
+- User-confirmed completion action where appropriate
+
+Add this clarification where needed:
+
+Completing this step only updates your onboarding progress. TomorrowOS.org does not inspect or control your CMS.
+
+==================================================
+6. STEP 1 — OPEN PLAYLISTS
+==================================================
+
+Anchor:
+
+#create-playlist
+
+Heading:
+
+Open Playlists
+
+Copy:
+
+From your CMS dashboard, find the Playlists section.
+
+Instruction:
+
+Select the orange + button beside Playlists.
+
+Expected result:
+
+The playlist editor opens inside your CMS.
+
+Primary action:
+
+Open my CMS
+
+Completion action:
+
+I opened the playlist editor
+
+Screenshot placeholder:
+
+ID:
+CONTENT-01
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Orange + button beside Playlists
+
+Caption:
+Select the + button beside Playlists to create a new playlist.
+
+==================================================
+7. STEP 2 — NAME YOUR PLAYLIST
+==================================================
+
+Heading:
+
+Name your playlist
+
+Copy:
+
+Choose a clear name that explains where or how the playlist will be used.
+
+Example:
+
+Reception — Welcome Content
+
+Good playlist names may include:
+
+- Location
+- Screen purpose
+- Campaign
+- Time period
+
+Avoid generic names such as:
+
+Playlist 1
+
+Completion action:
+
+I named my playlist
+
+Screenshot placeholder:
+
+ID:
+CONTENT-02
+
+Interface:
+TomorrowOS sample CMS playlist editor
+
+Highlight:
+Playlist name field
+
+Caption:
+Give the playlist a clear and recognisable name.
+
+==================================================
+8. STEP 3 — UPLOAD YOUR MEDIA
+==================================================
+
+Anchor:
+
+#upload-media
+
+Heading:
+
+Upload your media
+
+Copy:
+
+In the Assets section, select the orange + button and choose the images or videos you want to upload.
+
+Instructions:
+
+1. Select the + button beside Assets.
+2. Choose a file from your computer.
+3. Wait for the upload to finish.
+4. Confirm the asset appears in the Assets area.
+
+Add a warning:
+
+Do not close the page while an upload is still in progress.
+
+Upload-limit copy:
+
+Upload limits depend on the asset type and the user’s Cloudinary plan.
+
+Display:
+
+- Images: check the current Cloudinary plan limit
+- Videos: check the current Cloudinary plan limit
+
+Add the following supporting note:
+
+The guide source currently references 10 MB for images and 100 MB for videos on Cloudinary’s Free plan. Keep these values in a configurable content file so they can be updated without changing the component code.
+
+Do not hard-code Cloudinary limits into multiple components.
+
+When upload fails, show:
+
+Check:
+
+- The file is within the current Cloudinary plan limit.
+- The media format is supported.
+- Cloudinary is configured correctly.
+- The internet connection is stable.
+- The filename does not contain unusual unsupported characters.
+
+Actions:
+
+- View Cloudinary guide
+- Check media compatibility
+- Try again in my CMS
+
+Do not display raw Cloudinary errors by default.
+
+Allow:
+
+View technical details
+
+only as a collapsed secondary option.
+
+Completion action:
+
+I uploaded my media
+
+Screenshot placeholders:
+
+ID:
+CONTENT-03A
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Orange + button beside Assets
+
+Caption:
+Select the + button beside Assets to upload media.
+
+ID:
+CONTENT-03B
+
+Interface:
+Browser file selector
+
+Highlight:
+Image or video selection
+
+Caption:
+Choose the media file you want to upload.
+
+ID:
+CONTENT-03C
+
+Interface:
+TomorrowOS sample CMS Assets area
+
+Highlight:
+Uploaded asset
+
+Caption:
+Wait until the asset appears before continuing.
+
+==================================================
+9. STEP 4 — ADD MEDIA TO THE PLAYLIST
+==================================================
+
+Heading:
+
+Add media to the playlist
+
+Copy:
+
+Select the assets you want to include and add them to the playlist.
+
+Recommended first playlist:
+
+- One image
+- One short video
+- No more than two or three items
+
+Supporting copy:
+
+Starting with a small playlist makes it easier to identify playback or compatibility issues.
+
+Completion action:
+
+I added media to my playlist
+
+Screenshot placeholder:
+
+ID:
+CONTENT-04
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Assets being added to the playlist
+
+Caption:
+Add the selected media to your playlist.
+
+==================================================
+10. STEP 5 — ARRANGE PLAYBACK
+==================================================
+
+Heading:
+
+Arrange the playback order
+
+Instructions:
+
+1. Drag and drop the playlist items into the required order.
+2. Place the first item at the top.
+3. Review the duration of each item.
+
+Video duration copy:
+
+Videos play for their natural duration unless the CMS displays another playback-duration option.
+
+Image duration copy:
+
+Set how long each image remains visible.
+
+Recommended first test:
+
+10 seconds per image
+
+Add:
+
+Use short videos and a simple sequence for the first test.
+
+Screenshot placeholders:
+
+ID:
+CONTENT-05A
+
+Interface:
+TomorrowOS sample CMS playlist editor
+
+Highlight:
+Drag-and-drop ordering
+
+Caption:
+Drag playlist items into the required playback order.
+
+ID:
+CONTENT-05B
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Image-duration control
+
+Caption:
+Set how long each image should remain on screen.
+
+Completion action:
+
+I arranged my playlist
+
+==================================================
+11. STEP 6 — CONFIGURE THE SCHEDULE
+==================================================
+
+Anchor:
+
+#schedule
+
+Heading:
+
+Configure the schedule
+
+Show two instructional options.
+
+OPTION A
+
+Play continuously
+
+Copy:
+
+Leave the schedule empty to make the playlist available at all times.
+
+This copy should remain stored in a central guide-content configuration because it depends on the behaviour of the sample CMS.
+
+Add an internal Prototype Review note:
+
+Confirm that an empty schedule means always available before production release.
+
+Do not show this internal note in normal customer-facing mode.
+
+OPTION B
+
+Use a schedule
+
+Instructions:
+
+1. Select the required days.
+2. Choose the start time.
+3. Choose the end time.
+4. Confirm the venue or CMS timezone.
+
+Add:
+
+For the first onboarding test, use one continuously available playlist rather than overlapping scheduled playlists.
+
+Add a concise warning:
+
+Avoid overlapping playlist schedules until you understand how the CMS resolves schedule conflicts.
+
+Do not explain or invent priority rules that have not been confirmed.
+
+Screenshot placeholder:
+
+ID:
+CONTENT-06
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Day, start-time and end-time controls
+
+Caption:
+Add a schedule only when the playlist should run during specific periods.
+
+Completion action:
+
+I configured the playlist timing
+
+==================================================
+12. STEP 7 — SAVE THE PLAYLIST
+==================================================
+
+Heading:
+
+Save the playlist
+
+Before saving, ask the user to review:
+
+- Playlist name
+- Media order
+- Image durations
+- Schedule
+
+Instruction:
+
+Select Save Playlist.
+
+Expected result:
+
+The saved playlist appears in the Playlists section.
+
+Completion action:
+
+I created and saved my playlist
+
+Supporting note:
+
+This only updates your TomorrowOS onboarding progress. The guide does not inspect the CMS or verify the playlist.
+
+Screenshot placeholders:
+
+ID:
+CONTENT-07A
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Save Playlist button
+
+Caption:
+Save the playlist after reviewing its media and schedule.
+
+ID:
+CONTENT-07B
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Saved playlist in the Playlists section
+
+Caption:
+The playlist should now appear in the Playlists list.
+
+==================================================
+13. STEP 8 — SELECT A SCREEN
+==================================================
+
+Anchor:
+
+#publish-to-screen
+
+Heading:
+
+Select a screen
+
+Copy:
+
+Choose the screen that should receive the playlist.
+
+Before continuing, confirm that the screen:
+
+- Appears in the device list
+- Is paired with this CMS
+- Is shown as online or connected by the CMS
+- Matches the physical screen you intend to update
+
+Add:
+
+Screen offline?
+
+You may be able to assign content while a player is offline, but it may not receive the update until it reconnects.
+
+Store that copy in guide configuration and add an internal review note:
+
+Confirm the exact offline publishing behaviour before production release.
+
+Primary action:
+
+Open my CMS
+
+Completion action:
+
+I selected the correct screen
+
+Screenshot placeholder:
+
+ID:
+CONTENT-08
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Selected device card
+
+Caption:
+Select the screen that should receive the playlist.
+
+==================================================
+14. STEP 9 — OPEN PUBLISH
+==================================================
+
+Heading:
+
+Open Publish
+
+Instruction:
+
+From the selected device, select the orange Publish button.
+
+Expected result:
+
+A playlist-selection panel opens.
+
+Completion action:
+
+I opened the publishing panel
+
+Screenshot placeholder:
+
+ID:
+CONTENT-09
+
+Interface:
+TomorrowOS sample CMS device card
+
+Highlight:
+Orange Publish button
+
+Caption:
+Select Publish on the chosen device.
+
+==================================================
+15. STEP 10 — CHOOSE THE PLAYLIST
+==================================================
+
+Heading:
+
+Choose the playlist
+
+Copy:
+
+Select the playlist you created.
+
+For the first deployment:
+
+Choose one playlist only.
+
+Instruction:
+
+Select Publish Selected.
+
+Add an important explanation:
+
+Publishing assigns the selected playlist to the screen through your CMS. The TomorrowOS onboarding guide does not publish the playlist itself.
+
+Do not add a working Publish Selected button inside the onboarding guide.
+
+Primary action:
+
+Open my CMS
+
+Completion action:
+
+I published the playlist in my CMS
+
+Screenshot placeholders:
+
+ID:
+CONTENT-10A
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Playlist selection
+
+Caption:
+Select the playlist you want to assign to the screen.
+
+ID:
+CONTENT-10B
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Publish Selected button
+
+Caption:
+Select Publish Selected inside your CMS.
+
+==================================================
+16. STEP 11 — WAIT FOR THE SCREEN TO UPDATE
+==================================================
+
+Heading:
+
+Wait for the screen to update
+
+Copy:
+
+Keep the CMS and physical display visible while the content update is delivered.
+
+Explain that timing may depend on:
+
+- Network connection
+- Media size
+- Whether media is already cached
+- Whether the player is currently online
+
+Add:
+
+Do not refresh or republish repeatedly while the first update is still processing.
+
+Expected result:
+
+The selected playlist begins playing on the physical screen.
+
+Do not create:
+
+- An animated deployment progress bar
+- A fake player download status
+- A fake screen-online indicator
+- An automatic playback success state
+
+Completion action:
+
+Content has started appearing on my screen
+
+Screenshot placeholder:
+
+ID:
+CONTENT-11
+
+Interface:
+Physical signage display
+
+Highlight:
+First playlist content appearing
+
+Caption:
+Wait for the selected playlist to begin playing.
+
+==================================================
+17. STEP 12 — CONFIRM PLAYBACK
+==================================================
+
+Anchor:
+
+#confirm-playback
+
+Heading:
+
+Confirm playback
+
+Copy:
+
+Check the physical display—not only the CMS.
+
+Manual checklist:
+
+- Correct playlist is playing
+- Assets appear in the correct order
+- Images use the expected duration
+- Videos play to completion
+- Display orientation is correct
+- No black screens appear
+- No media errors appear
+- At least one full playlist cycle completes
+
+Completion action:
+
+My playlist is playing correctly
+
+Supporting note:
+
+This result is based on your confirmation. TomorrowOS.org does not currently inspect the physical display through this guide.
+
+Final success panel:
+
+Your first content is live
+
+Supporting copy:
+
+You confirmed that media was uploaded, saved into a playlist and published to your screen.
+
+Actions:
+
+- Open my CMS
+- Return to Guided Setup
+- Add another playlist
+- View troubleshooting
+
+Do not say:
+
+Playback verified by TomorrowOS
+
+Screenshot placeholder:
+
+ID:
+CONTENT-12
+
+Interface:
+Physical signage display
+
+Highlight:
+Completed content playback
+
+Caption:
+Confirm the full playlist plays correctly on the physical display.
+
+==================================================
+18. PLAYLIST STATUS EXPLANATION
+==================================================
+
+Add an optional guide section:
+
+Understanding playlist status
+
+Copy:
+
+Once published, the CMS displays playlists assigned to the selected screen.
+
+Green indicator copy:
+
+The green indicator identifies the playlist the CMS currently marks as active.
+
+Do not say:
+
+Confirmed as currently playing
+
+unless this is supported by actual Runtime telemetry.
+
+Add an internal review note in Prototype Review Mode:
+
+Confirm whether the indicator represents:
+
+- Assigned
+- Scheduled
+- Requested
+- Downloaded
+- Confirmed as playing
+
+Screenshot placeholder:
+
+ID:
+CONTENT-STATUS-01
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Green playlist indicator
+
+Caption:
+The green indicator shows the playlist currently marked as active by the CMS.
+
+==================================================
+19. CHANGE OR REMOVE A PLAYLIST
+==================================================
+
+Add an optional section after first-playback success.
+
+Heading:
+
+Change or remove a playlist
+
+Subsection:
+
+Replace the current playlist
+
+Instructions:
+
+1. Select the screen.
+2. Open Publish.
+3. Select the replacement playlist.
+4. Select Publish Selected.
+5. Confirm the new content appears.
+
+Subsection:
+
+Remove a playlist
+
+Instruction:
+
+Select Remove beside the playlist assignment.
+
+Display the current expected behaviour:
+
+Removing a playlist allows the next eligible playlist to play. When no other playlist is scheduled, the branded splash screen is shown.
+
+Store this copy in a central configuration field:
+
+playlistRemovalBehaviour
+
+Add an internal Prototype Review warning:
+
+Confirm removal and fallback behaviour before production release.
+
+Do not show the internal warning to normal users.
+
+Add:
+
+Removing an assignment should not be described as deleting the playlist unless the CMS actually deletes it.
+
+Screenshot placeholder:
+
+ID:
+CONTENT-REMOVE-01
+
+Interface:
+TomorrowOS sample CMS
+
+Highlight:
+Remove action
+
+Caption:
+Remove the playlist assignment from the selected device.
+
+==================================================
+20. TROUBLESHOOTING
+==================================================
+
+Anchor:
+
+#troubleshooting
+
+Make troubleshooting accessible:
+
+- From every guide step
+- From the Need help? drawer
+- From the final success screen
+
+Use expandable sections.
+
+------------------------------------------
+MY ASSET WILL NOT UPLOAD
+------------------------------------------
+
+Check:
+
+- Cloudinary is configured
+- File is within the current plan limit
+- Media format is supported
+- Internet connection is stable
+
+Actions:
+
+- Open Cloudinary guide
+- Check media compatibility
+- Try again in my CMS
+
+------------------------------------------
+MY PLAYLIST WILL NOT SAVE
+------------------------------------------
+
+Check:
+
+- Playlist name has been entered
+- At least one asset has been added
+- Image durations are valid
+- Schedule fields are complete
+- No upload is still in progress
+
+Action:
+
+Open my CMS
+
+------------------------------------------
+THE PLAYLIST DOES NOT APPEAR IN PUBLISH
+------------------------------------------
+
+Check:
+
+- Playlist was saved
+- Correct CMS environment is open
+- Playlist list has refreshed
+- Playlist has not been archived or removed
+
+------------------------------------------
+THE SCREEN IS OFFLINE
+------------------------------------------
+
+Check:
+
+- Display has power
+- TomorrowOS Runtime is running
+- Network is connected
+- Screen remains paired to this CMS
+
+Actions:
+
+- Open device troubleshooting
+- View platform guides
+
+------------------------------------------
+THE PLAYLIST WAS PUBLISHED BUT DOES NOT PLAY
+------------------------------------------
+
+Check:
+
+- Physical screen is online
+- Playlist is assigned to the correct screen
+- Schedule is currently active
+- Changes were saved
+- Media format is supported
+- Screen has had time to download the content
+
+------------------------------------------
+THE SCREEN IS BLACK
+------------------------------------------
+
+Check:
+
+- Playlist contains valid media
+- Assets uploaded successfully
+- Media format is compatible
+- Schedule is active
+- Display orientation is correct
+- Target screen supports the media encoding
+
+Actions:
+
+- Check media compatibility
+- Open device troubleshooting
+- Open Cloudinary guide
+
+Do not display raw technical errors by default.
+
+Provide a collapsed:
+
+View technical details
+
+option when appropriate.
+
+==================================================
+21. INTEGRATE INTO GUIDED SETUP
+==================================================
+
+Update the final shared Guided Setup step.
+
+Current step:
+
+Create, schedule and deploy
+
+Change the active content into four instructional cards.
+
+CARD 1
+
+Create content
+
+Description:
+
+Upload an image or video into the Assets area of your CMS.
+
+Action:
+
+View media upload guide
+
+Deep link:
+
+/guides/content#upload-media
+
+CARD 2
+
+Create a playlist
+
+Description:
+
+Arrange your uploaded media in playback order.
+
+Action:
+
+Create your first playlist
+
+Deep link:
+
+/guides/content#create-playlist
+
+CARD 3
+
+Add a schedule
+
+Description:
+
+Choose when the playlist should be available to play.
+
+Action:
+
+View scheduling guide
+
+Deep link:
+
+/guides/content#schedule
+
+CARD 4
+
+Publish to your screen
+
+Description:
+
+Assign the saved playlist to your paired device and confirm playback.
+
+Action:
+
+View publishing guide
+
+Deep link:
+
+/guides/content#publish-to-screen
+
+Add the primary action:
+
+Open complete content guide
+
+Route:
+
+/guides/content
+
+Add completion action:
+
+My first content is live
+
+Supporting note:
+
+This confirmation updates your onboarding progress. TomorrowOS.org does not independently verify screen playback.
+
+==================================================
+22. INTEGRATE WITH OTHER ONBOARDING AREAS
+==================================================
+
+Add contextual links in these existing areas.
+
+PAIR DEVICE SUCCESS AREA
+
+After the user confirms the screen is paired, show:
+
+Next:
+Create and publish your first playlist
+
+Action:
+
+Open content guide
+
+PUBLISH CMS OR PRODUCTION CONFIRMATION AREA
+
+Add:
+
+Once your CMS is live and your screen is paired, use the content guide to upload media and publish your first playlist.
+
+Action:
+
+View content guide
+
+CLOUDINARY GUIDE FINAL AREA
+
+Add:
+
+Next:
+Upload your first media file inside your CMS.
+
+Action:
+
+Continue to media upload
+
+Deep link:
+
+/guides/content#upload-media
+
+SAMSUNG GUIDE FINAL STEP
+
+The existing Samsung step named:
+
+Create and deploy content
+
+must link to:
+
+/guides/content#publish-to-screen
+
+Do not duplicate the full content guide inside the Samsung guide.
+
+Use:
+
+View content deployment guide
+
+==================================================
+23. CONTEXTUAL NEED HELP DRAWER
+==================================================
+
+Extend the existing Need help? drawer.
+
+The content must change based on the current guide step.
+
+Example for Upload media:
+
+You are at:
+Upload your media
+
+You should see:
+An Assets section with an orange + button.
+
+Common blockers:
+
+- Cloudinary not configured
+- File too large
+- Unsupported format
+- Upload still processing
+- Network interruption
+
+Actions:
+
+- Open Cloudinary guide
+- Check media compatibility
+- View screenshot CONTENT-03A
+- Try again in my CMS
+
+Example for Publish:
+
+You are at:
+Publish to a screen
+
+You should see:
+A Publish action on the selected device card.
+
+Common blockers:
+
+- Screen not paired
+- Screen offline
+- Playlist not saved
+- No playlist selected
+- Schedule is not active
+
+Actions:
+
+- Open my CMS
+- View device troubleshooting
+- Return to playlist saving step
+
+==================================================
+24. SCREENSHOT PLACEHOLDERS
+==================================================
+
+Use the existing reusable ScreenshotPlaceholder component.
+
+Do not use empty black rectangles.
+
+Every placeholder must show:
+
+- Screenshot ID
+- Interface or tool
+- Exact area to highlight
+- Recommended caption
+- Replace-image control in Prototype Review Mode
+
+Required screenshot IDs:
+
+- CONTENT-01
+- CONTENT-02
+- CONTENT-03A
+- CONTENT-03B
+- CONTENT-03C
+- CONTENT-04
+- CONTENT-05A
+- CONTENT-05B
+- CONTENT-06
+- CONTENT-07A
+- CONTENT-07B
+- CONTENT-08
+- CONTENT-09
+- CONTENT-10A
+- CONTENT-10B
+- CONTENT-11
+- CONTENT-12
+- CONTENT-STATUS-01
+- CONTENT-REMOVE-01
+
+Add optional review metadata:
+
+- CMS version
+- Browser
+- Date captured
+- Sample CMS build version
+
+Hide internal metadata in customer-facing mode.
+
+==================================================
+25. PROTOTYPE REVIEW MODE
+==================================================
+
+Prototype Review Mode may:
+
+- Jump to any content-guide step
+- Mark steps complete
+- Show screenshot IDs
+- Display troubleshooting states
+- Show engineering-review notes
+- Reset content-guide progress
+
+Show the existing simulation banner:
+
+Prototype simulation — These states are for internal review and are not connected to your CMS, Cloudinary, a TomorrowOS Runtime or a physical display.
+
+Normal customer-facing mode must not simulate:
+
+- Media upload
+- Playlist creation
+- Publishing
+- Screen updates
+- Playback verification
+
+Add internal review flags for:
+
+- Empty schedule behaviour
+- Offline publishing behaviour
+- Green status indicator meaning
+- Playlist removal and fallback behaviour
+- Cloudinary plan-limit copy
+
+==================================================
+26. CONTENT CONFIGURATION
+==================================================
+
+Store guide copy and configurable behaviours in one central TypeScript configuration object.
+
+Include fields such as:
+
+contentGuideConfig = {
+  cloudinaryImageLimitCopy,
+  cloudinaryVideoLimitCopy,
+  emptyScheduleMeansAlwaysAvailable,
+  scheduleTimezoneCopy,
+  offlinePublishingCopy,
+  playlistStatusIndicatorCopy,
+  playlistRemovalBehaviour,
+  cmsRoute,
+  cloudinaryGuideRoute,
+  mediaCompatibilityRoute,
+  deviceTroubleshootingRoute
+}
+
+Do not duplicate product-behaviour copy across components.
+
+This allows engineering to update confirmed behaviour without rewriting the guide UI.
+
+==================================================
+27. ACCESSIBILITY
+==================================================
+
+Ensure:
+
+- All guide navigation works by keyboard
+- Focus states are visible
+- Screenshot captions are associated with images
+- Accordions use correct ARIA behaviour
+- Status is not communicated by colour alone
+- Copy actions have accessible labels
+- Back and Continue controls are reachable
+- Mobile touch targets are large enough
+- Reduced-motion settings are respected
+
+==================================================
+28. ACCEPTANCE CRITERIA
+==================================================
+
+The build is complete only when:
+
+1. `/guides/content` exists.
+2. All five deep-link anchors work.
+3. The guide uses the existing TomorrowOS application shell.
+4. The guide clearly says actions happen inside the CMS.
+5. No real media file is uploaded through TomorrowOS.org.
+6. No playlist is created through the onboarding guide.
+7. No fake Publish button exists.
+8. No fake screen-online state exists.
+9. Users can open their locally saved CMS URL.
+10. The complete twelve-step flow works.
+11. Back and Continue navigation works.
+12. The onboarding final step links into the guide.
+13. The pairing-success area links into the guide.
+14. The Cloudinary guide links to media upload.
+15. The Samsung guide links to publishing.
+16. Guide progress persists locally.
+17. No secrets or credentials are collected.
+18. User-confirmed states are clearly labelled.
+19. Troubleshooting is accessible from every step.
+20. Screenshot placeholders contain useful instructions.
+21. Prototype Review Mode can show internal review flags.
+22. Customer-facing mode hides engineering notes.
+23. Desktop and mobile layouts work.
+24. All internal routes avoid 404 errors.
+25. TypeScript and runtime errors are resolved.
+26. No raw errors such as `[object Object]` or `undefined` appear.
+27. The design remains clean, black and white, Roboto and recognisably TomorrowOS.
+28. No content or interface wording refers to ScreenCloud.
+29. The guide states that a custom CMS may have a different interface.
+30. The final success state is based on user confirmation, not implied verification.
+
+==================================================
+29. DELIVERY PROCESS
+==================================================
+
+Before coding:
+
+1. Review the existing onboarding application.
+2. Review the attached final content guide.
+3. Identify reusable guide, stepper, screenshot and help components.
+4. Confirm the existing CMS URL local-storage behaviour.
+5. List any remaining internal review flags.
+6. Begin building without waiting for further approval.
+
+After coding:
+
+1. Run the application.
+2. Test the complete content guide.
+3. Test every deep link.
+4. Test returning to Guided Setup.
+5. Test links from Cloudinary and Samsung guides.
+6. Test customer-facing mode.
+7. Test Prototype Review Mode.
+8. Test mobile responsiveness.
+9. Test keyboard navigation.
+10. Confirm no media, passwords, API keys or pairing information are stored.
+11. Fix all TypeScript and runtime errors.
+12. Provide a concise completion report.
+
+Do not stop after creating static guide pages.
+
+This must be a complete, clickable instructional journey that takes a user from an empty playlist to confirmed playback on their first screen without pretending that TomorrowOS.org controls their CMS or physical device.

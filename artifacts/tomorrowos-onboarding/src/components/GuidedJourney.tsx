@@ -666,6 +666,15 @@ function GuidedStep10() {
          <Button variant="outline" onClick={handleOpenCms}>Open your CMS</Button>
       </div>
 
+      <div className="bg-gray-50 border border-border p-4 rounded-md mb-8">
+        <p className="text-sm text-gray-700 mb-3">
+          Once your CMS is live and your screen is paired, use the content guide to upload media and publish your first playlist.
+        </p>
+        <Button variant="outline" size="sm" onClick={() => { window.location.href = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/guides/content`; }}>
+          View content guide
+        </Button>
+      </div>
+
       <div className="mt-auto flex flex-col gap-4">
         {state.publishedStatus === 'needs_help' && (
            <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md">
