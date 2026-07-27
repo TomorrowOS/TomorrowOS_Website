@@ -1,6 +1,6 @@
-# [Project name]
+# TomorrowOS Onboarding Prototype
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Interactive front-end MVP of the TomorrowOS onboarding experience — a fully clickable design-validation prototype (Guided/Replit path, Terminal/CLI path, shared device-pairing journey, Supabase and Cloudinary guides) with simulated connections only, no real backend.
 
 ## Run & Operate
 
@@ -30,7 +30,11 @@ _Populate as you build — non-obvious choices a reader couldn't infer from the 
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- `/start` — project type + setup method selection, then the Guided (10 steps) or Terminal (13 steps) journey, merging into a shared deployment journey (download players, install, pair device, create/schedule/deploy)
+- `/guides/supabase` and `/guides/cloudinary` — connection guides sourced verbatim from the uploaded FINAL docx guides (extracted to `attached_assets/extracted/*.md`)
+- Prototype Review Mode toggle for reviewers to simulate failures and jump between states; Reset prototype clears localStorage progress
+- Unconfirmed engineering values are shown as `{{PLACEHOLDER}}` tokens on purpose — do not invent real commands/hosts
+- No secrets are ever persisted; only pathway and completion state go to localStorage
 
 ## User preferences
 

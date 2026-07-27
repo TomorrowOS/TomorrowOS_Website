@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "TomorrowOS Onboarding"
+version = "1.0.0"
+id = "artifacts/tomorrowos-onboarding"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21835
+
+[services.development]
+run = "pnpm --filter @workspace/tomorrowos-onboarding run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/tomorrowos-onboarding", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/tomorrowos-onboarding/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21835"
+BASE_PATH = "/"

@@ -1,0 +1,1603 @@
+You are building an interactive front-end MVP for the TomorrowOS onboarding experience.
+
+This is a design-validation prototype that will be reviewed by the TomorrowOS team, designers and non-technical testers before the final production onboarding is built.
+
+The objective is to create the clearest possible onboarding journey for:
+
+1. A non-technical or low-code user building through Replit Agent.
+2. A technical developer building through the TomorrowOS CLI and terminal.
+
+Both journeys must eventually merge into the same player installation, device pairing and first-content deployment flow.
+
+Do not redesign the TomorrowOS brand.
+
+Use the attached current onboarding page as the primary visual reference. Preserve its overall structure, visual language and simplicity, while improving clarity, interaction, error recovery and branching.
+
+==================================================
+1. FILES TO REVIEW BEFORE BUILDING
+==================================================
+
+Review these attached files before writing code:
+
+1. image(1).png
+   - Current TomorrowOS onboarding page.
+   - Use this as the primary layout and styling reference.
+
+2. hero (2)(1).png
+   - Supporting visual reference.
+
+3. FINAL_Supabase Connection Guide_TomorrowOS.docx
+   - Use this as the source of truth for the Supabase guide content.
+
+4. FINAL Cloudinary Connection Guide_TomorrowOS.docx
+   - Use this as the source of truth for the Cloudinary guide content.
+
+Do not invent or materially rewrite technical instructions from the supplied guides.
+
+Where an official command, version, host or engineering decision has not been confirmed, display an obvious internal placeholder rather than inventing the answer.
+
+Examples:
+
+{{OFFICIAL_TOMORROWOS_CLI_COMMAND}}
+{{SUPPORTED_NODE_VERSION}}
+{{APPROVED_SUPABASE_CONNECTION_METHOD}}
+{{APPROVED_DEPLOYMENT_HOSTS}}
+
+==================================================
+2. PRODUCT OBJECTIVE
+==================================================
+
+Create a polished, responsive and interactive TomorrowOS onboarding MVP.
+
+The user should always understand:
+
+- Where they are.
+- What they are doing.
+- Which platform they are currently using.
+- What information they need.
+- Where to find that information.
+- Where to paste it.
+- Whether the step worked.
+- How to recover when something fails.
+- What happens next.
+
+The experience must never require the user to Google how to continue.
+
+The experience should feel like:
+
+Choose a path
+→ follow clear steps
+→ connect required services
+→ verify everything
+→ publish
+→ pair a screen
+→ deploy content
+
+It must not feel like several unrelated technical systems stitched together.
+
+==================================================
+3. TECHNICAL SCOPE
+==================================================
+
+Build this as a front-end prototype using:
+
+- React
+- TypeScript
+- Vite
+- Standard CSS or CSS modules
+- Lucide React icons
+- React Router where useful
+- Local component state
+- localStorage only for non-sensitive prototype progress
+
+Do not build:
+
+- Real authentication
+- A production backend
+- Real Supabase connections
+- Real Cloudinary connections
+- Real deployment
+- Real Replit integration
+- Real secret storage
+
+All connection and deployment behaviours must be simulated safely for this prototype.
+
+Never save simulated passwords, connection strings, API keys or API secrets to localStorage.
+
+Use mock masked fields and demonstration states only.
+
+==================================================
+4. DESIGN SYSTEM
+==================================================
+
+Use the existing TomorrowOS design language.
+
+Typography:
+
+- Roboto
+- Black and dark-grey text
+- Strong, simple headings
+- Small and restrained supporting text
+
+Colours:
+
+- White background
+- Black primary actions
+- Very light grey selected cards
+- Light grey borders
+- Green only for successful states
+- Amber only for warnings
+- Red only for blocked or failed states
+- Replit orange only where Replit is referenced
+- Supabase green only where Supabase is referenced
+- Cloudinary blue only where Cloudinary is referenced
+
+Do not use:
+
+- Gradients
+- Large shadows
+- Colour-heavy backgrounds
+- Decorative illustrations
+- Excessive animation
+- Dense paragraphs
+- Oversized cards
+- Marketing-style clutter
+
+Layout:
+
+- Maximum page width approximately 1200px
+- Centred desktop layout
+- Generous white space
+- Thin section dividers
+- Approximately 12px card radius
+- Approximately 1px neutral card borders
+- Clear left-side step descriptions
+- Larger right-side visual or interaction area
+- Responsive mobile stacking
+
+Buttons:
+
+- Primary: black background, white text
+- Secondary: white background, black border
+- Tertiary: text link with arrow
+- Disabled: light grey and clearly unavailable
+
+All interactive elements need:
+
+- Hover state
+- Focus state
+- Selected state
+- Disabled state
+- Success state where relevant
+
+==================================================
+5. PRIMARY PAGE STRUCTURE
+==================================================
+
+The primary route should be:
+
+/start
+
+The page starts with the same structure as the current design.
+
+SECTION A — PROJECT TYPE
+
+Heading:
+
+Start a new project
+
+Supporting copy:
+
+Choose how you want to use TomorrowOS.
+
+Two cards:
+
+1. Start a new project
+   Create a new signage product from a starter.
+
+2. Connect an existing project
+   Add signage to an application you already operate.
+
+Start a new project should be selected by default.
+
+The existing-project path can display:
+
+Coming next
+
+This MVP should focus on Start a new project.
+
+SECTION B — SETUP METHOD
+
+Heading:
+
+How do you want to get started?
+
+Two cards:
+
+1. Guided setup
+   Use Replit Agent and guided tools.
+
+2. Terminal
+   Use the TomorrowOS CLI in your local terminal.
+
+Guided setup should be selected by default.
+
+When the user changes this selection, the full journey below must change immediately.
+
+Do not reload the page.
+
+Add a small comparison below the cards:
+
+Guided setup:
+- Replit Agent
+- Replit Secrets
+- Replit Preview
+- Replit Publishing
+
+Terminal:
+- TomorrowOS CLI
+- Local environment
+- Environment file
+- Supported deployment host
+
+==================================================
+6. PERSISTENT JOURNEY NAVIGATION
+==================================================
+
+Once a setup method is selected, show a compact sticky progress navigator.
+
+Desktop:
+
+- Vertical or horizontal step navigation
+- Current step highlighted
+- Completed steps show a check
+- Blocked steps show a warning marker
+- Users may return to completed steps
+- Users may not skip required connection checks
+
+Mobile:
+
+- Compact progress header
+- Current step number
+- Current step name
+- Previous and Next controls
+
+Each step should support these states:
+
+- Not started
+- Current
+- Complete
+- Needs attention
+- Locked
+
+Persist only the selected pathway and non-sensitive completion state in localStorage.
+
+Add a button:
+
+Reset prototype
+
+This clears all prototype progress.
+
+==================================================
+7. GUIDED SETUP PATH
+==================================================
+
+When Guided setup is selected, display the following journey.
+
+------------------------------------------
+GUIDED STEP 1 — BEFORE YOU BEGIN
+------------------------------------------
+
+Heading:
+
+Before you begin
+
+Copy:
+
+You will use Replit, Supabase and Cloudinary during setup. Keep this TomorrowOS guide open and open each service in a separate browser tab.
+
+Show four compact responsibility cards:
+
+TomorrowOS
+Provides the device, playback and signage foundation.
+
+Replit
+Builds, previews and hosts your CMS.
+
+Supabase
+Provides your CMS database.
+
+Cloudinary
+Stores and delivers images and videos.
+
+Show requirements:
+
+- Replit account
+- Supabase account
+- Cloudinary account
+- Approximately 15–20 minutes
+- Email access for account verification
+
+Buttons:
+
+- Open Replit
+- Open Supabase guide
+- Open Cloudinary guide
+
+The guide buttons must route internally to:
+
+/guides/supabase
+/guides/cloudinary
+
+Add a contextual help card:
+
+Why are three services needed?
+
+Expandable answer:
+
+TomorrowOS provides the signage foundation. Replit builds and hosts the CMS. Supabase stores CMS data. Cloudinary stores media.
+
+------------------------------------------
+GUIDED STEP 2 — OPEN REPLIT
+------------------------------------------
+
+Heading:
+
+Sign in or create your Replit account
+
+Copy:
+
+Replit will create, preview and publish your TomorrowOS CMS.
+
+Display a Replit account screenshot placeholder:
+
+[IMAGE PLACEHOLDER — REPLIT SIGN-IN SCREEN]
+
+Primary button:
+
+Open Replit
+
+Secondary action:
+
+Already signed in? Continue
+
+Add help note:
+
+Keep this TomorrowOS page open. Replit will open in a new tab.
+
+------------------------------------------
+GUIDED STEP 3 — CREATE THE PROJECT
+------------------------------------------
+
+Heading:
+
+Create a new Replit project
+
+Show the TomorrowOS setup instruction as real, selectable text.
+
+Default prototype text:
+
+Follow @tomorrowos/sdk REPLIT_SETUP.md and set up my TomorrowOS CMS.
+
+Include:
+
+- Copy prompt button
+- Copied confirmation
+- Open Replit button
+
+Copy:
+
+Paste this into the main Replit Agent message box.
+
+Do not paste it into:
+
+- Shell
+- Console
+- Search
+- A code file
+
+Show screenshot placeholders:
+
+[IMAGE PLACEHOLDER — REPLIT CREATE PROJECT]
+
+[IMAGE PLACEHOLDER — REPLIT AGENT MESSAGE BOX]
+
+[IMAGE PLACEHOLDER — TOMORROWOS PROMPT SUBMITTED]
+
+Add a small tip:
+
+Choose Node.js if Replit asks you to select a project type.
+
+------------------------------------------
+GUIDED STEP 4 — FOLLOW THE QUESTIONS
+------------------------------------------
+
+Heading:
+
+Follow the prompts
+
+Copy:
+
+Replit will ask the setup questions one at a time. Complete each question before the next one appears.
+
+Replace the current single terminal illustration with four separate interactive screenshot cards.
+
+Card 1:
+
+Project name
+
+Question:
+What is your project name?
+
+Example:
+my-signage-app
+
+[IMAGE PLACEHOLDER — LIVE REPLIT PROJECT-NAME QUESTION]
+
+Card 2:
+
+Database
+
+Question:
+Which database would you like to use?
+
+Expected answer:
+Supabase
+
+[IMAGE PLACEHOLDER — LIVE REPLIT DATABASE QUESTION]
+
+Card 3:
+
+Media storage
+
+Question:
+Which media storage would you like to use?
+
+Expected answer:
+Cloudinary
+
+[IMAGE PLACEHOLDER — LIVE REPLIT STORAGE QUESTION]
+
+Card 4:
+
+Example content
+
+Question:
+Would you like to initialise the project with example content?
+
+Recommended answer:
+Yes
+
+[IMAGE PLACEHOLDER — LIVE REPLIT EXAMPLE-CONTENT QUESTION]
+
+Show the cards in a numbered sequence:
+
+1 → 2 → 3 → 4
+
+Add an important note:
+
+The live Replit questions and this guide must use the same wording and order.
+
+Add a prototype confirmation:
+
+I have completed the Replit questions
+
+------------------------------------------
+GUIDED STEP 5 — CONNECT SERVICES
+------------------------------------------
+
+Heading:
+
+Connect Supabase and Cloudinary
+
+Copy:
+
+Your CMS needs a database and media storage before it can be previewed or published.
+
+Show two large cards side by side.
+
+SUPABASE CARD
+
+- Supabase logo
+- Database
+- Status badge
+- Short explanation
+- Open full Supabase guide
+- Mark connection as successful
+- Simulate connection error
+
+Status options:
+
+- Not started
+- Connecting
+- Connected
+- Needs attention
+
+Connected message:
+
+Supabase connected
+Your TomorrowOS CMS can access its database.
+
+Error message:
+
+Supabase could not connect
+
+Common checks:
+
+- Complete Postgres connection string copied
+- [YOUR-PASSWORD] replaced, including brackets
+- Correct database password
+- Secret named exactly SUPABASE_URL
+- Approved connection method selected
+
+Actions:
+
+- Open Supabase guide
+- Edit connection
+- Retry
+
+CLOUDINARY CARD
+
+- Cloudinary logo
+- Media storage
+- Status badge
+- Short explanation
+- Open full Cloudinary guide
+- Mark connection as successful
+- Simulate connection error
+
+Connected message:
+
+Cloudinary connected
+TomorrowOS can access your media storage.
+
+Error message:
+
+Cloudinary could not connect
+
+Common checks:
+
+- All three values added
+- Correct variable names
+- Values copied from the same product environment
+- API key and API secret not swapped
+- No spaces before or after values
+
+Actions:
+
+- Open Cloudinary guide
+- Edit credentials
+- Retry
+
+The user cannot proceed until both cards show Connected.
+
+Do not display raw errors such as:
+
+- [object Object]
+- Undefined
+- Database not found
+- Media storage not found
+
+------------------------------------------
+GUIDED STEP 6 — ADD BRANDING
+------------------------------------------
+
+Heading:
+
+Add your branding
+
+Show the expected Replit questions individually:
+
+1. Product or venue name
+2. Tagline
+3. Primary colour
+4. Secondary or accent colour
+5. Timezone
+6. Logo URL
+
+Use screenshot placeholders for each question.
+
+Add a prominent logo reminder:
+
+You will need your Cloudinary logo URL
+
+If you uploaded a logo:
+
+1. Open the asset in Cloudinary.
+2. Select Copy URL.
+3. Return to Replit.
+4. Paste the complete URL.
+
+Button:
+
+Show me where to copy the URL
+
+This should open the relevant section of the Cloudinary guide.
+
+Example URL:
+
+https://res.cloudinary.com/your-cloud-name/image/upload/...
+
+Add:
+
+No logo yet?
+
+Select Skip for now. You can add one later from your CMS.
+
+A missing logo must not block progress.
+
+------------------------------------------
+GUIDED STEP 7 — GENERATE AND PREVIEW
+------------------------------------------
+
+Heading:
+
+Generate and preview your CMS
+
+Show an animated but restrained progress checklist:
+
+- Project files created
+- TomorrowOS installed
+- Supabase connected
+- Cloudinary connected
+- Branding applied
+- Example content created
+- CMS Preview running
+
+Allow the prototype reviewer to simulate:
+
+- Successful generation
+- Supabase failure
+- Cloudinary failure
+- Preview failure
+
+For each failed item show:
+
+- Plain-English explanation
+- Direct repair action
+- Retry button
+- Optional View technical details disclosure
+
+Do not expose raw technical errors by default.
+
+------------------------------------------
+GUIDED STEP 8 — READINESS CHECK
+------------------------------------------
+
+Heading:
+
+Check your CMS before publishing
+
+This is a critical blocking step.
+
+Required checks:
+
+- CMS server running
+- Supabase connected
+- Cloudinary connected
+- Database initialised
+- Media upload tested
+- Required Secrets present
+- Preview opened successfully
+
+Show a readiness card with every check individually.
+
+Successful state:
+
+Everything is connected
+Your CMS is ready to publish.
+
+Primary button:
+
+Continue to publishing
+
+Failed state:
+
+Your CMS is not ready to publish
+
+Each failed item must have a direct action:
+
+- Fix Supabase
+- Fix Cloudinary
+- Open Replit Secrets
+- Restart Preview
+- Retry database setup
+- Retry check
+
+Do not enable publishing until every required check passes.
+
+------------------------------------------
+GUIDED STEP 9 — PUBLISH CMS
+------------------------------------------
+
+Heading:
+
+Publish your TomorrowOS CMS
+
+Instructions:
+
+1. Open Replit Publishing.
+2. Confirm the required production Secrets are present.
+3. Give the deployment a name or custom domain.
+4. Select Publish.
+5. Wait for publishing to finish.
+6. Open the public CMS URL.
+
+Screenshot placeholders:
+
+[IMAGE PLACEHOLDER — REPLIT PUBLISHING PANEL]
+
+[IMAGE PLACEHOLDER — PRODUCTION SECRETS]
+
+[IMAGE PLACEHOLDER — SUCCESSFUL CMS URL]
+
+Show a mock public URL with a copy button.
+
+Copy:
+
+Copy and save this URL. You will use it to access your CMS and continue setup.
+
+Button:
+
+Copy CMS URL
+
+Confirmation:
+
+CMS URL copied
+
+------------------------------------------
+GUIDED STEP 10 — PRODUCTION CHECK
+------------------------------------------
+
+Heading:
+
+Confirm your published CMS
+
+Run simulated checks against the published application:
+
+- Published CMS responding
+- Supabase connected
+- Cloudinary connected
+- Media upload successful
+- CMS login available
+
+Successful state:
+
+Your CMS is live and connected
+
+Failed state:
+
+Your CMS was published, but setup is incomplete
+
+Actions:
+
+- Open Publishing Secrets
+- Fix Supabase
+- Fix Cloudinary
+- Retry production check
+
+The user cannot continue to device pairing until production passes.
+
+==================================================
+8. TERMINAL PATH
+==================================================
+
+When Terminal is selected, replace the Guided journey with the following.
+
+Do not display Replit account, Replit Agent, Replit Preview or Replit Publishing instructions.
+
+------------------------------------------
+TERMINAL STEP 1 — BEFORE YOU BEGIN
+------------------------------------------
+
+Heading:
+
+Prepare your development environment
+
+Copy:
+
+This path is for developers comfortable with Node.js, environment variables, Git and application deployment.
+
+Requirements:
+
+- Node.js {{SUPPORTED_NODE_VERSION}}
+- Approved package manager
+- Git
+- Terminal
+- Code editor
+- Supabase
+- Cloudinary
+- Supported Node.js deployment host
+
+Show copyable prerequisite commands:
+
+node --version
+npm --version
+git --version
+
+Add simulated prerequisite results.
+
+------------------------------------------
+TERMINAL STEP 2 — CREATE PROJECT
+------------------------------------------
+
+Heading:
+
+Create your TomorrowOS project
+
+Display:
+
+{{OFFICIAL_TOMORROWOS_CLI_COMMAND}}
+
+Use selectable live text.
+
+Buttons:
+
+- Copy command
+- Copied
+
+Copy:
+
+Open your terminal, navigate to the folder where you keep development projects, paste the command and press Enter.
+
+Screenshot placeholders:
+
+[IMAGE PLACEHOLDER — EMPTY TERMINAL]
+
+[IMAGE PLACEHOLDER — COMMAND ENTERED]
+
+[IMAGE PLACEHOLDER — TOMORROWOS CLI STARTED]
+
+------------------------------------------
+TERMINAL STEP 3 — FOLLOW CLI QUESTIONS
+------------------------------------------
+
+Show the same four initial setup questions used in the Guided path:
+
+1. Project name
+2. Supabase
+3. Cloudinary
+4. Example content
+
+Explain:
+
+The CLI asks each question individually.
+
+Use terminal screenshot placeholders rather than Replit screenshots.
+
+------------------------------------------
+TERMINAL STEP 4 — PROJECT CREATED
+------------------------------------------
+
+Show:
+
+- Project created
+- Dependencies prepared
+- Environment template created
+- Branding configuration created
+
+Display:
+
+cd [PROJECT-NAME]
+
+with a copy button.
+
+------------------------------------------
+TERMINAL STEP 5 — ENVIRONMENT VARIABLES
+------------------------------------------
+
+Heading:
+
+Configure local environment variables
+
+Show an environment file preview using:
+
+{{CONFIRMED_LOCAL_ENV_FILENAME}}
+
+Likely placeholder:
+
+.env.local
+
+Display these variables:
+
+SUPABASE_URL=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+Link:
+
+Open Supabase guide
+
+Link:
+
+Open Cloudinary guide
+
+Security note:
+
+- Never commit the environment file
+- Never paste secrets into source code
+- Never paste secrets into GitHub
+- Never include secrets in screenshots
+
+Show confirmation:
+
+Environment file excluded from Git
+
+------------------------------------------
+TERMINAL STEP 6 — CONNECT SERVICES
+------------------------------------------
+
+Reuse the same Supabase and Cloudinary connection-status components from the Guided path.
+
+Change the destination copy:
+
+Guided:
+Save in Replit Secrets
+
+Terminal:
+Save in the approved local environment file
+
+Use placeholders for official test commands:
+
+{{OFFICIAL_SUPABASE_CHECK_COMMAND}}
+
+{{OFFICIAL_CLOUDINARY_CHECK_COMMAND}}
+
+Block progress until both services pass.
+
+------------------------------------------
+TERMINAL STEP 7 — ADD BRANDING
+------------------------------------------
+
+Reuse the same branding content.
+
+Show either:
+
+- CLI branding questions
+- Generated branding form
+
+Do not force the user to manually edit brand.json unless they intentionally choose an Advanced manual option.
+
+Include the same Cloudinary logo URL reminder and Skip for now option.
+
+------------------------------------------
+TERMINAL STEP 8 — INITIALISE PROJECT
+------------------------------------------
+
+Show separately copyable placeholders:
+
+{{INSTALL_DEPENDENCIES_COMMAND}}
+
+{{DATABASE_INITIALISATION_COMMAND}}
+
+{{OPTIONAL_SAMPLE_CONTENT_COMMAND}}
+
+Each command must explain:
+
+- What it does
+- Where to run it
+- Expected success result
+- Recovery action
+
+------------------------------------------
+TERMINAL STEP 9 — RUN LOCALLY
+------------------------------------------
+
+Show:
+
+{{OFFICIAL_DEVELOPMENT_COMMAND}}
+
+Display:
+
+http://localhost:{{PORT}}
+
+Button:
+
+Open local CMS
+
+Run simulated local health checks:
+
+- CMS server running
+- Supabase connected
+- Database initialised
+- Cloudinary connected
+- Media upload successful
+- Branding loaded
+- Example content available
+
+------------------------------------------
+TERMINAL STEP 10 — CHOOSE HOST
+------------------------------------------
+
+Heading:
+
+Choose where to deploy
+
+Use placeholders until engineering approves hosts.
+
+Cards:
+
+{{SUPPORTED_HOST_1}} — Recommended
+{{SUPPORTED_HOST_2}}
+{{SUPPORTED_HOST_3}}
+Self-hosted — Advanced
+
+Each card should show:
+
+- Persistent Node.js runtime
+- Environment-variable support
+- Deployment guide availability
+- TomorrowOS support status
+
+Do not describe an unsupported static-only host as compatible.
+
+------------------------------------------
+TERMINAL STEP 11 — PRODUCTION VARIABLES
+------------------------------------------
+
+Heading:
+
+Add production environment variables
+
+Display:
+
+SUPABASE_URL
+CLOUDINARY_CLOUD_NAME
+CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET
+
+Copy:
+
+Local environment variables are not automatically available to the deployed application.
+
+Add them securely through the selected host.
+
+Use masked mock fields only.
+
+------------------------------------------
+TERMINAL STEP 12 — DEPLOY
+------------------------------------------
+
+Display:
+
+{{APPROVED_DEPLOYMENT_COMMAND_OR_WORKFLOW}}
+
+Simulate:
+
+- Building project
+- Starting TomorrowOS server
+- Applying environment variables
+- Checking application health
+
+Show mock public CMS URL with a copy button.
+
+------------------------------------------
+TERMINAL STEP 13 — PRODUCTION CHECK
+------------------------------------------
+
+Reuse the same production health-check component used by Guided setup.
+
+Successful state:
+
+Your CMS is live and connected
+
+Failure actions:
+
+- Open hosting logs
+- Edit production variables
+- Fix Supabase
+- Fix Cloudinary
+- Redeploy
+- Retry health check
+
+==================================================
+9. SHARED PATH AFTER CMS IS LIVE
+==================================================
+
+Once either Guided or Terminal reaches a healthy live CMS, both paths merge into one shared journey.
+
+------------------------------------------
+SHARED STEP 1 — DOWNLOAD PLAYER
+------------------------------------------
+
+Heading:
+
+Download players
+
+Copy:
+
+From the bottom-left navigation of your CMS, select Download Players.
+
+Platform cards:
+
+- Samsung
+- BrightSign
+- Android
+- LG
+- Windows
+
+Each card should include:
+
+- Platform icon
+- Minimum supported version placeholder
+- View installation guide button
+
+Screenshot placeholder:
+
+[IMAGE PLACEHOLDER — DOWNLOAD PLAYERS LOCATION IN CMS]
+
+------------------------------------------
+SHARED STEP 2 — INSTALL TOMORROWOS
+------------------------------------------
+
+Heading:
+
+Install TomorrowOS
+
+Show the selected platform and a simple installation checklist:
+
+- Confirm supported OS
+- Download player
+- Install application
+- Grant required permissions
+- Launch TomorrowOS
+- Wait for pairing code
+
+Button:
+
+View installation guide
+
+------------------------------------------
+SHARED STEP 3 — PAIR DEVICE
+------------------------------------------
+
+Heading:
+
+Pair your device
+
+Show a large sample pairing code:
+
+7G3K-2M9P
+
+Instructions:
+
+1. Open your CMS.
+2. Select Pair a device.
+3. Enter the pairing code.
+4. Select Connect.
+5. Wait for the device to appear online.
+
+Show a mock pairing-code input.
+
+Show success state:
+
+Screen connected
+Your first device is now online.
+
+Do not show another Replit account card at this stage.
+
+------------------------------------------
+SHARED STEP 4 — CREATE, SCHEDULE AND DEPLOY
+------------------------------------------
+
+Heading:
+
+Complete your first deployment
+
+Show four connected cards:
+
+1. Create content
+   Upload or create your media.
+
+2. Create a playlist
+   Arrange content in playback order.
+
+3. Create a schedule
+   Choose when the content should play.
+
+4. Deploy
+   Assign the playlist to your screen.
+
+Final success state:
+
+You’re live
+Your first TomorrowOS screen is connected and playing content.
+
+Buttons:
+
+- Open your CMS
+- Add another screen
+
+==================================================
+10. SUPABASE GUIDE ROUTE
+==================================================
+
+Create:
+
+/guides/supabase
+
+Use the supplied FINAL Supabase Connection Guide as the source of truth.
+
+The page must have:
+
+- Back to onboarding
+- Visible current onboarding step
+- Two entry cards:
+  - I’m new to Supabase
+  - I already have a Supabase account
+- Both branches merge into a shared connection flow
+- Screenshot placeholders at each relevant step
+- Copy buttons for variable names
+- Password placeholder explanation
+- Preview check
+- Published application check
+- Troubleshooting section
+
+Important terminology:
+
+Always say:
+
+Supabase Postgres connection string
+
+Do not say only:
+
+Supabase URL
+
+Explain:
+
+Replace [YOUR-PASSWORD], including the square brackets, with the real database password.
+
+Display the exact secret name:
+
+SUPABASE_URL
+
+Never show a genuine connection string or password.
+
+==================================================
+11. CLOUDINARY GUIDE ROUTE
+==================================================
+
+Create:
+
+/guides/cloudinary
+
+Use the supplied FINAL Cloudinary Connection Guide as the source of truth.
+
+The page must have:
+
+- Back to onboarding
+- Visible current onboarding step
+- Two entry cards:
+  - I’m new to Cloudinary
+  - I already have a Cloudinary account
+- Both branches merge into a shared credentials flow
+- Screenshot placeholders
+- Exact value-to-secret mapping
+- Preview check
+- Published application check
+- Troubleshooting section
+
+Display the mapping clearly:
+
+Cloud name
+→ CLOUDINARY_CLOUD_NAME
+
+API key
+→ CLOUDINARY_API_KEY
+
+API secret
+→ CLOUDINARY_API_SECRET
+
+Never display a real API secret.
+
+Explain that all three values must come from the same Cloudinary product environment.
+
+Do not include Cloudinary Folder as a required primary onboarding question.
+
+Add an optional logo section:
+
+- Upload logo
+- Copy URL
+- Save for branding step
+- Skip for now
+
+==================================================
+12. CONTEXTUAL HELP SYSTEM
+==================================================
+
+Add a persistent Need help? button.
+
+Desktop:
+
+Bottom-right floating button.
+
+Mobile:
+
+Sticky footer help action.
+
+Opening it should display a contextual drawer based on the current step.
+
+Each help view contains:
+
+- You are here
+- What this step is doing
+- Common blockers
+- How to fix them
+- Relevant guide link
+- Retry action where applicable
+
+Examples:
+
+Supabase blockers:
+
+- Project URL copied instead of Postgres connection string
+- Password placeholder not replaced
+- Square brackets still present
+- Wrong secret name
+- Wrong connection method
+
+Cloudinary blockers:
+
+- Missing value
+- Wrong variable mapping
+- API key and API secret swapped
+- Values from different environments
+- Extra spaces
+- Rotated or inactive API key
+
+Publishing blockers:
+
+- Production variables missing
+- Preview did not pass
+- Supabase disconnected after publishing
+- Cloudinary disconnected after publishing
+
+Pairing blockers:
+
+- Incorrect pairing code
+- Player not installed
+- Unsupported platform version
+- CMS not reachable
+- Device offline
+
+==================================================
+13. SCREENSHOT PLACEHOLDERS
+==================================================
+
+All missing screenshots must use a consistent placeholder component.
+
+Each placeholder must show:
+
+- Screenshot ID
+- Tool name
+- What should be highlighted
+- Recommended caption
+- Replace image action in prototype review mode
+
+Example:
+
+REPLIT-03B
+Replit Agent message box
+Highlight the exact area where the TomorrowOS prompt is pasted.
+
+Do not use generic empty black rectangles.
+
+The placeholders should help the designer and team understand exactly what production screenshot is still required.
+
+==================================================
+14. PROTOTYPE REVIEW MODE
+==================================================
+
+Add a small internal-only control labelled:
+
+Prototype review
+
+When enabled, show a discreet panel allowing reviewers to simulate states:
+
+- All successful
+- Supabase failure
+- Cloudinary failure
+- Preview failure
+- Missing production variables
+- Production failure
+- Pairing failure
+
+Also allow:
+
+- Jump to any step
+- Switch Guided/Terminal
+- Reset prototype
+- Show screenshot IDs
+- Show engineering placeholders
+
+Keep this panel visually separate from the customer-facing design.
+
+It can be hidden by default.
+
+==================================================
+15. ACCESSIBILITY
+==================================================
+
+Meet basic WCAG AA expectations.
+
+Requirements:
+
+- Keyboard-accessible controls
+- Visible focus indicators
+- Semantic headings
+- Proper labels
+- ARIA labels where required
+- No status communicated through colour alone
+- Sufficient contrast
+- Buttons large enough for touch
+- Reduced-motion support
+- Error messages connected to relevant controls
+
+==================================================
+16. RESPONSIVE BEHAVIOUR
+==================================================
+
+Desktop:
+
+- Maintain the current broad TomorrowOS page structure
+- Use left instruction and right visual layout
+- Two-column service cards
+- Compact sticky progress
+
+Tablet:
+
+- Reduce to one main content column where needed
+- Keep option cards side by side when space allows
+
+Mobile:
+
+- Stack cards vertically
+- Replace wide steppers with compact current-step navigation
+- Keep Next and Previous actions visible
+- Make copy buttons easy to tap
+- Avoid horizontal scrolling
+- Keep the Need help? action accessible
+
+==================================================
+17. COPY AND CONTENT RULES
+==================================================
+
+Use concise, plain-English copy.
+
+Do not use unexplained terms such as:
+
+- URI
+- Environment variable
+- Runtime
+- Production Secret
+- Connection pooler
+
+When a technical term is necessary, add a short explanation.
+
+Example:
+
+Production variables
+Secure values used by your live CMS after it is published.
+
+All commands and variable names must be:
+
+- Selectable
+- Copyable
+- Shown in monospace
+- Accompanied by a Copy button
+- Followed by a Copied confirmation
+
+Do not place any required command only inside an image.
+
+==================================================
+18. COMPONENT STRUCTURE
+==================================================
+
+Create reusable components including:
+
+- ProjectTypeSelector
+- SetupMethodSelector
+- JourneyProgress
+- OnboardingStep
+- StepNavigation
+- ServiceConnectionCard
+- ConnectionStatus
+- HealthCheckPanel
+- CopyField
+- ScreenshotPlaceholder
+- HelpDrawer
+- ErrorRecoveryCard
+- PlatformSelector
+- PairingCodeCard
+- SuccessPanel
+- PrototypeReviewPanel
+- GuideEntrySelector
+- GuideStep
+- SecretMappingTable
+
+Use one shared content/config structure for:
+
+- Guided questions
+- Terminal questions
+- Supabase variable names
+- Cloudinary variable names
+- Help content
+- Health checks
+- Screenshot IDs
+
+Do not duplicate these values across multiple components.
+
+This is important so the website instructions and actual onboarding prompts cannot drift apart.
+
+==================================================
+19. ACCEPTANCE CRITERIA
+==================================================
+
+The MVP is only complete when:
+
+1. The current TomorrowOS design language is recognisable.
+2. Start a new project and Connect an existing project are selectable.
+3. Guided setup and Terminal are selectable.
+4. Selecting Guided shows only the Guided journey.
+5. Selecting Terminal shows only the Terminal journey.
+6. Both journeys merge after the CMS becomes live.
+7. All required steps are clickable and interactive.
+8. Required steps cannot be skipped.
+9. All commands have working copy buttons.
+10. Copied confirmations work.
+11. Supabase and Cloudinary guides have working internal routes.
+12. Each guide has new-account and existing-account paths.
+13. Both guide branches merge correctly.
+14. Connection failure states can be simulated.
+15. Preview failure can be simulated.
+16. Production failure can be simulated.
+17. Device pairing failure can be simulated.
+18. Every failure includes a plain-English repair action.
+19. The logo URL handoff is clear.
+20. The logo can be skipped.
+21. Publishing is blocked until readiness passes.
+22. Device pairing is blocked until production health passes.
+23. No real secrets are collected or stored.
+24. The page works on desktop and mobile.
+25. Prototype progress persists safely.
+26. Reset prototype works.
+27. Screenshot placeholders contain useful production instructions.
+28. The Help drawer changes based on the current step.
+29. The Prototype review panel can jump between states.
+30. There are no raw errors such as [object Object] or undefined.
+
+==================================================
+20. DELIVERY REQUIREMENTS
+==================================================
+
+Before coding:
+
+1. Review all attached files.
+2. Summarise the proposed component structure.
+3. List any unconfirmed engineering placeholders.
+4. Confirm the main Guided and Terminal routes.
+5. Then begin building without waiting for further approval.
+
+After coding:
+
+1. Run the application.
+2. Fix all TypeScript and runtime errors.
+3. Test the full Guided path.
+4. Test the full Terminal path.
+5. Test mobile responsiveness.
+6. Test every copy button.
+7. Test all simulated failure states.
+8. Confirm no secrets are persisted.
+9. Provide a concise completion report.
+
+Do not stop after creating static screens.
+
+This must be a fully clickable onboarding prototype that demonstrates the complete experience from setup choice through first screen deployment.
+
+The final result should be clean, calm, obvious and trustworthy.
+
+Less decoration.
+More clarity.
+No hidden steps.
+No guessing.
