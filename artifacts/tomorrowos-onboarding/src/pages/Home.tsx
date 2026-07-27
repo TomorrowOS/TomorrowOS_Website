@@ -11,6 +11,35 @@ import { PlaceholderText } from '@/components/PlaceholderText';
 import { JsonLd } from '@/components/JsonLd';
 import { absoluteUrl } from '@/lib/seoConfig';
 
+/**
+ * Homepage pathway link: plain text-link appearance at rest with a larger,
+ * visually transparent click target. Subtle hover/pressed backgrounds and a
+ * keyboard-only focus ring; chevron nudges 2px on hover (disabled for
+ * reduced-motion users).
+ */
+function PathwayLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      className="group inline-flex min-h-[40px] items-center gap-1.5 rounded-md px-2 py-2 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-black/[0.035] active:bg-black/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+    >
+      <span>{label}</span>
+      <ChevronRight
+        aria-hidden="true"
+        className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+      />
+    </Link>
+  );
+}
+
+function PathwaySeparator() {
+  return (
+    <span aria-hidden="true" className="select-none text-[13px] text-muted-foreground/70">
+      or
+    </span>
+  );
+}
+
 export default function Home() {
   const { state } = usePrototype();
   useSeo({
@@ -138,15 +167,10 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Add digital signage to any existing CMS, SaaS platform, dashboard or enterprise application.
               </p>
-              <p className="mt-3 mb-1.5 text-[13px] font-medium text-muted-foreground">Choose one:</p>
-              <div id="api" className="flex flex-wrap items-center gap-x-4 gap-y-2 scroll-mt-24">
-                <Link href="/connect/server-sdk" className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline">
-                  Server SDK <ChevronRight className="w-4 h-4" />
-                </Link>
-                <span className="text-sm text-muted-foreground/70">or</span>
-                <Link href="/connect/api" className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline">
-                  API Integration <ChevronRight className="w-4 h-4" />
-                </Link>
+              <div id="api" className="mt-1.5 -mx-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 scroll-mt-24">
+                <PathwayLink href="/connect/server-sdk" label="Server SDK" />
+                <PathwaySeparator />
+                <PathwayLink href="/connect/api" label="API Integration" />
               </div>
             </div>
             
@@ -155,15 +179,10 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Use a Node.js capable development platform such as Replit to build a digital signage CMS, connect a screen and publish content in minutes.
               </p>
-              <p className="mt-3 mb-1.5 text-[13px] font-medium text-muted-foreground">Choose one:</p>
-              <div id="terminal" className="flex flex-wrap items-center gap-x-4 gap-y-2 scroll-mt-24">
-                <Link href="/start/guided" className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline">
-                  Guided Setup <ChevronRight className="w-4 h-4" />
-                </Link>
-                <span className="text-sm text-muted-foreground/70">or</span>
-                <Link href="/start/terminal" className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline">
-                  Terminal <ChevronRight className="w-4 h-4" />
-                </Link>
+              <div id="terminal" className="mt-1.5 -mx-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 scroll-mt-24">
+                <PathwayLink href="/start/guided" label="Guided Setup" />
+                <PathwaySeparator />
+                <PathwayLink href="/start/terminal" label="Terminal" />
               </div>
             </div>
             
@@ -172,10 +191,8 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Use the Server SDK, APIs, runtime and CLI to build the full product.
               </p>
-              <div className="mt-3">
-                <Link href="/connect/server-sdk" className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline">
-                  Explore the Server SDK <ChevronRight className="w-4 h-4" />
-                </Link>
+              <div className="mt-1.5 -mx-2">
+                <PathwayLink href="/connect/server-sdk" label="Explore the Server SDK" />
               </div>
             </div>
             
