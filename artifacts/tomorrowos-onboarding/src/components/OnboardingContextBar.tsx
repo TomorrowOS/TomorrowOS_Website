@@ -17,7 +17,7 @@ export function OnboardingContextBar() {
       <div className="mx-auto max-w-[1050px] px-4 md:px-0 h-12 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <nav aria-label="Breadcrumb" className="flex text-sm text-muted-foreground items-center space-x-2">
-            <Link href="/quickstart" className="hover:text-foreground transition-colors">Quickstart</Link>
+            <Link href="/" className="hover:text-foreground transition-colors">Quickstart</Link>
             <ChevronRight className="w-4 h-4" />
             {pathwayName ? (
               <>
@@ -37,7 +37,7 @@ export function OnboardingContextBar() {
           )}
         </div>
         
-        <Link href="/quickstart" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+        <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
           Exit setup
         </Link>
       </div>

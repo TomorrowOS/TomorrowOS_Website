@@ -49,7 +49,7 @@ export function WebsiteReviewBar() {
           <span className="font-semibold text-amber-950">Routes:</span>
           <Link href="/" className="hover:underline">Home</Link>
           <Link href="/about" className="hover:underline">About</Link>
-          <Link href="/quickstart" className="hover:underline">Quickstart</Link>
+          <Link href="/" className="hover:underline">Quickstart</Link>
           <Link href="/privacy" className="hover:underline">Privacy</Link>
           <Link href="/terms" className="hover:underline">Terms</Link>
           <Link href="/cookie-settings" className="hover:underline">Cookie Settings</Link>

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Route, Switch, Router as WouterRouter } from 'wouter';
+import { Redirect, Route, Switch, Router as WouterRouter } from 'wouter';
 import { PrototypeProvider } from './components/PrototypeProvider';
 import { WebsiteLayout } from './components/WebsiteLayout';
 import Start from './pages/Start';
@@ -15,7 +15,6 @@ import MediaCompatibility from './pages/MediaCompatibility';
 import PlatformGuides from './pages/PlatformGuides';
 import NotFound from './pages/not-found';
 import Home from './pages/Home';
-import Quickstart from './pages/Quickstart';
 import About from './pages/About';
 import PlaceholderPage from './pages/PlaceholderPage';
 import Privacy from './pages/Privacy';
@@ -29,7 +28,8 @@ function Router() {
     <WebsiteLayout>
       <Switch>
         <Route path="/" component={Home} />
-        <Route path="/quickstart" component={Quickstart} />
+        {/* Legacy URL: the quickstart page is now the homepage. */}
+        <Route path="/quickstart" component={() => <Redirect to="/" replace />} />
         <Route path="/about" component={About} />
         <Route path="/github" component={() => <PlaceholderPage title="GitHub" />} />
         <Route path="/community" component={() => <PlaceholderPage title="Community" />} />

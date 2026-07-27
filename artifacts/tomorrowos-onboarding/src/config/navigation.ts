@@ -11,7 +11,7 @@ export interface NavItem {
 export const siteNavigation: { primary: NavItem[]; actions: NavItem[] } = {
   primary: [
     { label: 'About', href: '/about' },
-    { label: 'Get Started', href: '/quickstart' },
+    { label: 'Get Started', href: '/' },
   ],
   actions: [
     { label: 'GitHub', href: siteConfig.links.github, external: true, variant: 'outline' },

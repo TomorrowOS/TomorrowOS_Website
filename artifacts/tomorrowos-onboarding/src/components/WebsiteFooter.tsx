@@ -22,7 +22,7 @@ export function WebsiteFooter() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-          <Link href="/quickstart" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Quickstart
           </Link>
           {!siteConfig.links.docs.includes('{{') && (
