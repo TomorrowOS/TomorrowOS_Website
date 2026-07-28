@@ -203,10 +203,10 @@ export default function Home() {
               </p>
               
               <div className="bg-muted/30 border border-border rounded-xl px-6 py-7 flex items-center justify-between gap-4">
-                <img src={`${import.meta.env.BASE_URL}assets/platforms/railway-logo.svg`} alt="Railway" className="h-8 w-auto shrink-0 opacity-80 mix-blend-multiply dark:mix-blend-normal dark:invert" />
-                <img src={`${import.meta.env.BASE_URL}assets/platforms/render-logo.svg`} alt="Render" className="h-7 w-auto max-w-[26%] object-contain opacity-80 mix-blend-multiply dark:mix-blend-normal dark:invert" />
-                <img src={`${import.meta.env.BASE_URL}assets/platforms/flyio-logo.svg`} alt="Fly.io" className="h-8 w-auto max-w-[24%] object-contain opacity-80 mix-blend-multiply dark:mix-blend-normal dark:invert" />
-                <img src={`${import.meta.env.BASE_URL}assets/platforms/northflank-logo.svg`} alt="Northflank" className="h-7 w-auto max-w-[28%] object-contain opacity-80 mix-blend-multiply dark:mix-blend-normal dark:invert" />
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/railway-logo.svg`} alt="Railway" className="h-8 w-auto shrink-0 opacity-80 mix-blend-multiply" />
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/render-logo.svg`} alt="Render" className="h-7 w-auto max-w-[26%] object-contain opacity-80 mix-blend-multiply" />
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/flyio-logo.svg`} alt="Fly.io" className="h-8 w-auto max-w-[24%] object-contain opacity-80 mix-blend-multiply" />
+                <img src={`${import.meta.env.BASE_URL}assets/platforms/northflank-logo.svg`} alt="Northflank" className="h-7 w-auto max-w-[28%] object-contain opacity-80 mix-blend-multiply" />
               </div>
             </div>
           </div>
