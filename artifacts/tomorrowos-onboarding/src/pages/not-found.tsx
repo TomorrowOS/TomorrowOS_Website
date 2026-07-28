@@ -1,5 +1,6 @@
 import { Link } from 'wouter';
 import { useSeo } from '@/hooks/use-seo';
+import { siteConfig } from '@/config/site';
 
 /**
  * Dedicated 404 page. Always noindex and never included in the sitemap.
@@ -40,8 +41,8 @@ export default function NotFound() {
         </div>
         <ul className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
           <li><Link href="/about" className="hover:text-foreground underline underline-offset-4">About</Link></li>
-          <li><Link href="/guides/platforms" className="hover:text-foreground underline underline-offset-4">Platform guides</Link></li>
-          <li><Link href="/compatibility" className="hover:text-foreground underline underline-offset-4">Compatibility</Link></li>
+          <li><a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="hover:text-foreground underline underline-offset-4">GitHub</a></li>
+          <li><a href={siteConfig.links.docs} target="_blank" rel="noopener noreferrer" className="hover:text-foreground underline underline-offset-4">Docs</a></li>
         </ul>
       </div>
     </div>

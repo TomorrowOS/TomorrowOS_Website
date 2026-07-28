@@ -1,3 +1,4 @@
 - [Onboarding honesty model](onboarding-honesty-model.md) — prototype must never imply real integrations; user-confirmed statuses only, simulations gated behind Review Mode.
 - [Verify subagent claims](verify-subagent-claims.md) — subagent reports have claimed fixes that weren't applied; grep for claimed identifiers before accepting.
 - [SEO environment policy](seo-environment-policy.md) — indexing derives only from VITE_SITE_ENV + seoConfig.ts; never hard-code robots tags; new routes need a seoConfig entry.
+- [Social OG image pipeline](social-og-image-pipeline.md) — social card is versioned 1200×630 PNG from public/og-source HTML; never overwrite same URL; validate:social must pass.
