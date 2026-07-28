@@ -26,6 +26,7 @@ export default function About() {
         </div>
       )}
       <AboutHero />
+      <SectionQuickNav />
       <SharedFoundationSection />
       <OwnershipSection />
       <ProductBoundarySection />
@@ -35,6 +36,75 @@ export default function About() {
       <SustainabilitySection />
       <AboutFinalCta />
     </div>
+  );
+}
+
+const quickNavLinks = [
+  { id: 'ship', label: 'Foundation' },
+  { id: 'ownership', label: 'Ownership' },
+  { id: 'maintainers', label: 'Maintainers' },
+  { id: 'community', label: 'Governance' },
+  { id: 'licence', label: 'Licence' },
+];
+
+/**
+ * Mobile-only (< md) horizontally scrollable row of section anchor links,
+ * rendered directly under the About hero. Tracks the section nearest the
+ * top of the viewport for a subtle active state. Desktop is unchanged.
+ */
+function SectionQuickNav() {
+  const [active, setActive] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const ids = quickNavLinks.map((l) => l.id);
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      let current: string | null = null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 120) {
+          current = id;
+        }
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <nav
+      aria-label="Page sections"
+      className="md:hidden sticky top-16 z-40 w-full max-w-full bg-white/95 backdrop-blur border-y border-border/50"
+    >
+      <div className="overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex items-center gap-1 px-3 py-2 w-max">
+          {quickNavLinks.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              aria-current={active === link.id ? 'true' : undefined}
+              className={cn(
+                'whitespace-nowrap px-3 py-1.5 text-sm rounded-full transition-colors',
+                active === link.id
+                  ? 'text-foreground font-medium bg-muted'
+                  : 'text-muted-foreground'
+              )}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </nav>
   );
 }
 
