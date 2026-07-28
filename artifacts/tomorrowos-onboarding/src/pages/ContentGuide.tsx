@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useGuideSeo } from '@/components/GuideSeo';
+import { useGuideSeo, GuideBreadcrumbs } from '@/components/GuideSeo';
 import { useLocation } from 'wouter';
 import { usePrototype } from '@/components/PrototypeProvider';
 import { Button } from '@/components/ui/button';
@@ -64,7 +64,7 @@ export default function ContentGuide() {
 
   return (
     <div className="flex flex-col mx-auto max-w-[1050px] animate-in fade-in duration-500 relative px-4 md:px-0">
-      
+      <GuideBreadcrumbs path="/guides/content" />
       {/* COMPACT BREADCRUMB */}
       <div className="flex items-center justify-between py-4 mb-6 md:mb-8 border-b border-border">
          <div className="text-sm font-medium text-gray-500 flex items-center cursor-pointer hover:text-gray-900 transition-colors" onClick={handleBackToGuided}>

@@ -1,24 +1,21 @@
-import { useEffect } from 'react';
-
 /**
- * Injects a JSON-LD structured-data script for the lifetime of the page.
- * Each instance is keyed by `id` so navigating between pages replaces
- * rather than accumulates scripts.
+ * Renders a JSON-LD structured-data script as a React element.
+ *
+ * Rendering as a real React element (rather than injecting via useEffect)
+ * means the script tag appears in the DOM immediately on mount and is
+ * included in any server-side or build-time rendering pass.
+ *
+ * Each instance is keyed by `id`. On client-side navigation between pages
+ * React reconciles the element in-place, replacing rather than accumulating
+ * schemas.
  */
 export function JsonLd({ id, data }: { id: string; data: Record<string, unknown> }) {
-  useEffect(() => {
-    const scriptId = `jsonld-${id}`;
-    let el = document.getElementById(scriptId) as HTMLScriptElement | null;
-    if (!el) {
-      el = document.createElement('script');
-      el.type = 'application/ld+json';
-      el.id = scriptId;
-      document.head.appendChild(el);
-    }
-    el.textContent = JSON.stringify(data);
-    return () => {
-      document.getElementById(scriptId)?.remove();
-    };
-  }, [id, data]);
-  return null;
+  return (
+    <script
+      id={`jsonld-${id}`}
+      type="application/ld+json"
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
 }

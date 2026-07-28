@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGuideSeo } from '@/components/GuideSeo';
+import { useGuideSeo, GuideBreadcrumbs } from '@/components/GuideSeo';
 import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -10,6 +10,7 @@ export default function GuideCloudinary() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-8 pb-32 animate-in fade-in">
+      <GuideBreadcrumbs path="/guides/cloudinary" />
       <Button variant="tertiary" onClick={() => setLocation('/start')} className="mb-4">
         ← Back to setup
       </Button>

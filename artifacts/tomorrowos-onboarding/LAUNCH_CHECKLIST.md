@@ -24,14 +24,17 @@ Canonical production domain: **https://tomorrowos.org**
 5. Verify Review Mode is unavailable to normal users in production.
 
 ## Known launch blockers (honest status)
-- **Pre-rendering not implemented.** The site is a client-rendered Vite SPA;
-  raw HTML does not contain page-specific titles/descriptions/H1s before
-  JavaScript runs. Implementing SSG/pre-rendering requires build-architecture
-  work (e.g. vite prerender plugin or SSG migration) that was out of scope for
-  this hardening pass. Until resolved, marketing/guide pages will be indexed
-  from rendered DOM only (Google usually renders JS, but parity is not
-  guaranteed). Validation to run post-fix: `curl -s https://tomorrowos.org/about`
-  must contain the About title, description, canonical, and H1.
+- **Pre-rendering implemented** via `prerenderPlugin` in `vite.config.ts`.
+  After `vite build`, every route defined in that plugin's `routes` table
+  gets a `<route>/index.html` written into `dist/public` with the correct
+  `<title>`, `<meta name="description">`, `<link rel="canonical">`, og:url,
+  og:image, twitter:image, per-route robots directive (production only), and
+  JSON-LD structured data baked into `<head>`. Social bots and AI crawlers
+  that fetch raw HTML without executing JavaScript will now see per-route
+  metadata. Validation: after a production build, run
+  `grep -m1 "<title>" dist/public/about/index.html` — must return
+  `<title>About | TomorrowOS</title>`, not the homepage title. Also verify
+  `dist/public/guides/supabase/index.html` contains `BreadcrumbList` JSON-LD.
 - **Server-side 404 status.** Deployment configs for Netlify (`public/_redirects`)
   and Vercel (`vercel.json`) are in place. Both list every known SPA route
   explicitly (returning 200) and use a catch-all that serves the SPA shell
