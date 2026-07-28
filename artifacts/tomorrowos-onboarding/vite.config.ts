@@ -315,7 +315,7 @@ function prerenderPlugin() {
       for (const [routePath, route] of Object.entries(routes)) {
         const fullTitle = formatTitle(routePath, route.rawTitle);
         const canonicalUrl = `${SITE_URL}${route.canonicalPath}`;
-        const ogImageUrl = `${SITE_URL}/og-image.png`;
+        const ogImageUrl = `${SITE_URL}/og/tomorrowos-social-v1.png`;
         const robots =
           isProduction && route.indexable ? 'index, follow' : 'noindex, follow';
 

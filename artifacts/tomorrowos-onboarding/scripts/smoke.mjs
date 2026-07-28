@@ -25,7 +25,7 @@ const routes = [
   '/cookie-policy', '/cookie-settings', '/quickstart',
 ];
 
-const staticFiles = ['/robots.txt', '/favicon.svg', '/og-image.png'];
+const staticFiles = ['/robots.txt', '/favicon.svg', '/og/tomorrowos-social-v1.png'];
 if (envArg === 'production') staticFiles.push('/sitemap.xml');
 
 let failures = 0;

@@ -63,9 +63,17 @@ export function useSeo({ title, fullTitle = false, description, canonicalPath, s
       ? socialImage.startsWith('http')
         ? socialImage
         : absoluteUrl(socialImage)
-      : absoluteUrl('/og-image.png');
+      : absoluteUrl('/og/tomorrowos-social-v1.png');
+    const imgAlt = 'TomorrowOS — open-source digital signage foundation';
     upsertMeta('meta[property="og:image"]', () => metaByProperty('og:image'), img);
+    upsertMeta('meta[property="og:image:secure_url"]', () => metaByProperty('og:image:secure_url'), img);
+    upsertMeta('meta[property="og:image:type"]', () => metaByProperty('og:image:type'), 'image/png');
+    upsertMeta('meta[property="og:image:width"]', () => metaByProperty('og:image:width'), '1200');
+    upsertMeta('meta[property="og:image:height"]', () => metaByProperty('og:image:height'), '630');
+    upsertMeta('meta[property="og:image:alt"]', () => metaByProperty('og:image:alt'), imgAlt);
     upsertMeta('meta[name="twitter:card"]', () => metaByName('twitter:card'), 'summary_large_image');
+    upsertMeta('meta[name="twitter:image"]', () => metaByName('twitter:image'), img);
+    upsertMeta('meta[name="twitter:image:alt"]', () => metaByName('twitter:image:alt'), imgAlt);
     upsertMeta('meta[property="og:site_name"]', () => metaByProperty('og:site_name'), 'TomorrowOS');
     upsertMeta('meta[property="og:locale"]', () => metaByProperty('og:locale'), 'en_AU');
     // upsertMeta('meta[name="twitter:site"]', () => metaByName('twitter:site'), '@TomorrowOS');
