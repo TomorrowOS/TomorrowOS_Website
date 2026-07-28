@@ -1,0 +1,43 @@
+{
+  "comment": "Vercel deployment config for TomorrowOS Onboarding SPA. Routes are explicit so unknown paths receive HTTP 404 (not 200), eliminating soft 404 crawl-budget waste. Keep in sync with src/App.tsx route list.",
+  "routes": [
+    { "src": "/",                                         "dest": "/index.html" },
+    { "src": "/about",                                    "dest": "/index.html" },
+    { "src": "/quickstart",                               "dest": "/index.html" },
+    { "src": "/github",                                   "dest": "/index.html" },
+    { "src": "/community",                                "dest": "/index.html" },
+    { "src": "/license",                                  "dest": "/index.html" },
+    { "src": "/privacy",                                  "dest": "/index.html" },
+    { "src": "/terms",                                    "dest": "/index.html" },
+    { "src": "/cookie-policy",                            "dest": "/index.html" },
+    { "src": "/cookie-settings",                          "dest": "/index.html" },
+    { "src": "/start",                                    "dest": "/index.html" },
+    { "src": "/start/guided",                             "dest": "/index.html" },
+    { "src": "/start/guided/replit",                      "dest": "/index.html" },
+    { "src": "/start/guided/vercel",                      "dest": "/index.html" },
+    { "src": "/start/terminal",                           "dest": "/index.html" },
+    { "src": "/connect/server-sdk",                       "dest": "/index.html" },
+    { "src": "/connect/api",                              "dest": "/index.html" },
+    { "src": "/guides/supabase",                          "dest": "/index.html" },
+    { "src": "/guides/cloudinary",                        "dest": "/index.html" },
+    { "src": "/guides/vercel",                            "dest": "/index.html" },
+    { "src": "/guides/neon",                              "dest": "/index.html" },
+    { "src": "/guides/vercel-blob",                       "dest": "/index.html" },
+    { "src": "/guides/content",                           "dest": "/index.html" },
+    { "src": "/guides/platforms",                         "dest": "/index.html" },
+    { "src": "/guides/platforms/samsung-tizen",           "dest": "/index.html" },
+    { "src": "/guides/platforms/samsung-tizen/magicinfo", "dest": "/index.html" },
+    { "src": "/compatibility",                            "dest": "/index.html" },
+    { "src": "/compatibility/media",                      "dest": "/index.html" },
+    {
+      "comment": "Static assets are served by the filesystem handler above this catch-all.",
+      "handle": "filesystem"
+    },
+    {
+      "comment": "Unknown routes: return 404 with the SPA shell so the client renders the noindex 404 page.",
+      "src": "/(.*)",
+      "status": 404,
+      "dest": "/index.html"
+    }
+  ]
+}

@@ -11,11 +11,13 @@ Canonical production domain: **https://tomorrowos.org**
    - prototype/preview builds inject a global `noindex, follow` meta tag;
      production builds carry no global robots tag — per-route directives come
      from `src/lib/seoConfig.ts` at runtime.
-2. Generate the sitemap: `node scripts/generate-sitemap.mjs --env=production`
-   (writes only canonical indexable URLs; excludes /start, onboarding
-   sub-routes, cookie settings, draft legal pages).
-3. Update `public/robots.txt` per the template inside that file
+   - The build script automatically runs `generate-sitemap.mjs` before Vite,
+     so `public/sitemap.xml` (and its copy in `dist/`) is produced on every
+     production build without a separate manual step.
+2. Update `public/robots.txt` per the template inside that file
    (allow crawling + `Sitemap: https://tomorrowos.org/sitemap.xml`).
+   (The sitemap is now generated automatically on production builds — step 2
+   of the old template is no longer a separate manual action.)
 4. When legal review completes, flip `/privacy`, `/terms`, `/cookie-policy`
    to `indexable: true` in `src/lib/seoConfig.ts` and remove the Draft banner
    (`draft={false}` on `LegalDocPage`).
@@ -30,9 +32,14 @@ Canonical production domain: **https://tomorrowos.org**
   from rendered DOM only (Google usually renders JS, but parity is not
   guaranteed). Validation to run post-fix: `curl -s https://tomorrowos.org/about`
   must contain the About title, description, canonical, and H1.
-- **Server-side 404 status.** Unknown routes return HTTP 200 with the SPA
-  shell; the client renders a dedicated noindex 404 page. A true 404 status
-  requires deployment-layer routing support. Not misrepresented as resolved.
+- **Server-side 404 status.** Deployment configs for Netlify (`public/_redirects`)
+  and Vercel (`vercel.json`) are in place. Both list every known SPA route
+  explicitly (returning 200) and use a catch-all that serves the SPA shell
+  with HTTP 404 for any unrecognised path. When deploying to a different host
+  (Nginx, Caddy, etc.), mirror the same pattern: serve `index.html` for known
+  routes and return HTTP 404 for the catch-all. The configs must be kept in
+  sync with the `<Switch>` routes in `src/App.tsx` whenever new routes are
+  added.
 - **Lighthouse / Core Web Vitals.** Cannot be measured inside this workspace.
   Run Lighthouse against the production URL after launch; do not assume
   LCP ≤ 2.5 s / INP < 200 ms / CLS < 0.1 without measurement.

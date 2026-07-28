@@ -1,0 +1,41 @@
+# Netlify SPA routing with correct HTTP status codes.
+#
+# Known SPA routes → serve index.html with HTTP 200.
+# All other paths → serve index.html with HTTP 404 so the client renders the
+# noindex 404 page and crawlers receive a correct status without fetching a
+# separate document.
+#
+# Keep this list in sync with the <Switch> routes in src/App.tsx.
+# Run `node scripts/generate-sitemap.mjs --env=production` when routes change.
+
+/                                        /index.html  200
+/about                                   /index.html  200
+/quickstart                              /index.html  200
+/github                                  /index.html  200
+/community                               /index.html  200
+/license                                 /index.html  200
+/privacy                                 /index.html  200
+/terms                                   /index.html  200
+/cookie-policy                           /index.html  200
+/cookie-settings                         /index.html  200
+/start                                   /index.html  200
+/start/guided                            /index.html  200
+/start/guided/replit                     /index.html  200
+/start/guided/vercel                     /index.html  200
+/start/terminal                          /index.html  200
+/connect/server-sdk                      /index.html  200
+/connect/api                             /index.html  200
+/guides/supabase                         /index.html  200
+/guides/cloudinary                       /index.html  200
+/guides/vercel                           /index.html  200
+/guides/neon                             /index.html  200
+/guides/vercel-blob                      /index.html  200
+/guides/content                          /index.html  200
+/guides/platforms                        /index.html  200
+/guides/platforms/samsung-tizen          /index.html  200
+/guides/platforms/samsung-tizen/magicinfo  /index.html  200
+/compatibility                           /index.html  200
+/compatibility/media                     /index.html  200
+
+# Unknown routes: SPA shell with HTTP 404 (client renders noindex 404 page)
+/*                                       /index.html  404
