@@ -66,6 +66,9 @@ export function useSeo({ title, fullTitle = false, description, canonicalPath, s
       : absoluteUrl('/og-image.png');
     upsertMeta('meta[property="og:image"]', () => metaByProperty('og:image'), img);
     upsertMeta('meta[name="twitter:card"]', () => metaByName('twitter:card'), 'summary_large_image');
+    upsertMeta('meta[property="og:site_name"]', () => metaByProperty('og:site_name'), 'TomorrowOS');
+    upsertMeta('meta[property="og:locale"]', () => metaByProperty('og:locale'), 'en_AU');
+    // upsertMeta('meta[name="twitter:site"]', () => metaByName('twitter:site'), '@TomorrowOS');
 
     // Robots policy is always explicit and derived from environment config:
     // - prototype/preview: everything noindex, follow
