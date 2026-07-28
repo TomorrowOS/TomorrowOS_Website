@@ -1,0 +1,279 @@
+Refine only the mobile layout of the TomorrowOS About page.
+
+Do not redesign the desktop About page.
+Do not change any wording, section order, links, icons or destinations.
+Do not remove content.
+Do not convert the main About content into accordions.
+
+The current mobile page is excessively long because repeated feature and principle items retain desktop-style vertical spacing.
+
+The objective is to make the page materially shorter and easier to scan while preserving the approved Figma design language.
+
+==================================================
+1. PRESERVE DESKTOP
+==================================================
+
+Do not alter the About page at desktop or tablet widths unless required to prevent a regression.
+
+The existing desktop composition must remain unchanged at:
+
+- 1024px
+- 1440px
+
+Apply the following refinements only below the mobile breakpoint.
+
+==================================================
+2. REMOVE DESKTOP HEIGHT RULES ON MOBILE
+==================================================
+
+Audit the About-page sections for:
+
+- fixed heights
+- min-heights
+- large grid row heights
+- desktop padding values
+- large margins between icon, heading and copy
+- vertically centred desktop cards
+
+On mobile:
+
+- set repeated feature items to `height: auto`
+- remove unnecessary `min-height`
+- do not vertically centre content inside tall containers
+- allow every item to size naturally to its content
+
+Do not remove spacing globally. Limit the change to the About-page mobile components.
+
+==================================================
+3. CONVERT FEATURE ITEMS TO COMPACT MOBILE ROWS
+==================================================
+
+For repeated items in sections such as:
+
+- Build and keep ownership of everything
+- Built and maintained by people from digital signage
+- Apache 2.0 in plain terms
+- Free to build on, sustainable for the long term
+
+Use a compact mobile row pattern.
+
+Structure:
+
+[icon] [title and description]
+
+Recommended mobile layout:
+
+- display: grid
+- grid-template-columns: 24px minmax(0, 1fr)
+- column gap: 14–16px
+- align-items: start
+- padding: 24px 0
+- no fixed height
+
+Icon:
+
+- width: 22–24px
+- height: 22–24px
+- aligned with the title
+- no large empty space underneath
+
+Text:
+
+- title directly beside the icon
+- description 6–8px below the title
+- preserve existing fonts and weights
+
+Add a subtle divider between consecutive items:
+
+- 1px neutral-grey
+- no divider after the final item
+
+Do not place each item inside a heavy card.
+
+==================================================
+4. OWNERSHIP SECTION
+==================================================
+
+For:
+
+- Focus on your vision
+- Keep your IP
+- Build on proven ground
+
+Use the compact mobile row pattern.
+
+Do not stack:
+
+icon
+large gap
+title
+copy
+
+Instead align the icon beside the text.
+
+Keep the main section heading above the list.
+
+==================================================
+5. MAINTAINER PRINCIPLES
+==================================================
+
+For:
+
+- Maintainer led
+- Built in the open
+- Grounded deployment
+- Deliberate pace
+
+Use the same compact mobile row pattern.
+
+Remove the large vertical gaps currently appearing between each principle.
+
+Do not retain desktop vertical divider styling on mobile.
+
+Replace desktop dividers with horizontal mobile dividers.
+
+==================================================
+6. MOBILE SECTION SPACING
+==================================================
+
+Use approximately:
+
+- Section padding top: 56–72px
+- Section padding bottom: 56–72px
+- Heading-to-content gap: 36–48px
+- Feature-item padding: 22–28px vertically
+- Title-to-description gap: 6–8px
+
+Do not use desktop section padding on mobile.
+
+Do not compress the page so tightly that sections lose separation.
+
+==================================================
+7. MOBILE TYPOGRAPHY
+==================================================
+
+Preserve the existing typography system.
+
+For large About-page mobile headings:
+
+- approximately 34–40px
+- responsive line height
+- no forced desktop line breaks
+
+Remove desktop-only `<br>` line breaks on mobile where they create awkward wrapping.
+
+Body copy:
+
+- preserve existing readable size
+- maintain approximately 1.5–1.65 line height
+
+Do not reduce body text merely to shorten the page.
+
+==================================================
+8. TEAM MEMBERS
+==================================================
+
+Keep the team section as a 2 × 2 mobile grid when the viewport allows.
+
+Requirements:
+
+- equal image sizes
+- consistent names and role spacing
+- no excessive vertical gap
+- fall back to one column only below very narrow widths
+
+Do not use the compact feature-list pattern for team members.
+
+==================================================
+9. OPTIONAL SECTION NAVIGATION
+==================================================
+
+Add a subtle mobile-only About section navigation below the hero when it can be done without disrupting the design.
+
+Suggested anchors:
+
+- Foundation
+- Ownership
+- Maintainers
+- Governance
+- Licence
+
+Use:
+
+- horizontally scrollable text links
+- no large buttons
+- no heavy background
+- clear active or hover state
+- correct anchor offset beneath the fixed header
+
+Do not add this navigation when it materially complicates the existing page or creates horizontal page overflow.
+
+==================================================
+10. DO NOT USE ACCORDIONS FOR CORE CONTENT
+==================================================
+
+Keep core About-page principles visible.
+
+Do not collapse:
+
+- Ownership principles
+- Maintainer principles
+- Product boundary
+- Community model
+- Licence summary
+- Sustainability model
+
+Accordions may only be used later for secondary explanatory detail, not as part of this task.
+
+==================================================
+11. MOBILE QA
+==================================================
+
+Test at:
+
+- 320px
+- 390px
+- 430px
+
+Confirm:
+
+- No horizontal scrolling
+- No clipped text
+- Icons align with headings
+- Dividers align correctly
+- Section headings wrap naturally
+- Header and mobile menu still work
+- Page length is materially reduced
+- No desktop visual regression
+- No content is removed
+
+Compare the current and updated About page at 390px.
+
+The update should reduce unnecessary page height by at least approximately 25%, without reducing text size or hiding content.
+
+==================================================
+12. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. Desktop About remains visually unchanged.
+2. Mobile repeated feature items use compact icon-and-text rows.
+3. Large blank spaces between icons and text are removed.
+4. Fixed or excessive mobile heights are removed.
+5. Section padding is reduced appropriately.
+6. Core content remains visible.
+7. No accordion is added to core content.
+8. Team members remain well presented.
+9. No horizontal scroll appears.
+10. Mobile page length is materially reduced.
+11. Existing wording and destinations remain unchanged.
+12. No TypeScript, build or runtime errors are introduced.
+
+After implementation, provide:
+
+- Before and after page height at 390px
+- Before and after screenshots at 390px
+- Desktop screenshot at 1440px confirming no regression
+- Components and CSS rules changed
+- Exact rollback instruction
