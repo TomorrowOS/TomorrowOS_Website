@@ -67,9 +67,22 @@ export function useSeo({ title, fullTitle = false, description, canonicalPath, s
     const imgAlt = 'TomorrowOS — open-source digital signage foundation';
     upsertMeta('meta[property="og:image"]', () => metaByProperty('og:image'), img);
     upsertMeta('meta[property="og:image:secure_url"]', () => metaByProperty('og:image:secure_url'), img);
-    upsertMeta('meta[property="og:image:type"]', () => metaByProperty('og:image:type'), 'image/png');
-    upsertMeta('meta[property="og:image:width"]', () => metaByProperty('og:image:width'), '1200');
-    upsertMeta('meta[property="og:image:height"]', () => metaByProperty('og:image:height'), '630');
+    // Only assert type/dimensions for the known default card. Page-specific
+    // overrides may use another format/size — remove the tags rather than lie.
+    const isDefaultCard = img.endsWith('/og/tomorrowos-social-v1.png');
+    const dimensionTags: Array<[string, string]> = [
+      ['og:image:type', 'image/png'],
+      ['og:image:width', '1200'],
+      ['og:image:height', '630'],
+    ];
+    for (const [prop, value] of dimensionTags) {
+      const sel = `meta[property="${prop}"]`;
+      if (isDefaultCard) {
+        upsertMeta(sel, () => metaByProperty(prop), value);
+      } else {
+        document.querySelector(sel)?.remove();
+      }
+    }
     upsertMeta('meta[property="og:image:alt"]', () => metaByProperty('og:image:alt'), imgAlt);
     upsertMeta('meta[name="twitter:card"]', () => metaByName('twitter:card'), 'summary_large_image');
     upsertMeta('meta[name="twitter:image"]', () => metaByName('twitter:image'), img);

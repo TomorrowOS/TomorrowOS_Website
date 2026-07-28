@@ -14,8 +14,9 @@ export default function About() {
     title: 'About TomorrowOS | Open Source Digital Signage Foundation',
     fullTitle: true,
     description: 'Learn why TomorrowOS is building an open foundation for digital signage, helping teams avoid rebuilding device, playback and platform infrastructure.',
-    canonicalPath: '/about',
-    socialImage: `${import.meta.env.BASE_URL}assets/illustrations/open-source.webp`
+    canonicalPath: '/about'
+    // Uses the default social image (/og/tomorrowos-social-v1.png). A page-specific
+    // card (about-social-v1.png) can be added via socialImage once designed and approved.
   });
 
   return (

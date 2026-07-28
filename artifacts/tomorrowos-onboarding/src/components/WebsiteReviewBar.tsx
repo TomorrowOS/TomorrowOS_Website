@@ -13,11 +13,16 @@ import { siteConfig } from '@/config/site';
  */
 function SocialPreviewSection() {
   const [open, setOpen] = useState(false);
+  const [location] = useLocation();
   const [meta, setMeta] = useState<Record<string, string>>({});
   const [img, setImg] = useState<{ status?: number; mime?: string; size?: number; w?: number; h?: number }>({});
 
   useEffect(() => {
     if (!open) return;
+    // Re-read after the route's useSeo effect has updated the head tags.
+    const timer = setTimeout(readMeta, 50);
+    return () => clearTimeout(timer);
+    function readMeta() {
     const read = (sel: string) =>
       (document.querySelector(sel) as HTMLMetaElement | null)?.getAttribute('content') ?? '';
     const m = {
@@ -41,7 +46,8 @@ function SocialPreviewSection() {
       el.onload = () => setImg((p) => ({ ...p, w: el.naturalWidth, h: el.naturalHeight }));
       el.src = localPath;
     }
-  }, [open]);
+    }
+  }, [open, location]);
 
   const isAbsolute = meta.image?.startsWith('https://');
   const localImage = meta.image ? meta.image.replace(/^https?:\/\/[^/]+/, '') : '';
