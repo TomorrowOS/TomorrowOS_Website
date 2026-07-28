@@ -99,19 +99,9 @@ export const aboutContent = {
         imagePath: "assets/team/dylan.webp"
       },
       {
-        name: "Matt",
-        role: "Industry Advisor",
-        imagePath: "assets/team/matt.webp"
-      },
-      {
         name: "James",
         role: "Core Platform Maintainer",
         imagePath: "assets/team/james.webp"
-      },
-      {
-        name: "Kai",
-        role: "Core Platform Maintainer",
-        imagePath: "assets/team/kai.webp"
       }
     ]
   },

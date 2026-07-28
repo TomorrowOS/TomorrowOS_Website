@@ -301,6 +301,11 @@ function MaintainerSection() {
             <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-pre-line text-foreground">
               {c.heading}
             </h2>
+            <div className="mt-10 md:mt-12 flex flex-wrap justify-center md:justify-start gap-8 md:gap-10">
+              {c.team.map((t, i) => (
+                <TeamMember key={i} name={t.name} role={t.role} imagePath={t.imagePath} />
+              ))}
+            </div>
           </div>
           <div className="flex-1 grid sm:grid-cols-2 gap-x-8 gap-y-12 relative">
             {c.principles.map((p, i) => (
@@ -317,11 +322,6 @@ function MaintainerSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-          {c.team.map((t, i) => (
-            <TeamMember key={i} name={t.name} role={t.role} imagePath={t.imagePath} />
-          ))}
-        </div>
       </div>
     </section>
   );
