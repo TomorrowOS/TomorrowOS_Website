@@ -54,6 +54,38 @@ const quickNavLinks = [
  */
 function SectionQuickNav() {
   const [active, setActive] = React.useState<string | null>(null);
+  const linkRefs = React.useRef<Record<string, HTMLAnchorElement | null>>({});
+
+  const prefersReducedMotion = () =>
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Keep the active pill visible in the horizontal row as the page scrolls.
+  React.useEffect(() => {
+    if (!active) return;
+    const el = linkRefs.current[active];
+    if (el) {
+      el.scrollIntoView({
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+        block: 'nearest',
+        inline: 'nearest',
+      });
+    }
+  }, [active]);
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+      block: 'start',
+    });
+    // Keep the hash in the URL without triggering a native jump.
+    if (window.history?.replaceState) {
+      window.history.replaceState(null, '', `#${id}`);
+    }
+  };
 
   React.useEffect(() => {
     const ids = quickNavLinks.map((l) => l.id);
@@ -91,6 +123,8 @@ function SectionQuickNav() {
             <a
               key={link.id}
               href={`#${link.id}`}
+              ref={(el) => { linkRefs.current[link.id] = el; }}
+              onClick={(e) => handleClick(e, link.id)}
               aria-current={active === link.id ? 'true' : undefined}
               className={cn(
                 'whitespace-nowrap px-3 py-1.5 text-sm rounded-full transition-colors',
