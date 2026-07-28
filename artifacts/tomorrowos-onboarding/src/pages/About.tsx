@@ -230,7 +230,7 @@ function ShipCard({ card, isSolution }: { card: { title: string; copy: string; i
   return (
     <div
       className={
-        'font-sans bg-white rounded-2xl flex flex-col items-center justify-center text-center w-full max-w-[320px] md:max-w-none mx-auto md:mx-0 px-6 py-8 md:py-10 ' +
+        'font-sans bg-white rounded-2xl flex flex-col items-center justify-center text-center w-full max-w-[320px] md:max-w-none mx-auto md:mx-0 px-6 md:px-7 py-8 md:py-10 ' +
         (isSolution
           ? 'border border-[#2563EB] shadow-[0_4px_16px_rgba(37,99,235,0.12)]'
           : 'border border-border md:flex-1')
@@ -245,10 +245,10 @@ function ShipCard({ card, isSolution }: { card: { title: string; copy: string; i
       ) : (
         <MaskIcon name={card.icon} className="w-7 h-7 mb-6" color="hsl(var(--foreground))" />
       )}
-      <h3 className="font-sans font-semibold text-base mb-2 leading-[1.35] max-w-[190px] text-foreground">
+      <h3 className="font-sans font-semibold text-base mb-2 leading-[1.35] max-w-[190px] md:max-w-[230px] text-foreground">
         {card.title}
       </h3>
-      <p className="font-sans text-sm font-normal leading-[1.5] max-w-[200px] text-muted-foreground">
+      <p className="font-sans text-sm font-normal leading-[1.5] max-w-[200px] md:max-w-[240px] text-muted-foreground">
         {card.copy}
       </p>
       {isSolution ? (
@@ -279,7 +279,7 @@ function SharedFoundationSection() {
   return (
     <section id="ship" className="scroll-mt-24 bg-[#fcfcfc] py-16 sm:py-20 md:py-32 px-4 md:px-8 w-full border-y border-border/50">
       <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-8 items-center lg:items-start">
-        <div className="flex-1 max-w-xl lg:sticky lg:top-32">
+        <div className="flex-1 lg:flex-[0.85] max-w-xl lg:sticky lg:top-32">
           <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight mb-6 whitespace-normal sm:whitespace-pre-line text-foreground">
             {c.heading}
           </h2>
@@ -291,7 +291,7 @@ function SharedFoundationSection() {
           </p>
         </div>
         
-        <div className="flex-1 flex flex-col md:flex-row items-stretch justify-center lg:justify-end w-full max-w-4xl">
+        <div className="flex-1 lg:flex-[1.15] flex flex-col md:flex-row items-stretch justify-center lg:justify-end w-full max-w-4xl">
           {/* Problem cards */}
           <div className="flex flex-col md:flex-row items-stretch gap-4 md:flex-[2]">
             {c.cards.slice(0, 2).map((card, i) => (
@@ -302,7 +302,7 @@ function SharedFoundationSection() {
           {/* Divider */}
           <div
             aria-hidden="true"
-            className="shrink-0 bg-border h-px w-full my-6 md:my-0 md:h-auto md:w-px md:mx-8 md:self-stretch"
+            className="shrink-0 bg-border h-px w-full my-6 md:my-0 md:h-auto md:w-px md:mx-6 md:self-stretch"
           />
 
           {/* Solution card */}
