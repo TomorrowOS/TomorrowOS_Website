@@ -82,10 +82,10 @@ function AboutHero() {
   const hasGithub = siteConfig.links.github && !siteConfig.links.github.includes('{{');
   
   return (
-    <section id="hero" className="scroll-mt-24 bg-white py-20 md:py-32 px-4 md:px-8 w-full">
+    <section id="hero" className="scroll-mt-24 bg-white py-16 sm:py-20 md:py-32 px-4 md:px-8 w-full">
       <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-8">
         <div className="flex-1 max-w-xl order-2 md:order-none">
-          <h1 className="text-4xl md:text-[3.5rem] md:leading-[1.1] font-bold tracking-tight mb-6 whitespace-pre-line text-foreground">
+          <h1 className="text-4xl md:text-[3.5rem] md:leading-[1.1] font-bold tracking-tight mb-6 whitespace-normal sm:whitespace-pre-line text-foreground">
             {c.heading}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed max-w-lg">
@@ -173,10 +173,10 @@ function ShipCard({ card, isSolution }: { card: { title: string; copy: string; i
 function SharedFoundationSection() {
   const c = aboutContent.shipSoftware;
   return (
-    <section id="ship" className="scroll-mt-24 bg-[#fcfcfc] py-20 md:py-32 px-4 md:px-8 w-full border-y border-border/50">
+    <section id="ship" className="scroll-mt-24 bg-[#fcfcfc] py-16 sm:py-20 md:py-32 px-4 md:px-8 w-full border-y border-border/50">
       <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-8 items-center lg:items-start">
         <div className="flex-1 max-w-xl lg:sticky lg:top-32">
-          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight mb-6 whitespace-pre-line text-foreground">
+          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight mb-6 whitespace-normal sm:whitespace-pre-line text-foreground">
             {c.heading}
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed">
@@ -211,25 +211,50 @@ function SharedFoundationSection() {
   );
 }
 
+/**
+ * Repeated icon + title + copy item. On mobile (< sm) it renders as a compact
+ * row — icon beside the text, natural height, divider between items. From sm
+ * up it keeps the original desktop card-style stacked layout unchanged.
+ * `variant="loose"` matches the slightly roomier desktop spacing used in the
+ * ownership section.
+ */
+function FeaturePoint({ icon, title, copy, variant = 'default', isFirst = false, isLast = false, children }: {
+  icon: string;
+  title: string;
+  copy: string;
+  variant?: 'default' | 'loose';
+  isFirst?: boolean;
+  isLast?: boolean;
+  children?: React.ReactNode;
+}) {
+  const loose = variant === 'loose';
+  return (
+    <div className={`relative grid grid-cols-[24px_minmax(0,1fr)] items-start gap-x-4 py-6 sm:block sm:py-0 ${isFirst ? 'pt-0' : ''} ${isLast ? 'pb-0' : 'border-b border-border/40 sm:border-b-0'}`}>
+      <div className={`mt-0.5 flex h-6 w-6 items-center justify-center sm:mt-0 sm:h-12 sm:w-12 sm:rounded-lg sm:bg-muted ${loose ? 'sm:mb-6' : 'sm:mb-5'}`}>
+        <Icon name={icon} className="w-5 h-5 sm:w-6 sm:h-6" />
+      </div>
+      <div>
+        <h3 className={`font-bold text-lg leading-tight mb-1.5 ${loose ? 'sm:mb-3' : 'sm:mb-2'}`}>{title}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">{copy}</p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
 function OwnershipSection() {
   const c = aboutContent.keepOwnership;
   return (
-    <section id="ownership" className="scroll-mt-24 bg-white py-20 md:py-32 px-4 md:px-8 w-full">
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-16 md:gap-12">
+    <section id="ownership" className="scroll-mt-24 bg-white py-16 sm:py-20 md:py-32 px-4 md:px-8 w-full">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-10 sm:gap-16 md:gap-12">
         <div className="flex-1 md:max-w-md">
-          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-pre-line text-foreground md:pr-12">
+          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-normal md:whitespace-normal sm:whitespace-pre-line text-foreground md:pr-12">
             {c.heading}
           </h2>
         </div>
-        <div className="flex-1 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex-1 grid gap-0 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
           {c.cards.map((card, i) => (
-            <div key={i} className="flex flex-col">
-              <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-6">
-                <Icon name={card.icon} className="w-6 h-6" />
-              </div>
-              <h3 className="font-bold text-lg mb-3 leading-tight">{card.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{card.copy}</p>
-            </div>
+            <FeaturePoint key={i} icon={card.icon} title={card.title} copy={card.copy} variant="loose" isFirst={i === 0} isLast={i === c.cards.length - 1} />
           ))}
         </div>
       </div>
@@ -242,10 +267,10 @@ function ProductBoundarySection() {
   const c = aboutContent.productBoundary;
   
   return (
-    <section id="boundary" className="scroll-mt-24 bg-[#fcfcfc] py-20 md:py-32 px-4 md:px-8 w-full border-y border-border/50">
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-16 md:gap-12">
+    <section id="boundary" className="scroll-mt-24 bg-[#fcfcfc] py-16 sm:py-20 md:py-32 px-4 md:px-8 w-full border-y border-border/50">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-10 sm:gap-16 md:gap-12">
         <div className="flex-1 md:max-w-md">
-          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-pre-line text-foreground">
+          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-normal sm:whitespace-pre-line text-foreground">
             {c.heading}
           </h2>
         </div>
@@ -293,12 +318,12 @@ function ProductBoundarySection() {
 function MaintainerSection() {
   const c = aboutContent.builtBy;
   return (
-    <section id="maintainers" className="scroll-mt-24 bg-white py-20 md:py-32 px-4 md:px-8 w-full">
+    <section id="maintainers" className="scroll-mt-24 bg-white py-16 sm:py-20 md:py-32 px-4 md:px-8 w-full">
       <div className="max-w-[1200px] mx-auto flex flex-col gap-24">
         
-        <div className="flex flex-col md:flex-row gap-16 md:gap-12">
+        <div className="flex flex-col md:flex-row gap-10 sm:gap-16 md:gap-12">
           <div className="flex-1 md:max-w-md">
-            <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-pre-line text-foreground">
+            <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-normal sm:whitespace-pre-line text-foreground">
               {c.heading}
             </h2>
             <div className="mt-10 md:mt-12 flex flex-wrap justify-center md:justify-start gap-8 md:gap-10">
@@ -307,16 +332,11 @@ function MaintainerSection() {
               ))}
             </div>
           </div>
-          <div className="flex-1 grid sm:grid-cols-2 gap-x-8 gap-y-12 relative">
+          <div className="flex-1 grid gap-x-8 gap-y-0 sm:grid-cols-2 sm:gap-y-12 relative">
             {c.principles.map((p, i) => (
-              <div key={i} className="flex flex-col relative">
-                <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-5">
-                  <Icon name={p.icon} className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{p.copy}</p>
+              <FeaturePoint key={i} icon={p.icon} title={p.title} copy={p.copy} isFirst={i === 0} isLast={i === c.principles.length - 1}>
                 {i < 2 && <div className="hidden sm:block absolute -bottom-6 left-0 right-0 h-[1px] bg-border/40" />}
-              </div>
+              </FeaturePoint>
             ))}
             <div className="hidden sm:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-border/40 -translate-x-1/2" />
           </div>
@@ -370,10 +390,10 @@ function CommunitySection() {
   const governanceHref = hasGovernance ? siteConfig.links.governance : '/governance';
 
   return (
-    <section id="community" className="scroll-mt-24 bg-[#fcfcfc] py-20 md:py-32 px-4 md:px-8 w-full border-y border-border/50">
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-16 md:gap-12">
+    <section id="community" className="scroll-mt-24 bg-[#fcfcfc] py-16 sm:py-20 md:py-32 px-4 md:px-8 w-full border-y border-border/50">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-10 sm:gap-16 md:gap-12">
         <div className="flex-1 md:max-w-md">
-          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-pre-line text-foreground">
+          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-normal sm:whitespace-pre-line text-foreground">
             {c.heading}
           </h2>
         </div>
@@ -411,10 +431,10 @@ function LicenceSection() {
   const licenseExtHref = hasLicense ? siteConfig.links.license : '#';
   
   return (
-    <section id="licence" className="scroll-mt-24 bg-white py-20 md:py-32 px-4 md:px-8 w-full">
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-16 md:gap-12">
+    <section id="licence" className="scroll-mt-24 bg-white py-16 sm:py-20 md:py-32 px-4 md:px-8 w-full">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-10 sm:gap-16 md:gap-12">
         <div className="flex-1 md:max-w-md flex flex-col">
-          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-pre-line text-foreground mb-6">
+          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-normal sm:whitespace-pre-line text-foreground mb-6">
             {c.heading}
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-sm">
@@ -432,15 +452,9 @@ function LicenceSection() {
           </div>
         </div>
         
-        <div className="flex-1 grid sm:grid-cols-2 gap-x-8 gap-y-12 relative">
+        <div className="flex-1 grid gap-x-8 gap-y-0 sm:grid-cols-2 sm:gap-y-12 relative">
           {c.points.map((p, i) => (
-            <div key={i} className="flex flex-col">
-              <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-5">
-                <Icon name={p.icon} className="w-6 h-6" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">{p.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{p.copy}</p>
-            </div>
+            <FeaturePoint key={i} icon={p.icon} title={p.title} copy={p.copy} isFirst={i === 0} isLast={i === c.points.length - 1} />
           ))}
           <div className="hidden sm:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-border/40 -translate-x-1/2" />
         </div>
@@ -452,23 +466,18 @@ function LicenceSection() {
 function SustainabilitySection() {
   const c = aboutContent.sustainability;
   return (
-    <section id="sustainability" className="scroll-mt-24 bg-[#fcfcfc] py-20 md:py-32 px-4 md:px-8 w-full border-y border-border/50">
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-16 md:gap-12">
+    <section id="sustainability" className="scroll-mt-24 bg-[#fcfcfc] py-16 sm:py-20 md:py-32 px-4 md:px-8 w-full border-y border-border/50">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-10 sm:gap-16 md:gap-12">
         <div className="flex-1 md:max-w-md">
-          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-pre-line text-foreground">
+          <h2 className="text-3xl md:text-4xl md:leading-[1.15] font-bold tracking-tight whitespace-normal sm:whitespace-pre-line text-foreground">
             {c.heading}
           </h2>
         </div>
-        <div className="flex-1 grid sm:grid-cols-2 gap-x-8 gap-y-12 relative">
+        <div className="flex-1 grid gap-x-8 gap-y-0 sm:grid-cols-2 sm:gap-y-12 relative">
           {c.points.map((p, i) => (
-            <div key={i} className="flex flex-col relative">
-              <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-5">
-                <Icon name={p.icon} className="w-6 h-6" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">{p.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{p.copy}</p>
+            <FeaturePoint key={i} icon={p.icon} title={p.title} copy={p.copy} isFirst={i === 0} isLast={i === c.points.length - 1}>
               {i < 2 && <div className="hidden sm:block absolute -bottom-6 left-0 right-0 h-[1px] bg-border/40" />}
-            </div>
+            </FeaturePoint>
           ))}
           <div className="hidden sm:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-border/40 -translate-x-1/2" />
         </div>
@@ -484,9 +493,9 @@ function AboutFinalCta() {
   const communityHref = hasCommunity ? siteConfig.links.community : '/community';
 
   return (
-    <section id="cta" className="scroll-mt-24 bg-white py-24 md:py-40 px-4 md:px-8 w-full text-center">
+    <section id="cta" className="scroll-mt-24 bg-white py-16 sm:py-24 md:py-40 px-4 md:px-8 w-full text-center">
       <div className="max-w-3xl mx-auto flex flex-col items-center">
-        <h2 className="text-3xl md:text-[3.5rem] md:leading-[1.1] font-bold tracking-tight whitespace-pre-line text-foreground mb-6">
+        <h2 className="text-3xl md:text-[3.5rem] md:leading-[1.1] font-bold tracking-tight whitespace-normal sm:whitespace-pre-line text-foreground mb-6">
           {c.heading}
         </h2>
         <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-12 max-w-2xl">
