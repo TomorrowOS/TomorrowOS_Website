@@ -1,0 +1,499 @@
+Create and integrate a production-quality social-sharing image system for the existing TomorrowOS website.
+
+This is an existing working project.
+
+Do not rebuild the website.
+Do not change routes.
+Do not change page content.
+Do not change the existing SEO indexing logic.
+Do not remove current metadata or structured data.
+Do not alter the approved Figma layouts.
+
+The current social preview shown in Slack is visually broken:
+
+- The heading is cropped
+- The composition contains excessive empty space
+- The preview does not communicate the TomorrowOS product clearly
+- The visual does not use the approved brand and platform assets effectively
+
+The objective is to:
+
+1. Create a polished default Open Graph image.
+2. Integrate it into the central SEO configuration.
+3. Ensure Slack, LinkedIn, X and other link-preview systems can fetch it.
+4. Prevent cropping and incorrect metadata.
+5. Preserve all existing routes, SEO rules and onboarding functionality.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a Replit checkpoint or Git commit named:
+
+   pre-social-preview-upgrade
+
+2. Record:
+   - Current Open Graph image path
+   - Current Twitter/X card image path
+   - Current metadata component
+   - Current SEO configuration
+   - Current social-preview image dimensions
+   - Current response content type for the image
+
+Do not expose secrets.
+
+==================================================
+2. USE THE APPROVED BRAND ASSETS
+==================================================
+
+Use the exact supplied production assets already available in the project.
+
+Required:
+
+- TomorrowOS SVG wordmark
+- Samsung Tizen logo
+- LG webOS logo
+- BrightSign logo
+- Android logo
+- Windows logo
+- Roboto 400, 500 and 700
+
+Do not:
+
+- Recreate the TomorrowOS wordmark using typed text
+- Generate substitute logos
+- Use emojis
+- Use generic platform marks
+- Stretch or distort official logos
+- Use the AI-generated visual directly when it contains imperfect logo geometry
+
+The generated visual supplied by the user is the design direction only.
+
+The production image must use the exact project assets.
+
+==================================================
+3. DEFAULT SOCIAL IMAGE
+==================================================
+
+Create:
+
+public/og/tomorrowos-social-v1.png
+
+Required dimensions:
+
+1200 × 630 pixels
+
+Use a real raster export at that exact size.
+
+Do not rely on browser screenshot scaling at request time.
+
+Design:
+
+- White or extremely light neutral background
+- Minimal premium TomorrowOS aesthetic
+- Large safe margins
+- Exact TomorrowOS wordmark in the upper-left area
+- Strong but restrained headline on the left
+- Supporting sentence below
+- Subtle multi-platform architecture visual on the right
+- Small tomorrowos.org label near the bottom-left
+- No gradient-heavy background
+- No large shadows
+- No decorative noise
+- No content touching the image boundary
+
+Headline:
+
+Open-source digital signage foundation
+
+Supporting copy:
+
+Build and own your product. TomorrowOS provides the shared infrastructure underneath.
+
+Do not use:
+
+We handle the infrastructure.
+
+unless that copy is separately approved.
+
+Use approved Roboto typography:
+
+- Headline: 700
+- Supporting copy: 400
+- Small labels: 500
+
+==================================================
+4. RIGHT-SIDE ARCHITECTURE VISUAL
+==================================================
+
+Build a restrained architecture visual using exact assets.
+
+Centre:
+
+- TomorrowOS symbol or approved wordmark element
+
+Around it:
+
+- Samsung Tizen
+- LG webOS
+- BrightSign
+- Android
+- Windows
+
+Use:
+
+- Thin neutral connector rings or paths
+- White logo containers
+- Very subtle border
+- Minimal depth
+- No excessive shadow
+- Exact logo proportions
+
+The architecture should feel technical and premium but remain visually secondary to the headline.
+
+Do not overcrowd the image.
+
+==================================================
+5. SAFE AREA
+==================================================
+
+Keep all meaningful content inside a conservative safe area.
+
+Use approximately:
+
+- 72px minimum left and right inset
+- 60px minimum top and bottom inset
+
+Do not allow:
+
+- Heading crop
+- Wordmark crop
+- Platform-logo crop
+- Domain crop
+- Text extending close to the edges
+
+Test a centre-cropped approximation to ensure important content remains visible when platforms render previews differently.
+
+==================================================
+6. CENTRAL SEO CONFIGURATION
+==================================================
+
+Use the existing central SEO system.
+
+Set the default social image to:
+
+https://tomorrowos.org/og/tomorrowos-social-v1.png
+
+Do not use:
+
+- Relative preview-domain URLs
+- Replit deployment URLs
+- Browser-generated blob URLs
+- Base64 data URLs
+- Localhost URLs
+
+Use the existing absoluteUrl() helper where appropriate.
+
+Update the default metadata to include:
+
+og:image
+og:image:secure_url
+og:image:type
+og:image:width
+og:image:height
+og:image:alt
+
+Use:
+
+og:image:
+https://tomorrowos.org/og/tomorrowos-social-v1.png
+
+og:image:secure_url:
+https://tomorrowos.org/og/tomorrowos-social-v1.png
+
+og:image:type:
+image/png
+
+og:image:width:
+1200
+
+og:image:height:
+630
+
+og:image:alt:
+TomorrowOS — open-source digital signage foundation
+
+Also include:
+
+twitter:card:
+summary_large_image
+
+twitter:image:
+https://tomorrowos.org/og/tomorrowos-social-v1.png
+
+twitter:image:alt:
+TomorrowOS — open-source digital signage foundation
+
+Preserve existing page titles, descriptions and canonicals.
+
+==================================================
+7. PAGE-SPECIFIC SOCIAL IMAGES
+==================================================
+
+For this task, use the new default image across every page unless a verified page-specific image already exists.
+
+Do not generate a large set of mediocre automated cards.
+
+Allow future page-level overrides through seoConfig.ts.
+
+Suggested future structure:
+
+default:
+tomorrowos-social-v1.png
+
+about:
+about-social-v1.png
+
+quickstart:
+quickstart-social-v1.png
+
+guides:
+guide-social-v1.png
+
+Do not create these additional files during this task unless they are already designed and approved.
+
+==================================================
+8. IMAGE DELIVERY VALIDATION
+==================================================
+
+Verify that the production image:
+
+- Returns HTTP 200
+- Is publicly accessible without authentication
+- Returns Content-Type: image/png
+- Does not redirect to a login page
+- Does not return HTML
+- Does not depend on JavaScript
+- Is not blocked by robots.txt
+- Is available over HTTPS
+- Has the exact expected dimensions
+- Is below a sensible file size without visible compression damage
+
+Optimise the PNG safely.
+
+Do not replace it with WebP-only metadata because some preview systems may expect conventional social-image formats.
+
+==================================================
+9. RAW HTML VALIDATION
+==================================================
+
+Verify the social metadata exists in the raw returned HTML for every public route where possible.
+
+At minimum test:
+
+- /
+- /about
+- /connect/server-sdk
+- One public guide
+
+The raw HTML should contain the exact absolute image URL.
+
+Do not rely solely on metadata inserted after client hydration where the current rendering architecture can avoid it.
+
+If pre-rendering remains unresolved:
+
+- Preserve the current implementation
+- Document the limitation
+- Do not break route rendering
+- Confirm the homepage metadata is present in the initial HTML
+
+==================================================
+10. SOCIAL PREVIEW CACHE SAFETY
+==================================================
+
+Use a versioned filename:
+
+tomorrowos-social-v1.png
+
+When the visual changes materially in the future, create:
+
+tomorrowos-social-v2.png
+
+and update the metadata.
+
+Do not silently replace the file while retaining the same URL during review, as third-party preview systems may continue displaying an older fetched asset.
+
+Do not use query-string cache busting as the primary versioning method.
+
+==================================================
+11. GOOGLE IMAGE SAFETY
+==================================================
+
+Keep the image useful and descriptive rather than excessively text-heavy.
+
+The image should communicate:
+
+- TomorrowOS
+- Open-source digital signage foundation
+- Multi-platform infrastructure
+
+Do not fill the image with:
+
+- Long paragraphs
+- Keyword lists
+- Small technical text
+- Fake metrics
+- Calls to action
+- Unverified product claims
+
+The visible page content and metadata must remain the source of detailed SEO information.
+
+==================================================
+12. ACCESSIBILITY
+==================================================
+
+Provide meaningful:
+
+- og:image:alt
+- twitter:image:alt
+
+Do not use decorative descriptions such as:
+
+social image
+
+Use:
+
+TomorrowOS — open-source digital signage foundation
+
+Where the visual appears inside the website itself, use suitable alt text or mark it decorative based on context.
+
+==================================================
+13. REVIEW MODE
+==================================================
+
+Add a Social Preview section to Prototype Review Mode.
+
+Show:
+
+- Current image URL
+- Dimensions
+- MIME type
+- File size
+- Open Graph title
+- Open Graph description
+- Open Graph image alt
+- Twitter/X card type
+- Whether the URL is absolute
+- Whether the image returns HTTP 200
+
+Add a preview card approximating:
+
+- Slack
+- LinkedIn
+- X large image card
+
+This is an internal visual approximation only.
+
+Do not claim it exactly reproduces every third-party interface.
+
+==================================================
+14. TESTING
+==================================================
+
+Add or extend automated checks.
+
+Validate:
+
+- Default og:image exists
+- Image dimensions are 1200 × 630
+- MIME type is image/png
+- Image URL is absolute
+- Image hostname is tomorrowos.org
+- og:image:width is 1200
+- og:image:height is 630
+- og:image:alt is present
+- twitter:card is summary_large_image
+- twitter:image is present
+- No preview-domain URL leaks
+- No missing social asset
+- No old broken image remains configured
+
+Run:
+
+- Build
+- TypeScript
+- Existing SEO validation
+- Existing smoke test
+- New social-metadata validation
+
+==================================================
+15. DO NOT CHANGE
+==================================================
+
+Do not change:
+
+- Existing page titles
+- Existing descriptions
+- Existing canonicals
+- Index/noindex policy
+- Sitemap generation
+- Structured-data types
+- Route map
+- Figma page designs
+- Onboarding flows
+- Legal-page status
+- Cookie consent
+- Header
+- Footer
+
+Only update the social-image asset and its related metadata.
+
+==================================================
+16. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. A production 1200 × 630 PNG exists.
+2. The exact TomorrowOS wordmark is used.
+3. Exact platform assets are used.
+4. No text or logo is cropped.
+5. The visual remains clean and minimal.
+6. The image communicates TomorrowOS clearly.
+7. The image URL uses tomorrowos.org.
+8. The image returns HTTP 200.
+9. The image returns image/png.
+10. Open Graph width and height are present.
+11. Open Graph alt text is present.
+12. Twitter/X large-image metadata is present.
+13. The central SEO configuration uses the new image.
+14. Existing route metadata remains intact.
+15. Existing indexing rules remain intact.
+16. Prototype Review Mode can inspect the social metadata.
+17. Build, TypeScript, smoke and SEO tests pass.
+18. No runtime or console errors are introduced.
+
+==================================================
+17. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Checkpoint or commit created
+- Final social image path
+- Final public image URL
+- Image dimensions
+- Image file size
+- Image MIME type
+- Exact Open Graph tags applied
+- Exact Twitter/X tags applied
+- Routes tested
+- Raw HTML result
+- Build result
+- SEO validation result
+- Remaining limitations
+- Rollback instruction
+
+Do not make unrelated SEO or design changes during this task.
