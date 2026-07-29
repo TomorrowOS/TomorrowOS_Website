@@ -1,0 +1,419 @@
+Add a restrained developer-tools strip to Step 1 of the existing TomorrowOS Terminal onboarding pathway.
+
+This is an existing working onboarding journey.
+
+Do not rebuild the Terminal pathway.
+Do not change the Terminal step sequence.
+Do not change existing commands, requirements, routes, completion logic or localStorage keys.
+Do not change Guided Setup, Server SDK, HTTP API or shared deployment flows.
+
+The objective is only to show that developers can use TomorrowOS within their preferred local coding workflow.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a Replit checkpoint or Git commit named:
+
+   pre-terminal-developer-tools-strip
+
+2. Record:
+   - Current Terminal Step 1 component
+   - Current Terminal route
+   - Existing progress/localStorage keys
+   - Current desktop screenshot
+   - Current mobile screenshot
+
+If the project does not build before editing, report the existing error before making unrelated changes.
+
+==================================================
+2. LOCATION
+==================================================
+
+Add the new section only to:
+
+Start building
+→ Terminal
+→ Before you begin
+
+Place it:
+
+- Below the introductory copy:
+  “This path is for developers building locally and deploying through their own engineering workflow.”
+- Above the existing Requirements card
+
+Do not add it:
+
+- To every Terminal step
+- To Guided Setup
+- To Server SDK
+- To HTTP API
+- To the shared device journey
+- To the global header or footer
+
+==================================================
+3. SECTION COPY
+==================================================
+
+Heading:
+
+Use your preferred developer tools
+
+Supporting copy:
+
+Run the TomorrowOS CLI directly or use it alongside the coding agent or editor already in your local workflow.
+
+Supporting note:
+
+Examples only. TomorrowOS does not require or formally integrate with a specific coding tool.
+
+Do not use:
+
+- Official integration
+- Technology partner
+- Supported integration
+- Certified
+- Built for
+- Recommended by TomorrowOS
+
+Do not imply formal commercial relationships with the displayed brands.
+
+==================================================
+4. DISPLAYED TOOLS
+==================================================
+
+Show these five tools:
+
+1. Claude Code
+2. Cursor
+3. GitHub Copilot
+4. OpenAI Codex
+5. Gemini CLI
+
+Use central configuration:
+
+terminalDeveloperTools = [
+  {
+    id: "claude-code",
+    label: "Claude Code",
+    logoPath: "/assets/developer-tools/claude-code.svg"
+  },
+  {
+    id: "cursor",
+    label: "Cursor",
+    logoPath: "/assets/developer-tools/cursor.svg"
+  },
+  {
+    id: "github-copilot",
+    label: "GitHub Copilot",
+    logoPath: "/assets/developer-tools/github-copilot.svg"
+  },
+  {
+    id: "openai-codex",
+    label: "OpenAI Codex",
+    logoPath: "/assets/developer-tools/openai-codex.svg"
+  },
+  {
+    id: "gemini-cli",
+    label: "Gemini CLI",
+    logoPath: "/assets/developer-tools/gemini-cli.svg"
+  }
+]
+
+Do not duplicate these tool definitions across components.
+
+==================================================
+5. ASSET SAFETY
+==================================================
+
+The approved logo assets will be supplied separately.
+
+Do not:
+
+- Download logos from unverified websites
+- Recreate logos from memory
+- Use emojis
+- Use text as a fake logo
+- Generate substitute brand marks
+- Trace logos from screenshots
+- Apply colours that alter the official logo
+
+Until an approved asset exists:
+
+Normal mode:
+
+- Use a restrained text-only fallback showing the exact tool name
+- Preserve the final logo slot dimensions
+- Do not show a broken-image icon
+
+Prototype Review Mode:
+
+- Show:
+  MISSING APPROVED LOGO
+- Include the expected asset path
+
+Do not allow a missing logo to break the page.
+
+==================================================
+6. VISUAL DESIGN
+==================================================
+
+Keep the section subtle and consistent with TomorrowOS.
+
+Suggested structure:
+
+Use your preferred developer tools
+
+[Claude Code] [Cursor] [GitHub Copilot] [OpenAI Codex] [Gemini CLI]
+
+Examples only. TomorrowOS does not require or formally integrate with a specific coding tool.
+
+Container:
+
+- White or transparent background
+- Optional 1px light-grey border
+- Approximately 8–10px corner radius
+- No heavy shadow
+- Approximately 18–22px padding
+- Must not look like another major setup step
+
+Logo row:
+
+- `display: flex`
+- `align-items: center`
+- Natural logo proportions
+- Approximately 22–28px maximum rendered height
+- Consistent visual bounding boxes
+- Approximately 24–32px gap
+- No oversized logos
+- No equal-width stretching
+
+Do not add:
+
+- Large individual cards
+- Status pills
+- Selection indicators
+- Checkmarks
+- Clickable styling when logos are not links
+- Bright backgrounds
+- Gradients
+- Animations
+
+==================================================
+7. INTERACTION BEHAVIOUR
+==================================================
+
+The logos are informational, not onboarding choices.
+
+Therefore:
+
+- Do not make them selectable
+- Do not add radio buttons
+- Do not add active states
+- Do not change the Terminal workflow based on a logo
+- Do not store a selected tool
+- Do not require the user to choose one
+- Do not add a Continue action inside this strip
+
+The existing:
+
+I confirmed my environment
+
+button remains the only completion action for this step.
+
+If future links to official tool documentation are added, they must:
+
+- Open in a new tab
+- Use verified official URLs
+- Use `rel="noopener noreferrer"`
+- Have clear accessible labels
+
+For this task, logos may remain non-clickable.
+
+==================================================
+8. TERMINOLOGY
+==================================================
+
+Call the section:
+
+Developer tools
+
+or:
+
+Coding tools
+
+Do not call all five items:
+
+- Terminals
+- Terminal applications
+- Official TomorrowOS integrations
+
+Cursor may be used as an editor or through its CLI, while the other named tools may be used through terminal-oriented workflows.
+
+Keep the umbrella wording provider-neutral.
+
+==================================================
+9. RESPONSIVE BEHAVIOUR
+==================================================
+
+Desktop:
+
+- Keep all five tools on one row where practical
+- Do not widen the main onboarding column
+- Do not disturb the sidebar alignment
+- Keep the Requirements card directly below
+
+Tablet:
+
+- Allow wrapping into two balanced rows
+- Preserve natural logo proportions
+
+Mobile:
+
+- Use a two-column or wrapping logo layout
+- Alternatively use restrained horizontal scrolling inside the logo row
+- Do not create horizontal page overflow
+- Minimum spacing between items: approximately 18px
+- Keep labels legible
+- Do not shrink logos below useful recognition size
+
+The Terminal step must remain easy to scan.
+
+==================================================
+10. ACCESSIBILITY
+==================================================
+
+For each logo:
+
+- Use meaningful alt text when the image communicates the tool name
+- Example:
+  alt="Claude Code"
+- When a visible label already duplicates the name, use empty alt text on the image and keep the visible label
+- Do not rely on logos alone where recognition may be ambiguous
+
+The section should use semantic markup such as:
+
+<section aria-labelledby="developer-tools-heading">
+  <h2 id="developer-tools-heading">Use your preferred developer tools</h2>
+  <ul>
+    <li>...</li>
+  </ul>
+</section>
+
+Do not introduce additional H1 elements.
+
+==================================================
+11. REVIEW MODE
+==================================================
+
+Extend Prototype Review Mode to show:
+
+- Developer-tools component boundary
+- Asset path for each logo
+- Missing-logo status
+- Rendered logo dimensions
+- Whether a logo uses an image or fallback label
+
+Do not show internal asset information in normal mode.
+
+==================================================
+12. DO NOT CHANGE
+==================================================
+
+Do not change:
+
+- Terminal requirements
+- Node.js wording
+- Package-manager wording
+- Existing version-check commands
+- Existing copy buttons
+- Sidebar navigation
+- Locked-step behaviour
+- Completion button
+- Terminal routes
+- Progress persistence
+- Global navigation
+- Deployment steps
+- Shared player guides
+- SEO metadata
+- Indexing rules
+- Sitemap
+- Structured data
+
+This task is a small visual enhancement only.
+
+==================================================
+13. QA
+==================================================
+
+Test at:
+
+- 390px
+- 768px
+- 1024px
+- 1440px
+
+Confirm:
+
+- Main content width is unchanged
+- Sidebar remains aligned
+- Requirements card remains intact
+- No horizontal scrolling
+- Missing assets fall back safely
+- Logos are not distorted
+- Logo row does not overpower the page
+- Existing confirmation button works
+- Terminal progress remains unchanged
+- Browser Back and Forward still work
+
+Run:
+
+- Build
+- TypeScript
+- Existing smoke tests
+- Existing route tests
+
+==================================================
+14. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. The new developer-tools strip appears only on Terminal Step 1.
+2. It sits above the Requirements card.
+3. The heading and supporting copy are present.
+4. All five tools are configured centrally.
+5. Approved logo assets are used when available.
+6. Missing assets use safe text fallbacks.
+7. No logo is recreated or invented.
+8. The logos are informational and not selectable.
+9. No new onboarding branch is introduced.
+10. No progress key changes.
+11. Existing Terminal commands remain unchanged.
+12. The layout remains subtle.
+13. Desktop and mobile work correctly.
+14. No horizontal overflow appears.
+15. No TypeScript, build, runtime or console errors are introduced.
+
+==================================================
+15. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Checkpoint or commit created
+- Component path created or changed
+- Configuration file path
+- Logo assets found
+- Logo assets still missing
+- Desktop screenshot at 1440px
+- Mobile screenshot at 390px
+- Confirmation existing routes and progress were preserved
+- Build result
+- TypeScript result
+- Smoke-test result
+- Exact rollback instruction
+
+Do not make any unrelated Terminal or onboarding changes during this task.

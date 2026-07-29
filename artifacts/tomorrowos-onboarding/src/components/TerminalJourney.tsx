@@ -11,6 +11,7 @@ import { PlaceholderText } from './PlaceholderText';
 import { NeedHelpDrawer } from './NeedHelpDrawer';
 import { isValidHttpsUrl } from '@/lib/utils';
 import { useLocation } from 'wouter';
+import { DeveloperToolsStrip } from './DeveloperToolsStrip';
 
 export function TerminalJourney() {
   const { state } = usePrototype();
@@ -70,6 +71,8 @@ function TerminalStep1() {
       actionLabel="I confirmed my environment"
       onComplete={goToNextStep}
     >
+      <DeveloperToolsStrip />
+
       <Card>
         <CardContent className="p-6 space-y-6">
           <h3 className="font-semibold text-gray-900">Requirements:</h3>
