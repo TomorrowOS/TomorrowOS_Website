@@ -11,7 +11,8 @@ import { CopyableText } from './CopyableText';
 import { CopyActionBlock } from './CopyActionBlock';
 import { Check, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
-import { vercelConfig } from '@/lib/vercelConfig';
+import { vercelConfig, mediaProviderConfig } from '@/lib/vercelConfig';
+import { MediaProviderOption } from './MediaProviderOption';
 
 export function VercelJourney({ allExpanded = false }: { allExpanded?: boolean }) {
   const { state } = usePrototype();
@@ -292,54 +293,124 @@ function VercelStep4({ isGuide = false }: { isGuide?: boolean }) {
 
 function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
   const [, setLocation] = useLocation();
+  const { state, updateState, goToNextStep } = usePrototype();
+
+  const allProviders = [mediaProviderConfig.cloudinary, mediaProviderConfig.vercelBlob];
+  const visibleProviders = allProviders.filter((p) => p.available && p.tested && p.guideReady);
+  const hiddenProviders = allProviders.filter((p) => !visibleProviders.includes(p));
+  const singleProvider = visibleProviders.length === 1 ? visibleProviders[0] : null;
+
+  const selectedId = singleProvider ? singleProvider.id : state.vercelMediaProvider || null;
+  const selectedProvider = visibleProviders.find((p) => p.id === selectedId) || null;
+
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
-      <StepHeader isGuide={isGuide} 
-        title="Choose media storage" 
-        description="Select where your CMS will store and deliver uploaded media."
-      />
+      {singleProvider ? (
+        <StepHeader isGuide={isGuide}
+          title="Set up media storage"
+          description={`TomorrowOS will use ${singleProvider.name} to store and deliver uploaded images and videos.`}
+        />
+      ) : (
+        <StepHeader isGuide={isGuide}
+          title="Choose media storage"
+          description="Select where your CMS will store and deliver uploaded images and videos."
+        />
+      )}
 
-      <div className="grid md:grid-cols-2 gap-6 mb-8">
-        <Card>
-          <CardContent className="p-6 flex flex-col h-full">
-            <div className="inline-block bg-gray-100 text-xs font-medium px-2 py-1 rounded mb-3 self-start">Existing TomorrowOS guide available</div>
-            <h3 className="font-bold text-lg mb-1">Cloudinary</h3>
-            <p className="text-sm text-gray-600 mb-6">Store and deliver images and videos through Cloudinary.</p>
-            <div className="text-sm text-gray-700 mb-6">
-               <strong>Required values:</strong>
-               <ul className="list-disc pl-5 mt-1 text-gray-600 space-y-1">
-                 <li>CLOUDINARY_CLOUD_NAME</li>
-                 <li>CLOUDINARY_API_KEY</li>
-                 <li>CLOUDINARY_API_SECRET</li>
-               </ul>
-            </div>
-            <div className="bg-amber-50 text-amber-800 p-3 rounded text-xs mb-6 border border-amber-100">
-               Do not collect these values inside TomorrowOS.org. Add them through Vercel project Environment Variables.
-            </div>
-            <div className="mt-auto flex flex-col gap-2">
-              <Button variant="outline" className="w-full" onClick={() => setLocation('/guides/cloudinary')}>View Cloudinary guide</Button>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-6 flex flex-col h-full">
-            <h3 className="font-bold text-lg mb-1">Vercel Blob</h3>
-            <p className="text-sm text-gray-600 mb-6">Store uploaded CMS media in a Vercel Blob store.</p>
-            {vercelConfig.vercelBlobAuthenticationMode === 'unresolved' && (
-               <div className="bg-gray-50 text-gray-600 p-3 rounded text-xs mb-6 border border-border">
-                 Implementation pending engineering confirmation.
-               </div>
-            )}
-            <div className="mt-auto flex flex-col gap-2">
-              <Button variant="outline" className="w-full" onClick={() => setLocation('/guides/vercel-blob')}>Set up Vercel Blob</Button>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 mb-8">
+        Your selection tells v0 which media integration to add. You will configure the service securely in Vercel later.
       </div>
 
+      {singleProvider ? (
+        <Card className="mb-6">
+          <CardContent className="p-6 flex flex-col">
+            <div className="flex items-start justify-between gap-3 mb-4">
+              <img
+                src={`${import.meta.env.BASE_URL}${singleProvider.logoPath}`}
+                alt={singleProvider.logoAlt}
+                className="h-8 w-auto max-w-[160px] object-contain"
+              />
+              {singleProvider.badge && (
+                <span className="shrink-0 text-xs font-medium text-gray-600 bg-gray-100 rounded-full px-2.5 py-1">{singleProvider.badge}</span>
+              )}
+            </div>
+            <h3 className="font-bold text-lg text-gray-900 mb-1">{singleProvider.name}</h3>
+            <p className="text-sm text-gray-600 mb-2">{singleProvider.description}</p>
+            <p className="text-sm text-gray-500 mb-6">{singleProvider.bestFor}</p>
+            {singleProvider.configureLater && (
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+                <h4 className="text-sm font-semibold text-gray-900 mb-2">{singleProvider.configureLater.heading}</h4>
+                <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1 mb-3">
+                  {singleProvider.configureLater.items.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+                <p className="text-xs text-gray-500">{singleProvider.configureLater.note}</p>
+              </div>
+            )}
+            <div>
+              <Button variant="secondary" onClick={() => setLocation(singleProvider.guideUrl)}>View {singleProvider.name} guide</Button>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <>
+          <div role="group" aria-label="Media storage providers" className="grid md:grid-cols-2 gap-6 mb-6 md:items-stretch">
+            {visibleProviders.map((provider) => (
+              <MediaProviderOption
+                key={provider.id}
+                provider={provider}
+                selected={selectedId === provider.id}
+                onSelect={() => updateState({ vercelMediaProvider: provider.id })}
+              />
+            ))}
+          </div>
+          {selectedProvider?.configureLater && (
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6 animate-in fade-in duration-300">
+              <h4 className="text-sm font-semibold text-gray-900 mb-2">{selectedProvider.configureLater.heading}</h4>
+              <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1 mb-3">
+                {selectedProvider.configureLater.items.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+              <p className="text-xs text-gray-500 mb-3">{selectedProvider.configureLater.note}</p>
+              <Button variant="secondary" size="sm" onClick={() => setLocation(selectedProvider.guideUrl)}>View {selectedProvider.name} guide</Button>
+            </div>
+          )}
+        </>
+      )}
+
+      <div className="bg-amber-50 border border-amber-100 text-amber-900 rounded-lg p-3 text-xs mb-8" role="note">
+        Credentials are added securely in Vercel later. Do not enter API secrets or storage tokens into TomorrowOS.org or the v0 conversation.
+      </div>
+
+      {state.prototypeReviewMode && (
+        <div className="rounded border border-dashed border-purple-300 bg-purple-50 p-3 text-[11px] leading-relaxed text-purple-900 mb-6">
+          <p className="font-bold uppercase tracking-wider mb-1">Media storage diagnostics</p>
+          <p><strong>Mode:</strong> {singleProvider ? 'single-provider' : 'multi-provider'} · <strong>Stored provider:</strong> {state.vercelMediaProvider || 'none'}</p>
+          {allProviders.map((p) => (
+            <p key={p.id}><strong>{p.name}:</strong> available {String(p.available)} · tested {String(p.tested)} · guide {p.guideUrl} ({p.guideReady ? 'ready' : 'placeholder'}) · logo {p.logoPath}</p>
+          ))}
+          {hiddenProviders.map((p) => (
+            <div key={p.id} className="mt-1">
+              <p className="font-bold">{p.name.toUpperCase()} HIDDEN — IMPLEMENTATION OR VALIDATION INCOMPLETE</p>
+              <ul className="list-disc pl-4">
+                {p.missingValidation.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className="mt-auto">
-        {!isGuide && <StepFooter continueLabel="I connected media storage" /> }
+        {!isGuide && (
+          <StepFooter
+            canContinue={!!selectedProvider}
+            blockedMessage={selectedProvider ? undefined : 'Select a media provider to continue'}
+            continueLabel={selectedProvider ? selectedProvider.continueLabel : 'Select a media provider to continue'}
+            onContinue={() => {
+              if (!selectedProvider) return;
+              updateState({ vercelMediaProvider: selectedProvider.id });
+              goToNextStep();
+            }}
+          />
+        )}
       </div>
     </div>
   );

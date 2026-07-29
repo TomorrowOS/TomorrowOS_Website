@@ -47,6 +47,8 @@ export interface PrototypeState {
 
   pairingStatus: UserConfirmedStatus;
   cmsUrl?: string;
+  /** Media-storage provider identifier chosen in Vercel step 5. Records the selection only — no connection is inspected. */
+  vercelMediaProvider?: 'cloudinary' | 'vercel-blob' | null;
 }
 
 const initialState: PrototypeState = {
@@ -87,6 +89,7 @@ const initialState: PrototypeState = {
   terminalPublishedStatus: 'not_started',
 
   pairingStatus: 'not_started',
+  vercelMediaProvider: null,
   cmsUrl: '',
 };
 
