@@ -297,7 +297,14 @@ function SamsungStep4() {
           <li>Confirm the display date and time are correct.</li>
           <li>Restart the display and try again.</li>
         </ul>
-        <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(url)}>Copy installation URL</Button>
+        <CopyActionBlock
+          type="url"
+          label="INSTALLATION URL"
+          value={url}
+          copyButtonLabel="Copy installation URL"
+          copiedMessage="Copied — enter on your Samsung display"
+          sourceKey="samsung.step4.troubleshootingInstallUrl"
+        />
       </TroubleshootingAccordion>
 
       <SamsungGuideFooter />
