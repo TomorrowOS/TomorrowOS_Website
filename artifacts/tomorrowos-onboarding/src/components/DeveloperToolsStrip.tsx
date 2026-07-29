@@ -52,30 +52,27 @@ function ToolItem({ tool, reviewMode }: { tool: DeveloperTool; reviewMode: boole
   const src = `${import.meta.env.BASE_URL}${tool.logoPath}`;
 
   return (
-    <li className="flex flex-col items-start gap-1.5 min-h-[24px]">
+    <li className="flex flex-col items-start gap-1.5">
       {failed ? (
         reviewMode ? (
-          <span className="text-[11px] font-mono text-red-600">
+          <span className="text-[11px] font-mono text-red-600 break-all">
             MISSING APPROVED LOGO · {tool.logoPath}
           </span>
         ) : (
           <span className="text-sm font-medium text-gray-700 leading-6">{tool.label}</span>
         )
       ) : (
-        <>
-          <img
-            src={src}
-            alt=""
-            className="h-6 w-auto max-w-[140px] object-contain"
-            loading="lazy"
-            onError={() => setFailed(true)}
-            onLoad={(e) => {
-              const el = e.currentTarget;
-              setDims({ w: Math.round(el.clientWidth), h: Math.round(el.clientHeight) });
-            }}
-          />
-          <span className="text-xs text-gray-500">{tool.label}</span>
-        </>
+        <img
+          src={src}
+          alt={tool.label}
+          className={`${tool.heightClass} w-auto max-w-[150px] object-contain`}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          onLoad={(e) => {
+            const el = e.currentTarget;
+            setDims({ w: Math.round(el.clientWidth), h: Math.round(el.clientHeight) });
+          }}
+        />
       )}
       {reviewMode && !failed && (
         <span className="text-[10px] font-mono text-blue-600 break-all">
