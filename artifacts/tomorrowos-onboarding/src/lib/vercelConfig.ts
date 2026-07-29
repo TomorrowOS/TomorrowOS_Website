@@ -27,7 +27,7 @@ export interface MediaProviderEntry {
 
 /**
  * Central media-provider flags. A provider is customer-facing only when
- * `available && tested`. Otherwise it is hidden in normal mode and its
+ * `available && tested && guideReady`. Otherwise it is hidden in normal mode and its
  * validation gaps are surfaced only in Prototype Review Mode.
  */
 export const mediaProviderConfig: Record<'cloudinary' | 'vercelBlob', MediaProviderEntry> = {

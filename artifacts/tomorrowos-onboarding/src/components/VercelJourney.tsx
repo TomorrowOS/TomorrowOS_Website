@@ -7,7 +7,6 @@ import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
 import { OnboardingScreenshotCard } from './OnboardingScreenshotCard';
-import { CopyableText } from './CopyableText';
 import { CopyActionBlock } from './CopyActionBlock';
 import { Check, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
