@@ -268,7 +268,7 @@ function VercelStep4({ isGuide = false }: { isGuide?: boolean }) {
         <OnboardingScreenshotCard
           id="VERCEL-03A"
           imagePath="onboarding/vercel/VERCEL-03A.png"
-          alt="v0 displaying the first TomorrowOS setup question asking which database should be used."
+          alt="v0 asking which database TomorrowOS should use on Vercel, with Supabase Postgres recommended."
           heading="Answer the database question in v0"
           copy={[
             'In the v0 question panel, select the database you want TomorrowOS to use. Choose “Supabase Postgres (recommended)” for the standard guided setup, or select another supported option only when you intentionally plan to configure it.',
