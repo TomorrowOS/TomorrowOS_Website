@@ -63,7 +63,7 @@ export const serverSdkConfig = {
     commandExample: '',
     eventSubscriptionExample: '',
     errorHandlingGuidance: '',
-    requiredRuntimeVersions: '',
+    requiredRuntimeVersions: 'Node.js 20 or newer',
   },
 
   /**
@@ -79,7 +79,6 @@ export const serverSdkConfig = {
     'Configuration schema',
     'Authentication model',
     'Environment-variable names',
-    'Node.js support range',
     'Device registration method',
     'Pairing method',
     'Content method',

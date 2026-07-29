@@ -10,6 +10,14 @@ import { CheckCircle2, ChevronDown, ChevronUp, AlertCircle, Check } from 'lucide
 import { cn, isValidHttpsUrl } from '@/lib/utils';
 import { StepHeader } from './StepHeader';
 import { StepFooter } from './StepFooter';
+import Replit_log_in from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Replit/Replit_log_in.png'
+import Create_project_view from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Replit/Create_project_view.png'
+import Replit_Q1 from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Replit/Replit_Q1.png'
+import Replit_Q2 from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Replit/Replit_Q2.png'
+import Replit_Q3 from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Replit/Replit_Q3.png'
+import Replit_publish from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Replit/Replit_publish.png'
+import Replit_secrets from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Replit/Replit_secrets.png'
+
 
 export function GuidedJourney() {
   const { state } = usePrototype();
@@ -131,8 +139,8 @@ function GuidedStep2() {
       <div className="mb-6">
         <Button onClick={() => window.open('https://replit.com', '_blank')} className="mb-6">Open Replit in new tab</Button>
         <ScreenshotPlaceholder 
-          id="[IMAGE PLACEHOLDER — REPLIT SIGN-IN SCREEN]" 
-          description="Show the Replit authentication page"
+          
+          image={Replit_log_in}
         />
       </div>
 
@@ -170,14 +178,12 @@ function GuidedStep3() {
         </ul>
       </div>
 
-      <CopyableText text="Follow @tomorrowos/sdk REPLIT_SETUP.md and set up my TomorrowOS CMS." className="mb-6" />
+      <CopyableText text="Follow NPM package @tomorrowos/sdk REPLIT_SETUP.md and set up my TomorrowOS CMS." className="mb-6" />
 
-      <div className="grid md:grid-cols-2 gap-4 mb-6">
-        <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — REPLIT CREATE PROJECT]" description="Creating project view" className="p-4" />
-        <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — REPLIT AGENT MESSAGE BOX]" description="Message box highlighting" className="p-4" />
-      </div>
       
-      <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — TOMORROWOS PROMPT SUBMITTED]" description="Prompt successfully entered" className="p-4 mb-6" />
+        <ScreenshotPlaceholder image={Create_project_view} className="mb-6"/>
+        
+      
 
       <p className="text-sm text-gray-500 mb-8">Tip: Choose Node.js if Replit asks you to select a project type.</p>
 
@@ -206,6 +212,8 @@ function GuidedStep4() {
       </div>
 
       <div className="space-y-4 mb-8">
+    
+
         <div className="flex gap-4 items-stretch">
           <div className="w-8 shrink-0 flex flex-col items-center">
             <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">1</div>
@@ -213,10 +221,10 @@ function GuidedStep4() {
           </div>
           <Card className="flex-1 mb-4">
             <CardContent className="p-5">
-              <h3 className="font-semibold text-lg mb-2">Project name</h3>
-              <p className="text-sm text-gray-600 mb-1"><strong>Question:</strong> What is your project name?</p>
-              <p className="text-sm text-gray-600 mb-4"><strong>Example:</strong> my-signage-app</p>
-              <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — LIVE REPLIT PROJECT-NAME QUESTION]" description="" className="p-4 py-6" />
+              <h3 className="font-semibold text-lg mb-2">Database</h3>
+              <p className="text-sm text-gray-600 mb-1"><strong>Question:</strong> Which database should your TomorrowOS CMS use?</p>
+              <p className="text-sm text-gray-600 mb-4"><strong>Recommended answer:</strong> Supabase Postgres</p>
+              <ScreenshotPlaceholder image={Replit_Q1} />
             </CardContent>
           </Card>
         </div>
@@ -228,10 +236,10 @@ function GuidedStep4() {
           </div>
           <Card className="flex-1 mb-4">
             <CardContent className="p-5">
-              <h3 className="font-semibold text-lg mb-2">Database</h3>
-              <p className="text-sm text-gray-600 mb-1"><strong>Question:</strong> Which database would you like to use?</p>
-              <p className="text-sm text-gray-600 mb-4"><strong>Expected answer:</strong> Supabase</p>
-              <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — LIVE REPLIT DATABASE QUESTION]" description="" className="p-4 py-6" />
+              <h3 className="font-semibold text-lg mb-2">Media storage</h3>
+              <p className="text-sm text-gray-600 mb-1"><strong>Question:</strong> How should playlist media (images/videos) be stored?</p>
+              <p className="text-sm text-gray-600 mb-4"><strong>Recommended answer:</strong> Cloudinary</p>
+              <ScreenshotPlaceholder image={Replit_Q2}/>
             </CardContent>
           </Card>
         </div>
@@ -239,28 +247,13 @@ function GuidedStep4() {
         <div className="flex gap-4 items-stretch">
           <div className="w-8 shrink-0 flex flex-col items-center">
             <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">3</div>
-            <div className="w-px h-full bg-gray-200 mt-2"></div>
-          </div>
-          <Card className="flex-1 mb-4">
-            <CardContent className="p-5">
-              <h3 className="font-semibold text-lg mb-2">Media storage</h3>
-              <p className="text-sm text-gray-600 mb-1"><strong>Question:</strong> Which media storage would you like to use?</p>
-              <p className="text-sm text-gray-600 mb-4"><strong>Expected answer:</strong> Cloudinary</p>
-              <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — LIVE REPLIT STORAGE QUESTION]" description="" className="p-4 py-6" />
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="flex gap-4 items-stretch">
-          <div className="w-8 shrink-0 flex flex-col items-center">
-            <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">4</div>
           </div>
           <Card className="flex-1">
             <CardContent className="p-5">
-              <h3 className="font-semibold text-lg mb-2">Example content</h3>
-              <p className="text-sm text-gray-600 mb-1"><strong>Question:</strong> Would you like to initialise the project with example content?</p>
-              <p className="text-sm text-gray-600 mb-4"><strong>Recommended answer:</strong> Yes</p>
-              <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — LIVE REPLIT EXAMPLE-CONTENT QUESTION]" description="" className="p-4 py-6" />
+              <h3 className="font-semibold text-lg mb-2">Branding</h3>
+              <p className="text-sm text-gray-600 mb-1"><strong>Question:</strong> Brand your TomorrowOS experience</p>
+              <p className="text-sm text-gray-600 mb-4"><strong>Recommended answer:</strong> Fill in the form based on your desiend UI design</p>
+              <ScreenshotPlaceholder image={Replit_Q3} />
             </CardContent>
           </Card>
         </div>
@@ -330,14 +323,17 @@ function GuidedStep6() {
           "4. Secondary or accent colour",
           "5. Timezone",
           "6. Logo URL"
-        ].map((item, i) => (
+        ]
+        .map((item, i) => (
           <div key={i} className="bg-gray-50 rounded-md border border-border p-4 flex flex-col items-center justify-center text-center gap-2">
             <span className="text-sm font-medium text-gray-900">{item}</span>
-            <div className="w-16 h-16 bg-gray-200 border border-dashed border-gray-300 rounded flex items-center justify-center">
+            {/* <div className="w-16 h-16 bg-gray-200 border border-dashed border-gray-300 rounded flex items-center justify-center">
               <span className="text-xs text-gray-400">IMG</span>
-            </div>
+            </div> */}
           </div>
-        ))}
+        )
+        )
+        }
       </div>
 
       <Card className="bg-blue-50 border-blue-100 mb-6">
@@ -570,8 +566,8 @@ function GuidedStep9() {
           </div>
         </div>
         <div className="space-y-4">
-          <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — REPLIT PUBLISHING PANEL]" description="Publishing panel" className="p-4" />
-          <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — PRODUCTION SECRETS]" description="Production secrets" className="p-4" />
+          <ScreenshotPlaceholder image={Replit_publish} />
+          <ScreenshotPlaceholder image={Replit_secrets} />
         </div>
       </div>
 

@@ -74,7 +74,7 @@ function TerminalStep1() {
         <CardContent className="p-6 space-y-6">
           <h3 className="font-semibold text-gray-900">Requirements:</h3>
           <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
-            <li>Node.js <PlaceholderText value={terminalConfig.placeholders.SUPPORTED_NODE_VERSION} fallback="(supported version)" /></li>
+            <li>Node.js <PlaceholderText value={terminalConfig.placeholders.SUPPORTED_NODE_VERSION} fallback="20 or newer" /></li>
             <li><PlaceholderText value={terminalConfig.placeholders.APPROVED_PACKAGE_MANAGERS} fallback="An approved package manager" /></li>
             <li>Git</li>
             <li>Terminal</li>
@@ -549,7 +549,7 @@ function TerminalStep10() {
         <CardContent className="p-6">
            <h3 className="font-semibold text-gray-900 mb-4">Requirements:</h3>
            <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
-             <li><PlaceholderText value={terminalConfig.placeholders.NODE_RUNTIME_REQUIREMENT} fallback="Node.js runtime" /></li>
+             <li><PlaceholderText value={terminalConfig.placeholders.NODE_RUNTIME_REQUIREMENT} fallback="Node.js 20 or newer" /></li>
              <li><PlaceholderText value={terminalConfig.placeholders.PERSISTENT_PROCESS_REQUIREMENT} fallback="Persistent process" /></li>
              <li><PlaceholderText value={terminalConfig.placeholders.WEBSOCKET_REQUIREMENT} fallback="WebSocket support" /></li>
              <li><PlaceholderText value={terminalConfig.placeholders.ENVIRONMENT_VARIABLE_REQUIREMENT} fallback="Environment variable management" /></li>
