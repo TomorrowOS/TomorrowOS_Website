@@ -1,0 +1,225 @@
+Correct the Vercel onboarding question flow so it matches the real behaviour of v0 and the current TomorrowOS setup files.
+
+IMPORTANT
+
+Do not preserve the current step order merely to keep the existing “13 steps” count.
+
+The onboarding must follow the actual question order defined by:
+
+- VERCEL_SETUP.md
+- VERCEL_QUESTIONS.md
+
+Inspect those files before changing the flow.
+
+CURRENT PROBLEM
+
+The current onboarding order is:
+
+Step 3 — Create the project
+Step 4 — Follow the questions
+Step 5 — Choose a database
+
+This is incorrect.
+
+After the TomorrowOS setup prompt is submitted, v0 reads the setup files and immediately asks the database question first.
+
+The generic “Follow the questions” page therefore appears before the action the user is already being asked to complete.
+
+REQUIRED FLOW CHANGE
+
+Keep Step 3 as:
+
+Create the project
+
+Change the current Step 4 from:
+
+Follow the questions
+
+to:
+
+Choose a database
+
+Remove the standalone generic “Follow the questions” step.
+
+Move the useful introductory guidance from that page into the new database step:
+
+“v0 will ask the setup questions one at a time. Complete each question before continuing.”
+
+Place this beneath the Step 4 page introduction.
+
+IMAGE ASSET
+
+Use this exact asset path:
+
+/public/onboarding/vercel/VERCEL-03A.png
+
+Do not rename the image.
+
+The image should visually show the v0 conversation panel displaying the first database question.
+
+Do not add explanatory HTML overlays, arrows, labels or captions on top of the image.
+
+The v0 interface text shown naturally inside the screenshot is allowed.
+
+STEP 4 PAGE CONTENT
+
+Sidebar label:
+
+Choose a database
+
+Page eyebrow:
+
+VERCEL SETUP
+
+Page heading:
+
+Choose your database
+
+Page introduction:
+
+v0 will ask the setup questions one at a time. The first question asks which database TomorrowOS should use.
+
+IMAGE CONTENT ORDER
+
+Display:
+
+1. VERCEL-03A.png
+2. Zone label
+3. Instruction heading
+4. Instructional copy
+
+Zone label:
+
+VERCEL-03A
+
+Instruction heading:
+
+Answer the database question in v0
+
+Instructional copy:
+
+In the v0 question panel, select the database you want TomorrowOS to use. Choose “Supabase Postgres (recommended)” for the standard guided setup, or select another supported option only when you intentionally plan to configure it.
+
+Then select “Submit” in v0 before returning to this guide.
+
+Add this secondary note beneath it:
+
+Do not enter database passwords, connection strings or API secrets into the v0 conversation. Sensitive values will be added later using Vercel Environment Variables or an approved integration.
+
+IMAGE DISPLAY
+
+The image must:
+
+- Use width: 100%
+- Use height: auto
+- Use object-fit: contain
+- Preserve its original aspect ratio
+- Remain uncropped by the browser
+- Use a subtle light-grey border
+- Use rounded corners matching the existing design system
+- Use no heavy shadow
+- Be large enough for the database question to be visible
+
+Use this alt text:
+
+“v0 displaying the first TomorrowOS setup question asking which database should be used.”
+
+Do not use the filename as alt text.
+
+STEP COMPLETION BUTTON
+
+Replace the current Step 4 completion action with:
+
+I selected my database
+
+Do not attempt to detect the external v0 selection automatically.
+
+The button should retain the existing TomorrowOS completion logic and unlock the next onboarding step.
+
+SIDEBAR AND STEP ORDER
+
+The existing later “Choose a database” sidebar entry must not remain as a duplicate.
+
+After converting Step 4 into “Choose a database”:
+
+1. Remove or rename the old database step.
+2. Reorder all later steps to match the exact question order in VERCEL_QUESTIONS.md.
+3. Recalculate step numbers.
+4. Recalculate progress percentages.
+5. Update Back and Continue destinations.
+6. Preserve completed-step state.
+7. Ensure direct URLs and browser refreshes still resolve to the correct step.
+
+Do not assume that the current placeholder sequence is correct.
+
+Use VERCEL_QUESTIONS.md as the source of truth for:
+
+- Database
+- Project details
+- Media storage
+- Example content
+- Branding
+- Deployment questions
+- Any other setup question currently required
+
+If the corrected flow contains more or fewer than 13 steps, update the total step count throughout the onboarding interface.
+
+Do not insert artificial pages solely to retain 13 steps.
+
+REMOVE FROM THE OLD STEP 4 PAGE
+
+Remove the current placeholder list containing messages such as:
+
+- Project name question available soon
+- Database question available soon
+- Storage question available soon
+- Example content question available soon
+- Branding question available soon
+- Deployment question available soon
+
+These placeholders should not remain visible once the real question-specific steps exist.
+
+KEEP UNCHANGED
+
+Do not redesign or alter:
+
+- Overall TomorrowOS page layout
+- Sidebar visual style
+- Progress indicator styling
+- Typography system
+- Existing completed-step appearance
+- Mobile navigation behaviour
+- Authentication
+- Routes unrelated to Vercel onboarding
+- Other onboarding pathways
+
+RESPONSIVE REQUIREMENTS
+
+Desktop:
+
+- Image uses the full available content width
+- Instructions appear directly beneath the image
+- Sidebar remains unchanged visually
+
+Tablet and mobile:
+
+- Image remains full width
+- Text wraps naturally
+- No horizontal scrolling
+- Completion button remains easily accessible
+- Sidebar/mobile step navigation continues to work
+
+ACCEPTANCE CRITERIA
+
+The correction is complete only when:
+
+1. Step 4 is titled “Choose your database.”
+2. The old standalone “Follow the questions” page has been removed.
+3. VERCEL-03A.png appears in the database step.
+4. Database instructions appear as HTML beneath the image.
+5. The old duplicate database step no longer exists.
+6. Later steps mirror the actual order in VERCEL_QUESTIONS.md.
+7. Step numbers and progress percentages are accurate.
+8. The completion button reads “I selected my database.”
+9. Existing completion and unlocking logic still works.
+10. No unrelated onboarding flow has been modified.
