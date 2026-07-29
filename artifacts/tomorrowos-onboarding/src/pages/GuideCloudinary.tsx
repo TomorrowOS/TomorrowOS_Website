@@ -1,6 +1,8 @@
 import React from 'react';
 import { useGuideSeo, GuideBreadcrumbs } from '@/components/GuideSeo';
 import { useLocation } from 'wouter';
+import { usePrototype } from '@/components/PrototypeProvider';
+import { getResumeSetupPath } from '@/lib/onboardingPaths';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CopyActionBlock } from '@/components/CopyActionBlock';
@@ -8,11 +10,12 @@ import { CopyActionBlock } from '@/components/CopyActionBlock';
 export default function GuideCloudinary() {
   useGuideSeo('/guides/cloudinary');
   const [, setLocation] = useLocation();
+  const { state } = usePrototype();
 
   return (
     <div className="max-w-3xl mx-auto space-y-8 pb-32 animate-in fade-in">
       <GuideBreadcrumbs path="/guides/cloudinary" />
-      <Button variant="tertiary" onClick={() => setLocation('/start')} className="mb-4">
+      <Button variant="tertiary" onClick={() => setLocation(getResumeSetupPath(state))} className="mb-4">
         ← Back to setup
       </Button>
 
@@ -150,7 +153,7 @@ export default function GuideCloudinary() {
           <h2 className="mt-0">Next steps</h2>
           <div className="flex gap-4 mt-6">
             <Button onClick={() => setLocation('/guides/content#upload-media')}>Continue to media upload</Button>
-            <Button variant="outline" onClick={() => setLocation('/start')}>Return to setup</Button>
+            <Button variant="outline" onClick={() => setLocation(getResumeSetupPath(state))}>Return to setup</Button>
           </div>
         </div>
       </div>

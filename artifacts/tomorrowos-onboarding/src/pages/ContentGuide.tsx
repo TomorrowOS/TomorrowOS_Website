@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getResumeSetupPath } from '@/lib/onboardingPaths';
 import { useGuideSeo, GuideBreadcrumbs } from '@/components/GuideSeo';
 import { useLocation } from 'wouter';
 import { usePrototype } from '@/components/PrototypeProvider';
@@ -59,7 +60,7 @@ export default function ContentGuide() {
   };
 
   const handleBackToGuided = () => {
-    setLocation('/start');
+    setLocation(getResumeSetupPath(state));
   };
 
   return (

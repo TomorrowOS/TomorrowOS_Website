@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getResumeSetupPath } from '@/lib/onboardingPaths';
 import { usePrototype } from './PrototypeProvider';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
@@ -650,7 +651,7 @@ function SamsungStep10() {
           <p className="text-xs text-gray-500 italic mb-8 max-w-md mx-auto">This status is based on your confirmation and is not independently verified by TomorrowOS.org.</p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-3">
-             <Button onClick={() => setLocation('/start')}>Return to Guided Setup</Button>
+             <Button onClick={() => setLocation(getResumeSetupPath(state))}>Return to Guided Setup</Button>
              <Button variant="outline">Add another screen</Button>
              <Button variant="ghost">View Samsung troubleshooting</Button>
           </div>

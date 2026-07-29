@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getResumeSetupPath } from '@/lib/onboardingPaths';
 import { useGuideSeo, GuideBreadcrumbs } from '@/components/GuideSeo';
 import { useLocation, useRoute } from 'wouter';
 import { usePrototype } from '@/components/PrototypeProvider';
@@ -29,7 +30,7 @@ export default function SamsungTizenGuide() {
   };
 
   const handleBackToGuided = () => {
-    setLocation('/start');
+    setLocation(getResumeSetupPath(state));
   };
 
   return (

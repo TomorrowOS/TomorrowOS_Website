@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getResumeSetupPath } from '@/lib/onboardingPaths';
 import { usePrototype } from './PrototypeProvider';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
@@ -759,7 +760,7 @@ function ContentStep12() {
             
             <div className="flex flex-wrap justify-center gap-3">
                <Button onClick={handleOpenCms}>Open my CMS</Button>
-               <Button variant="outline" onClick={() => setLocation('/start')}>Return to Guided Setup</Button>
+               <Button variant="outline" onClick={() => setLocation(getResumeSetupPath(state))}>Return to Guided Setup</Button>
                <Button variant="outline">Add another playlist</Button>
                <Button variant="ghost" onClick={() => {
                  document.getElementById('troubleshooting')?.scrollIntoView({ behavior: 'smooth' });
