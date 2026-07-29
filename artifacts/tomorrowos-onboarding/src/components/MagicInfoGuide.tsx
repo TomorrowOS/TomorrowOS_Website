@@ -2,8 +2,11 @@ import React from 'react';
 import { useLocation } from 'wouter';
 import { Button } from './ui/button';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
-
 import { usePrototype } from './PrototypeProvider';
+import Leave_MagicINFO from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Leave_MagicINFO.png'
+import Select_system from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Select_system.png'
+import Custom_app from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Custom_app.png'
+
 
 export function MagicInfoGuide() {
   const [, setLocation] = useLocation();
@@ -32,7 +35,7 @@ export function MagicInfoGuide() {
             <h3 className="text-xl font-bold text-gray-900 mb-4">Leave MagicINFO</h3>
             <p className="text-sm text-gray-700 mb-6">Use the Source button and temporarily switch to an available input, such as HDMI.</p>
             <p className="text-sm text-gray-600 mb-6 italic">This allows you to open the Samsung system menu outside MagicINFO.</p>
-            <ScreenshotPlaceholder id="SAMSUNG-MAGICINFO-01" description="Source menu with HDMI highlighted." className="h-64" />
+            <ScreenshotPlaceholder image={Leave_MagicINFO} />
           </section>
 
           {/* STEP 2 */}
@@ -43,7 +46,7 @@ export function MagicInfoGuide() {
               <li>Press Menu on the remote.</li>
               <li>Select System.</li>
             </ol>
-            <ScreenshotPlaceholder id="SAMSUNG-MAGICINFO-02" description="System menu highlighted." className="h-64" />
+            <ScreenshotPlaceholder image={Select_system} />
           </section>
 
           {/* STEP 3 */}
@@ -54,7 +57,7 @@ export function MagicInfoGuide() {
               <li>Select Play via.</li>
               <li>Select Custom App.</li>
             </ol>
-            <ScreenshotPlaceholder id="SAMSUNG-MAGICINFO-03" description="Play via → Custom App highlighted." className="h-64" />
+            <ScreenshotPlaceholder image={Custom_app} />
           </section>
 
           {/* STEP 4 */}

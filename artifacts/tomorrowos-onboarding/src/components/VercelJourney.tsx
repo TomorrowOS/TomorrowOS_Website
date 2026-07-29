@@ -894,14 +894,14 @@ function VercelStep8({ isGuide = false }: { isGuide?: boolean }) {
       />
       
       <div className="space-y-8 mb-8">
-        <section>
+        {/* <section>
           <h3 className="text-lg font-bold text-gray-900 mb-3">Project connection</h3>
           <p className="text-sm text-gray-600 mb-4">Confirm that the v0 project is connected to a Vercel project.</p>
           <div className="grid md:grid-cols-2 gap-4">
             <ScreenshotPlaceholder id="VERCEL-04A" description="v0 project deployment connection" />
             <ScreenshotPlaceholder id="VERCEL-04B" description="Vercel project dashboard" />
           </div>
-        </section>
+        </section> */}
 
         <section>
           <h3 className="text-lg font-bold text-gray-900 mb-3">Environment variables</h3>
@@ -1126,13 +1126,14 @@ function VercelStep11({ isGuide = false }: { isGuide?: boolean }) {
             <li>Open the deployment action in v0 or Vercel.</li>
             <li>Deploy to Production.</li>
             <li>Wait for the production deployment to complete.</li>
+            <li>View publishing screenshot.</li>
             <li>Open the production URL.</li>
             <li>Copy the public HTTPS CMS URL.</li>
           </ol>
           <div className="pt-2 flex flex-col gap-2">
             <Button variant="outline" onClick={() => window.open('https://v0.app', '_blank')}>Open v0</Button>
             <Button variant="outline" onClick={() => window.open('https://vercel.com', '_blank')}>Open Vercel dashboard</Button>
-            <Button variant="secondary">View publishing screenshot</Button>
+            {/* <Button variant="secondary">View publishing screenshot</Button> */}
           </div>
         </div>
       </div>

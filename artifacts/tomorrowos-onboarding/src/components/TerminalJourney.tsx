@@ -31,7 +31,6 @@ export function TerminalJourney() {
       {state.terminalStep === 10 && <TerminalStep10 />}
       {state.terminalStep === 11 && <TerminalStep11 />}
       {state.terminalStep === 12 && <TerminalStep12 />}
-      {state.terminalStep === 13 && <TerminalStep13 />}
       
       <NeedHelpDrawer context="terminal" />
     </div>
@@ -117,12 +116,12 @@ function TerminalStep2() {
       onComplete={goToNextStep}
     >
       <div className="mb-6">
-        <PlaceholderCommand value={terminalConfig.placeholders.OFFICIAL_TOMORROWOS_CREATE_COMMAND} fallback="Command available soon." />
+            <CopyActionBlock type="command" label="Scaffold a new TomorrowOS CMS project" value="npx @tomorrowos/sdk init my_cms" copiedMessage="Copied — run in your terminal" sourceKey="terminal.checkNodeVersion" />
       </div>
 
-      <div className="flex gap-3 mb-8">
+      {/* <div className="flex gap-3 mb-8">
         <Button variant="outline">Open CLI documentation</Button>
-      </div>
+      </div> */}
 
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div className="space-y-4">
@@ -136,9 +135,8 @@ function TerminalStep2() {
           </ol>
         </div>
         <div className="space-y-4">
-          <ScreenshotPlaceholder id="TERMINAL-01" description="Empty terminal before the command." className="p-4" />
-          <ScreenshotPlaceholder id="TERMINAL-02" description="TomorrowOS create command entered." className="p-4" />
-          <ScreenshotPlaceholder id="TERMINAL-03" description="TomorrowOS CLI successfully started." className="p-4" />
+          <CopyActionBlock type="command" label="Navigate to directory" value="cd my_cms" copiedMessage="Copied — run in your terminal" sourceKey="terminal.checkNodeVersion" />
+          <CopyActionBlock type="command" label="Install dependencies" value="npm install" copiedMessage="Copied — run in your terminal" sourceKey="terminal.checkNodeVersion" />
         </div>
       </div>
     </GenericActionStep>
@@ -153,36 +151,29 @@ function TerminalStep3() {
 
   return (
     <GenericActionStep 
-      title="Follow the CLI questions" 
-      description="The questions appear individually in your terminal. Complete each question before the next one appears."
+      title="Brand your app and CMS" 
+      description="Edit the brand.json file to brand your app and CMS based on your UI design."
       actionLabel="I completed the CLI questions"
       onComplete={goToNextStep}
     >
       <Card className="mb-6">
         <CardContent className="p-6">
           <ol className="list-decimal pl-5 space-y-3 text-sm text-gray-700">
-            <li><strong>Project name:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_QUESTION_PROJECT_NAME} fallback="Enter your project name" /></li>
-            <li><strong>Project template or starter:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_QUESTION_TEMPLATE} fallback="Select your desired starter" /></li>
-            <li><strong>Database integration:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_DATABASE_OPTIONS} fallback="Select or configure later" /></li>
-            <li><strong>Media-storage integration:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_MEDIA_OPTIONS} fallback="Select or configure later" /></li>
-            <li><strong>Include example content:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_EXAMPLE_CONTENT_OPTIONS} fallback="Yes/No" /></li>
-            <li><strong>Package manager:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_PACKAGE_MANAGER_OPTIONS} fallback="npm, pnpm, yarn, bun" /></li>
+            <li><strong>Name:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_QUESTION_PROJECT_NAME} fallback="Enter your project name" /></li>
+            <li><strong>Tagline:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_QUESTION_TEMPLATE} fallback="Enter the tagline" /></li>
+            <li><strong>primaryColor:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_DATABASE_OPTIONS} fallback="Enter priamry colour" /></li>
+            <li><strong>secondaryColor:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_MEDIA_OPTIONS} fallback="Enter secondary colour" /></li>
+            <li><strong>backgroundColor:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_EXAMPLE_CONTENT_OPTIONS} fallback="Enter background colour" /></li>
+            <li><strong>textColor:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_PACKAGE_MANAGER_OPTIONS} fallback="Exter text colour" /></li>
+            <li><strong>logoPath:</strong> <PlaceholderText value={terminalConfig.placeholders.CLI_PACKAGE_MANAGER_OPTIONS} fallback="Enter your Logo URL" /></li>
           </ol>
         </CardContent>
       </Card>
 
       <div className="bg-gray-50 border border-border p-4 rounded-md text-sm text-gray-600 mb-8">
-        <strong>Clarification:</strong> Your answers should generate configuration files or prompts; they should not require sensitive secrets to be typed into the public TomorrowOS guide.
+        <strong>Note:</strong> Your app will be branded after it is connected to your CMS.
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-         <ScreenshotPlaceholder id="TERMINAL-04A" description="Project-name question." className="p-4 h-32" />
-         <ScreenshotPlaceholder id="TERMINAL-04B" description="Template selection." className="p-4 h-32" />
-         <ScreenshotPlaceholder id="TERMINAL-04C" description="Database integration selection." className="p-4 h-32" />
-         <ScreenshotPlaceholder id="TERMINAL-04D" description="Media-storage selection." className="p-4 h-32" />
-         <ScreenshotPlaceholder id="TERMINAL-04E" description="Example-content selection." className="p-4 h-32" />
-         <ScreenshotPlaceholder id="TERMINAL-04F" description="Package-manager selection." className="p-4 h-32" />
-      </div>
     </GenericActionStep>
   );
 }
@@ -199,7 +190,7 @@ function TerminalStep4() {
       actionLabel="I opened the generated project"
       onComplete={goToNextStep}
     >
-      <PlaceholderCommand value="cd {{PROJECT_NAME}}" fallback="Command available soon." />
+      {/* <PlaceholderCommand value="cd {{PROJECT_NAME}}" fallback="Command available soon." /> */}
       
       <Card className="mt-6">
         <CardContent className="p-6">
@@ -230,7 +221,7 @@ function TerminalStep4() {
 }
 
 // ------------------------------------------
-// 5. CHOOSE YOUR INFRASTRUCTURE
+// 5. CONFIGURE ENVIRONMENT VARIABLES
 // ------------------------------------------
 function TerminalStep5() {
   const { goToNextStep, state } = usePrototype();
@@ -239,8 +230,8 @@ function TerminalStep5() {
 
   return (
     <GenericActionStep 
-      title="Connect your infrastructure" 
-      description="Use the database, storage and hosting services appropriate for your application and supported by the TomorrowOS starter."
+      title="Configure local environment variables" 
+      description="Configure your database and media storage in the .env file."
       actionLabel="I selected my infrastructure"
       onComplete={goToNextStep}
     >
@@ -256,7 +247,13 @@ function TerminalStep5() {
             </div>
             <p className="text-sm text-gray-600 mb-4 ml-14">Connect the database or data service used by your CMS.</p>
             <div className="ml-14">
-              <PlaceholderText block value={terminalConfig.placeholders.SUPPORTED_DATABASE_OPTIONS} fallback="Available soon — pending engineering confirmation" />
+            <PlaceholderText 
+              block
+              value={terminalConfig.placeholders.SUPPORTED_DATABASE_OPTIONS}
+              fallback={
+                "TOMORROWOS_STORE=supabase\nSUPABASE_URL=postgresql://postgres:[PASSWORD]@[HOST]:5432/postgres\nDATABASE_SSL=true"
+              }
+            />
             </div>
             <div className="ml-14 mt-3">
                <a href="/guides/supabase" onClick={(e) => { e.preventDefault(); setLocation('/guides/supabase'); }} className="text-sm font-medium text-black hover:underline">Need a database? View Supabase guide</a>
@@ -275,7 +272,8 @@ function TerminalStep5() {
             </div>
             <p className="text-sm text-gray-600 mb-4 ml-14">Connect your object storage, asset service or CDN.</p>
             <div className="ml-14">
-              <PlaceholderText block value={terminalConfig.placeholders.SUPPORTED_MEDIA_STORAGE_OPTIONS} fallback="Available soon — pending engineering confirmation" />
+              <PlaceholderText block value={terminalConfig.placeholders.SUPPORTED_MEDIA_STORAGE_OPTIONS} fallback=
+              {"CLOUDINARY_CLOUD_NAME=\nCLOUDINARY_API_KEY=\nCLOUDINARY_API_SECRET=\nCLOUDINARY_FOLDER="} />
             </div>
             <div className="ml-14 mt-3">
                <a href="/guides/cloudinary" onClick={(e) => { e.preventDefault(); setLocation('/guides/cloudinary'); }} className="text-sm font-medium text-black hover:underline">Need media storage? View Cloudinary guide</a>
@@ -284,7 +282,7 @@ function TerminalStep5() {
         </Card>
 
         {/* Hosting */}
-        <Card>
+        {/* <Card>
           <CardContent className="p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 bg-gray-100 rounded">
@@ -297,7 +295,7 @@ function TerminalStep5() {
               <PlaceholderText block value={terminalConfig.placeholders.SUPPORTED_HOSTING_REQUIREMENTS} fallback="Available soon — pending engineering confirmation" />
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </GenericActionStep>
   );
@@ -306,64 +304,64 @@ function TerminalStep5() {
 // ------------------------------------------
 // 6. CONFIGURE ENVIRONMENT VARIABLES
 // ------------------------------------------
+// function TerminalStep6() {
+//   const { goToNextStep, state } = usePrototype();
+
+//   return (
+//     <GenericActionStep 
+//       title="Configure local environment variables" 
+//       actionLabel="I configured my local environment"
+//       onComplete={goToNextStep}
+//     >
+//       <div className="mb-6">
+//         <PlaceholderText block value={terminalConfig.placeholders.CONFIRMED_LOCAL_ENV_FILENAME} fallback=".env.local" className="font-mono bg-white" />
+//       </div>
+
+//       <div className="space-y-8">
+//         <div>
+//           <h3 className="font-bold text-lg mb-3 border-b pb-2">Core TomorrowOS</h3>
+//           <PlaceholderText block value={terminalConfig.placeholders.REQUIRED_CORE_ENVIRONMENT_VARIABLES} fallback="Variables available soon — pending engineering confirmation." className="bg-white" />
+//         </div>
+
+//         <div>
+//           <h3 className="font-bold text-lg mb-3 border-b pb-2">Database</h3>
+//           <PlaceholderText block value={terminalConfig.placeholders.SELECTED_DATABASE_ENVIRONMENT_VARIABLES} fallback="Variables available soon — pending engineering confirmation." className="bg-white" />
+//         </div>
+
+//         <div>
+//           <h3 className="font-bold text-lg mb-3 border-b pb-2">Media storage</h3>
+//           <PlaceholderText block value={terminalConfig.placeholders.SELECTED_MEDIA_ENVIRONMENT_VARIABLES} fallback="Variables available soon — pending engineering confirmation." className="bg-white" />
+//         </div>
+
+//         <div>
+//           <h3 className="font-bold text-lg mb-3 border-b pb-2">Optional</h3>
+//           <PlaceholderText block value={terminalConfig.placeholders.OPTIONAL_ENVIRONMENT_VARIABLES} fallback="Variables available soon — pending engineering confirmation." className="bg-white" />
+//         </div>
+//       </div>
+
+//       <Card className="mt-8 border-red-200">
+//         <CardContent className="p-6">
+//           <h3 className="font-bold text-red-900 mb-2">Keep secrets out of source control</h3>
+//           <ul className="list-disc pl-5 space-y-1 text-sm text-red-800">
+//             <li>Do not commit your environment file.</li>
+//             <li>Do not hard-code secrets.</li>
+//             <li>Do not paste secrets into screenshots.</li>
+//             <li>Do not expose server credentials to browser code.</li>
+//           </ul>
+//           <div className="mt-4 flex items-center gap-2 text-sm font-medium">
+//              <input type="checkbox" id="git-check" className="rounded border-gray-300" />
+//              <label htmlFor="git-check">Environment file excluded from Git</label>
+//           </div>
+//         </CardContent>
+//       </Card>
+//     </GenericActionStep>
+//   );
+// }
+
+// ------------------------------------------
+// 6. INITIALISE THE PROJECT
+// ------------------------------------------
 function TerminalStep6() {
-  const { goToNextStep, state } = usePrototype();
-
-  return (
-    <GenericActionStep 
-      title="Configure local environment variables" 
-      actionLabel="I configured my local environment"
-      onComplete={goToNextStep}
-    >
-      <div className="mb-6">
-        <PlaceholderText block value={terminalConfig.placeholders.CONFIRMED_LOCAL_ENV_FILENAME} fallback=".env.local" className="font-mono bg-white" />
-      </div>
-
-      <div className="space-y-8">
-        <div>
-          <h3 className="font-bold text-lg mb-3 border-b pb-2">Core TomorrowOS</h3>
-          <PlaceholderText block value={terminalConfig.placeholders.REQUIRED_CORE_ENVIRONMENT_VARIABLES} fallback="Variables available soon — pending engineering confirmation." className="bg-white" />
-        </div>
-
-        <div>
-          <h3 className="font-bold text-lg mb-3 border-b pb-2">Database</h3>
-          <PlaceholderText block value={terminalConfig.placeholders.SELECTED_DATABASE_ENVIRONMENT_VARIABLES} fallback="Variables available soon — pending engineering confirmation." className="bg-white" />
-        </div>
-
-        <div>
-          <h3 className="font-bold text-lg mb-3 border-b pb-2">Media storage</h3>
-          <PlaceholderText block value={terminalConfig.placeholders.SELECTED_MEDIA_ENVIRONMENT_VARIABLES} fallback="Variables available soon — pending engineering confirmation." className="bg-white" />
-        </div>
-
-        <div>
-          <h3 className="font-bold text-lg mb-3 border-b pb-2">Optional</h3>
-          <PlaceholderText block value={terminalConfig.placeholders.OPTIONAL_ENVIRONMENT_VARIABLES} fallback="Variables available soon — pending engineering confirmation." className="bg-white" />
-        </div>
-      </div>
-
-      <Card className="mt-8 border-red-200">
-        <CardContent className="p-6">
-          <h3 className="font-bold text-red-900 mb-2">Keep secrets out of source control</h3>
-          <ul className="list-disc pl-5 space-y-1 text-sm text-red-800">
-            <li>Do not commit your environment file.</li>
-            <li>Do not hard-code secrets.</li>
-            <li>Do not paste secrets into screenshots.</li>
-            <li>Do not expose server credentials to browser code.</li>
-          </ul>
-          <div className="mt-4 flex items-center gap-2 text-sm font-medium">
-             <input type="checkbox" id="git-check" className="rounded border-gray-300" />
-             <label htmlFor="git-check">Environment file excluded from Git</label>
-          </div>
-        </CardContent>
-      </Card>
-    </GenericActionStep>
-  );
-}
-
-// ------------------------------------------
-// 7. INITIALISE THE PROJECT
-// ------------------------------------------
-function TerminalStep7() {
   const { goToNextStep, state } = usePrototype();
 
   return (
@@ -394,9 +392,9 @@ function TerminalStep7() {
 }
 
 // ------------------------------------------
-// 8. RUN LOCALLY
+// 7. RUN LOCALLY
 // ------------------------------------------
-function TerminalStep8() {
+function TerminalStep7() {
   const { goToNextStep, state, updateState } = usePrototype();
   const [localUrl, setLocalUrl] = useState('');
   const [urlError, setUrlError] = useState('');
@@ -434,7 +432,7 @@ function TerminalStep8() {
       <div className="flex justify-between items-center mb-2">
          <span className="font-semibold text-gray-900">Start the development server</span>
       </div>
-      <PlaceholderCommand value={terminalConfig.placeholders.OFFICIAL_DEVELOPMENT_COMMAND} fallback="Command available soon." />
+          <CopyActionBlock type="command" label="Start the project" value="npm start" copiedMessage="Copied — run in your terminal" sourceKey="terminal.checkNodeVersion" />
       
       <div className="bg-gray-50 p-4 border rounded font-mono text-sm text-center my-6 flex flex-col items-center justify-center gap-4">
         <div>http://localhost:<PlaceholderText value={terminalConfig.placeholders.DEFAULT_PORT} fallback="3000" /></div>
@@ -477,9 +475,9 @@ function TerminalStep8() {
 }
 
 // ------------------------------------------
-// 9. CONFIRM LOCAL SETUP
+// 8. CONFIRM LOCAL SETUP
 // ------------------------------------------
-function TerminalStep9() {
+function TerminalStep8() {
   const { goToNextStep } = usePrototype();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
 
@@ -537,9 +535,9 @@ function TerminalStep9() {
 }
 
 // ------------------------------------------
-// 10. CHOOSE A DEPLOYMENT HOST
+// 9. CHOOSE A DEPLOYMENT HOST
 // ------------------------------------------
-function TerminalStep10() {
+function TerminalStep9() {
   const { goToNextStep, state } = usePrototype();
 
   return (
@@ -585,9 +583,9 @@ function TerminalStep10() {
 }
 
 // ------------------------------------------
-// 11. ADD PRODUCTION VARIABLES
+// 10. ADD PRODUCTION VARIABLES
 // ------------------------------------------
-function TerminalStep11() {
+function TerminalStep10() {
   const { goToNextStep } = usePrototype();
 
   return (
@@ -627,9 +625,9 @@ function TerminalStep11() {
 }
 
 // ------------------------------------------
-// 12. DEPLOY
+// 11. DEPLOY
 // ------------------------------------------
-function TerminalStep12() {
+function TerminalStep11() {
   const { state, updateState, goToNextStep } = usePrototype();
   const [url, setUrl] = useState(state.cmsUrl || '');
   const [urlError, setUrlError] = useState('');
@@ -655,9 +653,9 @@ function TerminalStep12() {
       actionLabel="I deployed my CMS"
       onComplete={goToNextStep}
     >
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <PlaceholderCommand value={terminalConfig.placeholders.APPROVED_DEPLOYMENT_COMMAND} fallback="Deployment command available soon." />
-      </div>
+      </div> */}
 
       <Card className="mb-8">
         <CardContent className="p-6">
@@ -700,9 +698,9 @@ function TerminalStep12() {
 }
 
 // ------------------------------------------
-// 13. CONFIRM THE LIVE CMS
+// 12. CONFIRM THE LIVE CMS
 // ------------------------------------------
-function TerminalStep13() {
+function TerminalStep12() {
   const { state, updateState, goToNextStep } = usePrototype();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
 

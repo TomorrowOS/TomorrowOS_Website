@@ -31,15 +31,14 @@ export const TERMINAL_STEPS = [
   { id: 2, title: 'Create the project' },
   { id: 3, title: 'Follow CLI questions' },
   { id: 4, title: 'Review the generated project' },
-  { id: 5, title: 'Choose your infrastructure' },
-  { id: 6, title: 'Configure environment variables' },
-  { id: 7, title: 'Initialise the project' },
-  { id: 8, title: 'Run locally' },
-  { id: 9, title: 'Confirm local setup' },
-  { id: 10, title: 'Choose a deployment host' },
-  { id: 11, title: 'Add production variables' },
-  { id: 12, title: 'Deploy' },
-  { id: 13, title: 'Confirm the live CMS' }
+  { id: 5, title: 'Configure environment variables' },
+  { id: 6, title: 'Initialise the project' },
+  { id: 7, title: 'Run locally' },
+  { id: 8, title: 'Confirm local setup' },
+  { id: 9, title: 'Choose a deployment host' },
+  { id: 10, title: 'Add production variables' },
+  { id: 11, title: 'Deploy' },
+  { id: 12, title: 'Confirm the live CMS' }
 ];
 
 export const SHARED_STEPS = [

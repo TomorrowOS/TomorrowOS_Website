@@ -10,6 +10,10 @@ import { useLocation } from 'wouter';
 import { ChevronRight, ChevronDown, CheckCircle2, Copy } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
 import { PlaceholderText } from './PlaceholderText';
+import First_time_setup from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/First_time_setup.png'
+import App_management from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/App_management.png'
+import CMS_pair_code from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Deployment/CMS_pair_code.png'
+
 
 export function SamsungTizenJourney({ onViewAllSteps }: { onViewAllSteps?: () => void }) {
   const { state } = usePrototype();
@@ -179,10 +183,7 @@ function SamsungStep2() {
       </div>
 
       <ScreenshotPlaceholder 
-        id="SAMSUNG-02" 
-        description="Samsung system menu. Highlight: System → Play via → Custom App" 
-        caption="Set Play via to Custom App."
-        className="mb-8 h-64"
+        image={First_time_setup}
       />
 
       <div className="grid sm:grid-cols-2 gap-4 mb-6">
@@ -224,12 +225,7 @@ function SamsungStep3() {
         </div>
       </div>
 
-      <ScreenshotPlaceholder 
-        id="SAMSUNG-03" 
-        description="Samsung Home menu. Highlight: Custom App or App Management" 
-        caption="Open Custom App from the Samsung Home menu."
-        className="mb-6 h-64"
-      />
+      <ScreenshotPlaceholder image={App_management} />
 
       <TroubleshootingAccordion title="I cannot see Custom App">
         <ul className="list-disc pl-4 space-y-2 mb-4">
@@ -502,12 +498,7 @@ function SamsungStep8() {
 
       <p className="text-sm text-gray-600 mb-6"><strong>Expected result:</strong> The screen appears in your CMS as connected or online, and the Runtime leaves the pairing screen.</p>
 
-      <ScreenshotPlaceholder 
-        id="SAMSUNG-08" 
-        description="Generated TomorrowOS CMS. Highlight: Pair a device field and Connect action." 
-        caption="Enter the pairing code inside your CMS—not on this guide."
-        className="mb-8 h-64"
-      />
+      <ScreenshotPlaceholder image={CMS_pair_code} />
 
       <p className="text-xs text-gray-500 italic mb-6">
         TomorrowOS.org does not enter or verify the pairing code. Pairing is completed inside your owned and operated CMS.
