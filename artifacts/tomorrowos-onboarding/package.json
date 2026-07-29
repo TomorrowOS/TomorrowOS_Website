@@ -11,7 +11,8 @@
     "smoke": "node scripts/smoke.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
     "validate:social": "node scripts/validate-social.mjs",
-    "sitemap": "node scripts/generate-sitemap.mjs"
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "validate:trademarks": "node scripts/validate-trademarks.mjs"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

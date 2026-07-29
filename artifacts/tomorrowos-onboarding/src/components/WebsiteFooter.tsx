@@ -56,6 +56,9 @@ export function WebsiteFooter() {
           <Link href="/cookie-settings" className="text-xs text-muted-foreground/80 hover:text-foreground transition-colors">
             Cookie Settings
           </Link>
+          <Link href="/terms#third-party-trademarks" className="text-xs text-muted-foreground/80 hover:text-foreground transition-colors">
+            Third-party trademarks
+          </Link>
         </nav>
       </div>
     </footer>

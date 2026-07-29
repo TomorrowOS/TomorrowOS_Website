@@ -10,7 +10,25 @@ export type LegalBlock =
 export type LegalSection = {
   heading: string;
   blocks: LegalBlock[];
+  /** Optional anchor id for deep links, e.g. /terms#third-party-trademarks */
+  id?: string;
 };
+
+/**
+ * Central third-party trademark wording. Single source of truth — do not
+ * duplicate these strings in components. Pending formal legal review.
+ */
+export const thirdPartyTrademarkContent = {
+  heading: 'Third-party trademarks',
+  anchorId: 'third-party-trademarks',
+  fullNotice:
+    'Third-party names, logos and trademarks displayed on this website are the property of their respective owners. Their use is for identification, compatibility and informational purposes only and does not imply affiliation, endorsement, sponsorship or partnership with TomorrowOS unless expressly stated.',
+  platformNote:
+    'Platform names and logos identify supported or planned environments. No endorsement or partnership is implied.',
+  developerToolsNote:
+    'Examples of tools that may be used in a local development workflow. No affiliation or endorsement is implied.',
+  legalReviewRequired: true,
+} as const;
 
 export type LegalDoc = {
   title: string;
@@ -515,6 +533,11 @@ export const termsOfService: LegalDoc = {
       blocks: [
         { type: 'p', text: 'If a provision is unenforceable, the remaining provisions continue. Failure to enforce a provision is not a waiver. These Terms, together with referenced policies, form the agreement governing the website.' },
       ],
+    },
+    {
+      heading: thirdPartyTrademarkContent.heading,
+      id: thirdPartyTrademarkContent.anchorId,
+      blocks: [{ type: 'p', text: thirdPartyTrademarkContent.fullNotice }],
     },
     {
       heading: '27. Contact',

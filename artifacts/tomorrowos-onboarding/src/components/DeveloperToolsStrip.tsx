@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { usePrototype } from './PrototypeProvider';
 import { terminalDeveloperTools, DeveloperTool } from '@/config/developer-tools';
+import { thirdPartyTrademarkContent } from '@/content/legal';
 
 /**
  * Restrained, informational strip of coding tools shown on Terminal Step 1.
@@ -38,10 +39,7 @@ export function DeveloperToolsStrip() {
         ))}
       </ul>
 
-      <p className="mt-5 text-xs text-gray-500">
-        Examples only. TomorrowOS does not require or formally integrate with a specific
-        coding tool.
-      </p>
+      <p className="mt-5 text-xs text-gray-500">{thirdPartyTrademarkContent.developerToolsNote}</p>
     </section>
   );
 }

@@ -5,6 +5,7 @@ import { AlertCircle } from 'lucide-react';
 import { Link } from 'wouter';
 
 import { siteConfig } from '@/config/site';
+import { thirdPartyTrademarkContent } from '@/content/legal';
 
 /**
  * Internal social-preview inspector for Prototype Review Mode.
@@ -162,6 +163,51 @@ export function WebsiteReviewBar() {
       </div>
 
       <SocialPreviewSection />
+      <LegalReviewSection />
+    </div>
+  );
+}
+
+/** Internal legal-review panel — Review Mode only, never shown publicly. */
+function LegalReviewSection() {
+  const [location] = useLocation();
+  const [open, setOpen] = useState(false);
+  const [anchorPresent, setAnchorPresent] = useState<boolean | null>(null);
+  const [footerLinkPresent, setFooterLinkPresent] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setAnchorPresent(
+        location === '/terms'
+          ? !!document.getElementById(thirdPartyTrademarkContent.anchorId)
+          : null,
+      );
+      setFooterLinkPresent(
+        !!document.querySelector('a[href="/terms#third-party-trademarks"]'),
+      );
+    }, 100);
+    return () => clearTimeout(t);
+  }, [location]);
+
+  return (
+    <div className="text-xs border-t border-amber-200 pt-2">
+      <button onClick={() => setOpen(!open)} className="font-semibold text-amber-950 hover:underline">
+        Legal review {open ? '▾' : '▸'} — Third-party trademarks (review required:{' '}
+        {thirdPartyTrademarkContent.legalReviewRequired ? 'Yes' : 'No'})
+      </button>
+      {open && (
+        <ul className="mt-1 space-y-0.5 font-mono text-[11px]">
+          <li>Full notice key: thirdPartyTrademarkContent.fullNotice (Terms section, anchor #{thirdPartyTrademarkContent.anchorId})</li>
+          <li>Platform note key: thirdPartyTrademarkContent.platformNote — shown on: / (cloud platforms strip)</li>
+          <li>Developer-tools note key: thirdPartyTrademarkContent.developerToolsNote — shown on: /start/terminal (Step 1 strip)</li>
+          <li>
+            Terms anchor:{' '}
+            {anchorPresent === null ? 'visit /terms to verify' : anchorPresent ? 'present ✓' : 'MISSING ✗'}
+          </li>
+          <li>Footer link: {footerLinkPresent ? 'present ✓' : 'MISSING ✗'}</li>
+          <li>Legal review required: Yes</li>
+        </ul>
+      )}
     </div>
   );
 }

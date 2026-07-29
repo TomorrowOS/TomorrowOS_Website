@@ -1,0 +1,456 @@
+Add a controlled third-party trademark notice system to the existing TomorrowOS website.
+
+This is an existing working project.
+
+Do not redesign the website.
+Do not change existing routes, onboarding flows, SEO policies, platform statuses, logos or page layouts.
+Do not remove or replace any approved brand assets.
+Do not make broader legal changes during this task.
+
+The objective is to:
+
+1. Add the full third-party trademark notice to the Terms of Service.
+2. Add a footer link directly to that notice.
+3. Add short contextual notes beneath relevant logo groups.
+4. Avoid cluttering the website or implying partnerships.
+5. Keep all wording centrally managed and clearly marked for legal review.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a Replit checkpoint or Git commit named:
+
+   pre-third-party-trademark-notices
+
+2. Record:
+   - Current Terms of Service component
+   - Current footer component
+   - Existing legal-content configuration
+   - Existing platform-logo components
+   - Existing developer-tools component
+   - Current route and anchor behaviour
+
+Do not expose secrets.
+
+==================================================
+2. PRESERVATION RULES
+==================================================
+
+Do not change:
+
+- Existing page structure
+- Existing navigation
+- Existing footer links
+- Existing Terms sections
+- Existing privacy or cookie content
+- Existing logo assets
+- Existing platform support labels
+- Existing developer-tool names
+- SEO titles or descriptions
+- Canonical URLs
+- Indexing rules
+- Sitemap generation
+- Onboarding behaviour
+- LocalStorage keys
+- Mobile menu behaviour
+
+Do not add:
+
+- Large legal banners
+- Modal popups
+- Notices beneath every individual logo
+- Repeated full legal paragraphs throughout the site
+- Claims that TomorrowOS has permission, certification or formal partnerships
+- Legal conclusions not present in this prompt
+
+==================================================
+3. CENTRAL LEGAL COPY
+==================================================
+
+Store the wording in one central legal-content configuration file.
+
+Use or extend the existing legal configuration.
+
+Suggested structure:
+
+thirdPartyTrademarkContent = {
+  heading: "Third-party trademarks",
+
+  fullNotice:
+    "Third-party names, logos and trademarks displayed on this website are the property of their respective owners. Their use is for identification, compatibility and informational purposes only and does not imply affiliation, endorsement, sponsorship or partnership with TomorrowOS unless expressly stated.",
+
+  platformNote:
+    "Platform names and logos identify supported or planned environments. No endorsement or partnership is implied.",
+
+  developerToolsNote:
+    "Examples of tools that may be used in a local development workflow. No affiliation or endorsement is implied.",
+
+  legalReviewRequired: true
+}
+
+Do not duplicate this wording directly across multiple React components.
+
+Add an internal legal-review flag in Prototype Review Mode.
+
+Normal public mode must not show internal legal-review metadata.
+
+==================================================
+4. TERMS OF SERVICE
+==================================================
+
+Update:
+
+/terms
+
+Add a new section titled:
+
+Third-party trademarks
+
+Place it near the end of the Terms of Service, before the final contact or updates section where practical.
+
+Use this exact full notice:
+
+Third-party names, logos and trademarks displayed on this website are the property of their respective owners. Their use is for identification, compatibility and informational purposes only and does not imply affiliation, endorsement, sponsorship or partnership with TomorrowOS unless expressly stated.
+
+Add the anchor:
+
+id="third-party-trademarks"
+
+The final URL must work:
+
+/terms#third-party-trademarks
+
+Requirements:
+
+- Use semantic heading structure
+- Preserve the existing Terms page design
+- Do not display this as a warning box
+- Do not make it visually more prominent than other Terms sections
+- Ensure the heading is not hidden beneath the fixed site header when opened through the anchor
+
+Use suitable `scroll-margin-top` for anchor navigation.
+
+==================================================
+5. FOOTER LINK
+==================================================
+
+Add this link to the legal-link group in the shared GlobalFooter:
+
+Third-party trademarks
+
+Destination:
+
+/terms#third-party-trademarks
+
+Place it beside the existing legal links, such as:
+
+- Privacy Policy
+- Terms of Service
+- Cookie Policy
+- Cookie Settings
+- Third-party trademarks
+
+Do not repeat the complete notice in the footer.
+
+The link must:
+
+- Use a semantic anchor
+- Work on desktop and mobile
+- Have a visible keyboard focus state
+- Navigate to the exact Terms section
+- Preserve browser Back and Forward behaviour
+
+Do not create a separate `/trademarks` route during this task.
+
+==================================================
+6. PLATFORM LOGO CONTEXT
+==================================================
+
+Add a short contextual note near the main platform-logo group or architecture diagram.
+
+Use:
+
+Platform names and logos identify supported or planned environments. No endorsement or partnership is implied.
+
+Place the note:
+
+- Directly below the platform architecture graphic or platform-status legend
+- Outside the individual platform cards
+- Once per relevant page, not beneath every logo
+
+Style:
+
+- Roboto Regular
+- Approximately 11–13px
+- Muted neutral-grey text
+- Comfortable top margin
+- No border
+- No background
+- No icon
+- No warning styling
+
+Do not add the note to areas where no third-party platform marks appear.
+
+==================================================
+7. DEVELOPER-TOOLS CONTEXT
+==================================================
+
+Add a short contextual note beneath the Terminal developer-tools strip containing examples such as:
+
+- Claude Code
+- Cursor
+- GitHub Copilot
+- OpenAI Codex
+- Gemini CLI
+
+Use:
+
+Examples of tools that may be used in a local development workflow. No affiliation or endorsement is implied.
+
+Place the note once below the full logo row.
+
+Do not place it beneath every individual tool.
+
+Style it consistently with the platform note:
+
+- Small muted text
+- No border
+- No background
+- No warning icon
+- No large vertical spacing
+
+The logos remain informational and non-selectable.
+
+==================================================
+8. OPTIONAL OTHER LOGO GROUPS
+==================================================
+
+Audit public pages for other grouped third-party logos, including:
+
+- Cloud providers
+- Database services
+- Media-storage providers
+- Development platforms
+- AI-assisted build tools
+
+Do not automatically add the note everywhere.
+
+Add one contextual note only when:
+
+- Multiple third-party marks are presented together; and
+- A reasonable user could interpret them as partners, endorsements or formal integrations.
+
+Reuse the central notice copy or create a concise context-specific variation in the same configuration.
+
+Do not add notices beneath single instructional screenshots merely because a third-party logo appears inside the screenshot.
+
+==================================================
+9. TERMINOLOGY AUDIT
+==================================================
+
+Review nearby visible wording around third-party logos.
+
+Flag in Prototype Review Mode any unverified use of:
+
+- Partner
+- Official partner
+- Official integration
+- Certified
+- Approved by
+- Endorsed by
+- Sponsored by
+- Technology partner
+- Built in partnership with
+
+Do not automatically rewrite verified contractual claims.
+
+For unverified relationships, prefer existing accurate language such as:
+
+- Supported
+- Planned
+- Compatible with
+- Works with
+- Available for
+- Example development tool
+
+Do not change support or compatibility claims unless they are directly affected by misleading partnership wording.
+
+==================================================
+10. LOGO ASSET SAFETY
+==================================================
+
+Do not modify third-party logos during this task.
+
+Preserve:
+
+- Official colours
+- Natural proportions
+- Clear space
+- Existing approved asset paths
+
+Do not:
+
+- Recolour logos to match TomorrowOS
+- Combine logos into a new joint mark
+- Place third-party logos inside the TomorrowOS wordmark
+- Add partnership symbols
+- Add “× TomorrowOS” lockups
+- Generate replacement logos
+- Stretch logos to equal widths
+
+This task adds disclosure only.
+
+==================================================
+11. MOBILE BEHAVIOUR
+==================================================
+
+On mobile:
+
+- Footer legal links may wrap cleanly
+- The contextual notes must fit without horizontal overflow
+- Notes should remain readable
+- Do not increase page length materially
+- Do not place the full legal notice beneath logo groups
+- `/terms#third-party-trademarks` must scroll to the correct location
+
+Test at:
+
+- 320px
+- 390px
+- 430px
+
+==================================================
+12. ACCESSIBILITY
+==================================================
+
+Ensure:
+
+- The Terms heading uses the correct heading level
+- The footer link has a clear accessible name
+- The anchor destination is keyboard reachable
+- Link focus is visible
+- Contextual notices are real text, not image text
+- The notices do not rely on colour to convey meaning
+- Anchor scrolling respects reduced-motion preferences
+
+Do not add `aria-label` text that conflicts with the visible label.
+
+==================================================
+13. SEO AND INDEXING
+==================================================
+
+Do not change the current legal-page indexing status.
+
+If the Terms page remains a draft:
+
+- Keep `noindex, follow`
+- Keep the visible Draft status
+- Keep it excluded from the sitemap
+
+When the Terms page is later legally approved, indexing may be changed through the existing central SEO configuration.
+
+Do not change that status in this task.
+
+The anchor link must not create a separate canonical URL.
+
+Canonical remains:
+
+https://tomorrowos.org/terms
+
+Do not include the anchor fragment in:
+
+- Canonical URL
+- Sitemap
+- Open Graph URL
+- Structured data
+
+==================================================
+14. PROTOTYPE REVIEW MODE
+==================================================
+
+Add a small legal-review panel visible only in Prototype Review Mode.
+
+Show:
+
+- Full notice source key
+- Contextual platform note source key
+- Developer-tools note source key
+- Terms anchor status
+- Footer-link status
+- Pages where contextual notes are displayed
+- Legal review required: Yes
+
+Do not show this internal information publicly.
+
+==================================================
+15. TESTING
+==================================================
+
+Run:
+
+- Build
+- TypeScript
+- Existing smoke tests
+- Existing SEO validation
+- Link validation
+
+Add checks for:
+
+- `/terms#third-party-trademarks` exists
+- Footer link points to the correct anchor
+- Terms page contains the full notice
+- Contextual notes use central configuration
+- No duplicate full notice appears elsewhere
+- No broken anchor
+- No `href="#"`
+- Canonical remains `/terms`
+- Sitemap contains no fragment URLs
+- Mobile layout has no horizontal overflow
+
+==================================================
+16. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. The full notice appears in the Terms of Service.
+2. The Terms section has the correct heading.
+3. The anchor `/terms#third-party-trademarks` works.
+4. The shared footer contains a Third-party trademarks link.
+5. The full paragraph is not repeated in the footer.
+6. The platform architecture contains one short contextual note.
+7. The developer-tools strip contains one short contextual note.
+8. Notes are visually restrained.
+9. No notice appears beneath every individual logo.
+10. No third-party logos are modified.
+11. No partnership claims are introduced.
+12. Existing legal-page indexing remains unchanged.
+13. Existing routes and onboarding remain intact.
+14. Desktop and mobile layouts work.
+15. Build, TypeScript, SEO and smoke tests pass.
+16. No runtime or console errors are introduced.
+
+==================================================
+17. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Checkpoint or commit created
+- Terms component changed
+- Footer component changed
+- Central legal-config path
+- Pages receiving contextual notes
+- Terms anchor test result
+- Mobile test result
+- Build result
+- TypeScript result
+- Smoke-test result
+- SEO validation result
+- Confirmation that indexing policy was unchanged
+- Exact rollback instruction
+
+Do not make any unrelated legal, SEO, logo or layout changes during this task.

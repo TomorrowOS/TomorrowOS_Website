@@ -5,6 +5,7 @@ import { ArchitectureSection } from '@/components/ArchitectureSection';
 import StartYourWayDiagram from '@/components/StartYourWayDiagram';
 import { useSeo } from '@/hooks/use-seo';
 import { siteConfig } from '@/config/site';
+import { thirdPartyTrademarkContent } from '@/content/legal';
 import { ChevronRight } from 'lucide-react';
 import { usePrototype } from '@/components/PrototypeProvider';
 import { PlaceholderText } from '@/components/PlaceholderText';
@@ -208,6 +209,9 @@ export default function Home() {
                 <img src={`${import.meta.env.BASE_URL}assets/platforms/flyio-logo.svg`} alt="Fly.io" className="h-8 w-auto max-w-[24%] object-contain opacity-80 mix-blend-multiply" />
                 <img src={`${import.meta.env.BASE_URL}assets/platforms/northflank-logo.svg`} alt="Northflank" className="h-7 w-auto max-w-[28%] object-contain opacity-80 mix-blend-multiply" />
               </div>
+              <p className="mt-4 text-xs text-muted-foreground/80">
+                {thirdPartyTrademarkContent.platformNote}
+              </p>
             </div>
           </div>
         </div>

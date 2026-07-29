@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePageSeo } from '@/hooks/use-page-seo';
 import type { LegalDoc, LegalBlock } from '@/content/legal';
 
@@ -45,6 +45,17 @@ function Block({ block }: { block: LegalBlock }) {
 export function LegalDocPage({ doc, path }: { doc: LegalDoc; path: string }) {
   usePageSeo(path);
 
+  // SPA navigation (e.g. footer link to /terms#third-party-trademarks) does not
+  // trigger native anchor scrolling because content mounts after navigation.
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+    const el = document.getElementById(hash);
+    if (!el) return;
+    // Instant jump: predictable, and inherently respects reduced-motion.
+    el.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }, [path]);
+
   return (
     <div className="container mx-auto max-w-3xl py-24 px-4">
       <h1 className="text-4xl font-bold mb-3 tracking-tight">{doc.title}</h1>
@@ -53,7 +64,7 @@ export function LegalDocPage({ doc, path }: { doc: LegalDoc; path: string }) {
       </p>
 
       {doc.sections.map((section, i) => (
-        <section key={i} className="mb-10">
+        <section key={i} id={section.id} className="mb-10 scroll-mt-24">
           <h2 className="text-xl md:text-2xl font-semibold mb-4">{section.heading}</h2>
           {section.blocks.map((block, j) => (
             <Block key={j} block={block} />
