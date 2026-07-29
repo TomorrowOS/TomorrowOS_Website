@@ -8,7 +8,7 @@ import { Button } from './ui/button';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
 import { OnboardingScreenshotCard } from './OnboardingScreenshotCard';
 import { CopyActionBlock } from './CopyActionBlock';
-import { Check, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, CheckCircle2, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
 import { vercelConfig, mediaProviderConfig, vercelBlobConfig } from '@/lib/vercelConfig';
 import { MediaProviderOption } from './MediaProviderOption';
@@ -313,7 +313,11 @@ function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
       <Button variant="secondary" size="sm" onClick={() => setLocation(p.guideUrl!)}>View {p.name} guide</Button>
     ) : p.externalDocsUrl ? (
       <Button variant="secondary" size="sm" asChild>
-        <a href={p.externalDocsUrl} target="_blank" rel="noopener noreferrer">View {p.name} documentation</a>
+        <a href={p.externalDocsUrl} target="_blank" rel="noopener noreferrer">
+          View {p.name} documentation
+          <ExternalLink className="w-3.5 h-3.5 ml-1.5" aria-hidden="true" />
+          <span className="sr-only">(opens in a new window)</span>
+        </a>
       </Button>
     ) : null;
 
