@@ -1,0 +1,260 @@
+Add a copyable example response to Vercel Setup → Step 6 → Add your branding.
+
+This is a small enhancement to the existing completed Step 6 page.
+
+Do not redesign the page.
+Do not change the attached instructional image.
+Do not change routes, progress logic, step completion, localStorage keys, sidebar behaviour or existing wording outside the new example section.
+
+==================================================
+1. PLACEMENT
+==================================================
+
+Add the new section:
+
+- Directly below “What v0 will ask for”
+- Directly above “How it works”
+
+Do not place it above the instructional image.
+
+The intended flow is:
+
+1. Complete this in v0
+2. Branding illustration
+3. What v0 will ask for
+4. Try an example
+5. How it works
+6. Logo guidance
+7. Completion action
+
+==================================================
+2. SECTION HEADING AND COPY
+==================================================
+
+Heading:
+
+Try an example
+
+Supporting copy:
+
+Not sure what to enter? Copy this example into v0, then change or remove any values you want.
+
+Add a small note beneath the example:
+
+This is only an example. Replace the values with your own branding, attach a logo separately, or reply “skip” to keep the starter defaults.
+
+==================================================
+3. EXACT COPYABLE CONTENT
+==================================================
+
+Use this exact copied value:
+
+Product Name — Acme Digital Signage
+Tagline — Your message, everywhere
+Primary colour — #FF8A3D
+Background colour — #FAFAF9
+Text colour — #0A0908
+Secondary colour — #F5F3EF
+Logo — skip for now
+
+Preserve:
+
+- Capitalisation
+- Hex values
+- Line breaks
+- Em dashes
+- The wording “skip for now”
+
+Do not add:
+
+- Timezone
+- Brand website
+- Cloudinary URL
+- Database choice
+- Media-storage choice
+- Additional instructions inside the copied response
+
+==================================================
+4. USE THE EXISTING COPY COMPONENT
+==================================================
+
+Reuse the existing shared CopyActionBlock component.
+
+Do not create another independent clipboard implementation.
+
+Configure it as:
+
+type:
+prompt or value, whichever existing type is used for multiline user responses
+
+label:
+
+EXAMPLE RESPONSE FOR v0
+
+copyButtonLabel:
+
+Copy example
+
+copiedMessage:
+
+Copied — paste this into v0
+
+destinationHint:
+
+Paste this into the v0 conversation when it asks for your branding preferences.
+
+multiline:
+
+true
+
+sensitive:
+
+false
+
+Use the existing dark high-contrast copy-block style if that is already the approved primary copy pattern.
+
+Do not use only a faint copy icon.
+
+==================================================
+5. VISUAL DESIGN
+==================================================
+
+Keep the section restrained and consistent with the current TomorrowOS onboarding design.
+
+Use:
+
+- Existing main content width
+- Existing neutral borders
+- Existing spacing tokens
+- JetBrains Mono for the copied response
+- Roboto for headings and supporting text
+- Approximately 8–10px radius
+- No heavy shadow
+- No bright background
+- No additional card grid
+
+The example should stand out enough to be actionable without competing with the branding illustration.
+
+==================================================
+6. COPY BEHAVIOUR
+==================================================
+
+When clicked:
+
+1. Copy the exact seven-line example.
+2. Change the button text to:
+
+   Copied — paste this into v0
+
+3. Announce the copied state using the existing accessible live region.
+4. Restore the label after the existing standard copied-state duration.
+
+If clipboard access fails, use the existing fallback:
+
+Could not copy — select the text manually.
+
+Do not automatically open v0.
+
+==================================================
+7. LOGO CLARIFICATION
+==================================================
+
+Because the example says:
+
+Logo — skip for now
+
+Add one short sentence below the block:
+
+Have a logo ready? Attach the SVG or PNG separately in your v0 message instead of using the final example line.
+
+Do not modify the copied example dynamically.
+
+Do not attempt to attach a file through TomorrowOS.org.
+
+==================================================
+8. MOBILE
+==================================================
+
+At mobile widths:
+
+- Keep the block full width
+- Preserve all seven lines
+- Allow text to wrap safely where required
+- Keep the Copy example button at least 44px high
+- Avoid page-level horizontal scrolling
+- Keep the copied message visible
+- Do not shrink the code text excessively
+
+Test at:
+
+- 320px
+- 390px
+- 430px
+
+==================================================
+9. ACCESSIBILITY
+==================================================
+
+Ensure:
+
+- The section heading uses the correct heading level
+- The copy button has a clear accessible name
+- Copied feedback uses aria-live="polite"
+- Keyboard activation works
+- Focus is visible
+- The example text can also be selected manually
+- The copied content is real text, not an image
+
+==================================================
+10. DO NOT CHANGE
+==================================================
+
+Do not change:
+
+- The instructional image
+- The exact current v0 question list
+- The “Complete this in v0” callout
+- The “How it works” steps
+- Logo guidance
+- Completion-button wording
+- Step route
+- Step number
+- Progress keys
+- Existing completed-step state
+- Header
+- Footer
+- SEO configuration
+- Sitemap
+- Indexing policy
+
+==================================================
+11. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. “Try an example” appears below the exact question list.
+2. The example contains exactly seven lines.
+3. No Timezone appears.
+4. No Brand website appears.
+5. No Cloudinary-specific value appears.
+6. The button reads “Copy example”.
+7. Copied feedback reads “Copied — paste this into v0”.
+8. The exact text is copied with line breaks preserved.
+9. The existing shared copy component is reused.
+10. Mobile and desktop layouts remain clean.
+11. Existing progress and routes remain unchanged.
+12. No TypeScript, build, runtime or console errors are introduced.
+
+After implementation, provide:
+
+- Component changed
+- Confirmation the shared copy component was reused
+- Exact copied string
+- Desktop screenshot
+- Mobile screenshot
+- Copied-state screenshot
+- Build result
+- TypeScript result
+- Smoke-test result
+- Rollback instruction

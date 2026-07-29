@@ -475,6 +475,16 @@ const V0_BRANDING_QUESTIONS = [
   'Logo — attach an SVG or PNG, or paste a public image URL',
 ] as const;
 
+const V0_BRANDING_EXAMPLE_RESPONSE = [
+  'Product Name — Acme Digital Signage',
+  'Tagline — Your message, everywhere',
+  'Primary colour — #FF8A3D',
+  'Background colour — #FAFAF9',
+  'Text colour — #0A0908',
+  'Secondary colour — #F5F3EF',
+  'Logo — skip for now',
+].join('\n');
+
 function VercelStep6({ isGuide = false }: { isGuide?: boolean }) {
   const { state } = usePrototype();
   const [imageStatus, setImageStatus] = useState<'loading' | 'loaded' | 'failed'>('loading');
@@ -563,6 +573,24 @@ function VercelStep6({ isGuide = false }: { isGuide?: boolean }) {
         <p className="mt-2 text-sm text-gray-600">
           All fields are optional. Leave fields blank or reply “skip” to keep the starter defaults.
         </p>
+      </section>
+
+      {/* Try an example */}
+      <section className="mb-6">
+        <h3 className="text-sm font-semibold text-gray-900 mb-2">Try an example</h3>
+        <p className="text-sm text-gray-600 mb-3">Not sure what to enter? Copy this example into v0, then change or remove any values you want.</p>
+        <CopyActionBlock
+          type="prompt"
+          label="EXAMPLE RESPONSE FOR v0"
+          value={V0_BRANDING_EXAMPLE_RESPONSE}
+          copyButtonLabel="Copy example"
+          copiedMessage="Copied — paste this into v0"
+          destinationHint="Paste this into the v0 conversation when it asks for your branding preferences."
+          multiline
+          sourceKey="vercel-step6-branding-example"
+        />
+        <p className="mt-2 text-xs text-gray-500 leading-relaxed">This is only an example. Replace the values with your own branding, attach a logo separately, or reply “skip” to keep the starter defaults.</p>
+        <p className="mt-1 text-xs text-gray-500 leading-relaxed">Have a logo ready? Attach the SVG or PNG separately in your v0 message instead of using the final example line.</p>
       </section>
 
       {/* How it works */}
