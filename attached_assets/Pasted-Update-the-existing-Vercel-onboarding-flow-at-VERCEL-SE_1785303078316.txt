@@ -1,0 +1,130 @@
+Update the existing Vercel onboarding flow at:
+
+VERCEL SETUP
+Step 3 of 13
+Create your TomorrowOS CMS
+
+Do not redesign this page or change any existing navigation, progress logic, buttons, copy-to-clipboard behaviour, step locking, routes, state management, typography system or overall TomorrowOS styling.
+
+This update is only to replace the existing VERCEL-02 image placeholder with the supplied image and add clear instructional HTML content beneath it.
+
+IMAGE ASSET
+
+Use this exact asset path:
+
+/public/onboarding/vercel/VERCEL-02.png
+
+Do not rename, regenerate, crop, stretch or alter the image.
+
+IMAGE CARD CONTENT
+
+Display the content in this order:
+
+1. VERCEL-02.png
+2. Zone label
+3. Instruction heading
+4. Instructional copy
+
+Zone label:
+VERCEL-02
+
+Instruction heading:
+Paste the setup prompt into v0
+
+Instructional copy:
+Copy the TomorrowOS setup prompt shown above, return to your v0 workspace and paste it into the main “Ask v0 to build…” prompt field. Submit the prompt and allow v0 to begin preparing your CMS.
+
+Add a second short note beneath the instructional copy:
+
+Keep this TomorrowOS guide open in another browser tab. You will return here after v0 begins asking the setup questions.
+
+IMAGE DISPLAY REQUIREMENTS
+
+Replace the current placeholder icon and placeholder description with the supplied image.
+
+The image must:
+
+- Display at 100% of the available card width
+- Use height: auto
+- Use object-fit: contain
+- Preserve its original aspect ratio
+- Remain completely uncropped
+- Use rounded corners matching the current design system
+- Use a subtle light-grey border
+- Use no heavy shadow
+- Contain no HTML text overlays, arrows, labels or badges
+
+The image is a visual reference only. All instructions must appear as HTML beneath the image.
+
+TEXT STYLING
+
+Beneath the image:
+
+- Keep the zone label small and in the existing technical or monospace style
+- Make the instruction heading visually stronger than the body copy
+- Left-align the heading and instructional copy
+- Use readable normal-weight body text
+- Maintain clear spacing between the image, label, heading and body
+- Do not centre the instructional text
+
+ACCESSIBILITY
+
+Use this alt text:
+
+“v0 workspace showing the main Ask v0 to build prompt field where the TomorrowOS setup prompt should be pasted.”
+
+Do not use the filename as the alt text.
+
+EXISTING PAGE CONTENT TO KEEP UNCHANGED
+
+Keep all of the following exactly as they currently function:
+
+- Page title: Create your TomorrowOS CMS
+- Supporting text: Paste this into the main v0 prompt area.
+- Security warning panel
+- TomorrowOS setup prompt
+- Copy-to-clipboard button
+- Open v0 button
+- Progress indicator
+- Sidebar navigation
+- Back button
+- I submitted the setup prompt button
+- Existing step completion and unlocking behaviour
+
+Do not duplicate the setup prompt inside the image card.
+
+RESPONSIVE BEHAVIOUR
+
+Desktop:
+- Image fills the available content card width
+- Instructional content sits directly beneath it
+
+Tablet and mobile:
+- Image remains full width
+- Image remains uncropped
+- Text wraps naturally
+- No horizontal scrolling
+- Preserve the existing page margins and spacing
+
+FAIL-SAFE IMAGE HANDLING
+
+If VERCEL-02.png fails to load:
+
+- Preserve the card dimensions
+- Show a neutral fallback area
+- Do not show the browser’s broken-image icon
+- Log the missing asset path in development mode
+- Do not remove the instructional HTML content
+
+ACCEPTANCE CRITERIA
+
+The update is complete only when:
+
+1. VERCEL-02.png replaces the existing placeholder.
+2. The image is sharp, uncropped and proportionally correct.
+3. The zone label and instructions appear beneath the image.
+4. No instructional HTML is overlaid onto the image.
+5. The setup prompt is not duplicated.
+6. The copy button and Open v0 button still function.
+7. The page remains responsive on desktop, tablet and mobile.
+8. No other onboarding page or component has been modified.

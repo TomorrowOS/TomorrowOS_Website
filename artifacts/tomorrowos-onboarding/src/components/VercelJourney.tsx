@@ -231,7 +231,14 @@ function VercelStep3({ isGuide = false }: { isGuide?: boolean }) {
       </div>
       <CopyableText text="Follow @tomorrowos/sdk VERCEL_SETUP.md and set up my TomorrowOS CMS." className="mb-6" />
       <div className="mb-6">
-        <ScreenshotPlaceholder id="VERCEL-02" description="v0 prompt area. Highlight: Where the TomorrowOS prompt should be pasted. Caption: Paste the TomorrowOS setup prompt into v0." />
+        <OnboardingScreenshotCard
+          id="VERCEL-02"
+          imagePath="onboarding/vercel/VERCEL-02.png"
+          alt="v0 workspace showing the main Ask v0 to build prompt field where the TomorrowOS setup prompt should be pasted."
+          heading="Paste the setup prompt into v0"
+          copy="Copy the TomorrowOS setup prompt shown above, return to your v0 workspace and paste it into the main “Ask v0 to build…” prompt field. Submit the prompt and allow v0 to begin preparing your CMS."
+          note="Keep this TomorrowOS guide open in another browser tab. You will return here after v0 begins asking the setup questions."
+        />
       </div>
       <div className="flex gap-3 mb-8">
         <Button variant="outline" onClick={() => window.open('https://v0.app', '_blank')}>Open v0</Button>

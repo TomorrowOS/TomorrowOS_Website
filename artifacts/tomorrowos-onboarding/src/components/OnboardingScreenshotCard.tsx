@@ -12,12 +12,15 @@ export function OnboardingScreenshotCard({
   alt,
   heading,
   copy,
+  note,
 }: {
   id: string;
   imagePath: string;
   alt: string;
   heading: string;
   copy: string;
+  /** Optional short secondary note shown beneath the instructional copy. */
+  note?: string;
 }) {
   const [failed, setFailed] = useState(false);
   const src = `${import.meta.env.BASE_URL}${imagePath}`;
@@ -47,6 +50,7 @@ export function OnboardingScreenshotCard({
       <p className="mt-3 text-xs font-mono text-gray-500">{id}</p>
       <h3 className="mt-1 text-sm font-semibold text-gray-900">{heading}</h3>
       <p className="mt-1.5 text-sm text-gray-600 leading-relaxed">{copy}</p>
+      {note && <p className="mt-2 text-xs text-gray-500 leading-relaxed">{note}</p>}
     </div>
   );
 }
