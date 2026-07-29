@@ -4,15 +4,20 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:bg-gray-100 disabled:text-gray-400 disabled:border-transparent",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-[background-color,border-color,color,transform,box-shadow] duration-150 ease-out motion-reduce:transition-none motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:border-transparent disabled:shadow-none disabled:translate-y-0 disabled:hover:bg-gray-100",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        secondary: "bg-white text-black border border-black/20 hover:bg-gray-50",
-        tertiary: "bg-transparent text-primary hover:underline px-0",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        ghost: "hover:bg-gray-100 hover:text-gray-900",
+        default:
+          "bg-primary text-primary-foreground hover-fine:bg-[#202020] hover-fine:-translate-y-px hover-fine:shadow-[0_2px_6px_rgba(0,0,0,0.12)] active:translate-y-0 active:shadow-none active:bg-black",
+        secondary:
+          "bg-white text-black border border-black/20 hover-fine:bg-gray-100 hover-fine:border-black/40 hover-fine:-translate-y-px active:translate-y-0 active:bg-gray-200",
+        tertiary:
+          "bg-transparent text-primary hover-fine:underline active:opacity-70 px-0",
+        outline:
+          "border border-input bg-background hover-fine:bg-accent hover-fine:text-accent-foreground hover-fine:border-black/30 active:bg-gray-200",
+        ghost:
+          "hover-fine:bg-gray-100 hover-fine:text-gray-900 active:bg-gray-200",
       },
       size: {
         default: "h-10 px-5 py-2",

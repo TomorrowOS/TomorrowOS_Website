@@ -1,5 +1,14 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+
+/* Hover styles only on devices with real hover (prevents sticky hover on touch) */
+@custom-variant hover-fine {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
 @plugin "@tailwindcss/typography";
 
 @font-face {
