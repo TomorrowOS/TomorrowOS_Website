@@ -641,73 +641,220 @@ function VercelStep6({ isGuide = false }: { isGuide?: boolean }) {
   );
 }
 
+const VERCEL_STEP7_SCREENSHOT = {
+  path: 'images/onboarding/vercel/VERCEL-07A.png',
+  alt: 'Example of a generated TomorrowOS CMS control panel displayed in a working v0 preview.',
+  caption: 'Illustrative example only. TomorrowOS.org does not inspect or compare your preview.',
+  /** Set to true only when the approved VERCEL-07A asset has been supplied. */
+  supplied: false,
+} as const;
+
+const VERCEL_PREVIEW_VISUAL_CHECKS = [
+  'The CMS interface loads.',
+  'No blocking red build or preview error is shown.',
+  'The navigation and main dashboard are visible.',
+  'Your branding or the starter branding appears.',
+  'Example content appears if you chose to include it.',
+] as const;
+
+const V0_FIX_REQUEST = `Review the current build and preview errors and fix only the issues preventing the TomorrowOS CMS from running.
+
+Preserve:
+- the TomorrowOS SDK
+- my selected database integration
+- my selected media-storage integration
+- my branding configuration
+- any example content already created
+
+Do not remove or replace those choices to make the build pass.
+
+Do not ask me to paste passwords, API secrets or storage tokens into this conversation. If an environment variable is required, tell me its name and where it should be added securely in Vercel.
+
+After making the changes, run the available build and type checks and tell me whether the CMS preview is ready.`;
+
 function VercelStep7({ isGuide = false }: { isGuide?: boolean }) {
   const { state, updateState } = usePrototype();
+  const [expectedOpen, setExpectedOpen] = useState(false);
+  const [visualChecks, setVisualChecks] = useState<boolean[]>(() => VERCEL_PREVIEW_VISUAL_CHECKS.map(() => false));
+  const errorPanelRef = React.useRef<HTMLDivElement | null>(null);
+  const status = state.vercelPreviewGenerationStatus;
+  const errorOpen = status === 'needs_help';
+
+  React.useEffect(() => {
+    if (errorOpen && errorPanelRef.current) {
+      errorPanelRef.current.focus();
+    }
+  }, [errorOpen]);
+
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
-      <StepHeader isGuide={isGuide} 
-        title="Review what v0 created" 
-        description="v0 should generate the CMS project and a working preview."
+      <StepHeader isGuide={isGuide}
+        title="Check your CMS preview"
+        description="Open the v0 preview and confirm that the generated CMS loads before continuing."
       />
-      
-      <Card className="mb-6">
-        <CardContent className="p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">You should now see:</h3>
-          <ul className="space-y-4">
-            {[
-              "CMS project created",
-              "TomorrowOS SDK installed",
-              "Database integration added",
-              "Media-storage integration added",
-              "Branding configuration created",
-              "Example content created when selected",
-              "Preview available"
-            ].map((label, i) => (
-              <li key={i} className="flex items-center gap-3">
-                <div className="w-5 h-5 rounded border border-gray-300 flex items-center justify-center shrink-0"></div>
+
+      {/* Return to v0 */}
+      <section className="bg-blue-50 border border-blue-100 rounded-md p-4 mb-6">
+        <h3 className="text-sm font-semibold text-blue-900 mb-1">Return to v0</h3>
+        <p className="text-sm text-blue-900 mb-1">Keep the v0 page open while it finishes generating the project and resolving dependencies. The first build may take several minutes.</p>
+        <p className="text-sm text-blue-900 mb-3">Return to the v0 conversation where you created the project. Wait until the build has finished before reviewing the preview.</p>
+        <Button variant="outline" size="sm" className="bg-white" onClick={() => window.open('https://v0.app', '_blank')}>
+          Open v0
+          <ExternalLink className="w-3.5 h-3.5 ml-1.5" aria-hidden="true" />
+          <span className="sr-only">(opens in a new window)</span>
+        </Button>
+      </section>
+
+      {/* Example screenshot — only when the approved asset is supplied */}
+      {VERCEL_STEP7_SCREENSHOT.supplied && (
+        <section className="mb-6">
+          <h3 className="text-sm font-semibold text-gray-900 mb-1">Example of a successful CMS preview</h3>
+          <p className="text-sm text-gray-600 mb-3">Your preview may use different branding, content and providers, but the CMS interface should load without a blocking build error.</p>
+          <figure>
+            <img
+              src={`${import.meta.env.BASE_URL}${VERCEL_STEP7_SCREENSHOT.path}`}
+              alt={VERCEL_STEP7_SCREENSHOT.alt}
+              className="w-full h-auto max-w-full rounded-lg border border-gray-200"
+              loading="lazy"
+            />
+            <figcaption className="mt-2 text-xs text-gray-500 text-center leading-relaxed">{VERCEL_STEP7_SCREENSHOT.caption}</figcaption>
+          </figure>
+        </section>
+      )}
+
+      {/* Visual check */}
+      <section className="mb-6">
+        <h3 className="text-sm font-semibold text-gray-900 mb-1">Check what you can see</h3>
+        <p className="text-sm text-gray-600 mb-3">Use the v0 preview to complete this quick visual check.</p>
+        <ul className="space-y-2.5">
+          {VERCEL_PREVIEW_VISUAL_CHECKS.map((label, i) => (
+            <li key={label}>
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={visualChecks[i]}
+                  onChange={() => setVisualChecks((prev) => prev.map((v, j) => (j === i ? !v : v)))}
+                  className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-black shrink-0"
+                />
                 <span className="text-sm text-gray-700">{label}</span>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
+              </label>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-2 text-xs text-gray-500">The checkboxes are optional visual aids. They do not verify the project technically.</p>
+      </section>
 
-      <div className="bg-blue-50 border border-blue-100 p-4 rounded-md mb-8 text-sm text-blue-900">
-        The first build may take several minutes. Keep the v0 page open while it generates files and resolves dependencies.
-      </div>
-      
-      <p className="text-xs text-gray-500 text-center mb-6">This guide does not inspect the v0 project.</p>
+      {/* Expected project components disclosure */}
+      <section className="mb-6">
+        <button
+          type="button"
+          className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+          aria-expanded={expectedOpen}
+          onClick={() => setExpectedOpen((v) => !v)}
+        >
+          {expectedOpen ? <ChevronUp className="w-4 h-4" aria-hidden="true" /> : <ChevronDown className="w-4 h-4" aria-hidden="true" />}
+          Expected project components
+        </button>
+        {expectedOpen && (
+          <div className="mt-2 bg-gray-50 border border-border rounded-md p-4">
+            <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+              <li>TomorrowOS SDK</li>
+              <li>Selected database integration</li>
+              <li>Selected media-storage integration</li>
+              <li>Branding configuration</li>
+              <li>Optional example content</li>
+            </ul>
+            <p className="mt-2 text-xs text-gray-500">These items are expected from the generated project, but TomorrowOS.org does not inspect or verify them.</p>
+            <p className="mt-1 text-xs text-gray-500">This step confirms that the generated preview renders. Production variables and deployment settings are reviewed in the following Vercel steps.</p>
+          </div>
+        )}
+      </section>
 
-      <div className="flex gap-3 mb-8">
-         <Button variant="outline" onClick={() => window.open('https://v0.app', '_blank')}>Open v0</Button>
-      </div>
-
+      {/* Outcome */}
       <div className="mt-auto flex flex-col gap-4">
-        {state.vercelPreviewGenerationStatus === 'needs_help' && !isGuide && (
-           <div className="text-sm bg-amber-50 border border-amber-100 p-3 rounded-md">
-             <div className="font-medium text-amber-900 mb-1">Build has an error?</div>
-             <p className="text-amber-800">Check the v0 preview console. Usually, this means environment variables are missing or incorrect.</p>
-           </div>
-        )}
-        
         {isGuide ? (
-           <div className="text-sm bg-gray-50 border border-border p-3 rounded-md text-center text-gray-500">
-             <span className="font-medium text-gray-700 block mb-1">Available in Guided Setup</span>
-             Progress confirmation actions are disabled in the guide view.
-           </div>
-        ) : state.vercelPreviewGenerationStatus === 'confirmed' ? (
-           <Button variant="outline" onClick={() => updateState({ vercelPreviewGenerationStatus: 'not_started' })}>Undo confirmation</Button>
+          <div className="text-sm bg-gray-50 border border-border p-3 rounded-md text-center text-gray-500">
+            <span className="font-medium text-gray-700 block mb-1">Available in Guided Setup</span>
+            Progress confirmation actions are disabled in the guide view.
+          </div>
         ) : (
-           <div className="flex gap-2">
-             <Button className="flex-1" onClick={() => updateState({ vercelPreviewGenerationStatus: 'confirmed' })}>My preview is ready</Button>
-             <Button variant="secondary" onClick={() => updateState({ vercelPreviewGenerationStatus: 'needs_help' })}>My build has an error</Button>
-           </div>
+          <section>
+            <h3 className="text-sm font-semibold text-gray-900 mb-2">How does the preview look?</h3>
+            {status === 'confirmed' ? (
+              <div className="bg-green-50 border border-green-100 rounded-md p-4" role="status">
+                <div className="flex items-center gap-2 mb-1">
+                  <CheckCircle2 className="w-4 h-4 text-green-700" aria-hidden="true" />
+                  <span className="text-sm font-semibold text-green-900">Preview confirmed</span>
+                </div>
+                <p className="text-sm text-green-900">You have manually confirmed that the generated CMS interface loads in v0.</p>
+                <p className="text-xs text-green-800 mt-1">TomorrowOS.org has not independently verified the project.</p>
+                <Button variant="outline" size="sm" className="mt-3 bg-white" onClick={() => updateState({ vercelPreviewGenerationStatus: 'not_started' })}>Undo confirmation</Button>
+              </div>
+            ) : (
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button className="flex-1 bg-black text-white hover:bg-gray-800" onClick={() => updateState({ vercelPreviewGenerationStatus: 'confirmed' })}>The CMS preview loads correctly</Button>
+                <Button variant="secondary" onClick={() => updateState({ vercelPreviewGenerationStatus: 'needs_help' })}>I see a build or preview error</Button>
+              </div>
+            )}
+            <p className="text-xs text-gray-500 mt-2">This is a manual confirmation. TomorrowOS.org does not inspect your v0 project or preview.</p>
+
+            {errorOpen && (
+              <div
+                ref={errorPanelRef}
+                tabIndex={-1}
+                className="mt-4 bg-amber-50 border border-amber-200 rounded-md p-4 outline-none"
+                role="region"
+                aria-label="Preview troubleshooting"
+              >
+                <h4 className="text-sm font-semibold text-amber-900 mb-2">Let’s fix the preview</h4>
+                <ol className="list-decimal pl-5 space-y-1 text-sm text-amber-900 mb-4">
+                  <li>Wait for v0 to finish generating and installing dependencies.</li>
+                  <li>Read the first blocking error shown in the preview or build log.</li>
+                  <li>Ask v0 to fix the error without removing your selected TomorrowOS setup.</li>
+                  <li>Do not paste passwords, API secrets or storage tokens into the conversation.</li>
+                  <li>Return here after the preview loads.</li>
+                </ol>
+                <h5 className="text-sm font-semibold text-amber-900 mb-2">Ask v0 to review the error</h5>
+                <CopyActionBlock
+                  type="prompt"
+                  label="FIX REQUEST FOR v0"
+                  value={V0_FIX_REQUEST}
+                  copyButtonLabel="Copy fix request"
+                  copiedMessage="Copied — paste this into v0"
+                  destinationHint="Paste this into the same v0 conversation, then wait for it to review and repair the build."
+                  multiline
+                  sourceKey="vercel-step7-fix-request"
+                />
+                <div className="mt-3 flex flex-col sm:flex-row gap-2 sm:items-center">
+                  <Button className="bg-black text-white hover:bg-gray-800" onClick={() => window.open('https://v0.app', '_blank')}>
+                    Open v0
+                    <ExternalLink className="w-3.5 h-3.5 ml-1.5" aria-hidden="true" />
+                    <span className="sr-only">(opens in a new window)</span>
+                  </Button>
+                  <Button variant="ghost" onClick={() => updateState({ vercelPreviewGenerationStatus: 'confirmed' })}>Preview now loads correctly</Button>
+                </div>
+              </div>
+            )}
+          </section>
         )}
 
-        {!isGuide && <StepFooter 
-          canContinue={state.vercelPreviewGenerationStatus === 'confirmed'} 
-          blockedMessage={state.vercelPreviewGenerationStatus !== 'confirmed' ? "Confirm your preview before continuing." : undefined}
-          continueLabel="Continue" 
+        {state.prototypeReviewMode && (
+          <div className="bg-gray-50 border border-dashed border-gray-300 rounded-md p-4 text-xs font-mono text-gray-600 space-y-1">
+            <div className="font-semibold text-gray-800 mb-1">Prototype Review Mode — Step 7 diagnostics</div>
+            <div>Screenshot asset: {VERCEL_STEP7_SCREENSHOT.path} — {VERCEL_STEP7_SCREENSHOT.supplied ? 'supplied' : 'not supplied; section hidden in normal mode'}</div>
+            <div>Selected manual outcome: {status}</div>
+            <div>Stored confirmation value (vercelPreviewGenerationStatus): {status}</div>
+            <div>Error guidance expanded: {errorOpen ? 'yes' : 'no'}</div>
+            <div>Continue locked: {status === 'confirmed' ? 'no' : 'yes'}</div>
+            <div>Default sidebar warning state: no (amber only after user reports an error)</div>
+            <div>Old technical checkboxes present: no</div>
+            <div>Old “usually environment variables” claim present: no</div>
+          </div>
+        )}
+
+        {!isGuide && <StepFooter
+          canContinue={status === 'confirmed'}
+          continueLabel="Continue"
         />}
       </div>
     </div>

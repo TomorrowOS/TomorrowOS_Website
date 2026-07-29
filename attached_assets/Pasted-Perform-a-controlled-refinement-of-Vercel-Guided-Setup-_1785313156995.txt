@@ -1,0 +1,686 @@
+Perform a controlled refinement of:
+
+Vercel Guided Setup
+→ Step 7 of 12
+→ Review the generated CMS
+
+This is an existing working onboarding step.
+
+Do not rebuild the Vercel pathway.
+Do not change routes, step order, progress keys, localStorage structure, sidebar behaviour, previous steps or later deployment steps.
+
+The objective is to make Step 7 visually calm, technically accurate and extremely clear for low-code users.
+
+The user should understand that they are:
+
+1. Returning to v0.
+2. Waiting for the generated CMS preview.
+3. Confirming only what they can visibly observe.
+4. Reporting an error when the preview does not load.
+
+TomorrowOS.org does not inspect the v0 project, source code, integrations or preview.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a Replit checkpoint or Git commit named:
+
+   pre-vercel-preview-review-refinement
+
+2. Record:
+
+- Current Step 7 component path
+- Current Step 7 route
+- Existing progress field
+- Existing localStorage structure
+- Current success/error state handling
+- Current desktop screenshot
+- Current mobile screenshot
+- Current approved CMS-preview asset path, when present
+
+Do not expose secrets.
+
+==================================================
+2. STRICT PRESERVATION RULES
+==================================================
+
+Do not change:
+
+- Step number
+- Step route
+- Step order
+- Existing progress keys
+- Completed state of earlier steps
+- Configure Vercel step
+- Deployment-preview step
+- Publishing steps
+- Shared device deployment journey
+- Header
+- Footer
+- SEO metadata
+- Sitemap
+- Indexing policy
+
+Do not attempt to:
+
+- Inspect the v0 project
+- Read the v0 conversation
+- Detect whether the preview is running
+- Verify installed packages
+- Verify database connectivity
+- Verify media-storage connectivity
+- Verify environment-variable values
+
+This remains a manually confirmed guide step.
+
+==================================================
+3. CORRECT THE ACTIVE SIDEBAR STATE
+==================================================
+
+The current Step 7 sidebar item uses an amber warning triangle before the user has reported an error.
+
+Remove the default warning appearance.
+
+Use the standard current-step treatment:
+
+- Step number 7
+- Existing active left border
+- Existing neutral active background
+- Normal dark text
+- No warning icon by default
+
+Only show an amber error indicator after the user explicitly selects:
+
+I see a build or preview error
+
+If the user later selects the successful-preview state, restore the normal active-step treatment.
+
+Do not change the styling of other sidebar steps.
+
+==================================================
+4. UPDATE THE PAGE HEADING
+==================================================
+
+Replace the H1:
+
+Review what v0 created
+
+with:
+
+Check your CMS preview
+
+Replace the supporting copy with:
+
+Open the v0 preview and confirm that the generated CMS loads before continuing.
+
+Keep:
+
+VERCEL SETUP
+Step 7 of 12
+58% progress
+
+Do not imply that TomorrowOS.org verifies the preview.
+
+==================================================
+5. PRIMARY INSTRUCTION AREA
+==================================================
+
+Add one clear action area immediately below the page introduction.
+
+Heading:
+
+Return to v0
+
+Copy:
+
+Keep the v0 page open while it finishes generating the project and resolving dependencies. The first build may take several minutes.
+
+Primary or prominent secondary action:
+
+Open v0
+
+Preserve the existing verified v0 destination.
+
+Do not use a generic or broken URL.
+
+When the guide cannot store the exact project URL, the action may open the configured v0 destination, with supporting copy:
+
+Return to the v0 conversation where you created the project.
+
+Add:
+
+Wait until the build has finished before reviewing the preview.
+
+Do not place the Open v0 action far below the checklist.
+
+==================================================
+6. ADD THE APPROVED CMS SCREENSHOT
+==================================================
+
+Use the approved CMS test-panel screenshot attached to this request.
+
+Do not:
+
+- Generate another image
+- Redraw the screenshot
+- Recreate it in HTML
+- Edit the CMS interface
+- Crop important content
+- Stretch it
+- Add fake success states
+
+Save or retain it as:
+
+public/images/onboarding/vercel/VERCEL-07A.png
+
+Display it beneath the Return to v0 action.
+
+Section heading:
+
+Example of a successful CMS preview
+
+Supporting copy:
+
+Your preview may use different branding, content and providers, but the CMS interface should load without a blocking build error.
+
+Use semantic figure markup.
+
+Alt text:
+
+Example of a generated TomorrowOS CMS control panel displayed in a working v0 preview.
+
+Caption:
+
+Illustrative example only. TomorrowOS.org does not inspect or compare your preview.
+
+Desktop:
+
+- Use the full available main-column width
+- Preserve aspect ratio
+- Use a subtle neutral border
+- Use approximately 8–10px radius
+- No heavy shadow
+
+Mobile:
+
+- Keep the image recognisable
+- Add an accessible:
+  View full-size example
+  action
+- Open the image uncropped in the existing lightbox
+- Do not create page-level horizontal scrolling
+
+If the approved screenshot is not supplied or cannot be found:
+
+- Do not generate a replacement
+- Hide the screenshot section in normal mode
+- Show the expected asset path in Prototype Review Mode
+
+==================================================
+7. REPLACE THE TECHNICAL CHECKLIST
+==================================================
+
+Remove the current user-facing checkboxes:
+
+- CMS project created
+- TomorrowOS SDK installed
+- Database integration added
+- Media-storage integration added
+- Branding configuration created
+- Example content created when selected
+- Preview available
+
+These are not all reliably visible or verifiable by the user.
+
+Replace them with:
+
+Heading:
+
+Check what you can see
+
+Supporting copy:
+
+Use the v0 preview to complete this quick visual check.
+
+Use these manual checklist items:
+
+1. The CMS interface loads.
+2. No blocking red build or preview error is shown.
+3. The navigation and main dashboard are visible.
+4. Your branding or the starter branding appears.
+5. Example content appears if you chose to include it.
+
+The checkboxes are optional visual aids.
+
+Do not require every checkbox to be selected before the user can report that the preview works.
+
+Do not claim that checking a box verifies the project technically.
+
+==================================================
+8. TECHNICAL DETAILS
+==================================================
+
+When retaining information about what v0 should generate, place it inside a collapsed secondary disclosure titled:
+
+Expected project components
+
+Inside it, list:
+
+- TomorrowOS SDK
+- Selected database integration
+- Selected media-storage integration
+- Branding configuration
+- Optional example content
+
+Add:
+
+These items are expected from the generated project, but TomorrowOS.org does not inspect or verify them.
+
+Do not use interactive checkboxes in this disclosure.
+
+Do not make this disclosure more prominent than the visual preview check.
+
+==================================================
+9. PRODUCTION-CONNECTION CLARITY
+==================================================
+
+Do not require the user to confirm that production database or media-storage connections are active during Step 7.
+
+Use this note where relevant:
+
+This step confirms that the generated preview renders. Production variables and deployment settings are reviewed in the following Vercel steps.
+
+When a provider was connected through a verified v0 or Vercel integration earlier, do not contradict that state.
+
+Use provider-neutral wording.
+
+Do not claim that a database or media provider is disconnected unless an actual error is visible to the user.
+
+==================================================
+10. SUCCESS AND ERROR CHOICE
+==================================================
+
+Replace the current outcome area with:
+
+Heading:
+
+How does the preview look?
+
+Primary action:
+
+The CMS preview loads correctly
+
+Secondary action:
+
+I see a build or preview error
+
+Do not use:
+
+My preview is ready
+
+The revised success wording describes the visible result more clearly.
+
+The entire success button should use the existing black primary-button treatment.
+
+The error action should use the existing secondary-button treatment.
+
+Use the shared hover, focus, active and disabled states.
+
+==================================================
+11. SUCCESS STATE
+==================================================
+
+When the user selects:
+
+The CMS preview loads correctly
+
+Show a compact success state:
+
+Preview confirmed
+
+You have manually confirmed that the generated CMS interface loads in v0.
+
+Add:
+
+TomorrowOS.org has not independently verified the project.
+
+Unlock the existing Continue action.
+
+Do not automatically claim:
+
+- SDK verified
+- Database connected
+- Media connected
+- Build tested by TomorrowOS
+- Production ready
+
+Store only the existing manual confirmation state.
+
+Do not create a new localStorage key unless technically unavoidable.
+
+==================================================
+12. ERROR STATE
+==================================================
+
+Do not show the amber troubleshooting panel by default.
+
+Only reveal it after the user selects:
+
+I see a build or preview error
+
+Heading:
+
+Let’s fix the preview
+
+Use this ordered guidance:
+
+1. Wait for v0 to finish generating and installing dependencies.
+2. Read the first blocking error shown in the preview or build log.
+3. Ask v0 to fix the error without removing your selected TomorrowOS setup.
+4. Do not paste passwords, API secrets or storage tokens into the conversation.
+5. Return here after the preview loads.
+
+Do not say:
+
+Usually this means environment variables are missing or incorrect.
+
+That is too narrow and may send the user in the wrong direction.
+
+Environment variables are only one possible cause.
+
+==================================================
+13. ADD A COPYABLE FIX REQUEST
+==================================================
+
+Inside the revealed error state, use the existing shared CopyActionBlock.
+
+Heading:
+
+Ask v0 to review the error
+
+Label:
+
+FIX REQUEST FOR v0
+
+Use this exact copied content:
+
+Review the current build and preview errors and fix only the issues preventing the TomorrowOS CMS from running.
+
+Preserve:
+- the TomorrowOS SDK
+- my selected database integration
+- my selected media-storage integration
+- my branding configuration
+- any example content already created
+
+Do not remove or replace those choices to make the build pass.
+
+Do not ask me to paste passwords, API secrets or storage tokens into this conversation. If an environment variable is required, tell me its name and where it should be added securely in Vercel.
+
+After making the changes, run the available build and type checks and tell me whether the CMS preview is ready.
+
+Copy button:
+
+Copy fix request
+
+Copied message:
+
+Copied — paste this into v0
+
+Destination hint:
+
+Paste this into the same v0 conversation, then wait for it to review and repair the build.
+
+Do not automatically open v0 after copying.
+
+==================================================
+14. ERROR FOLLOW-UP ACTIONS
+==================================================
+
+Within the expanded error state, provide:
+
+Primary action:
+
+Open v0
+
+Secondary text action:
+
+Preview now loads correctly
+
+When the user selects:
+
+Preview now loads correctly
+
+- Close or collapse the error state
+- Select the successful-preview state
+- Restore the neutral Step 7 sidebar indicator
+- Unlock Continue
+
+Do not require the user to reload the TomorrowOS guide.
+
+==================================================
+15. REMOVE DUPLICATION
+==================================================
+
+Remove:
+
+Confirm your preview before continuing.
+
+when the same requirement is already communicated by:
+
+How does the preview look?
+
+Do not show both:
+
+- Preview available checkbox
+- The CMS preview loads correctly button
+
+The success action is the source of truth for step completion.
+
+Remove the permanently visible build-error warning.
+
+Do not retain duplicate explanatory messages about the guide not inspecting v0.
+
+Use one concise clarification near the outcome area:
+
+This is a manual confirmation. TomorrowOS.org does not inspect your v0 project or preview.
+
+==================================================
+16. FOOTER BEHAVIOUR
+==================================================
+
+Keep:
+
+Back
+Continue
+
+Default:
+
+- Continue remains disabled until successful manual confirmation
+
+After success:
+
+- Continue becomes enabled
+- Existing progression behaviour remains unchanged
+
+After error:
+
+- Continue remains disabled
+- Troubleshooting guidance is shown
+
+Do not make the error action itself complete the step.
+
+Do not change the next route.
+
+==================================================
+17. VISUAL HIERARCHY
+==================================================
+
+The final page order should be:
+
+1. Step heading and explanation
+2. Return to v0 action
+3. Example of a successful CMS preview
+4. Check what you can see
+5. Optional Expected project components disclosure
+6. How does the preview look?
+7. Conditional success or error state
+8. Back and Continue
+
+Use:
+
+- Existing main content width
+- White background
+- Thin neutral borders
+- Roboto
+- Restrained blue informational state
+- Restrained green success state
+- Amber only after an actual error is reported
+- No heavy shadows
+- No gradients
+- No oversized cards
+
+The page should feel calm before the user selects an outcome.
+
+==================================================
+18. MOBILE
+==================================================
+
+Test at:
+
+- 320px
+- 390px
+- 430px
+
+Confirm:
+
+- No page-level horizontal scrolling
+- Screenshot can be opened full size
+- Checklist labels wrap correctly
+- Outcome buttons stack cleanly
+- Primary action remains obvious
+- Error copy block remains readable
+- Footer actions remain accessible
+- Sidebar or mobile-step navigation remains unchanged
+- No sticky hover state appears
+
+==================================================
+19. ACCESSIBILITY
+==================================================
+
+Ensure:
+
+- One H1 remains
+- Checklist uses semantic labels
+- Outcome choice is keyboard accessible
+- Selected outcome is announced
+- Error disclosure receives focus appropriately
+- Copied feedback uses aria-live="polite"
+- Screenshot has useful alt text
+- Lightbox is keyboard accessible
+- Disabled Continue uses the native disabled state
+- Colour is not the only indicator of success or error
+- Focus states remain visible
+
+==================================================
+20. PROTOTYPE REVIEW MODE
+==================================================
+
+Show only in Prototype Review Mode:
+
+- Screenshot asset path and load status
+- Selected manual outcome
+- Stored confirmation value
+- Whether error guidance is expanded
+- Whether Continue is locked
+- Whether the default sidebar incorrectly uses a warning state
+- Whether the old technical checkboxes remain
+- Whether the old “usually environment variables” claim remains
+
+Do not show this internal information publicly.
+
+==================================================
+21. QA
+==================================================
+
+Test:
+
+- Initial neutral state
+- Open v0 action
+- Successful-preview selection
+- Error selection
+- Copy fix request
+- Error recovery to success
+- Continue locked before success
+- Continue enabled after success
+- Back action
+- Page refresh
+- Existing progress restoration
+- Browser Back and Forward
+- Desktop at 1440px
+- Tablet at 768px
+- Mobile at 390px
+- Keyboard-only navigation
+- Reduced-motion behaviour
+
+Run:
+
+- TypeScript
+- Production build
+- Existing smoke tests
+- Existing route tests
+- Accessibility smoke test where available
+
+==================================================
+22. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. Step 7 no longer looks like an error by default.
+2. The active sidebar uses the normal current-step treatment.
+3. The user is directed back to v0 near the top.
+4. The approved CMS screenshot is used when supplied.
+5. The old technical verification checklist is removed.
+6. The visible checklist contains only observable outcomes.
+7. The error panel is hidden initially.
+8. The error panel appears only after the user reports an error.
+9. The “usually environment variables” claim is removed.
+10. A safe copyable v0 fix request is provided.
+11. The success action reads:
+    The CMS preview loads correctly
+12. Continue remains disabled until manual success confirmation.
+13. TomorrowOS.org does not claim to inspect or verify the project.
+14. Existing progress keys and routes remain unchanged.
+15. Desktop and mobile layouts work.
+16. No TypeScript, build, runtime or console errors are introduced.
+
+==================================================
+23. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Restore point created
+- Component paths changed
+- Screenshot path used
+- Confirmation screenshot was not altered
+- Old checklist items removed
+- New visual checklist items
+- Default-state screenshot
+- Success-state screenshot
+- Error-state screenshot
+- Copied-fix-request screenshot
+- Mobile screenshot
+- Confirmation active sidebar is neutral by default
+- Confirmation error panel is conditional
+- Confirmation progress keys were preserved
+- TypeScript result
+- Build result
+- Smoke-test result
+- Exact rollback instruction
+
+Do not make unrelated Vercel, onboarding, CMS, SEO or design changes during this task.
