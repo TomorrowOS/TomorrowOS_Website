@@ -6,6 +6,7 @@ import { StepFooter } from './StepFooter';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
+import { OnboardingScreenshotCard } from './OnboardingScreenshotCard';
 import { CopyableText } from './CopyableText';
 import { Check, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
@@ -184,9 +185,21 @@ function VercelStep2({ isGuide = false }: { isGuide?: boolean }) {
       />
       <div className="mb-6">
         <Button onClick={() => window.open('https://v0.app', '_blank')} className="mb-6">Open v0</Button>
-        <div className="grid md:grid-cols-2 gap-4">
-          <ScreenshotPlaceholder id="VERCEL-01A" description="v0 sign-in page. Highlight: Sign-in or Get Started action. Caption: Sign in to v0 using your Vercel account." />
-          <ScreenshotPlaceholder id="VERCEL-01B" description="v0 workspace. Highlight: Main prompt area. Caption: Use the main v0 prompt area to begin the TomorrowOS build." />
+        <div className="grid md:grid-cols-2 gap-6">
+          <OnboardingScreenshotCard
+            id="VERCEL-01A"
+            imagePath="onboarding/vercel/VERCEL-01A.png"
+            alt="Vercel sign-in screen showing the available account login options."
+            heading="Sign in to your Vercel account"
+            copy="After selecting “Open v0”, sign in using your existing Vercel account. You can continue with Google, GitHub, Apple or email. If you do not already have a Vercel account, create one before continuing."
+          />
+          <OnboardingScreenshotCard
+            id="VERCEL-01B"
+            imagePath="onboarding/vercel/VERCEL-01B.png"
+            alt="v0 workspace showing the main prompt field used to begin a new build."
+            heading="Open the main v0 prompt area"
+            copy="Once signed in, you will arrive in your v0 workspace. Locate the main prompt field at the top of the page. This is where you will paste the TomorrowOS build prompt in the next step."
+          />
         </div>
       </div>
       <div className="bg-gray-50 p-4 rounded-md border border-border text-sm text-gray-600 mb-8">

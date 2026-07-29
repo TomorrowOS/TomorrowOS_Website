@@ -1,0 +1,144 @@
+Update the existing Vercel onboarding flow at:
+
+VERCEL SETUP
+Step 2 of 13
+Sign in to v0
+
+Do not redesign the page or change any existing navigation, progress logic, button behaviour, typography, spacing system, routes, state management or completed-step logic.
+
+The purpose of this update is only to replace the two current image placeholders with the supplied image assets and add clear instructional HTML copy beneath each image.
+
+ASSETS
+
+Use these exact filenames and paths:
+
+/public/onboarding/vercel/VERCEL-01A.png
+/public/onboarding/vercel/VERCEL-01B.png
+
+Do not rename, regenerate, crop or alter the images.
+
+CARD 1 — VERCEL-01A
+
+Display:
+
+Image:
+VERCEL-01A.png
+
+Label:
+VERCEL-01A
+
+Heading:
+Sign in to your Vercel account
+
+Instructional copy:
+After selecting “Open v0”, sign in using your existing Vercel account. You can continue with Google, GitHub, Apple or email. If you do not already have a Vercel account, create one before continuing.
+
+CARD 2 — VERCEL-01B
+
+Display:
+
+Image:
+VERCEL-01B.png
+
+Label:
+VERCEL-01B
+
+Heading:
+Open the main v0 prompt area
+
+Instructional copy:
+Once signed in, you will arrive in your v0 workspace. Locate the main prompt field at the top of the page. This is where you will paste the TomorrowOS build prompt in the next step.
+
+LAYOUT REQUIREMENTS
+
+Keep the existing two-column card layout on desktop.
+
+Each card must contain, in this order:
+
+1. Image
+2. Zone label
+3. Heading
+4. Instructional copy
+
+The images themselves must contain no additional HTML overlays, badges, captions, arrows or text.
+
+Display each image at the top of its card using:
+
+- width: 100%
+- height: auto
+- object-fit: contain
+- consistent aspect ratio between both cards
+- rounded corners matching the current design system
+- a subtle light-grey border
+- no heavy shadow
+- no image distortion
+
+The image area should be large enough for the visual instructions to remain understandable. Do not display the images as small thumbnails.
+
+Place the HTML copy beneath the image with clear hierarchy:
+
+- Zone label: small monospace or existing technical-label style
+- Heading: medium-weight and visually stronger than the body text
+- Body copy: normal-weight, readable and concise
+- Left-align the instructional text
+- Maintain comfortable spacing between image, label, heading and body
+
+RESPONSIVE BEHAVIOUR
+
+Desktop:
+- Two equal-width cards side by side
+
+Tablet and mobile:
+- Stack the cards vertically
+- Images remain full width
+- Text remains readable without horizontal scrolling
+- Preserve the existing page margins and mobile spacing
+
+ACCESSIBILITY
+
+Use meaningful alt text:
+
+VERCEL-01A:
+“Vercel sign-in screen showing the available account login options.”
+
+VERCEL-01B:
+“v0 workspace showing the main prompt field used to begin a new build.”
+
+Do not use the filename as the alt text.
+
+EXISTING PAGE CONTENT
+
+Keep the following existing content and behaviour unchanged:
+
+- “Open v0” button
+- Progress indicator
+- “Keep this TomorrowOS guide open…” notice
+- Back button
+- “I am signed in to v0” button
+- Step locking and completion behaviour
+- Overall TomorrowOS visual style
+
+Remove the current placeholder image icons and the old placeholder descriptions only after confirming the two new assets load successfully.
+
+FAIL-SAFE IMAGE HANDLING
+
+If an image fails to load:
+
+- Keep the card structure visible
+- Show a neutral fallback area
+- Do not collapse the card
+- Log the missing asset path in development mode
+- Do not expose a broken-image browser icon
+
+ACCEPTANCE CRITERIA
+
+The task is complete only when:
+
+1. VERCEL-01A.png appears in the left card.
+2. VERCEL-01B.png appears in the right card.
+3. Each image has its corresponding HTML instructions beneath it.
+4. No instructional text is embedded or overlaid on the images.
+5. The existing onboarding flow and navigation still function exactly as before.
+6. Both cards stack cleanly on mobile.
+7. The images remain sharp, uncropped and proportionally correct.
+8. No other onboarding step or component has been modified.
