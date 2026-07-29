@@ -64,7 +64,7 @@ export const mediaProviderConfig: Record<'cloudinary' | 'vercelBlob', MediaProvi
     selectLabel: 'Select Cloudinary',
     continueLabel: 'Continue with Cloudinary',
     details: {
-      heading: 'What you will configure later',
+      heading: 'What you will need to connect to your CMS',
       ordered: false,
       items: ['Cloud name', 'API key', 'API secret'],
       note: null,
