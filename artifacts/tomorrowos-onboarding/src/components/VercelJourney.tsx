@@ -306,6 +306,7 @@ function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
   const selectedId = singleProvider ? singleProvider.id : state.vercelMediaProvider || null;
   const selectedProvider = visibleProviders.find((p) => p.id === selectedId) || null;
   const detailsId = 'media-provider-details';
+  const optionRefs = React.useRef<Record<string, HTMLButtonElement | null>>({});
 
   const providerAction = (p: typeof allProviders[number]) =>
     p.guideUrl ? (
@@ -371,8 +372,27 @@ function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
           <p className="text-sm text-gray-600 mb-6">
             Choose the option that best suits how you want to manage media. You can use Vercel Blob without creating a separate provider account, or choose Cloudinary for more advanced media handling.
           </p>
-          <div role="radiogroup" aria-label="Media storage providers" className="grid md:grid-cols-2 gap-6 mb-6 md:items-stretch">
-            {visibleProviders.map((provider) => (
+          <div
+            role="radiogroup"
+            aria-label="Media storage providers"
+            className="grid md:grid-cols-2 gap-6 mb-6 md:items-stretch"
+            onKeyDown={(e) => {
+              const count = visibleProviders.length;
+              if (count === 0) return;
+              const current = Math.max(0, visibleProviders.findIndex((p) => p.id === selectedId));
+              let next: number | null = null;
+              if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (current + 1) % count;
+              else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (current - 1 + count) % count;
+              else if (e.key === 'Home') next = 0;
+              else if (e.key === 'End') next = count - 1;
+              if (next === null) return;
+              e.preventDefault();
+              const provider = visibleProviders[next];
+              updateState({ vercelMediaProvider: provider.id });
+              optionRefs.current[provider.id]?.focus();
+            }}
+          >
+            {visibleProviders.map((provider, index) => (
               <MediaProviderOption
                 key={provider.id}
                 provider={provider}
@@ -380,6 +400,8 @@ function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
                 onSelect={() => updateState({ vercelMediaProvider: provider.id })}
                 detailsId={detailsId}
                 reviewPreview={!customerFacing.includes(provider)}
+                tabIndex={selectedId ? (selectedId === provider.id ? 0 : -1) : index === 0 ? 0 : -1}
+                optionRef={(el) => { optionRefs.current[provider.id] = el; }}
               />
             ))}
           </div>

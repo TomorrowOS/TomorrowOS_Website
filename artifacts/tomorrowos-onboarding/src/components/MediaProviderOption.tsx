@@ -12,6 +12,10 @@ interface MediaProviderOptionProps {
   detailsId?: string;
   /** True when the option is shown only as a Prototype Review Mode preview. */
   reviewPreview?: boolean;
+  /** Roving tabindex value supplied by the owning radiogroup. */
+  tabIndex?: number;
+  /** Ref registration for keyboard focus management by the owning radiogroup. */
+  optionRef?: (el: HTMLButtonElement | null) => void;
 }
 
 function ProviderLogo({ provider }: { provider: MediaProviderEntry }) {
@@ -45,11 +49,13 @@ function ProviderLogo({ provider }: { provider: MediaProviderEntry }) {
  * non-colour-dependently with a check icon plus visible "Selected" text.
  * The status label (badge) stays visible in every state.
  */
-export function MediaProviderOption({ provider, selected, onSelect, detailsId, reviewPreview }: MediaProviderOptionProps) {
+export function MediaProviderOption({ provider, selected, onSelect, detailsId, reviewPreview, tabIndex, optionRef }: MediaProviderOptionProps) {
   return (
     <button
       type="button"
       role="radio"
+      ref={optionRef}
+      tabIndex={tabIndex}
       aria-checked={selected}
       aria-label={`${provider.name} — ${provider.badge ?? 'media storage'}`}
       aria-describedby={selected && detailsId ? detailsId : undefined}
