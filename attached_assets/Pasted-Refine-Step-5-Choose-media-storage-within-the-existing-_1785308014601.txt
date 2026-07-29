@@ -1,0 +1,584 @@
+Refine Step 5, “Choose media storage”, within the existing TomorrowOS Vercel Guided Setup.
+
+This is an existing working onboarding journey.
+
+Do not rebuild the Vercel pathway.
+Do not change routes, step order, progress persistence, localStorage keys, sidebar behaviour or surrounding steps.
+Do not change the actual TomorrowOS starter implementation during this UI task.
+Do not claim support for an integration that does not exist and has not been tested.
+
+The current page feels unfinished because:
+
+- Cloudinary and Vercel Blob cards have unequal levels of detail.
+- Vercel Blob displays “Implementation pending engineering confirmation”.
+- Cloudinary exposes credentials before the user has selected it.
+- Provider logos are missing.
+- There is no clear selected state.
+- “I connected media storage” implies an action the guide has not performed.
+- The page mixes provider selection with provider configuration.
+
+The objective is to turn this into a clear provider-selection step that honestly reflects the current implementation.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a checkpoint or Git commit named:
+
+   pre-vercel-media-storage-selection-refinement
+
+2. Record:
+   - Current Vercel Step 5 component
+   - Current provider configuration
+   - Current step-completion value
+   - Current localStorage keys
+   - Current Cloudinary and Vercel Blob guide routes
+   - Current media-provider implementation in the generated starter
+
+Do not expose secret values.
+
+==================================================
+2. VERIFY ACTUAL PROVIDER SUPPORT FIRST
+==================================================
+
+Before changing the public UI, inspect the current TomorrowOS Vercel starter and setup files.
+
+Verify Cloudinary support by locating:
+
+- Cloudinary package or API implementation
+- Upload path
+- Media URL handling
+- Required environment-variable names
+- Delete or replacement behaviour where included
+- Generated CMS integration
+
+Verify Vercel Blob support by locating:
+
+- `@vercel/blob` or approved Blob implementation
+- Blob-store setup instructions
+- `BLOB_READ_WRITE_TOKEN` handling
+- Upload path
+- Public or private access decision
+- Media URL handling
+- Delete or replacement behaviour
+- Generated CMS integration
+- Player access to stored assets
+
+Create central flags:
+
+mediaProviderConfig = {
+  cloudinary: {
+    available: boolean,
+    tested: boolean,
+    guideUrl: "/guides/cloudinary"
+  },
+  vercelBlob: {
+    available: boolean,
+    tested: boolean,
+    guideUrl: "/guides/vercel-blob"
+  }
+}
+
+A provider may appear as a normal customer-facing selection only when:
+
+- Its implementation exists; and
+- Its onboarding guide exists; and
+- The required generated-project path has been tested.
+
+If Vercel Blob does not meet these requirements:
+
+- Hide it from normal customer-facing mode.
+- Keep its validation details visible only in Prototype Review Mode.
+- Do not show “Implementation pending engineering confirmation”.
+- Do not replace the warning with a false supported claim.
+
+==================================================
+3. PAGE HEADING AND EXPLANATION
+==================================================
+
+Retain the heading:
+
+Choose media storage
+
+Use this supporting copy:
+
+Select where your CMS will store and deliver uploaded images and videos.
+
+Add a small explanatory callout:
+
+Your selection tells v0 which media integration to add. You will configure the service securely in Vercel later.
+
+This must make clear that this step records a choice; it does not inspect or connect the provider.
+
+==================================================
+4. EQUAL PROVIDER CARDS
+==================================================
+
+Create or refine a reusable component:
+
+MediaProviderOption
+
+Each available provider card must contain:
+
+- Official logo
+- Provider name
+- Short description
+- Brief best-for statement
+- Optional restrained recommendation label
+- Selected state
+- Entire card selectable
+
+The cards must have:
+
+- Equal height on desktop
+- Matching padding
+- Matching title position
+- Matching action placement
+- Thin neutral border
+- White background
+- Subtle radius
+- No heavy shadows
+
+Do not allow one card to contain a large warning while the other does not.
+
+==================================================
+5. CLOUDINARY CARD
+==================================================
+
+Use the approved official Cloudinary logo already supplied to the project.
+
+Provider name:
+
+Cloudinary
+
+Status label:
+
+Recommended
+
+Description:
+
+Managed image and video storage with optimisation and delivery.
+
+Best-for copy:
+
+Best for teams that want built-in image and video handling.
+
+Selection action:
+
+Select Cloudinary
+
+Do not show these values permanently on the provider-selection card:
+
+- CLOUDINARY_CLOUD_NAME
+- CLOUDINARY_API_KEY
+- CLOUDINARY_API_SECRET
+
+Move those details into the selected-provider guidance and the full Cloudinary guide.
+
+Do not collect any credentials on TomorrowOS.org.
+
+==================================================
+6. VERCEL BLOB CARD
+==================================================
+
+Only render this card in normal mode when the verified configuration marks Vercel Blob available and tested.
+
+Use the approved official Vercel or Vercel Blob asset.
+
+Provider name:
+
+Vercel Blob
+
+Status label:
+
+Vercel native
+
+Description:
+
+Object storage connected directly to your Vercel project.
+
+Best-for copy:
+
+Best for teams wanting a simpler Vercel-hosted storage workflow.
+
+Selection action:
+
+Select Vercel Blob
+
+Do not show:
+
+Implementation pending engineering confirmation
+
+Do not show:
+
+Coming soon
+
+when the provider is not available.
+
+Instead, hide the unavailable card from the public selection.
+
+Prototype Review Mode may show:
+
+VERCEL BLOB HIDDEN — IMPLEMENTATION OR VALIDATION INCOMPLETE
+
+with the exact missing validation items.
+
+==================================================
+7. SINGLE-PROVIDER STATE
+==================================================
+
+When only Cloudinary is currently available, do not present a fake two-provider choice.
+
+Change the customer-facing heading for that state to:
+
+Set up media storage
+
+Supporting copy:
+
+TomorrowOS will use Cloudinary to store and deliver uploaded images and videos.
+
+Show one complete Cloudinary setup card.
+
+Primary action:
+
+Continue with Cloudinary
+
+Secondary action:
+
+View Cloudinary guide
+
+Do not show an empty space where Vercel Blob would have appeared.
+
+The page should still use the same surrounding layout and step number.
+
+==================================================
+8. SELECTED STATE
+==================================================
+
+When two providers are available, the user must explicitly select one.
+
+Selected card:
+
+- Stronger dark border
+- Very light neutral background
+- Small check indicator
+- `aria-pressed="true"` or correct radio semantics
+- Clear visible text:
+
+  Selected
+
+Unselected card:
+
+- Standard neutral border
+- White background
+- Clear hover state
+- Pointer cursor
+
+Only one provider may be selected.
+
+Do not store secrets.
+
+Store only the provider identifier using the existing onboarding progress mechanism.
+
+==================================================
+9. REVEAL PROVIDER DETAILS AFTER SELECTION
+==================================================
+
+Do not show detailed configuration before selection.
+
+After Cloudinary is selected, reveal a compact section:
+
+What you will configure later
+
+- Cloud name
+- API key
+- API secret
+
+Supporting note:
+
+Add these securely through Vercel Project Settings → Environment Variables. Do not enter them into this TomorrowOS guide.
+
+Action:
+
+View Cloudinary guide
+
+After Vercel Blob is selected, reveal:
+
+What happens next
+
+- Create or connect a Blob store to the Vercel project
+- Confirm the approved access mode
+- Confirm the Blob environment variable is available
+- Deploy the generated integration
+
+Do not show implementation steps that have not been verified against the current starter.
+
+==================================================
+10. COMPLETION ACTION
+==================================================
+
+Remove:
+
+I connected media storage
+
+That statement is inaccurate because this guide does not inspect Vercel, Cloudinary or Vercel Blob.
+
+When Cloudinary is selected, use:
+
+Continue with Cloudinary
+
+When Vercel Blob is selected, use:
+
+Continue with Vercel Blob
+
+When no provider is selected:
+
+- Disable the primary continuation action
+- Use:
+
+  Select a media provider to continue
+
+Completion of this step records the provider selection only.
+
+It must not display:
+
+- Connected
+- Verified
+- Integration successful
+- Storage online
+
+unless a real supported integration check is later implemented.
+
+==================================================
+11. SECURITY GUIDANCE
+==================================================
+
+Replace the large provider-specific warning inside the Cloudinary card with one shared security note beneath the provider area:
+
+Credentials are added securely in Vercel later. Do not enter API secrets or storage tokens into TomorrowOS.org or the v0 conversation.
+
+Keep it:
+
+- Compact
+- Pale warning background
+- Accessible
+- Outside individual provider cards
+
+Do not collect credential values.
+
+==================================================
+12. LOGO HANDLING
+==================================================
+
+Use exact approved official assets.
+
+Expected paths should be centralised, for example:
+
+mediaProviderConfig.cloudinary.logoPath
+mediaProviderConfig.vercelBlob.logoPath
+
+Do not:
+
+- Recreate logos with text
+- Download unverified logo files
+- Generate substitute marks
+- Distort aspect ratios
+- Recolour official logos
+- Use emojis
+
+When an approved logo asset is missing:
+
+- Use a restrained provider-name fallback in normal mode.
+- Show the expected asset path in Prototype Review Mode.
+- Do not show a broken-image icon.
+
+Add existing third-party trademark contextual wording only where already configured site-wide.
+
+==================================================
+13. BUTTON AND HOVER STATES
+==================================================
+
+Use the existing refined shared button interactions.
+
+Provider cards:
+
+- Subtle hover background
+- Slightly darker border
+- No scaling
+- No large shadow
+- Visible keyboard focus
+
+Primary continuation:
+
+- Existing black primary style
+- Subtle hover and pressed states
+- No dimension changes
+
+Secondary guide links:
+
+- Existing secondary style
+- Subtle light-grey hover
+- Visible focus
+
+Do not introduce new button styling isolated to this page.
+
+==================================================
+14. MOBILE
+==================================================
+
+At mobile widths:
+
+- Stack provider cards
+- Keep equal visual structure
+- Use full-width selection areas
+- Keep logos appropriately sized
+- Keep the continuation action easy to reach
+- Do not create horizontal scrolling
+- Do not make both cards artificially equal height when their content naturally differs on mobile
+- Keep selected state obvious
+- Keep the security note concise
+
+Test at:
+
+- 320px
+- 390px
+- 430px
+
+==================================================
+15. ACCESSIBILITY
+==================================================
+
+Implement the provider choices as:
+
+- A semantic radio group; or
+- Accessible selectable buttons with correct pressed state
+
+Requirements:
+
+- Group has an accessible label
+- Selection is announced
+- Keyboard arrow or tab navigation works appropriately
+- Focus is visible
+- Logos have suitable alt treatment
+- Recommendation and selection states are available to screen readers
+- Disabled continuation state is communicated semantically
+- Colour is not the only selection indicator
+
+==================================================
+16. PROTOTYPE REVIEW MODE
+==================================================
+
+Show only in Prototype Review Mode:
+
+- Cloudinary implementation status
+- Vercel Blob implementation status
+- Test status
+- Guide-route status
+- Logo asset status
+- Missing validation items
+- Stored provider identifier
+- Whether the page is using single-provider or multi-provider mode
+
+Do not show implementation language to normal users.
+
+==================================================
+17. DO NOT CHANGE
+==================================================
+
+Do not change:
+
+- Vercel step number
+- Previous or next step
+- Sidebar labels
+- Existing completed-step states
+- Route paths
+- Progress keys
+- Add Branding step
+- Database step
+- Publishing steps
+- Shared deployment journey
+- SEO metadata
+- Indexing rules
+- Sitemap
+- Header or footer
+
+This task is limited to the media-provider selection and its completion wording.
+
+==================================================
+18. QA
+==================================================
+
+Test:
+
+- Cloudinary-only configuration
+- Both-provider configuration
+- No-provider-selected state
+- Cloudinary selected
+- Vercel Blob selected
+- Keyboard selection
+- Mobile layout
+- Back button
+- Continuation action
+- Progress persistence
+- Browser Back and Forward
+- Page refresh after selection
+
+Run:
+
+- Build
+- TypeScript
+- Existing smoke tests
+- Existing route tests
+- Accessibility smoke test where available
+
+==================================================
+19. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. The page clearly explains what media storage is.
+2. Available providers use approved logos.
+3. Provider cards have equal and coherent information.
+4. Cloudinary is clearly explained.
+5. Vercel Blob is shown only when genuinely implemented and tested.
+6. No engineering-placeholder copy appears publicly.
+7. No fake unsupported option appears.
+8. Detailed credentials are hidden until relevant.
+9. Credentials are never collected by TomorrowOS.org.
+10. The user must select an available provider where multiple choices exist.
+11. The selected state is obvious.
+12. “I connected media storage” is removed.
+13. Completion wording matches the selected provider.
+14. Completion records selection only.
+15. Desktop and mobile work.
+16. Existing onboarding progress remains intact.
+17. No TypeScript, build, runtime or console errors are introduced.
+
+==================================================
+20. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Checkpoint or commit created
+- Provider support audit
+- Cloudinary implementation evidence found
+- Vercel Blob implementation evidence found or missing
+- Customer-facing providers displayed
+- Component paths changed
+- Configuration path
+- Desktop screenshot
+- Mobile screenshot
+- Selected-state screenshot
+- Single-provider screenshot where applicable
+- Confirmation that no credentials are collected
+- Confirmation progress keys were preserved
+- Build result
+- TypeScript result
+- Smoke-test result
+- Exact rollback instruction
+
+Do not make unrelated Vercel, onboarding, content or design changes during this task.

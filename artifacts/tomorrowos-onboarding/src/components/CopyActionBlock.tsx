@@ -117,11 +117,12 @@ export function CopyActionBlock({
             type="button"
             onClick={handleCopy}
             className={cn(
-              'shrink-0 inline-flex items-center gap-1.5 rounded-md px-3 min-h-[36px] text-xs font-medium transition-colors',
+              'shrink-0 inline-flex items-center gap-1.5 rounded-md px-3 min-h-[36px] text-xs font-medium cursor-pointer',
+              'transition-[background-color,border-color,color,transform,box-shadow] duration-150 ease-out motion-reduce:transition-none motion-reduce:transform-none',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
               isDark
-                ? 'bg-gray-800 text-gray-100 hover:bg-gray-700 focus-visible:ring-gray-400 focus-visible:ring-offset-gray-950'
-                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 focus-visible:ring-gray-500 focus-visible:ring-offset-gray-50'
+                ? 'bg-gray-800 text-gray-100 hover-fine:bg-gray-700 active:bg-gray-600 focus-visible:ring-gray-400 focus-visible:ring-offset-gray-950'
+                : 'bg-white text-gray-700 border border-gray-300 hover-fine:bg-gray-100 hover-fine:border-gray-400 active:bg-gray-200 focus-visible:ring-gray-900 focus-visible:ring-offset-gray-50'
             )}
           >
             {status === 'copied' ? (
