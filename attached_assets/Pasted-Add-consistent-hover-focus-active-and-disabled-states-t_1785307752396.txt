@@ -1,0 +1,360 @@
+Add consistent hover, focus, active and disabled states to all buttons and button-like links across the existing TomorrowOS onboarding experience.
+
+This is a working application.
+
+Do not redesign the buttons.
+Do not change their wording, dimensions, destinations, routes, completion logic or position.
+Do not rebuild any onboarding journey.
+Do not change the wider website design.
+
+The current controls have almost no visible interaction feedback. Buttons such as:
+
+- View Supabase guide
+- View Neon setup guide
+- I selected my database
+- Back
+
+remain visually unchanged when hovered.
+
+The objective is to make every control feel responsive and clearly interactive while preserving the restrained TomorrowOS design.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a Replit checkpoint or Git commit named:
+
+   pre-onboarding-button-interactions
+
+2. Identify:
+   - Shared Button component
+   - Shared LinkButton component
+   - All onboarding-specific button classes
+   - Existing button variants
+   - Existing focus styles
+
+Do not change unrelated components.
+
+==================================================
+2. USE SHARED COMPONENTS
+==================================================
+
+Apply the interaction states through the existing shared button system.
+
+Do not add page-specific hover CSS to every onboarding route.
+
+Use or refine these variants:
+
+- primary
+- secondary
+- text
+- destructive, only if already present
+- disabled
+
+Preserve semantic behaviour:
+
+- Use `<button>` for actions
+- Use `<a>` for navigation
+- Do not convert anchors into buttons
+- Do not use clickable divs
+
+==================================================
+3. PRIMARY BUTTON HOVER
+==================================================
+
+Apply to black primary controls such as:
+
+I selected my database
+
+Default:
+
+- Black or existing primary background
+- White text
+- Existing dimensions and radius
+
+Hover:
+
+- Change background subtly to approximately `#202020` or the nearest existing design token
+- Translate upward by no more than 1px
+- Add a restrained shadow such as:
+  `0 2px 6px rgba(0, 0, 0, 0.12)`
+- Keep text white
+- Do not resize the button
+
+Active or pressed:
+
+- Return transform to `translateY(0)`
+- Reduce or remove the hover shadow
+- Use a slightly darker background if needed
+
+Do not use:
+
+- Scaling
+- Bright colours
+- Large movement
+- Heavy shadows
+- Gradients
+
+==================================================
+4. SECONDARY BUTTON HOVER
+==================================================
+
+Apply to outlined or light actions such as:
+
+- View Supabase guide
+- View Neon setup guide
+- Back
+
+Default:
+
+- Existing white background
+- Existing neutral border
+- Existing black or dark-grey text
+
+Hover:
+
+- Background changes to a very light grey, approximately `#F5F5F5` or the existing neutral token
+- Border becomes slightly darker
+- Text remains dark
+- Optional upward movement of no more than 1px
+- No heavy shadow
+
+Active:
+
+- Background becomes slightly darker than hover
+- Return movement to zero
+
+Do not convert secondary actions into filled black buttons.
+
+==================================================
+5. EXTERNAL GUIDE LINKS
+==================================================
+
+Where a guide opens externally or in a new tab:
+
+- Preserve its current destination
+- Add or retain a subtle external-link icon where already part of the design
+- Move the icon no more than 1–2px on hover
+- Do not add the icon where the action remains internal unless already designed
+
+External links must use:
+
+target="_blank"
+rel="noopener noreferrer"
+
+Do not change whether an existing guide opens internally or externally during this task.
+
+==================================================
+6. TRANSITIONS
+==================================================
+
+Use a restrained shared transition:
+
+- Background colour: 140–160ms ease
+- Border colour: 140–160ms ease
+- Colour: 140–160ms ease
+- Transform: 140–160ms ease
+- Box shadow: 140–160ms ease
+
+Do not use long or spring animations.
+
+Respect:
+
+`prefers-reduced-motion: reduce`
+
+When reduced motion is enabled:
+
+- Disable transform animation
+- Keep immediate colour and focus feedback
+
+==================================================
+7. POINTER FEEDBACK
+==================================================
+
+Ensure enabled interactive controls show:
+
+`cursor: pointer`
+
+Disabled controls must show:
+
+`cursor: not-allowed`
+
+Do not apply pointer cursor to non-interactive containers.
+
+==================================================
+8. KEYBOARD FOCUS
+==================================================
+
+Add a consistent `:focus-visible` state to all variants.
+
+Recommended treatment:
+
+- 2px solid dark outline
+- 2–3px outline offset
+- Preserve button radius
+- Do not rely only on background colour
+- Do not show the strong focus outline solely from mouse clicks
+
+Example:
+
+outline: 2px solid currentColor;
+outline-offset: 3px;
+
+For black buttons, use a visible outline that contrasts with both the button and page background.
+
+==================================================
+9. DISABLED STATE
+==================================================
+
+Where buttons can be disabled:
+
+- Reduce contrast appropriately
+- Preserve readable text
+- Remove hover and active movement
+- Use `cursor: not-allowed`
+- Use the native `disabled` attribute for buttons
+- Use `aria-disabled="true"` where necessary for links
+- Prevent navigation or action when disabled
+
+Do not communicate disabled state using opacity alone when readability suffers.
+
+==================================================
+10. MOBILE AND TOUCH
+==================================================
+
+Hover does not exist reliably on touch devices.
+
+Ensure mobile still has:
+
+- Clear pressed state
+- Visible keyboard focus where applicable
+- Minimum practical touch target of 44px
+- No sticky hover state after tapping
+- No horizontal overflow
+- No layout shift
+
+Use media-query behaviour where needed:
+
+`@media (hover: hover) and (pointer: fine)`
+
+Apply hover-only movement inside that query so touch devices are not affected.
+
+==================================================
+11. DO NOT CHANGE
+==================================================
+
+Do not change:
+
+- Button wording
+- Button destinations
+- Button order
+- Button widths
+- Button heights
+- Completion behaviour
+- Progress logic
+- Route behaviour
+- Existing confirmation wording
+- Guide content
+- Security notes
+- Header
+- Footer
+- SEO configuration
+- Indexing rules
+- LocalStorage keys
+
+This is an interaction-state refinement only.
+
+==================================================
+12. APPLY ACROSS ONBOARDING
+==================================================
+
+Audit and apply the shared interaction treatment across:
+
+- Replit Guided Setup
+- Vercel Guided Setup
+- Terminal
+- Server SDK
+- HTTP API
+- Supabase guide
+- Cloudinary guide
+- Samsung Tizen guide
+- Content and publishing guide
+- Device setup and pairing guides
+- Back, Continue and confirmation controls
+
+Do not modify normal text links unless they use the shared button-like styling.
+
+==================================================
+13. QA
+==================================================
+
+Test representative controls at:
+
+- 390px
+- 768px
+- 1024px
+- 1440px
+
+Verify:
+
+- Primary hover
+- Secondary hover
+- Keyboard focus
+- Pressed state
+- Disabled state
+- External guide link
+- Back button
+- Confirmation button
+- Touch interaction
+- Reduced-motion behaviour
+
+Confirm:
+
+- No content moves unexpectedly
+- Button dimensions remain unchanged
+- No sticky mobile hover states
+- No route or completion regression
+- No horizontal overflow
+
+==================================================
+14. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. Primary buttons have a clear but subtle hover state.
+2. Secondary buttons have a clear but subtle hover state.
+3. Pressed states are visible.
+4. Keyboard focus is clearly visible.
+5. Disabled controls do not respond to hover.
+6. Enabled controls use pointer cursor.
+7. Mobile receives pressed feedback without sticky hover.
+8. Button dimensions remain unchanged.
+9. Existing wording and destinations remain unchanged.
+10. Existing onboarding logic remains unchanged.
+11. Shared components are used rather than repeated page-specific CSS.
+12. Reduced-motion preferences are respected.
+13. No TypeScript, build, runtime or console errors are introduced.
+
+==================================================
+15. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Checkpoint or commit created
+- Shared components changed
+- Button variants updated
+- Routes visually tested
+- Primary hover screenshot
+- Secondary hover screenshot
+- Keyboard-focus screenshot
+- Mobile pressed-state screenshot
+- Build result
+- TypeScript result
+- Smoke-test result
+- Exact rollback instruction
+
+Do not make unrelated onboarding or visual changes during this task.

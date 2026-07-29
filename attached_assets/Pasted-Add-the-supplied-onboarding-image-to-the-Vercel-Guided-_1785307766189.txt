@@ -1,0 +1,47 @@
+Add the supplied onboarding image to the Vercel Guided Setup flow.
+
+IMAGE FILE
+- Filename: VERCEL-03A.png
+- Do not rename, compress, recreate, crop or alter the image.
+
+PLACEMENT
+- Pathway: Start building → Guided setup → Vercel setup
+- Step: Choose your database
+- Zone ID: VERCEL-03A
+- Place the image inside the existing large image area above the VERCEL-03A caption and instructional copy.
+
+DISPLAY REQUIREMENTS
+- Replace the current empty VERCEL-03A image placeholder.
+- Preserve the image’s original aspect ratio.
+- Display the complete image without cropping.
+- Use object-fit: contain.
+- Centre the image horizontally and vertically.
+- The image should fill the available zone as much as practical while remaining fully visible.
+- Do not stretch or distort it.
+- Do not add text, badges, captions or overlays inside the image.
+- Keep the existing VERCEL-03A caption and guidance text beneath the image unchanged.
+- Maintain the current border, spacing, responsiveness and page styling.
+
+RESPONSIVE BEHAVIOUR
+- Desktop: show the full image clearly within the existing image container.
+- Tablet and mobile: scale proportionally to the available width without horizontal scrolling.
+- Do not crop important interface elements or the database question panel.
+
+ACCESSIBILITY
+- Alt text: "v0 asking which database TomorrowOS should use on Vercel, with Supabase Postgres recommended."
+- The image must not be interactive.
+- Do not duplicate the surrounding instructional text in the alt text.
+
+ASSET HANDLING
+- Store the image in the same public onboarding asset location and naming structure used by the other Vercel onboarding images.
+- Reference it using the project’s existing asset-loading convention.
+- Do not use an external URL or base64 encoding.
+
+VALIDATION
+After implementation, confirm:
+1. VERCEL-03A.png loads successfully.
+2. It appears only in the Choose your database step.
+3. The complete database question is readable in the image.
+4. Supabase Postgres, Neon Postgres and Other are visible.
+5. The image is not cropped, distorted or blurry.
+6. Existing onboarding navigation and step progression remain unchanged.
