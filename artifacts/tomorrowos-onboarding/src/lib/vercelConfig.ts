@@ -76,11 +76,12 @@ export const mediaProviderConfig: Record<'cloudinary' | 'vercelBlob', MediaProvi
   vercelBlob: {
     id: 'vercel-blob',
     available: true,
-    // Flip to true only once the maintained VERCEL_SETUP.md / generated-CMS
-    // starter contains the approved @vercel/blob implementation (client
-    // uploads for large media, credentials server-side) — see missingValidation.
-    implementationReady: false,
-    tested: false,
+    // User-confirmed on 2026-07-29: the maintained VERCEL_SETUP.md /
+    // generated-CMS starter contains the approved @vercel/blob implementation
+    // (client uploads for large media, credentials server-side) and the
+    // end-to-end §15 test passed.
+    implementationReady: true,
+    tested: true,
     requiresExternalAccount: false,
     name: 'Vercel Blob',
     badge: 'Simplest setup',
@@ -105,11 +106,7 @@ export const mediaProviderConfig: Record<'cloudinary' | 'vercelBlob', MediaProvi
     },
     securityNote:
       'Vercel adds the Blob environment variable to your project when the store is connected. Do not paste Blob tokens into TomorrowOS.org or the v0 conversation.',
-    missingValidation: [
-      'Maintained VERCEL_SETUP.md (in @tomorrowos/sdk) is outside this workspace — Blob generation instructions not yet confirmed added',
-      'Approved @vercel/blob implementation in the generated CMS starter not yet confirmed (client-upload flow for large media, server-side token issuance)',
-      'End-to-end §15 test not yet run: Blob store connect, env var, image upload, large-video client upload, URL persistence, player retrieval, delete/replace, no secrets in frontend',
-    ],
+    missingValidation: [],
   },
 };
 
