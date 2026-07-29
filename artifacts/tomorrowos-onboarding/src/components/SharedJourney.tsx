@@ -8,6 +8,9 @@ import { cn, isValidHttpsUrl } from '@/lib/utils';
 import { useLocation } from 'wouter';
 import { StepHeader } from './StepHeader';
 import { StepFooter } from './StepFooter';
+import CMS_pair_code from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Deployment/CMS_pair_code.png'
+import Screen_pair_code from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Deployment/Screen_pair_code.png'
+
 
 export function SharedJourney() {
   const { state } = usePrototype();
@@ -190,8 +193,8 @@ function SharedStep3() {
       />
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">
-        <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — PLAYER SHOWING CODE]" description="Your pairing code appears on the connected screen." className="h-40" />
-        <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — CMS PAIR DEVICE PAGE]" description="Enter the pairing code inside your CMS." className="h-40" />
+        <ScreenshotPlaceholder image={Screen_pair_code} className="h-40" />
+        <ScreenshotPlaceholder image={CMS_pair_code} />
       </div>
 
       <div className="mb-8">

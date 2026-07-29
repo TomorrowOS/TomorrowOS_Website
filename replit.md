@@ -4,12 +4,27 @@ Interactive front-end MVP of the TomorrowOS onboarding experience — a fully cl
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+### Local (VS Code / Windows)
+
+```bash
+corepack enable && corepack prepare pnpm@latest --activate
+pnpm install
+pnpm run dev:web
+```
+
+Open http://localhost:5173 — frontend prototype only (no API/DB required).
+
+Optional overrides: `PORT`, `BASE_PATH` (Replit already sets these; local defaults are `5173` and `/`).
+
+### Workspace commands
+
+- `pnpm run dev:web` — run the onboarding website (Vite)
+- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000; Unix/`export`-based)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Required env for API/DB: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 

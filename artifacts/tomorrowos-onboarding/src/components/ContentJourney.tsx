@@ -9,6 +9,25 @@ import { useLocation } from 'wouter';
 import { ChevronRight, ChevronDown, CheckCircle2 } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
 import { contentGuideConfig } from '@/lib/contentGuideConfig';
+import Open_playlist from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Open_playlists.png'
+import Name_your_playlist from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Name_your_playlist.png'
+import Upload_button from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Upload_button.png'
+import File_selector from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/File_selector.png'
+import Uploaded_asset from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Uploaded_asset.png'
+import Drag_and_drop from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Drag_and_drop.png'
+import Image_duration from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Image_duration.png'
+import Configure_the_schedule from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Configure_the_schedule.png'
+import Save_button from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Save_button.png'
+import Saved_playlists from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Saved_playlists.png'
+import Device_card from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Device_card.png'
+import Publish_button from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Publish_button.png'
+import Playlist_selection from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Playlist_selection.png'
+import Publish_selected_button from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Publish_selected_button.png'
+import First_content from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/First_content.png'
+import Last_content from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Last_content.png'
+import Playlist_indicator from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Playlist_indicator.png'
+import Remove_button from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Create_and_deploy/Remove_button.png'
+
 
 export function ContentJourney({ onViewAllSteps }: { onViewAllSteps?: () => void }) {
   const { state } = usePrototype();
@@ -140,7 +159,7 @@ function ContentStep1() {
       <p className="text-sm text-gray-600 mb-6">From your CMS dashboard, find the Playlists section.</p>
 
       <ol className="list-decimal pl-5 space-y-2 text-sm text-gray-700 mb-6">
-        <li>Select the orange + button beside Playlists.</li>
+        <li>Select the + button beside Playlists.</li>
       </ol>
 
       <p className="text-sm text-gray-600 mb-8"><strong>Expected result:</strong> The playlist editor opens inside your CMS.</p>
@@ -150,10 +169,7 @@ function ContentStep1() {
       </div>
 
       <ScreenshotPlaceholder 
-        id="CONTENT-01" 
-        description="TomorrowOS sample CMS. Highlight: Orange + button beside Playlists" 
-        caption="Select the + button beside Playlists to create a new playlist."
-        className="mb-8 h-64"
+        image={Open_playlist}
       />
 
       <p className="text-xs text-gray-500 italic mb-4">
@@ -201,10 +217,7 @@ function ContentStep2() {
       </div>
 
       <ScreenshotPlaceholder 
-        id="CONTENT-02" 
-        description="TomorrowOS sample CMS playlist editor. Highlight: Playlist name field" 
-        caption="Give the playlist a clear and recognisable name."
-        className="mb-8 h-64"
+        image={Name_your_playlist}
       />
 
       <ContentGuideFooter label="I named my playlist" />
@@ -251,10 +264,9 @@ function ContentStep3() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-4 mb-6">
-        <ScreenshotPlaceholder id="CONTENT-03A" description="TomorrowOS sample CMS. Highlight: Orange + button beside Assets" caption="Select the + button beside Assets to upload media." className="h-48" />
-        <ScreenshotPlaceholder id="CONTENT-03B" description="Browser file selector. Highlight: Image or video selection" caption="Choose the media file you want to upload." className="h-48" />
+        <ScreenshotPlaceholder image={Upload_button} />
+        <ScreenshotPlaceholder image={File_selector} />
       </div>
-      <ScreenshotPlaceholder id="CONTENT-03C" description="TomorrowOS sample CMS Assets area. Highlight: Uploaded asset" caption="Wait until the asset appears before continuing." className="mb-6 h-48" />
 
       <TroubleshootingAccordion title="My asset will not upload">
         <p className="font-semibold text-gray-900 mb-2">Check:</p>
@@ -302,12 +314,7 @@ function ContentStep4() {
         <p className="text-sm text-gray-500 mt-4 italic">Starting with a small playlist makes it easier to identify playback or compatibility issues.</p>
       </div>
 
-      <ScreenshotPlaceholder 
-        id="CONTENT-04" 
-        description="TomorrowOS sample CMS. Highlight: Assets being added to the playlist" 
-        caption="Add the selected media to your playlist."
-        className="mb-8 h-64"
-      />
+      <ScreenshotPlaceholder image={Uploaded_asset}  />
 
       <ContentGuideFooter label="I added media to my playlist" />
     </div>
@@ -346,8 +353,8 @@ function ContentStep5() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-4 mb-8">
-        <ScreenshotPlaceholder id="CONTENT-05A" description="TomorrowOS sample CMS playlist editor. Highlight: Drag-and-drop ordering" caption="Drag playlist items into the required playback order." className="h-48" />
-        <ScreenshotPlaceholder id="CONTENT-05B" description="TomorrowOS sample CMS. Highlight: Image-duration control" caption="Set how long each image should remain on screen." className="h-48" />
+        <ScreenshotPlaceholder image={Drag_and_drop} />
+        <ScreenshotPlaceholder image={Image_duration} />
       </div>
 
       <ContentGuideFooter label="I arranged my playlist" />
@@ -397,12 +404,7 @@ function ContentStep6() {
         <strong>Warning:</strong> Avoid overlapping playlist schedules until you understand how the CMS resolves schedule conflicts.
       </div>
 
-      <ScreenshotPlaceholder 
-        id="CONTENT-06" 
-        description="TomorrowOS sample CMS. Highlight: Day, start-time and end-time controls" 
-        caption="Add a schedule only when the playlist should run during specific periods."
-        className="mb-8 h-64"
-      />
+      <ScreenshotPlaceholder image={Configure_the_schedule} />
 
       <ContentGuideFooter label="I configured the playlist timing" />
     </div>
@@ -444,8 +446,8 @@ function ContentStep7() {
       <p className="text-sm text-gray-600 mb-8"><strong>Expected result:</strong> The saved playlist appears in the Playlists section.</p>
 
       <div className="grid md:grid-cols-2 gap-4 mb-6">
-        <ScreenshotPlaceholder id="CONTENT-07A" description="TomorrowOS sample CMS. Highlight: Save Playlist button" caption="Save the playlist after reviewing its media and schedule." className="h-48" />
-        <ScreenshotPlaceholder id="CONTENT-07B" description="TomorrowOS sample CMS. Highlight: Saved playlist in the Playlists section" caption="The playlist should now appear in the Playlists list." className="h-48" />
+        <ScreenshotPlaceholder image={Save_button} />
+        <ScreenshotPlaceholder image={Saved_playlists} />
       </div>
 
       <p className="text-xs text-gray-500 italic mb-4">
@@ -513,12 +515,7 @@ function ContentStep8() {
          <Button onClick={handleOpenCms}>Open my CMS</Button>
       </div>
 
-      <ScreenshotPlaceholder 
-        id="CONTENT-08" 
-        description="TomorrowOS sample CMS. Highlight: Selected device card" 
-        caption="Select the screen that should receive the playlist."
-        className="mb-8 h-64"
-      />
+      <ScreenshotPlaceholder image={Device_card} />
 
       <ContentGuideFooter label="I selected the correct screen" />
     </div>
@@ -541,12 +538,7 @@ function ContentStep9() {
 
       <p className="text-sm text-gray-600 mb-8"><strong>Expected result:</strong> A playlist-selection panel opens.</p>
 
-      <ScreenshotPlaceholder 
-        id="CONTENT-09" 
-        description="TomorrowOS sample CMS device card. Highlight: Orange Publish button" 
-        caption="Select Publish on the chosen device."
-        className="mb-8 h-64"
-      />
+      <ScreenshotPlaceholder image={Publish_button} />
 
       <ContentGuideFooter label="I opened the publishing panel" />
     </div>
@@ -590,8 +582,8 @@ function ContentStep10() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-4 mb-6">
-        <ScreenshotPlaceholder id="CONTENT-10A" description="TomorrowOS sample CMS. Highlight: Playlist selection" caption="Select the playlist you want to assign to the screen." className="h-48" />
-        <ScreenshotPlaceholder id="CONTENT-10B" description="TomorrowOS sample CMS. Highlight: Publish Selected button" caption="Select Publish Selected inside your CMS." className="h-48" />
+        <ScreenshotPlaceholder image={Playlist_selection} />
+        <ScreenshotPlaceholder image={Publish_selected_button} />
       </div>
 
       <TroubleshootingAccordion title="The playlist does not appear in publish">
@@ -637,12 +629,7 @@ function ContentStep11() {
 
       <p className="text-sm text-gray-600 mb-8"><strong>Expected result:</strong> The selected playlist begins playing on the physical screen.</p>
 
-      <ScreenshotPlaceholder 
-        id="CONTENT-11" 
-        description="Physical signage display. Highlight: First playlist content appearing" 
-        caption="Wait for the selected playlist to begin playing."
-        className="mb-8 h-64"
-      />
+      <ScreenshotPlaceholder image={First_content} />
 
       <ContentGuideFooter label="Content has started appearing on my screen" />
     </div>
@@ -692,12 +679,7 @@ function ContentStep12() {
         </CardContent>
       </Card>
 
-      <ScreenshotPlaceholder 
-        id="CONTENT-12" 
-        description="Physical signage display. Highlight: Completed content playback" 
-        caption="Confirm the full playlist plays correctly on the physical display."
-        className="mb-8 h-64"
-      />
+      <ScreenshotPlaceholder image={Last_content} />
 
       <p className="text-xs text-gray-500 italic mb-6">
         This result is based on your confirmation. TomorrowOS.org does not currently inspect the physical display through this guide.
@@ -783,7 +765,7 @@ function ContentStep12() {
               </div>
             )}
 
-            <ScreenshotPlaceholder id="CONTENT-STATUS-01" description="TomorrowOS sample CMS. Highlight: Green playlist indicator" caption="The green indicator shows the playlist currently marked as active by the CMS." className="h-48 mb-12" />
+            <ScreenshotPlaceholder image={Playlist_indicator} />
           </div>
 
           <div className="border-t border-border pt-12" id="troubleshooting">
@@ -817,7 +799,7 @@ function ContentStep12() {
 
                 <p className="text-xs text-gray-500 italic mb-6">Removing an assignment should not be described as deleting the playlist unless the CMS actually deletes it.</p>
 
-                <ScreenshotPlaceholder id="CONTENT-REMOVE-01" description="TomorrowOS sample CMS. Highlight: Remove action" caption="Remove the playlist assignment from the selected device." className="h-48" />
+                <ScreenshotPlaceholder image={Remove_button} />
               </section>
             </div>
           </div>

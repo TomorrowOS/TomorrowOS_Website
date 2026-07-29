@@ -98,7 +98,7 @@ export function ServerSdkJourney() {
               <h4 className="font-semibold text-sm text-gray-900 mb-3">Choose the Server SDK when:</h4>
               <ul className="space-y-2 text-sm text-gray-700">
                 {[
-                  'Your backend uses Node.js or TypeScript.',
+                  'Your backend uses Node.js 20+ or TypeScript.',
                   'You want TomorrowOS integrated directly into your application.',
                   'You require backend access to devices, content, policies, commands and events.',
                   'You control the backend deployment environment.',

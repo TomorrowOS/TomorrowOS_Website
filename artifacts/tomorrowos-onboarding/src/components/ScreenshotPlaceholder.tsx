@@ -5,8 +5,9 @@ import { usePrototype } from './PrototypeProvider';
 import { Button } from './ui/button';
 
 interface ScreenshotPlaceholderProps {
-  id: string;
-  description: string;
+  id?: string;
+  image?: string;
+  description?: string;
   caption?: string;
   className?: string;
   metadata?: {
@@ -19,20 +20,23 @@ interface ScreenshotPlaceholderProps {
   };
 }
 
-export function ScreenshotPlaceholder({ id, description, caption, className, metadata }: ScreenshotPlaceholderProps) {
+export function ScreenshotPlaceholder({ id, description, caption, image, className, metadata }: ScreenshotPlaceholderProps) {
   const { state } = usePrototype();
 
-  const isSamsung = id.startsWith('SAMSUNG');
-  const isContent = id.startsWith('CONTENT');
+  const isSamsung = id?.startsWith('SAMSUNG');
+  const isContent = id?.startsWith('CONTENT');
 
   return (
     <div className={cn(
-      "w-full rounded-md border border-dashed border-gray-300 bg-gray-50 p-8 flex flex-col items-center justify-center text-center relative overflow-hidden",
+      "w-full rounded-md border border-dashed border-gray-300 bg-gray-50 flex flex-col items-center justify-center text-center relative overflow-hidden",
       className
     )}>
-      <div className="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+     <img src={image}></img>
+
+      {/* <div className="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center mb-4">
         <Image className="h-6 w-6 text-gray-400" />
-      </div>
+
+      </div> */}
       <p className="text-sm font-medium text-gray-900 mb-1 font-mono">{id}</p>
       <p className="text-sm text-gray-500 max-w-xs">{description}</p>
       {caption && <p className="text-xs mt-3 max-w-[80%] italic opacity-80 text-gray-500">{caption}</p>}

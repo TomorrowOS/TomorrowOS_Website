@@ -114,7 +114,7 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
           <li>Missing environment variable</li>
           <li>Database unavailable</li>
           <li>Build error</li>
-          <li>Unsupported Node.js version</li>
+          <li>Unsupported Node.js version (need 20+)</li>
         </>
       );
       if (currentStepNum === 12) return (
