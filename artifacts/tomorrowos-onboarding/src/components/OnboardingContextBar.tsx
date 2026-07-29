@@ -14,9 +14,9 @@ export function OnboardingContextBar() {
 
   return (
     <div className="w-full border-b border-border bg-background">
-      <div className="mx-auto max-w-[1050px] px-4 md:px-0 h-12 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <nav aria-label="Breadcrumb" className="flex text-sm text-muted-foreground items-center space-x-2">
+      <div className="mx-auto max-w-[1050px] px-4 md:px-0 min-h-12 py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 min-w-0">
+          <nav aria-label="Breadcrumb" className="flex text-sm text-muted-foreground items-center space-x-2 min-w-0">
             {pathwayName ? (
               <>
                 <Link href="/start" className="hover:text-foreground transition-colors">Start building</Link>

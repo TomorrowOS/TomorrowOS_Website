@@ -37,7 +37,7 @@ export function StepFooter({
           {blockedMessage}
         </div>
       )}
-      <div className="flex w-full justify-between items-center">
+      <div className="flex w-full flex-col-reverse gap-3 sm:flex-row sm:justify-between sm:items-center">
         {showBack ? (
           <Button 
             variant="outline" 
@@ -47,11 +47,11 @@ export function StepFooter({
           >
             Back
           </Button>
-        ) : <div />}
+        ) : <div className="hidden sm:block" />}
         <Button 
           onClick={handleNext} 
           disabled={!canContinue}
-          className="w-full sm:w-auto mt-0 ml-3 bg-black text-white hover:bg-gray-800"
+          className="w-full sm:w-auto mt-0 bg-black text-white hover:bg-gray-800"
         >
           {continueLabel}
         </Button>

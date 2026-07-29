@@ -113,7 +113,7 @@ function SamsungIntro({ onStart }: { onStart: () => void }) {
           <p className="text-sm text-orange-800 font-medium">This guide does not apply to Samsung consumer televisions.</p>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <Button size="lg" onClick={onStart}>Start setup</Button>
           <Button variant="outline" size="lg" onClick={() => setLocation('/compatibility')}>Check Samsung compatibility</Button>
         </div>

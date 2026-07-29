@@ -137,7 +137,7 @@ function VercelStep1({ isGuide = false }: { isGuide?: boolean }) {
 
       <PlansAndUsageExpandable />
 
-      <div className="flex gap-3 mb-8">
+      <div className="flex flex-wrap gap-3 mb-8">
         <Button variant="outline" onClick={() => window.open('https://v0.app', '_blank')}>Open v0</Button>
         <Button variant="outline">View Vercel requirements</Button>
       </div>

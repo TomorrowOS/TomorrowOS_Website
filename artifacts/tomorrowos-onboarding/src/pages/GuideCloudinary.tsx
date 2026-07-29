@@ -151,7 +151,7 @@ export default function GuideCloudinary() {
         
         <div className="mt-12 pt-8 border-t border-gray-200">
           <h2 className="mt-0">Next steps</h2>
-          <div className="flex gap-4 mt-6">
+          <div className="flex flex-wrap gap-4 mt-6">
             <Button onClick={() => setLocation('/guides/content#upload-media')}>Continue to media upload</Button>
             <Button variant="outline" onClick={() => setLocation(getResumeSetupPath(state))}>Return to setup</Button>
           </div>

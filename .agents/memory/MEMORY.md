@@ -3,3 +3,4 @@
 - [SEO environment policy](seo-environment-policy.md) — indexing derives only from VITE_SITE_ENV + seoConfig.ts; never hard-code robots tags; new routes need a seoConfig entry.
 - [Social OG image pipeline](social-og-image-pipeline.md) — social card is versioned 1200×630 PNG from public/og-source HTML; never overwrite same URL; validate:social must pass.
 - [CopyActionBlock standard](copy-action-block.md) — all copyable content must use the shared CopyActionBlock; no inline clipboard calls; never reword the maintained SDK trigger prompts.
+- [Mobile e2e testing setup](mobile-e2e-testing.md) — playwright-core + nix chromium for real interaction tests; seed localStorage `tomorrowos_prototype` to jump journey steps.

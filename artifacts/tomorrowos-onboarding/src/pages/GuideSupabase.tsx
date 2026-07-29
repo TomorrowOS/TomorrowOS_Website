@@ -19,7 +19,7 @@ export default function GuideSupabase() {
         ← Back to setup
       </Button>
 
-      <div className="prose prose-gray max-w-none">
+      <div className="prose prose-gray max-w-none [&_code]:break-all">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">
           Connect Supabase to TomorrowOS
         </h1>
