@@ -3,6 +3,7 @@ import { useGuideSeo, GuideBreadcrumbs } from '@/components/GuideSeo';
 import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { CopyActionBlock } from '@/components/CopyActionBlock';
 
 export default function GuideSupabase() {
   useGuideSeo('/guides/supabase');
@@ -130,10 +131,14 @@ export default function GuideSupabase() {
         <p>Add your Supabase connection to your project: when TomorrowOS or your setup tool asks for your Supabase connection, use the complete Postgres connection string prepared above.</p>
         
         <p><strong>Required Environment Variable:</strong></p>
-        <ul>
-          <li>Key: <code>SUPABASE_URL</code></li>
-          <li>Value: Your complete Supabase Postgres connection string</li>
-        </ul>
+        <CopyActionBlock
+          type="variable"
+          value="SUPABASE_URL"
+          copiedMessage="Copied — add to your environment"
+          destinationHint="Add this variable in your host's environment settings (e.g. Vercel: Project Settings → Environment Variables). Its value is your complete Supabase Postgres connection string."
+          sourceKey="supabase.envVarName"
+          className="not-prose my-4"
+        />
 
         <p><strong>Where to add it:</strong></p>
         <ul className="list-disc pl-5">

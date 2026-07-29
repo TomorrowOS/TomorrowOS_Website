@@ -3,6 +3,7 @@ import { usePrototype } from './PrototypeProvider';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { CopyableText } from './CopyableText';
+import { CopyActionBlock } from './CopyActionBlock';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
 import { ServiceConnectionCard } from './ServiceConnectionCard';
 import { useLocation } from 'wouter';
@@ -170,7 +171,15 @@ function GuidedStep3() {
         </ul>
       </div>
 
-      <CopyableText text="Follow @tomorrowos/sdk REPLIT_SETUP.md and set up my TomorrowOS CMS." className="mb-6" />
+      <CopyActionBlock
+        type="prompt"
+        label="PROMPT FOR REPLIT AGENT"
+        value="Follow @tomorrowos/sdk REPLIT_SETUP.md and set up my TomorrowOS CMS."
+        copiedMessage="Copied — paste into Replit Agent"
+        destinationHint="Paste this into Replit Agent, then follow the questions one at a time."
+        sourceKey="replit.setupPrompt"
+        className="mb-6"
+      />
 
       <div className="grid md:grid-cols-2 gap-4 mb-6">
         <ScreenshotPlaceholder id="[IMAGE PLACEHOLDER — REPLIT CREATE PROJECT]" description="Creating project view" className="p-4" />
@@ -351,7 +360,12 @@ function GuidedStep6() {
             <li>Paste the complete URL.</li>
           </ol>
           <div className="mb-4">
-            <CopyableText text="https://res.cloudinary.com/your-cloud-name/image/upload/..." className="bg-white" />
+            <CopyActionBlock
+              type="url"
+              label="EXAMPLE MEDIA URL"
+              value="https://res.cloudinary.com/your-cloud-name/image/upload/..."
+              sourceKey="replit.cloudinaryExampleUrl"
+            />
           </div>
           <Button variant="secondary" size="sm" onClick={() => setLocation('/guides/cloudinary')}>Show me where to copy the URL</Button>
         </CardContent>

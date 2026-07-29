@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, ArrowDown, Check, ExternalLink, Info, Lock, Monitor, Package, FileText, Github, MessageSquare, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { CopyableText } from './CopyableText';
+import { CopyActionBlock } from './CopyActionBlock';
 import GithubIcon from './GithubIcon';
 import { usePrototype } from './PrototypeProvider';
 import { serverSdkConfig, getEffectiveServerSdkStatus } from '@/lib/serverSdkConfig';
@@ -132,7 +133,13 @@ export function ServerSdkJourney() {
           <CardDescription>Add the TomorrowOS Server SDK to your project.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          <CopyableText text={serverSdkConfig.installCommand} />
+          <CopyActionBlock
+            type="command"
+            value={serverSdkConfig.installCommand}
+            copiedMessage="Copied — run in your terminal"
+            destinationHint="Run this command in your local terminal."
+            sourceKey="serverSdk.installCommand"
+          />
           <a
             href={serverSdkConfig.links.npm}
             target="_blank"

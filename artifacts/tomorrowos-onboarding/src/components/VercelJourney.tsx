@@ -8,6 +8,7 @@ import { Button } from './ui/button';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
 import { OnboardingScreenshotCard } from './OnboardingScreenshotCard';
 import { CopyableText } from './CopyableText';
+import { CopyActionBlock } from './CopyActionBlock';
 import { Check, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
 import { vercelConfig } from '@/lib/vercelConfig';
@@ -225,7 +226,15 @@ function VercelStep3({ isGuide = false }: { isGuide?: boolean }) {
         </ul>
         <p className="text-sm text-amber-900 font-medium">Do not paste database passwords, API secrets or storage tokens into the v0 conversation. Add sensitive values using Vercel Environment Variables or approved Marketplace integrations.</p>
       </div>
-      <CopyableText text="Follow @tomorrowos/sdk VERCEL_SETUP.md and set up my TomorrowOS CMS." className="mb-6" />
+      <CopyActionBlock
+        type="prompt"
+        label="PROMPT FOR v0"
+        value="Follow @tomorrowos/sdk VERCEL_SETUP.md and set up my TomorrowOS CMS."
+        copiedMessage="Copied — paste this into v0"
+        destinationHint="Paste this into the main v0 prompt field, then submit it."
+        sourceKey="vercel.step3.setupPrompt"
+        className="mb-6"
+      />
       <div className="mb-6">
         <OnboardingScreenshotCard
           id="VERCEL-02"

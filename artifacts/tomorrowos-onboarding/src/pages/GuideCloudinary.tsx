@@ -3,6 +3,7 @@ import { useGuideSeo, GuideBreadcrumbs } from '@/components/GuideSeo';
 import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { CopyActionBlock } from '@/components/CopyActionBlock';
 
 export default function GuideCloudinary() {
   useGuideSeo('/guides/cloudinary');
@@ -110,24 +111,36 @@ export default function GuideCloudinary() {
 
         <h3>3. Add your Cloud name</h3>
         <p>In Cloudinary, copy the value labelled "Cloud name". Return to your project environment and add:</p>
-        <ul>
-          <li>Key: <code>CLOUDINARY_CLOUD_NAME</code></li>
-          <li>Value: Your Cloudinary Cloud name (Example: <code>ukx17pqh</code>)</li>
-        </ul>
+        <CopyActionBlock
+          type="variable"
+          value="CLOUDINARY_CLOUD_NAME"
+          copiedMessage="Copied — add to your environment"
+          destinationHint="Add this variable in your project's environment settings. Its value is your Cloudinary Cloud name (example: ukx17pqh)."
+          sourceKey="cloudinary.cloudNameVar"
+          className="not-prose my-4"
+        />
 
         <h3>4. Add your API key</h3>
         <p>In Cloudinary, copy the value labelled "API key". Return to your project environment and add:</p>
-        <ul>
-          <li>Key: <code>CLOUDINARY_API_KEY</code></li>
-          <li>Value: Your Cloudinary API key</li>
-        </ul>
+        <CopyActionBlock
+          type="variable"
+          value="CLOUDINARY_API_KEY"
+          copiedMessage="Copied — add to your environment"
+          destinationHint="Add this variable in your project's environment settings. Its value is your Cloudinary API key."
+          sourceKey="cloudinary.apiKeyVar"
+          className="not-prose my-4"
+        />
 
         <h3>5. Add your API secret</h3>
         <p>In Cloudinary, reveal or copy the value labelled "API secret". Return to your project environment and add:</p>
-        <ul>
-          <li>Key: <code>CLOUDINARY_API_SECRET</code></li>
-          <li>Value: Your Cloudinary API secret</li>
-        </ul>
+        <CopyActionBlock
+          type="variable"
+          value="CLOUDINARY_API_SECRET"
+          copiedMessage="Copied — add to your environment"
+          destinationHint="Add this variable in your project's environment settings. Its value is your Cloudinary API secret — store the value itself only in secure environment variables."
+          sourceKey="cloudinary.apiSecretVar"
+          className="not-prose my-4"
+        />
 
         <div className="bg-warning/10 p-4 rounded-md border border-warning/20 my-4">
           <p className="m-0 text-sm text-amber-900"><strong>Security warning:</strong> never paste your API secret into: AI builder prompts (Replit Agent, v0), application source code, GitHub, screenshots, support emails or messages, or public documentation. Store it only through secure environment variables.</p>

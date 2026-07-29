@@ -3,6 +3,7 @@ import { usePrototype } from './PrototypeProvider';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
+import { CopyActionBlock } from './CopyActionBlock';
 import { StepHeader } from './StepHeader';
 import { useLocation } from 'wouter';
 import { ChevronRight, ChevronDown, CheckCircle2, Copy } from 'lucide-react';
@@ -245,14 +246,7 @@ function SamsungStep3() {
 
 function SamsungStep4() {
   const { state } = usePrototype();
-  const [copied, setCopied] = useState(false);
   const url = "https://tmr.sh/tizen";
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
@@ -262,13 +256,15 @@ function SamsungStep4() {
       />
       <p className="text-sm text-gray-500 mb-6">Some supported firmware may label this option Install Web App.</p>
 
-      <div className="flex items-center gap-3 mb-8 p-4 bg-gray-50 border rounded-lg">
-        <code className="text-blue-600 font-mono text-lg flex-1 select-all">{url}</code>
-        <Button variant="secondary" size="sm" onClick={handleCopy} className="shrink-0">
-          {copied ? <CheckCircle2 className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-          {copied ? 'Copied' : 'Copy URL'}
-        </Button>
-      </div>
+      <CopyActionBlock
+        type="url"
+        label="INSTALLATION URL"
+        value={url}
+        copiedMessage="Copied — enter on your Samsung display"
+        destinationHint="Enter this URL exactly in the Samsung Install Custom App field."
+        sourceKey="samsung.step4.installUrl"
+        className="mb-8"
+      />
 
       <ol className="list-decimal pl-5 space-y-2 text-sm text-gray-700 mb-6">
         <li>Select Install Custom App or Install Web App.</li>
@@ -301,7 +297,7 @@ function SamsungStep4() {
           <li>Confirm the display date and time are correct.</li>
           <li>Restart the display and try again.</li>
         </ul>
-        <Button variant="outline" size="sm" onClick={handleCopy}>Copy installation URL</Button>
+        <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(url)}>Copy installation URL</Button>
       </TroubleshootingAccordion>
 
       <SamsungGuideFooter />
@@ -340,18 +336,9 @@ function SamsungStep5() {
 
 function SamsungStep6() {
   const { state } = usePrototype();
-  const [copied, setCopied] = useState(false);
   const [expandCMS, setExpandCMS] = useState(false);
 
   const hasSavedUrl = state.cmsUrl && isValidHttpsUrl(state.cmsUrl);
-
-  const handleCopyCMS = () => {
-    if (state.cmsUrl) {
-      navigator.clipboard.writeText(state.cmsUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
 
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
@@ -372,16 +359,16 @@ function SamsungStep6() {
       </ol>
 
       {hasSavedUrl && (
-        <div className="flex items-center gap-3 mb-8 p-4 bg-gray-50 border rounded-lg">
-          <div className="flex-1">
-             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Saved CMS URL</p>
-             <code className="text-gray-900 font-mono text-sm">{state.cmsUrl}</code>
-          </div>
-          <Button variant="secondary" size="sm" onClick={handleCopyCMS} className="shrink-0">
-            {copied ? <CheckCircle2 className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-            {copied ? 'Copied' : 'Copy saved CMS URL'}
-          </Button>
-        </div>
+        <CopyActionBlock
+          type="url"
+          label="SAVED CMS URL"
+          value={state.cmsUrl || ''}
+          copyButtonLabel="Copy saved CMS URL"
+          copiedMessage="Copied — enter on your Samsung display"
+          destinationHint="Enter this URL manually in the TomorrowOS Runtime CMS field."
+          sourceKey="samsung.step6.savedCmsUrl"
+          className="mb-8"
+        />
       )}
 
       <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg text-sm text-blue-800 mb-8">

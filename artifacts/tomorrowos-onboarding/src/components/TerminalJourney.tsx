@@ -6,7 +6,8 @@ import { CheckCircle2, ChevronRight, Copy, TerminalSquare, Database, HardDrive, 
 import { cn } from '@/lib/utils';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
 import { terminalConfig } from '@/lib/terminalConfig';
-import { CopyableText, PlaceholderCommand } from './CopyableText';
+import { PlaceholderCommand } from './CopyableText';
+import { CopyActionBlock } from './CopyActionBlock';
 import { PlaceholderText } from './PlaceholderText';
 import { NeedHelpDrawer } from './NeedHelpDrawer';
 import { isValidHttpsUrl } from '@/lib/utils';
@@ -89,9 +90,9 @@ function TerminalStep1() {
 
           <div className="space-y-4 border-t border-border pt-6">
             <p className="text-sm font-medium">Run these commands in your own terminal and confirm each tool returns a version number.</p>
-            <CopyableText text="node --version" />
-            <CopyableText text="npm --version" />
-            <CopyableText text="git --version" />
+            <CopyActionBlock type="command" label="CHECK NODE.JS VERSION" value="node --version" copiedMessage="Copied — run in your terminal" sourceKey="terminal.checkNodeVersion" />
+            <CopyActionBlock type="command" label="CHECK NPM VERSION" value="npm --version" copiedMessage="Copied — run in your terminal" sourceKey="terminal.checkNpmVersion" />
+            <CopyActionBlock type="command" label="CHECK GIT VERSION" value="git --version" copiedMessage="Copied — run in your terminal" sourceKey="terminal.checkGitVersion" />
           </div>
 
           <div className="bg-gray-50 border border-border p-4 rounded-md text-sm text-gray-600 mt-6">
