@@ -8,7 +8,8 @@ import { Button } from './ui/button';
 import { ScreenshotPlaceholder } from './ScreenshotPlaceholder';
 import { OnboardingScreenshotCard } from './OnboardingScreenshotCard';
 import { CopyActionBlock } from './CopyActionBlock';
-import { Check, CheckCircle2, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
+import { Check, CheckCircle2, ChevronDown, ChevronUp, ExternalLink, Info } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
 import { vercelConfig, mediaProviderConfig, vercelBlobConfig } from '@/lib/vercelConfig';
 import { MediaProviderOption } from './MediaProviderOption';
@@ -455,45 +456,158 @@ function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
   );
 }
 
+const VERCEL_BRANDING_IMAGE = {
+  path: 'images/onboarding/vercel/VERCEL-06A.png',
+  naturalWidth: 1672,
+  naturalHeight: 941,
+  alt: 'Illustration showing branding choices in v0 flowing into the generated TomorrowOS CMS.',
+  caption:
+    'Illustrative example of how branding choices can appear in the generated CMS. Follow the exact questions currently shown in your v0 conversation.',
+} as const;
+
+const V0_BRANDING_QUESTIONS = [
+  'Product Name',
+  'Tagline',
+  'Primary colour',
+  'Background colour',
+  'Text colour',
+  'Secondary colour',
+  'Logo — attach an SVG or PNG, or paste a public image URL',
+] as const;
+
 function VercelStep6({ isGuide = false }: { isGuide?: boolean }) {
-  const [, setLocation] = useLocation();
+  const { state } = usePrototype();
+  const [imageStatus, setImageStatus] = useState<'loading' | 'loaded' | 'failed'>('loading');
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const imgSrc = `${import.meta.env.BASE_URL}${VERCEL_BRANDING_IMAGE.path}`;
+
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
-      <StepHeader isGuide={isGuide} 
-        title="Add your branding" 
-        description="Provide identity details for your TomorrowOS CMS."
+      <StepHeader isGuide={isGuide}
+        title="Add your branding"
+        description="Answer the optional branding questions shown in v0, then return to this guide."
       />
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-        {[
-          "1. Product or venue name",
-          "2. Tagline",
-          "3. Primary colour",
-          "4. Secondary or accent colour",
-          "5. Timezone",
-          "6. Logo URL"
-        ].map((item, i) => (
-          <div key={i} className="bg-gray-50 rounded-md border border-border p-4 flex flex-col items-center justify-center text-center gap-2">
-            <span className="text-sm font-medium text-gray-900">{item}</span>
-            <div className="w-16 h-16 bg-gray-200 border border-dashed border-gray-300 rounded flex items-center justify-center">
-              <span className="text-xs text-gray-400">IMG</span>
-            </div>
-          </div>
-        ))}
+      <p className="text-sm text-gray-600 mb-6 -mt-2">
+        Your answers personalise the generated CMS. Leave any field blank or reply “skip” in v0 to keep the starter defaults. TomorrowOS.org does not collect your answers.
+      </p>
+
+      {/* Location callout */}
+      <div className="bg-blue-50 border border-blue-100 rounded-md p-4 mb-4 flex gap-3">
+        <Info className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" aria-hidden="true" />
+        <div>
+          <h3 className="text-sm font-semibold text-blue-900 mb-1">Complete this in v0</h3>
+          <p className="text-sm text-blue-900">
+            v0 will pause and ask for your branding preferences. Answer any questions you want, attach a logo if available, or reply “skip” to continue with the default branding.
+          </p>
+        </div>
       </div>
+
+      {/* Instructional illustration */}
+      <figure className="mb-6">
+        {imageStatus === 'failed' ? (
+          <div
+            className="w-full aspect-video rounded-lg border border-gray-200 bg-gray-50"
+            role="img"
+            aria-label={VERCEL_BRANDING_IMAGE.alt}
+          />
+        ) : (
+          <>
+            <img
+              src={imgSrc}
+              alt={VERCEL_BRANDING_IMAGE.alt}
+              width={VERCEL_BRANDING_IMAGE.naturalWidth}
+              height={VERCEL_BRANDING_IMAGE.naturalHeight}
+              className="w-full h-auto max-w-full mx-auto rounded-lg border border-gray-200"
+              loading="lazy"
+              onLoad={() => setImageStatus('loaded')}
+              onError={() => setImageStatus('failed')}
+            />
+            <div className="mt-2 flex justify-center">
+              <Button variant="outline" size="sm" onClick={() => setLightboxOpen(true)}>
+                View full-size example
+              </Button>
+            </div>
+          </>
+        )}
+        <figcaption className="mt-2 text-xs text-gray-500 text-center leading-relaxed">
+          {VERCEL_BRANDING_IMAGE.caption}
+        </figcaption>
+      </figure>
+
+      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <DialogContent className="max-w-[95vw] sm:max-w-[90vw] p-2 sm:p-4">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Full-size branding example</DialogTitle>
+            <DialogDescription>{VERCEL_BRANDING_IMAGE.alt}</DialogDescription>
+          </DialogHeader>
+          <div className="overflow-auto max-h-[85vh]">
+            <img
+              src={imgSrc}
+              alt={VERCEL_BRANDING_IMAGE.alt}
+              width={VERCEL_BRANDING_IMAGE.naturalWidth}
+              height={VERCEL_BRANDING_IMAGE.naturalHeight}
+              className="w-full h-auto"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Exact v0 question summary */}
+      <section className="mb-6">
+        <h3 className="text-sm font-semibold text-gray-900 mb-2">What v0 will ask for</h3>
+        <ol className="list-decimal pl-5 space-y-1 text-sm text-gray-700">
+          {V0_BRANDING_QUESTIONS.map((q) => (
+            <li key={q}>{q}</li>
+          ))}
+        </ol>
+        <p className="mt-2 text-sm text-gray-600">
+          All fields are optional. Leave fields blank or reply “skip” to keep the starter defaults.
+        </p>
+      </section>
+
+      {/* How it works */}
+      <section className="mb-6">
+        <h3 className="text-sm font-semibold text-gray-900 mb-2">How it works</h3>
+        <ol className="list-decimal pl-5 space-y-1 text-sm text-gray-700">
+          <li>Answer any branding questions you want in v0, or reply “skip”.</li>
+          <li>Submit your response and let v0 continue generating the CMS.</li>
+          <li>Return to this guide and confirm the step.</li>
+        </ol>
+      </section>
 
       <div className="flex flex-col gap-4 mb-8">
-        <div className="bg-gray-50 p-4 rounded-md border border-border flex justify-between items-center">
-          <div className="text-sm text-gray-800">Need help getting a Cloudinary logo URL?</div>
-          <Button variant="outline" size="sm" onClick={() => setLocation('/guides/cloudinary')}>View instructions</Button>
+        <div className="bg-gray-50 p-4 rounded-md border border-border">
+          <h4 className="font-medium text-gray-900 text-sm mb-1">Adding a logo</h4>
+          <p className="text-sm text-gray-600">Attach an SVG or PNG directly in v0, or paste a public image URL. A logo is optional and should not block the CMS build.</p>
         </div>
         <div className="bg-gray-50 p-4 rounded-md border border-border">
-          <h4 className="font-medium text-gray-900 text-sm mb-1">No logo yet?</h4>
-          <p className="text-sm text-gray-600">Skip this question for now. A logo should not block the CMS build.</p>
+          <h4 className="font-medium text-gray-900 text-sm mb-1">No branding ready?</h4>
+          <p className="text-sm text-gray-600">Reply “skip” in v0. The CMS will keep the starter defaults, and you can update the branding later.</p>
         </div>
       </div>
 
+      {state.prototypeReviewMode && (
+        <div className="bg-gray-50 border border-dashed border-gray-300 rounded-md p-4 mb-8 text-xs font-mono text-gray-600 space-y-1">
+          <div className="font-semibold text-gray-800 mb-1">Prototype Review Mode — Step 6 diagnostics</div>
+          <div>Image asset path: {VERCEL_BRANDING_IMAGE.path}</div>
+          <div>Natural dimensions: {VERCEL_BRANDING_IMAGE.naturalWidth}×{VERCEL_BRANDING_IMAGE.naturalHeight}px (rendered responsively at 100% column width)</div>
+          <div>Image load status: {imageStatus}</div>
+          <div>Alt text: present</div>
+          <div>Lightbox: dialog-based, currently {lightboxOpen ? 'open' : 'closed'}</div>
+          <div>Exact v0 question count: {V0_BRANDING_QUESTIONS.length}</div>
+          <div>Timezone present in Step 6: no</div>
+          <div>Cloudinary-specific logo copy present: no</div>
+          <div>Completion button wording: “I answered or skipped the branding questions”</div>
+        </div>
+      )}
+
       <div className="mt-auto">
-        {!isGuide && <StepFooter continueLabel="I completed the branding questions" /> }
+        {!isGuide && (
+          <>
+            <StepFooter continueLabel="I answered or skipped the branding questions" />
+            <p className="text-xs text-gray-500 text-center mt-3">This confirmation updates guide progress only. TomorrowOS.org does not inspect the v0 conversation or your branding values.</p>
+          </>
+        )}
       </div>
     </div>
   );

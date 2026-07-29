@@ -1,0 +1,533 @@
+Update Step 6, “Add your branding”, in the existing TomorrowOS Vercel Guided Setup using the image attached to this request.
+
+IMPORTANT:
+
+Use the attached image exactly as supplied.
+
+Do not:
+
+- Generate another image
+- Redraw the image
+- Recreate the image in HTML
+- Alter text inside the image
+- Add or remove elements from the image
+- Crop the image
+- Stretch the image
+- Apply filters
+- Replace it with a different visual
+- Use an AI-generated substitute
+
+This is an existing working onboarding journey.
+
+Do not rebuild the Vercel pathway.
+Do not change routes, step order, progress keys, completion logic, localStorage structure, sidebar behaviour or other onboarding steps.
+
+The objective is to replace the inaccurate placeholder-card layout with one clear instructional image showing how branding choices appear in the generated CMS.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a Replit checkpoint or Git commit named:
+
+   pre-vercel-branding-image-integration
+
+2. Record:
+
+- Current Step 6 component path
+- Current Step 6 image references
+- Current completion button wording
+- Existing progress field
+- Existing route
+- Existing desktop and mobile screenshots
+
+Do not expose secrets.
+
+==================================================
+2. IMPORT THE ATTACHED IMAGE
+==================================================
+
+Import the image attached to this request into the project.
+
+Save it as:
+
+public/images/onboarding/vercel/VERCEL-06A.png
+
+If that exact filename already exists:
+
+- Compare the files
+- Replace it only when the attached image is the newly approved asset
+- Do not create duplicate versions with unclear names
+
+Do not rename it to VERCEL-04.
+
+This image belongs to:
+
+Vercel Setup
+→ Step 6
+→ Add your branding
+
+Validate:
+
+- The file loads successfully
+- It returns HTTP 200
+- It is a valid PNG
+- Its natural dimensions are preserved
+- It is not accidentally compressed to unreadable quality
+
+==================================================
+3. REMOVE THE CURRENT PLACEHOLDER GRID
+==================================================
+
+Remove the current six-card placeholder layout containing:
+
+- Product or venue name
+- Tagline
+- Primary colour
+- Secondary or accent colour
+- Timezone
+- Logo URL
+- Empty IMG placeholders
+
+Do not retain Timezone anywhere in Step 6.
+
+Do not retain empty IMG boxes.
+
+Do not create seven replacement cards.
+
+The supplied image becomes the primary visual explanation.
+
+==================================================
+4. UPDATE THE STEP HEADER
+==================================================
+
+Keep the heading:
+
+Add your branding
+
+Replace the supporting copy with:
+
+Answer the optional branding questions shown in v0, then return to this guide.
+
+Add this supporting explanation:
+
+Your answers personalise the generated CMS. Leave any field blank or reply “skip” in v0 to keep the starter defaults.
+
+Do not say:
+
+Provide identity details for your TomorrowOS CMS.
+
+The revised copy must clearly explain:
+
+- The questions appear in v0
+- The user answers them in v0
+- TomorrowOS.org does not collect the answers
+- Every field is optional
+
+==================================================
+5. ADD A CLEAR LOCATION CALLOUT
+==================================================
+
+Above the supplied image, add a restrained information callout.
+
+Heading:
+
+Complete this in v0
+
+Copy:
+
+v0 will pause and ask for your branding preferences. Answer any questions you want, attach a logo if available, or reply “skip” to continue with the default branding.
+
+Use:
+
+- Light neutral or pale-blue background
+- Thin border
+- Small information icon
+- No warning colour
+- No heavy shadow
+
+This is informational, not an error.
+
+==================================================
+6. DISPLAY THE ATTACHED IMAGE
+==================================================
+
+Place the supplied image directly beneath the information callout.
+
+Use a semantic figure:
+
+<figure>
+  <img />
+  <figcaption />
+</figure>
+
+Alt text:
+
+Illustration showing branding choices in v0 flowing into the generated TomorrowOS CMS.
+
+Caption:
+
+Illustrative example of how branding choices can appear in the generated CMS. Follow the exact questions currently shown in your v0 conversation.
+
+The caption is important because the supplied visual includes an optional website example that may not appear in every current v0 branding prompt.
+
+Do not call the image:
+
+- An interactive preview
+- A live CMS
+- A verified CMS
+- A form on TomorrowOS.org
+
+It is an instructional illustration.
+
+==================================================
+7. RESPONSIVE IMAGE PRESENTATION
+==================================================
+
+Desktop:
+
+- Display the image at the full width of the existing main content column
+- Preserve its aspect ratio
+- Maximum width: 100%
+- Height: auto
+- Centre it within the column
+- Use a subtle 1px neutral border
+- Use approximately 8–10px radius
+- No heavy shadow
+
+Tablet:
+
+- Keep the entire image visible
+- Do not crop either panel
+- Preserve readable text where practical
+
+Mobile:
+
+The image contains a wide, two-column composition.
+
+Do not shrink it until its content becomes unreadable.
+
+Use one of these safe approaches:
+
+Preferred:
+
+- Full-width image preview
+- Tap-to-expand lightbox
+- Expanded image supports pinch zoom or browser zoom
+- Clearly labelled action:
+  View full-size example
+
+Acceptable alternative:
+
+- Place the image inside a contained horizontal-scroll viewport
+- Include a visible hint:
+  Swipe to view the full example
+
+Do not create page-level horizontal overflow.
+
+Do not split, crop or independently rearrange the image.
+
+==================================================
+8. ADD EXACT V0 QUESTION SUMMARY
+==================================================
+
+Below the image, add a compact text section titled:
+
+What v0 will ask for
+
+List the current seven optional inputs:
+
+1. Product Name
+2. Tagline
+3. Primary colour
+4. Background colour
+5. Text colour
+6. Secondary colour
+7. Logo — attach an SVG or PNG, or paste a public image URL
+
+Add:
+
+All fields are optional. Leave fields blank or reply “skip” to keep the starter defaults.
+
+This text is the source of truth for the current v0 prompt.
+
+Do not include:
+
+- Timezone
+- Cloudinary logo URL
+- A required brand website
+- Any mandatory field
+
+==================================================
+9. LOGO GUIDANCE
+==================================================
+
+Remove:
+
+Need help getting a Cloudinary logo URL?
+
+Cloudinary is not required to provide a logo.
+
+Replace it with a compact section:
+
+Heading:
+
+Adding a logo
+
+Copy:
+
+Attach an SVG or PNG directly in v0, or paste a public image URL. A logo is optional and should not block the CMS build.
+
+Optional secondary action:
+
+View logo guidance
+
+Only retain that action if it opens useful, provider-neutral instructions.
+
+Do not direct users specifically to Cloudinary.
+
+==================================================
+10. SKIP GUIDANCE
+==================================================
+
+Add a compact neutral callout:
+
+Heading:
+
+No branding ready?
+
+Copy:
+
+Reply “skip” in v0. The CMS will keep the starter defaults, and you can update the branding later.
+
+Do not use warning styling.
+
+Do not make users believe branding is required.
+
+==================================================
+11. SIMPLE WORKFLOW
+==================================================
+
+Add a small “How it works” section beneath the image or exact-question summary.
+
+Use three numbered steps:
+
+1. Answer any branding questions you want in v0, or reply “skip”.
+2. Submit your response and let v0 continue generating the CMS.
+3. Return to this guide and confirm the step.
+
+Do not claim TomorrowOS.org applies or verifies the branding.
+
+v0 and the generated project perform the build work.
+
+==================================================
+12. COMPLETION BUTTON
+==================================================
+
+Replace:
+
+I completed the branding questions
+
+with:
+
+I answered or skipped the branding questions
+
+Keep the existing route progression and stored completion behaviour.
+
+Add this clarification beneath the footer controls:
+
+This confirmation updates guide progress only. TomorrowOS.org does not inspect the v0 conversation or your branding values.
+
+Do not use:
+
+- Branding verified
+- Branding applied
+- Branding saved
+- CMS customised
+- Branding complete
+
+==================================================
+13. IMAGE LIGHTBOX
+==================================================
+
+When the existing website already has a reusable image lightbox or zoom component, use it.
+
+When it does not:
+
+Create only a lightweight accessible image-preview dialog.
+
+Requirements:
+
+- Opens through “View full-size example”
+- Escape closes it
+- Clear close button
+- Focus trapped while open
+- Focus returns to the trigger
+- Background scrolling disabled
+- Image remains uncropped
+- No additional dependencies unless essential
+
+Do not create an overly complex gallery system.
+
+==================================================
+14. ACCESSIBILITY
+==================================================
+
+Ensure:
+
+- The image has useful alt text
+- The caption is real text
+- Exact v0 fields also appear as real text outside the image
+- The lightbox is keyboard accessible
+- Focus states are visible
+- One H1 remains
+- The question summary uses an ordered list
+- Hex values are not necessary on this guide unless already visible in the illustration
+- Colour is not the sole way information is communicated
+
+==================================================
+15. MOBILE LAYOUT
+==================================================
+
+Test at:
+
+- 320px
+- 390px
+- 430px
+
+Confirm:
+
+- No page-level horizontal scrolling
+- Heading and copy wrap correctly
+- Image preview remains recognisable
+- Full-size image can be inspected
+- Question summary remains readable
+- Footer actions stack cleanly if necessary
+- Completion button remains easy to tap
+- Sidebar behaviour is unchanged
+
+==================================================
+16. PROTOTYPE REVIEW MODE
+==================================================
+
+Show only in Prototype Review Mode:
+
+- Image asset path
+- Natural dimensions
+- Rendered dimensions
+- Image load status
+- Alt-text status
+- Lightbox status
+- Exact v0 question count
+- Whether Timezone remains anywhere
+- Whether Cloudinary-specific logo copy remains
+- Current completion-button wording
+
+Do not expose this internal information publicly.
+
+==================================================
+17. DO NOT CHANGE
+==================================================
+
+Do not change:
+
+- Step number
+- Step route
+- Step order
+- Sidebar labels outside Step 6
+- Previous completed steps
+- Next step
+- Vercel configuration steps
+- Media-storage choice
+- Database choice
+- Publishing flow
+- Deployment flow
+- Shared player journey
+- Header
+- Footer
+- SEO metadata
+- Indexing policies
+- Sitemap
+- Progress/localStorage keys
+
+Do not edit the attached image.
+
+==================================================
+18. QA
+==================================================
+
+Test:
+
+- Desktop at 1440px
+- Tablet at 768px
+- Mobile at 390px
+- Image loading
+- Full-size preview
+- Back action
+- Completion action
+- Page refresh
+- Existing progress restoration
+- Browser Back and Forward
+- Keyboard navigation
+- No horizontal overflow
+
+Run:
+
+- TypeScript
+- Build
+- Existing smoke tests
+- Existing route tests
+- Accessibility smoke test where available
+
+==================================================
+19. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. The attached image is used exactly as supplied.
+2. No replacement image is generated.
+3. The image is saved as VERCEL-06A.png.
+4. The existing six-card IMG layout is removed.
+5. Timezone no longer appears in Step 6.
+6. Cloudinary is no longer required for logo guidance.
+7. The exact seven current v0 questions appear as real text.
+8. The page clearly states that questions are answered in v0.
+9. Every field is identified as optional.
+10. “skip” guidance is present.
+11. The supplied image is responsive and uncropped.
+12. Mobile users can inspect the full-size image.
+13. The image is described as illustrative.
+14. The completion action reads:
+    I answered or skipped the branding questions
+15. Existing routes and progress behaviour remain unchanged.
+16. Desktop and mobile layouts work.
+17. No TypeScript, build, runtime or console errors are introduced.
+
+==================================================
+20. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Restore point created
+- Component path changed
+- Final image path
+- Image natural dimensions
+- Image file size
+- Desktop screenshot
+- Mobile screenshot
+- Full-size preview screenshot
+- Old placeholder layout removed
+- Confirmation Timezone was removed
+- Confirmation Cloudinary-specific logo guidance was removed
+- Confirmation exact v0 question list was added
+- Confirmation progress keys were preserved
+- TypeScript result
+- Build result
+- Smoke-test result
+- Exact rollback instruction
+
+Do not make any unrelated branding, Vercel, onboarding, SEO or design changes during this task.
