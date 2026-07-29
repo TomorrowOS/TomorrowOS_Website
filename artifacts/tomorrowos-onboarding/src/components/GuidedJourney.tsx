@@ -570,6 +570,7 @@ function GuidedStep9() {
             <li>Open Replit Publishing.</li>
             <li>Confirm the required production Secrets are present.</li>
             <li>Give the deployment a name or custom domain.</li>
+            <li>Select Public.</li>
             <li>Select Publish.</li>
             <li>Wait for publishing to finish.</li>
             <li>Open the public CMS URL.</li>
