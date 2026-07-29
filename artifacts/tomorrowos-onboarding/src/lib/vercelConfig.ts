@@ -64,7 +64,7 @@ export const mediaProviderConfig: Record<'cloudinary' | 'vercelBlob', MediaProvi
     selectLabel: 'Select Cloudinary',
     continueLabel: 'Continue with Cloudinary',
     details: {
-      heading: 'What you will need to connect your TomorrowOS CMS',
+      heading: 'What you will need for v0',
       ordered: false,
       items: ['Cloud name', 'API key', 'API secret'],
       note: null,
