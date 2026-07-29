@@ -1,0 +1,572 @@
+Correct the recent Vercel Step 5 media-storage refinement.
+
+The current implementation hides Vercel Blob because:
+
+- No dedicated TomorrowOS Blob guide exists
+- No existing @vercel/blob implementation was found
+- The guideReady flag is false
+
+This is too restrictive for the intended v0 + Vercel Guided Setup experience.
+
+A dedicated TomorrowOS Blob guide is not required.
+
+Vercel Blob should be presented as the simple Vercel-native media-storage option, provided the generated TomorrowOS CMS is updated to implement it correctly.
+
+Do not rebuild the Vercel onboarding pathway.
+Do not change routes, step order, progress keys, sidebar behaviour, completed steps or shared deployment logic.
+Do not remove Cloudinary.
+
+The objective is to:
+
+1. Restore Vercel Blob as a customer-facing choice.
+2. Explain it clearly without requiring a separate account.
+3. Keep Cloudinary as the more advanced media option.
+4. Add or verify the actual Vercel Blob implementation used by the generated CMS.
+5. Keep the onboarding page simple and ready to use.
+6. Remove the requirement for a separate `/guides/vercel-blob` page.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a checkpoint or Git commit named:
+
+   pre-vercel-blob-option-restoration
+
+2. Record:
+   - Current Vercel Step 5 component
+   - Current mediaProviderConfig
+   - Current VERCEL_SETUP.md content
+   - Current generated-CMS media implementation
+   - Current provider progress field
+   - Current localStorage structure
+   - Current Cloudinary behaviour
+
+Do not expose credentials.
+
+==================================================
+2. IMPORTANT PRODUCT CORRECTION
+==================================================
+
+Do not require a dedicated TomorrowOS guide route before displaying Vercel Blob.
+
+Remove `guideReady` as a public-availability requirement for Vercel Blob.
+
+The provider-display logic should instead distinguish between:
+
+- Onboarding explanation available
+- Generated implementation available
+- Implementation tested
+
+Suggested structure:
+
+mediaProviderConfig = {
+  cloudinary: {
+    available: true,
+    implementationReady: true,
+    tested: true,
+    requiresExternalAccount: true,
+    guideUrl: "/guides/cloudinary"
+  },
+
+  vercelBlob: {
+    available: true,
+    implementationReady: boolean,
+    tested: boolean,
+    requiresExternalAccount: false,
+    externalDocsUrl: "{{OFFICIAL_VERCEL_BLOB_DOCS_URL}}"
+  }
+}
+
+A separate internal TomorrowOS guide is not required for Vercel Blob.
+
+Do not allow an absent `/guides/vercel-blob` route to hide the provider.
+
+Do not create a placeholder Blob-guide route merely to satisfy configuration.
+
+==================================================
+3. VERIFY OR ADD THE ACTUAL BLOB IMPLEMENTATION
+==================================================
+
+Before marking Vercel Blob ready, inspect:
+
+- VERCEL_SETUP.md
+- The v0 generation instructions
+- The generated CMS project
+- Existing media-upload components
+- Existing storage adapters
+
+When Vercel Blob is selected, the generated project must:
+
+1. Install and use the approved Vercel Blob SDK.
+2. Provide an upload flow appropriate for CMS media.
+3. Return and store the resulting Blob asset URL.
+4. Allow uploaded assets to be used by TomorrowOS content records.
+5. Support image and video files.
+6. Handle deletion or replacement where the CMS exposes those actions.
+7. Surface useful upload errors.
+8. Keep Blob credentials out of browser source code.
+9. Support production deployment on Vercel.
+10. Provide asset URLs that the TomorrowOS player can retrieve.
+
+Do not mark the implementation ready based only on displaying a card.
+
+==================================================
+4. LARGE MEDIA UPLOADS
+==================================================
+
+Digital-signage videos will commonly exceed small serverless request limits.
+
+Do not implement all uploads through a server-upload route limited to small files.
+
+Use the approved Vercel Blob client-upload architecture for large media where required.
+
+The implementation should:
+
+- Request an authorised upload token from the backend
+- Upload the file directly using the approved Blob client flow
+- Return the completed Blob URL to the CMS
+- Store the resulting URL in the application database
+- Never expose unrestricted Blob credentials to the browser
+- Show upload progress where the existing CMS design supports it
+- Handle failed or interrupted uploads clearly
+
+Small server uploads may remain supported where appropriate, but they must not be the only path for video uploads.
+
+Do not invent a custom upload mechanism when the supported Vercel Blob pattern is available.
+
+==================================================
+5. ACCESS MODE
+==================================================
+
+Determine and document the approved Blob access mode for TomorrowOS media.
+
+For the standard signage-media starter, use the mode that allows supported players to retrieve assigned assets directly and reliably.
+
+Do not silently use private Blob storage when it would require every player request to pass through a protected Vercel Function.
+
+Store the access-mode decision centrally:
+
+vercelBlobConfig = {
+  accessMode: "public" | "private",
+  uploadMode: "client" | "server" | "hybrid"
+}
+
+For the current guided signage starter, prefer the simplest approved direct-delivery architecture.
+
+Prototype Review Mode must show the configured access and upload modes.
+
+==================================================
+6. UPDATE VERCEL_SETUP.MD
+==================================================
+
+Update the maintained Vercel setup instructions so v0 understands both media choices.
+
+The media-storage question must support:
+
+- Vercel Blob
+- Cloudinary
+
+When Vercel Blob is selected, instruct v0 to:
+
+- Add the approved Blob SDK
+- Add the correct upload implementation
+- Add media URL persistence
+- Add deletion or replacement support where applicable
+- Add environment-variable handling
+- Keep credentials server-side
+- Use the configured access mode
+- Support the CMS media library
+- Support images and videos
+- Use client uploads for larger files
+
+When Cloudinary is selected, preserve the existing Cloudinary implementation and environment-variable flow.
+
+Do not allow both providers to be partly generated at the same time unless the architecture explicitly supports provider switching.
+
+==================================================
+7. RESTORE THE TWO-PROVIDER PAGE
+==================================================
+
+Restore the customer-facing heading:
+
+Choose media storage
+
+Supporting copy:
+
+Select where your CMS will store and deliver uploaded images and videos.
+
+Add:
+
+Choose the option that best suits how you want to manage media. You can use Vercel Blob without creating a separate provider account, or choose Cloudinary for more advanced media handling.
+
+Do not use:
+
+Set up media storage
+
+when two providers are available.
+
+==================================================
+8. VERCEL BLOB CARD
+==================================================
+
+Use the approved official Vercel logo or Blob visual asset.
+
+Provider name:
+
+Vercel Blob
+
+Status label:
+
+Simplest setup
+
+Description:
+
+Vercel-native file storage for your CMS. No separate account is required.
+
+Best-for copy:
+
+Best for the fastest setup when your CMS is already deployed on Vercel.
+
+Selection action:
+
+Select Vercel Blob
+
+Do not say:
+
+- Implementation pending
+- Engineering confirmation required
+- Guide being prepared
+- Coming soon
+
+when the implementation has been added and tested.
+
+Do not describe Vercel Blob as a third-party account.
+
+It uses the user’s existing Vercel project and account.
+
+==================================================
+9. CLOUDINARY CARD
+==================================================
+
+Preserve Cloudinary as a complete option.
+
+Status label:
+
+Advanced media
+
+Description:
+
+Dedicated image and video storage with optimisation and delivery tools.
+
+Best-for copy:
+
+Best for teams that need advanced image and video handling.
+
+Selection action:
+
+Select Cloudinary
+
+Keep:
+
+View Cloudinary guide
+
+available after Cloudinary is selected.
+
+Do not make Cloudinary appear mandatory.
+
+==================================================
+10. PROVIDER-COMPARISON CLARITY
+==================================================
+
+Keep the comparison concise.
+
+Vercel Blob:
+
+- Existing Vercel account
+- No separate provider sign-up
+- Native Vercel project setup
+- Straightforward file storage and delivery
+
+Cloudinary:
+
+- Separate Cloudinary account
+- Image and video optimisation
+- Transformations and specialised delivery controls
+- Existing detailed TomorrowOS setup guide
+
+Do not add a dense feature-comparison table.
+
+Use the descriptions and best-for copy inside the cards.
+
+==================================================
+11. SELECTED PROVIDER DETAILS
+==================================================
+
+After Vercel Blob is selected, reveal:
+
+What happens next
+
+1. v0 adds Vercel Blob support to your CMS.
+2. You create or connect a Blob store in your Vercel project.
+3. Vercel adds the required Blob environment variable to the selected environments.
+4. You redeploy and confirm a media upload.
+
+Supporting note:
+
+No separate storage-provider account is required. Vercel Blob uses your existing Vercel project and its plan and usage limits.
+
+Optional external action:
+
+View Vercel Blob documentation
+
+This should link only to the configured official Vercel documentation.
+
+Do not create a separate TomorrowOS Blob guide.
+
+After Cloudinary is selected, retain:
+
+What you will configure later
+
+- Cloud name
+- API key
+- API secret
+
+Action:
+
+View Cloudinary guide
+
+==================================================
+12. SHARED SECURITY NOTE
+==================================================
+
+Use one concise note beneath the provider selection.
+
+For Vercel Blob:
+
+Vercel adds the Blob environment variable to your project when the store is connected. Do not paste Blob tokens into TomorrowOS.org or the v0 conversation.
+
+For Cloudinary:
+
+Add Cloudinary credentials securely through Vercel Environment Variables. Do not paste API secrets into TomorrowOS.org or the v0 conversation.
+
+Render the note dynamically based on the selected provider.
+
+Do not show both warnings simultaneously.
+
+==================================================
+13. COMPLETION ACTION
+==================================================
+
+When Vercel Blob is selected:
+
+Continue with Vercel Blob
+
+When Cloudinary is selected:
+
+Continue with Cloudinary
+
+When no provider is selected:
+
+Select a media provider to continue
+
+The step records the provider decision only.
+
+It does not claim that storage has already been connected or verified.
+
+Do not use:
+
+I connected media storage
+
+==================================================
+14. REMOVE OBSOLETE GATING
+==================================================
+
+Remove or revise logic that requires all of the following merely to display Blob:
+
+- Internal guide route
+- Completed TomorrowOS Blob guide
+- Existing screenshot guide
+- `guideReady === true`
+
+Blob public availability should depend on:
+
+- Approved generated-CMS implementation
+- Required onboarding explanation
+- Successful test evidence
+
+It should not depend on a separate content guide.
+
+==================================================
+15. TEST THE BLOB FLOW
+==================================================
+
+Before setting:
+
+implementationReady: true
+tested: true
+
+verify with a generated v0/Vercel CMS:
+
+1. Select Vercel Blob.
+2. Generate the project.
+3. Create or connect the Blob store.
+4. Confirm the Blob environment variable exists.
+5. Deploy or redeploy.
+6. Upload a small image.
+7. Upload a video larger than the server-upload limit using the approved large-file flow.
+8. Confirm the asset URL is saved.
+9. Confirm the CMS displays the asset.
+10. Confirm the TomorrowOS content system can use the URL.
+11. Confirm the player can retrieve the asset.
+12. Confirm deletion or replacement behaviour.
+13. Confirm no secret appears in frontend source.
+14. Confirm upload errors are understandable.
+
+Record the tested SDK, starter and package versions.
+
+If the test fails:
+
+- Keep Vercel Blob visible only in Prototype Review Mode.
+- Do not claim it is ready.
+- Report the precise implementation blocker.
+
+==================================================
+16. LOGOS
+==================================================
+
+Use approved official assets:
+
+- Cloudinary logo
+- Vercel logo or approved Vercel Blob identity
+
+Preserve:
+
+- Official colour
+- Aspect ratio
+- Clear space
+
+Do not:
+
+- Recreate logos using text
+- Generate substitute logos
+- Stretch logos
+- Add partnership language
+
+Use the existing third-party trademark contextual notice where configured.
+
+==================================================
+17. MOBILE
+==================================================
+
+At mobile widths:
+
+- Stack the two provider cards
+- Keep the status labels visible
+- Make the whole card selectable
+- Keep descriptions concise
+- Reveal details only beneath the selected card or provider area
+- Keep the continuation button easy to reach
+- Avoid horizontal scrolling
+- Do not make the cards excessively tall
+
+Test at:
+
+- 320px
+- 390px
+- 430px
+
+==================================================
+18. ACCESSIBILITY
+==================================================
+
+Use a semantic provider radio group.
+
+Ensure:
+
+- Both options have accessible names
+- Status labels are announced
+- Selection state is announced
+- Keyboard selection works
+- Focus is visible
+- The continuation button is truly disabled before selection
+- Logos have appropriate alt handling
+- The revealed provider details are associated with the selected option
+
+==================================================
+19. DO NOT CHANGE
+==================================================
+
+Do not change:
+
+- Vercel route
+- Step number
+- Step order
+- Database choice
+- Branding step
+- Preview step
+- Publishing steps
+- Sidebar
+- Existing progress keys
+- Shared device journey
+- Header
+- Footer
+- SEO configuration
+- Sitemap
+- Indexing policy
+- Cloudinary guide content, except where required to preserve consistency
+
+==================================================
+20. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. Vercel Blob appears as a customer-facing choice after implementation validation.
+2. Cloudinary remains available.
+3. Blob does not require a dedicated TomorrowOS guide.
+4. Blob clearly states that no separate account is required.
+5. Blob is identified as the simplest Vercel setup.
+6. Cloudinary is identified as the advanced-media option.
+7. The generated v0 CMS includes the actual selected provider implementation.
+8. Large video uploads are not limited to the small server-upload path.
+9. Blob tokens are never exposed to the browser.
+10. Provider selection is accessible.
+11. Dynamic continuation wording works.
+12. “I connected media storage” remains removed.
+13. No engineering-placeholder wording appears publicly.
+14. Existing onboarding progress remains intact.
+15. Desktop and mobile work.
+16. Build, TypeScript and smoke tests pass.
+17. No runtime or console errors are introduced.
+
+==================================================
+21. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Restore point created
+- VERCEL_SETUP.md changes
+- Generated-CMS implementation files
+- Blob package and version
+- Upload architecture used
+- Blob access mode
+- Large-file upload result
+- Player retrieval result
+- Cloudinary regression result
+- Provider configuration path
+- Desktop screenshot
+- Mobile screenshot
+- Selection-state screenshots
+- Confirmation no separate Blob guide was created
+- Confirmation no separate account is required
+- Build result
+- TypeScript result
+- Smoke-test result
+- Remaining blockers
+- Exact rollback instruction
+
+Do not make unrelated onboarding, media, SEO or design changes during this task.

@@ -10,7 +10,7 @@ import { OnboardingScreenshotCard } from './OnboardingScreenshotCard';
 import { CopyActionBlock } from './CopyActionBlock';
 import { Check, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
-import { vercelConfig, mediaProviderConfig } from '@/lib/vercelConfig';
+import { vercelConfig, mediaProviderConfig, vercelBlobConfig } from '@/lib/vercelConfig';
 import { MediaProviderOption } from './MediaProviderOption';
 
 export function VercelJourney({ allExpanded = false }: { allExpanded?: boolean }) {
@@ -294,13 +294,44 @@ function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
   const [, setLocation] = useLocation();
   const { state, updateState, goToNextStep } = usePrototype();
 
-  const allProviders = [mediaProviderConfig.cloudinary, mediaProviderConfig.vercelBlob];
-  const visibleProviders = allProviders.filter((p) => p.available && p.tested && p.guideReady);
-  const hiddenProviders = allProviders.filter((p) => !visibleProviders.includes(p));
+  const allProviders = [mediaProviderConfig.vercelBlob, mediaProviderConfig.cloudinary];
+  const customerFacing = allProviders.filter((p) => p.available && p.implementationReady && p.tested);
+  // Prototype Review Mode previews providers whose validation is incomplete.
+  const visibleProviders = state.prototypeReviewMode
+    ? allProviders.filter((p) => p.available)
+    : customerFacing;
+  const hiddenProviders = allProviders.filter((p) => !customerFacing.includes(p));
   const singleProvider = visibleProviders.length === 1 ? visibleProviders[0] : null;
 
   const selectedId = singleProvider ? singleProvider.id : state.vercelMediaProvider || null;
   const selectedProvider = visibleProviders.find((p) => p.id === selectedId) || null;
+  const detailsId = 'media-provider-details';
+
+  const providerAction = (p: typeof allProviders[number]) =>
+    p.guideUrl ? (
+      <Button variant="secondary" size="sm" onClick={() => setLocation(p.guideUrl!)}>View {p.name} guide</Button>
+    ) : p.externalDocsUrl ? (
+      <Button variant="secondary" size="sm" asChild>
+        <a href={p.externalDocsUrl} target="_blank" rel="noopener noreferrer">View {p.name} documentation</a>
+      </Button>
+    ) : null;
+
+  const providerDetails = (p: typeof allProviders[number]) => (
+    <div id={detailsId} className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6 animate-in fade-in duration-300">
+      <h4 className="text-sm font-semibold text-gray-900 mb-2">{p.details.heading}</h4>
+      {p.details.ordered ? (
+        <ol className="list-decimal pl-5 text-sm text-gray-700 space-y-1 mb-3">
+          {p.details.items.map((item) => <li key={item}>{item}</li>)}
+        </ol>
+      ) : (
+        <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1 mb-3">
+          {p.details.items.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      )}
+      {p.details.note && <p className="text-xs text-gray-500 mb-3">{p.details.note}</p>}
+      {providerAction(p)}
+    </div>
+  );
 
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
@@ -315,10 +346,6 @@ function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
           description="Select where your CMS will store and deliver uploaded images and videos."
         />
       )}
-
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 mb-8">
-        Your selection tells v0 which media integration to add. You will configure the service securely in Vercel later.
-      </div>
 
       {singleProvider ? (
         <Card className="mb-6">
@@ -336,55 +363,42 @@ function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
             <h3 className="font-bold text-lg text-gray-900 mb-1">{singleProvider.name}</h3>
             <p className="text-sm text-gray-600 mb-2">{singleProvider.description}</p>
             <p className="text-sm text-gray-500 mb-6">{singleProvider.bestFor}</p>
-            {singleProvider.configureLater && (
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
-                <h4 className="text-sm font-semibold text-gray-900 mb-2">{singleProvider.configureLater.heading}</h4>
-                <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1 mb-3">
-                  {singleProvider.configureLater.items.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-                <p className="text-xs text-gray-500">{singleProvider.configureLater.note}</p>
-              </div>
-            )}
-            <div>
-              <Button variant="secondary" onClick={() => setLocation(singleProvider.guideUrl)}>View {singleProvider.name} guide</Button>
-            </div>
+            {providerDetails(singleProvider)}
           </CardContent>
         </Card>
       ) : (
         <>
-          <div role="group" aria-label="Media storage providers" className="grid md:grid-cols-2 gap-6 mb-6 md:items-stretch">
+          <p className="text-sm text-gray-600 mb-6">
+            Choose the option that best suits how you want to manage media. You can use Vercel Blob without creating a separate provider account, or choose Cloudinary for more advanced media handling.
+          </p>
+          <div role="radiogroup" aria-label="Media storage providers" className="grid md:grid-cols-2 gap-6 mb-6 md:items-stretch">
             {visibleProviders.map((provider) => (
               <MediaProviderOption
                 key={provider.id}
                 provider={provider}
                 selected={selectedId === provider.id}
                 onSelect={() => updateState({ vercelMediaProvider: provider.id })}
+                detailsId={detailsId}
+                reviewPreview={!customerFacing.includes(provider)}
               />
             ))}
           </div>
-          {selectedProvider?.configureLater && (
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6 animate-in fade-in duration-300">
-              <h4 className="text-sm font-semibold text-gray-900 mb-2">{selectedProvider.configureLater.heading}</h4>
-              <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1 mb-3">
-                {selectedProvider.configureLater.items.map((item) => <li key={item}>{item}</li>)}
-              </ul>
-              <p className="text-xs text-gray-500 mb-3">{selectedProvider.configureLater.note}</p>
-              <Button variant="secondary" size="sm" onClick={() => setLocation(selectedProvider.guideUrl)}>View {selectedProvider.name} guide</Button>
-            </div>
-          )}
+          {selectedProvider && providerDetails(selectedProvider)}
         </>
       )}
 
-      <div className="bg-amber-50 border border-amber-100 text-amber-900 rounded-lg p-3 text-xs mb-8" role="note">
-        Credentials are added securely in Vercel later. Do not enter API secrets or storage tokens into TomorrowOS.org or the v0 conversation.
-      </div>
+      {selectedProvider && (
+        <div className="bg-amber-50 border border-amber-100 text-amber-900 rounded-lg p-3 text-xs mb-8" role="note">
+          {selectedProvider.securityNote}
+        </div>
+      )}
 
       {state.prototypeReviewMode && (
         <div className="rounded border border-dashed border-purple-300 bg-purple-50 p-3 text-[11px] leading-relaxed text-purple-900 mb-6">
           <p className="font-bold uppercase tracking-wider mb-1">Media storage diagnostics</p>
-          <p><strong>Mode:</strong> {singleProvider ? 'single-provider' : 'multi-provider'} · <strong>Stored provider:</strong> {state.vercelMediaProvider || 'none'}</p>
+          <p><strong>Mode:</strong> {singleProvider ? 'single-provider' : 'multi-provider'} · <strong>Stored provider:</strong> {state.vercelMediaProvider || 'none'} · <strong>Blob access mode:</strong> {vercelBlobConfig.accessMode} · <strong>Blob upload mode:</strong> {vercelBlobConfig.uploadMode}</p>
           {allProviders.map((p) => (
-            <p key={p.id}><strong>{p.name}:</strong> available {String(p.available)} · tested {String(p.tested)} · guide {p.guideUrl} ({p.guideReady ? 'ready' : 'placeholder'}) · logo {p.logoPath}</p>
+            <p key={p.id}><strong>{p.name}:</strong> available {String(p.available)} · implementationReady {String(p.implementationReady)} · tested {String(p.tested)} · external account {String(p.requiresExternalAccount)} · guide {p.guideUrl ?? 'none (external docs)'} · logo {p.logoPath}</p>
           ))}
           {hiddenProviders.map((p) => (
             <div key={p.id} className="mt-1">

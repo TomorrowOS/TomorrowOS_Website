@@ -8,6 +8,10 @@ interface MediaProviderOptionProps {
   provider: MediaProviderEntry;
   selected: boolean;
   onSelect: () => void;
+  /** id of the revealed details region associated with this option when selected. */
+  detailsId?: string;
+  /** True when the option is shown only as a Prototype Review Mode preview. */
+  reviewPreview?: boolean;
 }
 
 function ProviderLogo({ provider }: { provider: MediaProviderEntry }) {
@@ -36,15 +40,20 @@ function ProviderLogo({ provider }: { provider: MediaProviderEntry }) {
 }
 
 /**
- * Equal-structure selectable provider card. Entire card is a toggle button
- * with aria-pressed; selection is announced via visible "Selected" text.
+ * Equal-structure selectable provider card. Rendered as a radio inside the
+ * step's radio group; selection is announced via aria-checked and shown
+ * non-colour-dependently with a check icon plus visible "Selected" text.
+ * The status label (badge) stays visible in every state.
  */
-export function MediaProviderOption({ provider, selected, onSelect }: MediaProviderOptionProps) {
+export function MediaProviderOption({ provider, selected, onSelect, detailsId, reviewPreview }: MediaProviderOptionProps) {
   return (
     <button
       type="button"
+      role="radio"
+      aria-checked={selected}
+      aria-label={`${provider.name} — ${provider.badge ?? 'media storage'}`}
+      aria-describedby={selected && detailsId ? detailsId : undefined}
       onClick={onSelect}
-      aria-pressed={selected}
       className={cn(
         'flex flex-col h-full w-full text-left p-6 rounded-lg bg-white cursor-pointer',
         'transition-[background-color,border-color,color,box-shadow] duration-150 ease-out',
@@ -56,16 +65,24 @@ export function MediaProviderOption({ provider, selected, onSelect }: MediaProvi
     >
       <div className="flex items-start justify-between gap-3 mb-4 min-h-[32px]">
         <ProviderLogo provider={provider} />
-        {selected ? (
-          <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-gray-900 bg-white border border-gray-900 rounded-full px-2.5 py-1">
-            <Check className="w-3.5 h-3.5" aria-hidden="true" /> Selected
-          </span>
-        ) : provider.badge ? (
-          <span className="shrink-0 text-xs font-medium text-gray-600 bg-gray-100 rounded-full px-2.5 py-1">
-            {provider.badge}
-          </span>
-        ) : null}
+        <div className="flex flex-col items-end gap-1">
+          {provider.badge && (
+            <span className="shrink-0 text-xs font-medium text-gray-600 bg-gray-100 rounded-full px-2.5 py-1">
+              {provider.badge}
+            </span>
+          )}
+          {selected && (
+            <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-gray-900 bg-white border border-gray-900 rounded-full px-2.5 py-1">
+              <Check className="w-3.5 h-3.5" aria-hidden="true" /> Selected
+            </span>
+          )}
+        </div>
       </div>
+      {reviewPreview && (
+        <span className="mb-2 self-start text-[10px] font-bold uppercase tracking-wider text-purple-700 bg-purple-50 border border-purple-200 rounded px-1.5 py-0.5">
+          Review Mode preview — not customer-facing
+        </span>
+      )}
       <h3 className="font-bold text-lg text-gray-900 mb-1">{provider.name}</h3>
       <p className="text-sm text-gray-600 mb-2">{provider.description}</p>
       <p className="text-sm text-gray-500 mb-6">{provider.bestFor}</p>
