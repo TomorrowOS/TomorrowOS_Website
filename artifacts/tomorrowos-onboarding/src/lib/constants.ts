@@ -15,16 +15,15 @@ export const VERCEL_STEPS = [
   { id: 1, title: 'Before you begin' },
   { id: 2, title: 'Open v0' },
   { id: 3, title: 'Create the project' },
-  { id: 4, title: 'Follow the questions' },
-  { id: 5, title: 'Choose a database' },
-  { id: 6, title: 'Choose media storage' },
-  { id: 7, title: 'Add branding' },
-  { id: 8, title: 'Review the generated CMS' },
-  { id: 9, title: 'Configure Vercel' },
-  { id: 10, title: 'Preview the deployment' },
-  { id: 11, title: 'Pre-publish checklist' },
-  { id: 12, title: 'Publish the CMS' },
-  { id: 13, title: 'Confirm the live CMS' }
+  { id: 4, title: 'Choose a database' },
+  { id: 5, title: 'Choose media storage' },
+  { id: 6, title: 'Add branding' },
+  { id: 7, title: 'Review the generated CMS' },
+  { id: 8, title: 'Configure Vercel' },
+  { id: 9, title: 'Preview the deployment' },
+  { id: 10, title: 'Pre-publish checklist' },
+  { id: 11, title: 'Publish the CMS' },
+  { id: 12, title: 'Confirm the live CMS' }
 ];
 
 export const TERMINAL_STEPS = [

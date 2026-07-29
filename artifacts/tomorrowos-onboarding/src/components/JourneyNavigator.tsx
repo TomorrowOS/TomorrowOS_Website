@@ -35,9 +35,9 @@ export function JourneyNavigator() {
            if (stepId === 8 && state.replitReadinessStatus === 'needs_help') return 'needs-attention';
            if (stepId === 10 && state.replitPublishedStatus === 'needs_help') return 'needs-attention';
          } else if (isGuided && isVercel) {
-           if (stepId === 8 && state.vercelPreviewGenerationStatus === 'needs_help') return 'needs-attention';
-           if (stepId === 10 && state.vercelReadinessStatus === 'needs_help') return 'needs-attention';
-           if (stepId === 13 && state.vercelPublishedStatus === 'needs_help') return 'needs-attention';
+           if (stepId === 7 && state.vercelPreviewGenerationStatus === 'needs_help') return 'needs-attention';
+           if (stepId === 9 && state.vercelReadinessStatus === 'needs_help') return 'needs-attention';
+           if (stepId === 12 && state.vercelPublishedStatus === 'needs_help') return 'needs-attention';
          }
          return 'current';
       }

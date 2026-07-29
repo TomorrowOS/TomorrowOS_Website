@@ -19,6 +19,8 @@ export interface PrototypeState {
   vercelStep: number;
   maxVercelStep: number;
   vercelCompletedSteps: number[];
+  /** Schema version of the Vercel onboarding flow; 2 = 12-step flow without the standalone "Follow the questions" step. */
+  vercelFlowVersion: number;
   terminalStep: number;
   maxTerminalStep: number;
   sharedStep: number;
@@ -59,6 +61,7 @@ const initialState: PrototypeState = {
   vercelStep: 1,
   maxVercelStep: 1,
   vercelCompletedSteps: [],
+  vercelFlowVersion: 2,
   terminalStep: 1,
   maxTerminalStep: 1,
   sharedStep: 0,
@@ -150,6 +153,18 @@ export function PrototypeProvider({ children }: { children: React.ReactNode }) {
         parsed.maxGuidedStep = Math.max(parsed.maxGuidedStep || 1, parsed.guidedStep || 1);
         parsed.maxVercelStep = Math.max(parsed.maxVercelStep || 1, parsed.vercelStep || 1);
         parsed.vercelCompletedSteps = parsed.vercelCompletedSteps || [];
+
+        // Migrate stored Vercel progress from the legacy 13-step flow (v1) to
+        // the 12-step flow (v2): the standalone "Follow the questions" step 4
+        // was removed, so steps 5-14 shift down by one. Old step 4 maps to the
+        // new step 4 ("Choose a database").
+        if (!rawStored.vercelFlowVersion || rawStored.vercelFlowVersion < 2) {
+          const shift = (s: number) => (s >= 5 ? s - 1 : s);
+          parsed.vercelStep = shift(parsed.vercelStep || 1);
+          parsed.maxVercelStep = shift(parsed.maxVercelStep || 1);
+          parsed.vercelCompletedSteps = Array.from(new Set(parsed.vercelCompletedSteps.map(shift)));
+        }
+        parsed.vercelFlowVersion = 2;
         parsed.maxTerminalStep = Math.max(parsed.maxTerminalStep || 1, parsed.terminalStep || 1);
         parsed.maxSharedStep = Math.max(parsed.maxSharedStep || 0, parsed.sharedStep || 0);
         parsed.maxSamsungGuideStep = Math.max(parsed.maxSamsungGuideStep || 1, parsed.samsungGuideStep || 1);
@@ -181,9 +196,9 @@ export function PrototypeProvider({ children }: { children: React.ReactNode }) {
       // If we are in the guided track and haven't finished it
       if (prev.setupMethod === 'guided') {
         if (prev.guidedTool === 'vercel') {
-          if (prev.vercelStep <= 13) {
-            if (prev.vercelStep === 13) {
-              return { ...prev, vercelStep: 14, maxVercelStep: Math.max(prev.maxVercelStep || 1, 14), sharedStep: 1, maxSharedStep: Math.max(prev.maxSharedStep || 0, 1) };
+          if (prev.vercelStep <= 12) {
+            if (prev.vercelStep === 12) {
+              return { ...prev, vercelStep: 13, maxVercelStep: Math.max(prev.maxVercelStep || 1, 13), sharedStep: 1, maxSharedStep: Math.max(prev.maxSharedStep || 0, 1) };
             }
             const nextVercel = prev.vercelStep + 1;
             return { ...prev, vercelStep: nextVercel, maxVercelStep: Math.max(prev.maxVercelStep || 1, nextVercel) };
@@ -222,8 +237,8 @@ export function PrototypeProvider({ children }: { children: React.ReactNode }) {
         return { ...prev, sharedStep: prev.sharedStep - 1 };
       } else if (prev.sharedStep === 1) {
         if (prev.setupMethod === 'guided') {
-          if (prev.guidedTool === 'vercel' && prev.vercelStep === 14) {
-            return { ...prev, vercelStep: 13, sharedStep: 0 };
+          if (prev.guidedTool === 'vercel' && prev.vercelStep === 13) {
+            return { ...prev, vercelStep: 12, sharedStep: 0 };
           } else if (prev.guidedTool === 'replit' && prev.guidedStep === 11) {
             return { ...prev, guidedStep: 10, sharedStep: 0 };
           }

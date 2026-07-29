@@ -1,0 +1,534 @@
+Refine all copyable prompt, command, URL and configuration-value blocks across the existing TomorrowOS onboarding experience.
+
+This is an existing working application.
+
+Do not rebuild the onboarding.
+Do not change routes, step order, completion logic, localStorage keys, commands, URLs, prompts or configuration values unless explicitly instructed below.
+Do not change the approved page layouts or broader design system.
+
+The current copyable content blocks use pale-grey containers and faint copy icons. They blend into the page and do not clearly communicate:
+
+- What should be copied
+- Where it should be pasted
+- Whether copying succeeded
+- Whether the content is a prompt, command, URL or variable name
+
+The objective is to create one clear, consistent and reusable copy-action pattern across the full onboarding journey.
+
+==================================================
+1. CREATE A RESTORE POINT
+==================================================
+
+Before editing:
+
+1. Create a Replit checkpoint or Git commit named:
+
+   pre-copy-action-block-refinement
+
+2. Record:
+   - Existing copy-block components
+   - Existing copy-button logic
+   - Every route containing copyable content
+   - Existing prompt and command strings
+   - Current desktop and mobile screenshots
+
+Do not expose secret values.
+
+==================================================
+2. STRICT PRESERVATION RULES
+==================================================
+
+Do not change:
+
+- Route names
+- Onboarding paths
+- Step sequence
+- Progress behaviour
+- Locked-step logic
+- Existing command values
+- Existing URLs
+- Existing environment-variable names
+- Existing setup filenames
+- Existing links
+- Existing security guidance
+- Global header or footer
+- SEO configuration
+- Indexing policy
+- Sitemap
+- LocalStorage keys
+
+Do not automatically rewrite technical prompts unless a specific replacement is supplied in this task.
+
+==================================================
+3. CREATE ONE REUSABLE COMPONENT
+==================================================
+
+Create or refine a reusable component named:
+
+CopyActionBlock
+
+It must support these content types:
+
+- prompt
+- command
+- code
+- url
+- variable
+- value
+
+Suggested properties:
+
+CopyActionBlock {
+  type,
+  label,
+  value,
+  copyButtonLabel,
+  copiedMessage,
+  destinationHint,
+  language,
+  sensitive,
+  multiline
+}
+
+Do not duplicate separate copy implementations across every guide.
+
+==================================================
+4. VISUAL HIERARCHY
+==================================================
+
+For primary prompts and terminal commands, use a high-contrast code panel.
+
+Default styling:
+
+- Black or near-black background
+- White or very light code text
+- JetBrains Mono
+- Approximately 14–15px text
+- Comfortable 18–22px padding
+- Approximately 8px radius
+- No heavy shadow
+- Clear separation from surrounding content
+- Horizontal scrolling for long commands
+- Preserve whitespace where required
+
+Above the panel, show a small contextual label.
+
+Examples:
+
+PROMPT FOR v0
+
+COMMAND FOR YOUR TERMINAL
+
+CMS URL
+
+ENVIRONMENT VARIABLE
+
+Do not use generic labels such as:
+
+CODE
+
+COPY THIS
+
+unless no more specific description is available.
+
+==================================================
+5. EXPLICIT COPY BUTTON
+==================================================
+
+Replace faint standalone copy icons on important blocks with an explicit action.
+
+Use context-specific labels:
+
+Prompt:
+Copy prompt
+
+Terminal command:
+Copy command
+
+URL:
+Copy URL
+
+Environment-variable name:
+Copy variable name
+
+Code example:
+Copy code
+
+Configuration value:
+Copy value
+
+The button may include the existing copy icon, but visible text must remain present on primary copy blocks.
+
+Recommended position:
+
+- Top-right inside the block header, or
+- Right side of a compact header row directly above the code content
+
+Do not allow the button to overlap long content.
+
+==================================================
+6. COPIED FEEDBACK
+==================================================
+
+After a successful copy, temporarily change the button text.
+
+Examples:
+
+Copied
+
+Copied — paste into v0
+
+Copied — run in your terminal
+
+Copied — add to Vercel
+
+Use the destination-specific message when the destination is known.
+
+Requirements:
+
+- Feedback remains visible for approximately 1.5–2.5 seconds
+- Announce success using an accessible live region
+- Do not rely only on colour
+- Do not cause the block width to jump significantly
+- Restore the original label automatically
+
+When copying fails:
+
+Show:
+
+Could not copy — select the text manually.
+
+Do not fail silently.
+
+==================================================
+7. DESTINATION INSTRUCTION
+==================================================
+
+Where the content must be pasted into another tool, add a concise instruction beneath the block.
+
+Examples:
+
+v0:
+
+Paste this into the main v0 prompt field, then submit it.
+
+Replit:
+
+Paste this into Replit Agent, then follow the questions one at a time.
+
+Terminal:
+
+Run this command in your local terminal.
+
+Vercel:
+
+Add this variable in Project Settings → Environment Variables.
+
+CMS URL:
+
+Save the public HTTPS URL shown after publishing.
+
+Keep this instruction outside the copied content unless it genuinely belongs in the prompt.
+
+==================================================
+8. VERCEL SETUP PROMPT
+==================================================
+
+On:
+
+Vercel Setup
+→ Step 3 of 13
+→ Create your TomorrowOS CMS
+
+Use the label:
+
+PROMPT FOR v0
+
+Use this prompt:
+
+Follow @tomorrowos/sdk VERCEL_SETUP.md and guide me through setting up my TomorrowOS CMS step by step.
+
+Copy action:
+
+Copy prompt
+
+Copied feedback:
+
+Copied — paste this into v0
+
+Instruction beneath:
+
+Paste this into the main v0 prompt field, then submit it.
+
+Important:
+
+Before changing the existing prompt string, inspect the current TomorrowOS package guidance.
+
+If the exact original phrase is required as a setup trigger:
+
+Follow @tomorrowos/sdk VERCEL_SETUP.md and set up my TomorrowOS CMS.
+
+then retain that exact copied text and only improve the surrounding UI.
+
+Do not break the maintained SDK setup trigger for stylistic reasons.
+
+==================================================
+9. SECURITY WARNING REFINEMENT
+==================================================
+
+Preserve the current security warning.
+
+Do not remove or weaken:
+
+- Do not paste prompts into public code files
+- Do not paste prompts into environment-variable values
+- Do not paste prompts into Vercel project settings
+- Do not paste prompts into a database console
+- Do not paste passwords, API secrets or storage tokens into v0
+
+However, rebalance the visual hierarchy so the primary copy action is still easy to find.
+
+Recommended adjustment:
+
+- Keep the warning above the prompt
+- Reduce excessive internal spacing where present
+- Use a restrained pale-warning background
+- Keep strong contrast
+- Do not make it taller than necessary
+- Keep the actual prompt block visually prominent immediately beneath it
+
+Do not turn the warning into a modal or blocking confirmation.
+
+==================================================
+10. LIGHT BLOCK VARIANT
+==================================================
+
+Not every copied value needs a black code panel.
+
+Use a light variant for secondary values such as:
+
+- Variable names
+- Short IDs
+- Public URLs
+- Non-primary configuration values
+
+Light variant:
+
+- Very light neutral-grey background
+- 1px neutral border
+- Dark JetBrains Mono text
+- Explicit copy button
+- Same copied feedback
+- Approximately 8px radius
+
+Do not use the light variant for primary setup prompts when stronger emphasis is needed.
+
+==================================================
+11. SENSITIVE VALUES
+==================================================
+
+For secret or sensitive values:
+
+- Never store them in site state beyond what is already required
+- Mask values by default
+- Provide an accessible reveal/hide control only when already supported
+- Use Copy value rather than exposing the value unnecessarily
+- Do not log values
+- Do not include values in analytics
+- Do not place values in URL parameters
+- Do not include secret values in Review Mode
+
+Do not alter the existing credential-handling architecture during this task.
+
+==================================================
+12. APPLY ACROSS ONBOARDING
+==================================================
+
+Audit and apply the reusable pattern to copyable content across:
+
+- Replit Guided Setup
+- Vercel Guided Setup
+- Terminal pathway
+- Server SDK pathway
+- HTTP API pathway when real code exists
+- Supabase guide
+- Cloudinary guide
+- Samsung Tizen guide
+- Content and publishing guide
+- Pairing and device guides
+- Other public setup guides
+
+Only update blocks that genuinely contain copyable content.
+
+Do not turn normal explanatory paragraphs into code blocks.
+
+==================================================
+13. TERMINAL COMMANDS
+==================================================
+
+For terminal commands:
+
+- Use dark command blocks
+- Label them clearly
+- Keep the command unchanged
+- Use Copy command
+- Preserve exact whitespace and punctuation
+- Support horizontal scrolling
+- Do not soft-wrap commands where wrapping would make them ambiguous
+
+Example:
+
+COMMAND FOR YOUR TERMINAL
+
+node --version
+
+Copy command
+
+==================================================
+14. MULTILINE PROMPTS AND CODE
+==================================================
+
+For multiline prompts:
+
+- Preserve line breaks
+- Use `white-space: pre-wrap`
+- Allow normal vertical expansion
+- Avoid unnecessarily tall fixed-height boxes
+
+For code:
+
+- Preserve indentation
+- Use syntax highlighting only when already safely supported
+- Do not add a heavy syntax-highlighting dependency solely for this task
+
+==================================================
+15. MOBILE BEHAVIOUR
+==================================================
+
+Test at:
+
+- 320px
+- 390px
+- 430px
+
+Mobile requirements:
+
+- Copy button remains easy to tap
+- Minimum practical target height of 44px
+- Button text does not overlap content
+- Long commands scroll horizontally
+- Multiline prompts wrap safely
+- No page-level horizontal scrolling
+- Labels remain readable
+- Copied feedback remains visible
+- Security warnings do not dominate the entire screen
+
+On narrow screens, the copy action may move beneath the content when required.
+
+Do not reduce the code text below a readable size.
+
+==================================================
+16. ACCESSIBILITY
+==================================================
+
+Ensure:
+
+- Every copy button has a clear accessible name
+- Copied feedback uses `aria-live="polite"`
+- Keyboard activation works
+- Focus states are visible
+- Code content can be selected manually
+- Copy icons are decorative when visible text is present
+- Colour is not the only success indicator
+- High-contrast code panels remain readable
+- Reduced-motion preferences are respected
+
+==================================================
+17. REVIEW MODE
+==================================================
+
+Extend Prototype Review Mode to show:
+
+- CopyActionBlock type
+- Source content key
+- Whether the value is sensitive
+- Copy-button label
+- Copied-message text
+- Destination hint
+- Whether the block uses dark or light presentation
+
+Do not expose sensitive copied values in Review Mode.
+
+==================================================
+18. VISUAL QA
+==================================================
+
+Test representative pages at:
+
+- 390px
+- 768px
+- 1024px
+- 1440px
+
+At minimum test:
+
+- Vercel setup prompt
+- Replit setup prompt
+- Terminal command
+- Supabase variable
+- Cloudinary variable
+- CMS URL block
+
+Confirm:
+
+- Primary copyable content stands out clearly
+- Warnings remain visible but balanced
+- Copy actions are explicit
+- Feedback works
+- Existing content values remain unchanged
+- No layout regressions
+- No horizontal page overflow
+
+==================================================
+19. ACCEPTANCE CRITERIA
+==================================================
+
+The task is complete only when:
+
+1. One reusable copy-action component is used.
+2. Primary prompts visually stand out.
+3. Important blocks no longer rely only on a faint copy icon.
+4. Buttons use context-specific labels.
+5. Copy feedback is visible and accessible.
+6. Destination instructions are clear.
+7. Existing commands and values are preserved.
+8. The Vercel setup trigger is not accidentally broken.
+9. Sensitive values remain protected.
+10. Desktop and mobile layouts work.
+11. Existing onboarding progress remains unchanged.
+12. Routes and completion logic remain unchanged.
+13. No TypeScript, build, runtime or console errors are introduced.
+
+==================================================
+20. COMPLETION REPORT
+==================================================
+
+After implementation, provide:
+
+- Checkpoint or commit created
+- CopyActionBlock component path
+- Routes updated
+- Prompt strings changed, if any
+- Confirmation of whether the exact VERCEL_SETUP trigger was retained
+- Dark-block examples
+- Light-block examples
+- Desktop screenshot
+- Mobile screenshot
+- Copied-state screenshot
+- Accessibility result
+- Build result
+- TypeScript result
+- Smoke-test result
+- Exact rollback instruction
+
+Do not make unrelated onboarding, SEO, content or design changes during this task.

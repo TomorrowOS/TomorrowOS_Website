@@ -34,9 +34,10 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
   const getVisibleContent = () => {
     if (isVercel) {
       if (currentStepNum === 3) return "The v0 interface where the prompt is pasted.";
-      if (currentStepNum === 8) return "The generated preview of your TomorrowOS CMS in v0.";
-      if (currentStepNum === 9) return "The Vercel project dashboard showing environment variables.";
-      if (currentStepNum === 10) return "A working Vercel preview deployment.";
+      if (currentStepNum === 4) return "The v0 conversation panel showing the database question.";
+      if (currentStepNum === 7) return "The generated preview of your TomorrowOS CMS in v0.";
+      if (currentStepNum === 8) return "The Vercel project dashboard showing environment variables.";
+      if (currentStepNum === 9) return "A working Vercel preview deployment.";
       return "Refer to the step instructions for the expected Vercel or v0 interface.";
     } else if (isTerminal) {
       if (currentStepNum === 2) return "The TomorrowOS CLI starting in your terminal.";
@@ -69,20 +70,20 @@ export function NeedHelpDrawer({ context = 'samsung' }: { context?: 'samsung' | 
           <li>Database connection fails.</li>
         </>
       );
-      if (currentStepNum === 9) return (
+      if (currentStepNum === 8) return (
         <>
           <li>Marketplace integration did not automatically link variables.</li>
           <li>Variable names differ from the mapping expectation.</li>
           <li>Production scope is missing values that exist in Preview.</li>
         </>
       );
-      if (currentStepNum === 10) return (
+      if (currentStepNum === 9) return (
         <>
           <li>Preview does not match the generated code.</li>
           <li>Missing environment variables cause runtime crash.</li>
         </>
       );
-      if (currentStepNum === 13) return (
+      if (currentStepNum === 12) return (
         <>
           <li>Device pairing fails (WebSocket issues under investigation).</li>
           <li>Media upload fails (Vercel Blob permissions or limits).</li>

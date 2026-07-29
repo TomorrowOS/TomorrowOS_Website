@@ -12,8 +12,6 @@ import { Check, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn, isValidHttpsUrl } from '@/lib/utils';
 import { vercelConfig } from '@/lib/vercelConfig';
 
-import { PlaceholderText } from './PlaceholderText';
-
 export function VercelJourney({ allExpanded = false }: { allExpanded?: boolean }) {
   const { state } = usePrototype();
 
@@ -46,16 +44,15 @@ export function VercelJourney({ allExpanded = false }: { allExpanded?: boolean }
         <div id="before-you-begin"><VercelStep1 isGuide /></div>
         <div id="open-v0"><VercelStep2 isGuide /></div>
         <div id="create-project"><VercelStep3 isGuide /></div>
-        <div id="questions"><VercelStep4 isGuide /></div>
-        <div id="database"><VercelStep5 isGuide /></div>
-        <div id="storage"><VercelStep6 isGuide /></div>
-        <div id="branding"><VercelStep7 isGuide /></div>
-        <div id="review"><VercelStep8 isGuide /></div>
-        <div id="environment-variables"><VercelStep9 isGuide /></div>
-        <div id="preview"><VercelStep10 isGuide /></div>
-        <div id="pre-publish"><VercelStep11 isGuide /></div>
-        <div id="publish"><VercelStep12 isGuide /></div>
-        <div id="production-check"><VercelStep13 isGuide /></div>
+        <div id="database"><VercelStep4 isGuide /></div>
+        <div id="storage"><VercelStep5 isGuide /></div>
+        <div id="branding"><VercelStep6 isGuide /></div>
+        <div id="review"><VercelStep7 isGuide /></div>
+        <div id="environment-variables"><VercelStep8 isGuide /></div>
+        <div id="preview"><VercelStep9 isGuide /></div>
+        <div id="pre-publish"><VercelStep10 isGuide /></div>
+        <div id="publish"><VercelStep11 isGuide /></div>
+        <div id="production-check"><VercelStep12 isGuide /></div>
         
         <div id="troubleshooting" className="pt-8 border-t border-border mt-16">
           <h2 className="text-2xl font-bold text-gray-900 tracking-tight mb-4">Troubleshooting</h2>
@@ -78,7 +75,6 @@ export function VercelJourney({ allExpanded = false }: { allExpanded?: boolean }
     case 10: return <VercelStep10 />;
     case 11: return <VercelStep11 />;
     case 12: return <VercelStep12 />;
-    case 13: return <VercelStep13 />;
     default: return <VercelStep1 />;
   }
 }
@@ -251,101 +247,41 @@ function VercelStep3({ isGuide = false }: { isGuide?: boolean }) {
 }
 
 function VercelStep4({ isGuide = false }: { isGuide?: boolean }) {
-  const { state } = usePrototype();
-
-  return (
-    <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
-      <StepHeader isGuide={isGuide} 
-        title="Follow the v0 questions" 
-        description="v0 should ask the setup questions one at a time. Complete each question before continuing."
-      />
-      <div className="space-y-6 mb-6">
-        <div className="bg-gray-50 border border-border rounded-md p-4 space-y-3 text-sm text-gray-700">
-           <PlaceholderText block value={vercelConfig.questionSequence.projectName} fallback="Project name question available soon" />
-           <PlaceholderText block value={vercelConfig.questionSequence.database} fallback="Database question available soon" />
-           <PlaceholderText block value={vercelConfig.questionSequence.storage} fallback="Storage question available soon" />
-           <PlaceholderText block value={vercelConfig.questionSequence.exampleContent} fallback="Example content question available soon" />
-           <PlaceholderText block value={vercelConfig.questionSequence.branding} fallback="Branding question available soon" />
-           <PlaceholderText block value={vercelConfig.questionSequence.deployment} fallback="Deployment question available soon" />
-        </div>
-        <div className="space-y-4">
-          <ScreenshotPlaceholder id="VERCEL-03A" description="Project name question" />
-          <ScreenshotPlaceholder id="VERCEL-03B" description="Database choice" />
-          <ScreenshotPlaceholder id="VERCEL-03C" description="Media-storage choice" />
-          <ScreenshotPlaceholder id="VERCEL-03D" description="Example-content choice" />
-          <ScreenshotPlaceholder id="VERCEL-03E" description="Branding questions" />
-        </div>
-      </div>
-      <div className="bg-gray-50 p-4 rounded-md border border-border text-sm text-gray-600 mb-8">
-        The screenshots and wording on this guide must match the current v0 flow.
-      </div>
-      <div className="mt-auto">
-        {!isGuide && <StepFooter continueLabel="I completed the v0 questions" /> }
-      </div>
-    </div>
-  );
-}
-
-function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
   const [, setLocation] = useLocation();
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
       <StepHeader isGuide={isGuide} 
         title="Choose your database" 
-        description="TomorrowOS needs a Postgres database for the sample CMS."
+        description="v0 will ask the setup questions one at a time. The first question asks which database TomorrowOS should use."
       />
-      
-      {vercelConfig.recommendedVercelDatabase === 'none' && (
-        <div className="bg-gray-50 p-4 rounded-md border border-border text-sm text-gray-600 mb-6">
-          Choose either supported option based on your existing infrastructure.
-        </div>
-      )}
-
-      <div className="grid md:grid-cols-2 gap-6 mb-8">
-        <Card>
-          <CardContent className="p-6 flex flex-col h-full">
-            <div className="inline-block bg-gray-100 text-xs font-medium px-2 py-1 rounded mb-3 self-start">Existing TomorrowOS guide available</div>
-            <h3 className="font-bold text-lg mb-1">Supabase</h3>
-            <p className="text-sm text-gray-600 mb-6">Use a Supabase Postgres database.</p>
-            <div className="mt-auto flex flex-col gap-2">
-              <Button variant="outline" className="w-full">Connect through Vercel Marketplace</Button>
-              <Button variant="secondary" className="w-full" onClick={() => setLocation('/guides/supabase')}>View Supabase guide</Button>
-            </div>
-            <div className="mt-4 text-xs font-medium text-gray-500 text-center uppercase tracking-wide">Available</div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-6 flex flex-col h-full">
-            <div className="inline-block bg-gray-100 text-xs font-medium px-2 py-1 rounded mb-3 self-start">Vercel-native Marketplace option</div>
-            <h3 className="font-bold text-lg mb-1">Neon</h3>
-            <p className="text-sm text-gray-600 mb-6">Use Neon Postgres through Vercel Marketplace.</p>
-            <div className="mt-auto flex flex-col gap-2">
-              <Button variant="outline" className="w-full">Connect Neon</Button>
-              <Button variant="secondary" className="w-full" onClick={() => setLocation('/guides/neon')}>View Neon setup guide</Button>
-            </div>
-          </CardContent>
-        </Card>
+      <p className="text-sm text-gray-600 mb-6 -mt-2">v0 will ask the setup questions one at a time. Complete each question before continuing.</p>
+      <div className="mb-6">
+        <OnboardingScreenshotCard
+          id="VERCEL-03A"
+          imagePath="onboarding/vercel/VERCEL-03A.png"
+          alt="v0 displaying the first TomorrowOS setup question asking which database should be used."
+          heading="Answer the database question in v0"
+          copy={[
+            'In the v0 question panel, select the database you want TomorrowOS to use. Choose “Supabase Postgres (recommended)” for the standard guided setup, or select another supported option only when you intentionally plan to configure it.',
+            'Then select “Submit” in v0 before returning to this guide.',
+          ]}
+          note="Do not enter database passwords, connection strings or API secrets into the v0 conversation. Sensitive values will be added later using Vercel Environment Variables or an approved integration."
+        />
       </div>
-
-      <div className="bg-blue-50 border border-blue-100 rounded-md p-4 mb-6 text-sm text-blue-900">
-        <p className="font-semibold mb-2">Vercel Marketplace can connect the database to your project and add provider environment variables automatically.</p>
-        <p className="mb-2">TomorrowOS may still require a specific variable name. v0 must map the provider's generated database variable to the name expected by the TomorrowOS starter.</p>
-        <ul className="list-disc pl-5 mt-1 space-y-1 text-blue-800">
-          <li>Do not expose database values on TomorrowOS.org.</li>
-          <li>Do not ask the user to paste a database password into this guide.</li>
-        </ul>
+      <div className="bg-gray-50 p-4 rounded-md border border-border text-sm text-gray-600 mb-8 flex flex-wrap items-center gap-3">
+        <span>Provider setup guides:</span>
+        <Button variant="outline" size="sm" onClick={() => setLocation('/guides/supabase')}>View Supabase guide</Button>
+        <Button variant="outline" size="sm" onClick={() => setLocation('/guides/neon')}>View Neon setup guide</Button>
       </div>
-
       <div className="mt-auto">
-        {!isGuide && <StepFooter continueLabel="I connected my database" /> }
+        {!isGuide && <StepFooter continueLabel="I selected my database" /> }
         <p className="text-xs text-gray-500 text-center mt-3">This confirmation updates guide progress only. TomorrowOS.org does not inspect the Vercel project or database.</p>
       </div>
     </div>
   );
 }
 
-function VercelStep6({ isGuide = false }: { isGuide?: boolean }) {
+function VercelStep5({ isGuide = false }: { isGuide?: boolean }) {
   const [, setLocation] = useLocation();
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
@@ -400,7 +336,7 @@ function VercelStep6({ isGuide = false }: { isGuide?: boolean }) {
   );
 }
 
-function VercelStep7({ isGuide = false }: { isGuide?: boolean }) {
+function VercelStep6({ isGuide = false }: { isGuide?: boolean }) {
   const [, setLocation] = useLocation();
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
@@ -444,7 +380,7 @@ function VercelStep7({ isGuide = false }: { isGuide?: boolean }) {
   );
 }
 
-function VercelStep8({ isGuide = false }: { isGuide?: boolean }) {
+function VercelStep7({ isGuide = false }: { isGuide?: boolean }) {
   const { state, updateState } = usePrototype();
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
@@ -541,7 +477,7 @@ function EnvironmentVariableMapping({ provider }: { provider: 'supabase' | 'neon
   );
 }
 
-function VercelStep9({ isGuide = false }: { isGuide?: boolean }) {
+function VercelStep8({ isGuide = false }: { isGuide?: boolean }) {
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[500px]">
       <StepHeader isGuide={isGuide} 
@@ -600,7 +536,7 @@ function VercelStep9({ isGuide = false }: { isGuide?: boolean }) {
   );
 }
 
-function VercelStep10({ isGuide = false }: { isGuide?: boolean }) {
+function VercelStep9({ isGuide = false }: { isGuide?: boolean }) {
   const { state, updateState } = usePrototype();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
 
@@ -679,7 +615,7 @@ function VercelStep10({ isGuide = false }: { isGuide?: boolean }) {
   );
 }
 
-function VercelStep11({ isGuide = false }: { isGuide?: boolean }) {
+function VercelStep10({ isGuide = false }: { isGuide?: boolean }) {
   const { state, updateState } = usePrototype();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
 
@@ -748,7 +684,7 @@ function VercelStep11({ isGuide = false }: { isGuide?: boolean }) {
   );
 }
 
-function VercelStep12({ isGuide = false }: { isGuide?: boolean }) {
+function VercelStep11({ isGuide = false }: { isGuide?: boolean }) {
   const { state, updateState } = usePrototype();
   const [url, setUrl] = useState(state.cmsUrl || '');
   const [urlError, setUrlError] = useState('');
@@ -828,7 +764,7 @@ function VercelStep12({ isGuide = false }: { isGuide?: boolean }) {
   );
 }
 
-function VercelStep13({ isGuide = false }: { isGuide?: boolean }) {
+function VercelStep12({ isGuide = false }: { isGuide?: boolean }) {
   const { state, updateState, goToNextStep } = usePrototype();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
 
