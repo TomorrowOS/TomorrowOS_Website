@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ArrowDown, Check, ExternalLink, Info, Lock, Monitor, Package, FileText, Github, MessageSquare, ShieldCheck } from 'lucide-react';
@@ -9,7 +8,6 @@ import { CopyActionBlock } from './CopyActionBlock';
 import GithubIcon from './GithubIcon';
 import { usePrototype } from './PrototypeProvider';
 import { serverSdkConfig, getEffectiveServerSdkStatus } from '@/lib/serverSdkConfig';
-import { onboardingPaths } from '@/lib/onboardingPaths';
 
 function ExternalAction({ href, children, icon, variant = 'outline' }: { href: string; children: React.ReactNode; icon?: React.ReactNode; variant?: 'outline' | 'default' }) {
   return (
@@ -118,9 +116,9 @@ export function ServerSdkJourney() {
                   <li key={t} className="flex gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0 text-gray-400" />{t}</li>
                 ))}
               </ul>
-              <Button asChild variant="outline" className="mt-4">
-                <Link href={onboardingPaths.existingProject.api}>Switch to HTTP API</Link>
-              </Button>
+              <div className="mt-4 inline-block text-xs font-semibold px-2 py-1 rounded bg-gray-200 text-gray-600">
+                Coming soon
+              </div>
             </div>
           </div>
         </CardContent>
