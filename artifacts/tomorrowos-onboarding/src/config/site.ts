@@ -28,7 +28,7 @@ export const siteConfig = {
     companyName: 'TomorrowOS Pty Ltd',
     contactEmail: 'privacy@tomorrowos.org',
     generalEmail: 'hello@tomorrowos.org',
-    securityEmail: 'nightwatch@tomorrowos.org',
+    securityEmail: 'security@tomorrowos.org',
     address: '{{PLACEHOLDER_COMPANY_ADDRESS}}',
     jurisdiction: 'Western Australia, Australia',
   }

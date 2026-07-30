@@ -32,13 +32,12 @@ export const TERMINAL_STEPS = [
   { id: 3, title: 'Follow CLI questions' },
   { id: 4, title: 'Review the generated project' },
   { id: 5, title: 'Configure environment variables' },
-  { id: 6, title: 'Initialise the project' },
-  { id: 7, title: 'Run locally' },
-  { id: 8, title: 'Confirm local setup' },
-  { id: 9, title: 'Choose a deployment host' },
-  { id: 10, title: 'Add production variables' },
-  { id: 11, title: 'Deploy' },
-  { id: 12, title: 'Confirm the live CMS' }
+  { id: 6, title: 'Run locally' },
+  { id: 7, title: 'Confirm local setup' },
+  { id: 8, title: 'Choose a deployment host' },
+  { id: 9, title: 'Add production variables' },
+  { id: 10, title: 'Deploy' },
+  { id: 11, title: 'Confirm the live CMS' }
 ];
 
 export const SHARED_STEPS = [

@@ -50,6 +50,21 @@ export function WebsiteFooter() {
           <Link href="/terms" className="text-xs text-muted-foreground/80 hover:text-foreground transition-colors">
             Terms
           </Link>
+          <a
+            href={`${siteConfig.links.docs.replace(/\/$/, '')}/SECURITY`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-muted-foreground/80 hover:text-foreground transition-colors inline-flex items-center"
+          >
+            Security
+            {/* <ExternalLink className="w-3 h-3 ml-1 opacity-60" aria-hidden="true" /> */}
+          </a>
+          {/* <a
+            href={`mailto:${siteConfig.legal.securityEmail}`}
+            className="text-xs text-muted-foreground/80 hover:text-foreground transition-colors"
+          >
+            {siteConfig.legal.securityEmail}
+          </a> */}
           <Link href="/cookie-policy" className="text-xs text-muted-foreground/80 hover:text-foreground transition-colors">
             Cookies
           </Link>

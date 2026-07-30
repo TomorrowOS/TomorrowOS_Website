@@ -247,7 +247,7 @@ export const privacyPolicy: LegalDoc = {
       blocks: [
         { type: 'p', text: 'We use reasonable administrative, technical and organisational safeguards appropriate to the information and our size, which may include access controls, multifactor authentication, encrypted transport, least-privilege access, vendor access controls, secure development practices, backups, vulnerability reporting, incident response procedures, logging and monitoring, and staff and contractor confidentiality obligations.' },
         { type: 'p', text: 'No internet transmission or storage system is completely secure. We cannot guarantee absolute security.' },
-        { type: 'p', text: 'Security vulnerabilities should be reported through nightwatch@tomorrowos.org, not through public GitHub issues.' },
+        { type: 'p', text: 'Security vulnerabilities should be reported through security@tomorrowos.org, not through public GitHub issues.' },
       ],
     },
     {
@@ -318,7 +318,7 @@ export const privacyPolicy: LegalDoc = {
       blocks: [
         { type: 'p', text: 'Privacy questions and requests: privacy@tomorrowos.org' },
         { type: 'p', text: 'General enquiries: hello@tomorrowos.org' },
-        { type: 'p', text: 'Security reports: nightwatch@tomorrowos.org' },
+        { type: 'p', text: 'Security reports: security@tomorrowos.org' },
       ],
     },
   ],
@@ -465,7 +465,7 @@ export const termsOfService: LegalDoc = {
       heading: '16. Security',
       blocks: [
         { type: 'p', text: 'You are responsible for securing your application, infrastructure, credentials, API keys, customer data, networks, deployment environment, hardware and operational processes. TomorrowOS does not certify the complete product you build.' },
-        { type: 'p', text: 'Security issues relating to TomorrowOS should be privately reported to nightwatch@tomorrowos.org.' },
+        { type: 'p', text: 'Security issues relating to TomorrowOS should be privately reported to security@tomorrowos.org.' },
       ],
     },
     {
@@ -543,7 +543,7 @@ export const termsOfService: LegalDoc = {
       heading: '27. Contact',
       blocks: [
         { type: 'p', text: 'Legal and general enquiries: hello@tomorrowos.org' },
-        { type: 'p', text: 'Security reports: nightwatch@tomorrowos.org' },
+        { type: 'p', text: 'Security reports: security@tomorrowos.org' },
       ],
     },
   ],

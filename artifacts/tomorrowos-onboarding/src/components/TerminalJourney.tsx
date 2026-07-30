@@ -30,7 +30,6 @@ export function TerminalJourney() {
       {state.terminalStep === 9 && <TerminalStep9 />}
       {state.terminalStep === 10 && <TerminalStep10 />}
       {state.terminalStep === 11 && <TerminalStep11 />}
-      {state.terminalStep === 12 && <TerminalStep12 />}
       
       <NeedHelpDrawer context="terminal" />
     </div>
@@ -131,7 +130,7 @@ function TerminalStep2() {
             <li>Navigate to your development-project directory.</li>
             <li>Paste the command.</li>
             <li>Press Enter.</li>
-            <li>Wait for the TomorrowOS CLI to start.</li>
+            <li>Install dependencies.</li>
           </ol>
         </div>
         <div className="space-y-4">
@@ -361,40 +360,40 @@ function TerminalStep5() {
 // ------------------------------------------
 // 6. INITIALISE THE PROJECT
 // ------------------------------------------
-function TerminalStep6() {
-  const { goToNextStep, state } = usePrototype();
+// function TerminalStep6() {
+//   const { goToNextStep, state } = usePrototype();
 
-  return (
-    <GenericActionStep 
-      title="Initialise your project" 
-      actionLabel="I initialised the project"
-      onComplete={goToNextStep}
-    >
-      <div className="space-y-6">
-        <div>
-          <h3 className="font-semibold text-gray-900 mb-2">Install dependencies</h3>
-          <PlaceholderCommand value={terminalConfig.placeholders.INSTALL_DEPENDENCIES_COMMAND} fallback="Command available soon." />
-        </div>
+//   return (
+//     <GenericActionStep 
+//       title="Initialise your project" 
+//       actionLabel="I initialised the project"
+//       onComplete={goToNextStep}
+//     >
+//       <div className="space-y-6">
+//         <div>
+//           <h3 className="font-semibold text-gray-900 mb-2">Install dependencies</h3>
+//           <PlaceholderCommand value={terminalConfig.placeholders.INSTALL_DEPENDENCIES_COMMAND} fallback="Command available soon." />
+//         </div>
         
-        <div>
-          <h3 className="font-semibold text-gray-900 mb-2">Database initialisation</h3>
-          <PlaceholderCommand value={terminalConfig.placeholders.DATABASE_INITIALISATION_COMMAND} fallback="Command available soon." />
-          <p className="text-xs text-gray-500 mt-2">Only run this command when the selected starter requires a migration or schema setup step.</p>
-        </div>
+//         <div>
+//           <h3 className="font-semibold text-gray-900 mb-2">Database initialisation</h3>
+//           <PlaceholderCommand value={terminalConfig.placeholders.DATABASE_INITIALISATION_COMMAND} fallback="Command available soon." />
+//           <p className="text-xs text-gray-500 mt-2">Only run this command when the selected starter requires a migration or schema setup step.</p>
+//         </div>
 
-        <div>
-          <h3 className="font-semibold text-gray-900 mb-2">Optional sample content</h3>
-          <PlaceholderCommand value={terminalConfig.placeholders.OPTIONAL_SAMPLE_CONTENT_COMMAND} fallback="Command available soon." />
-        </div>
-      </div>
-    </GenericActionStep>
-  );
-}
+//         <div>
+//           <h3 className="font-semibold text-gray-900 mb-2">Optional sample content</h3>
+//           <PlaceholderCommand value={terminalConfig.placeholders.OPTIONAL_SAMPLE_CONTENT_COMMAND} fallback="Command available soon." />
+//         </div>
+//       </div>
+//     </GenericActionStep>
+//   );
+// }
 
 // ------------------------------------------
-// 7. RUN LOCALLY
+// 6. RUN LOCALLY
 // ------------------------------------------
-function TerminalStep7() {
+function TerminalStep6() {
   const { goToNextStep, state, updateState } = usePrototype();
   const [localUrl, setLocalUrl] = useState('');
   const [urlError, setUrlError] = useState('');
@@ -475,9 +474,9 @@ function TerminalStep7() {
 }
 
 // ------------------------------------------
-// 8. CONFIRM LOCAL SETUP
+// 7. CONFIRM LOCAL SETUP
 // ------------------------------------------
-function TerminalStep8() {
+function TerminalStep7() {
   const { goToNextStep } = usePrototype();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
 
@@ -535,9 +534,9 @@ function TerminalStep8() {
 }
 
 // ------------------------------------------
-// 9. CHOOSE A DEPLOYMENT HOST
+// 8. CHOOSE A DEPLOYMENT HOST
 // ------------------------------------------
-function TerminalStep9() {
+function TerminalStep8() {
   const { goToNextStep, state } = usePrototype();
 
   return (
@@ -583,9 +582,9 @@ function TerminalStep9() {
 }
 
 // ------------------------------------------
-// 10. ADD PRODUCTION VARIABLES
+// 9. ADD PRODUCTION VARIABLES
 // ------------------------------------------
-function TerminalStep10() {
+function TerminalStep9() {
   const { goToNextStep } = usePrototype();
 
   return (
@@ -625,9 +624,9 @@ function TerminalStep10() {
 }
 
 // ------------------------------------------
-// 11. DEPLOY
+// 10. DEPLOY
 // ------------------------------------------
-function TerminalStep11() {
+function TerminalStep10() {
   const { state, updateState, goToNextStep } = usePrototype();
   const [url, setUrl] = useState(state.cmsUrl || '');
   const [urlError, setUrlError] = useState('');
@@ -698,9 +697,9 @@ function TerminalStep11() {
 }
 
 // ------------------------------------------
-// 12. CONFIRM THE LIVE CMS
+// 11. CONFIRM THE LIVE CMS
 // ------------------------------------------
-function TerminalStep12() {
+function TerminalStep11() {
   const { state, updateState, goToNextStep } = usePrototype();
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
 
