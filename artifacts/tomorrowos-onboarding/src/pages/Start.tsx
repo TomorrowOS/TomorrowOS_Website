@@ -233,26 +233,18 @@ export default function Start() {
                 </CardContent>
               </Card>
 
-              <Card 
-                className={cn("cursor-pointer transition-all flex flex-col", selectedPathway === onboardingPaths.existingProject.api ? 'border-black ring-1 ring-black bg-gray-50' : 'hover:border-gray-400 bg-white border-border')}
-                onClick={() => setSelectedPathway(onboardingPaths.existingProject.api)}
-                onKeyDown={cardKeyHandler(() => setSelectedPathway(onboardingPaths.existingProject.api))}
-                role="button"
-                tabIndex={0}
-                aria-pressed={selectedPathway === onboardingPaths.existingProject.api}
+              <Card
+                className="flex flex-col bg-white border-border opacity-60 pointer-events-none select-none"
+                aria-disabled="true"
               >
                 <CardContent className="p-5 md:p-8 flex-1">
                   <div className="flex justify-between items-start mb-2">
                     <div>
-                      <div className="inline-block text-xs font-semibold px-2 py-1 rounded mb-4 invisible" aria-hidden="true">&nbsp;</div>
+                      <div className="inline-block bg-gray-200 text-xs font-semibold px-2 py-1 rounded mb-4">Coming soon</div>
                       <h3 className="text-lg md:text-xl font-bold text-gray-900">API Integration</h3>
                     </div>
-                    {selectedPathway === onboardingPaths.existingProject.api && <CheckCircle2 className="w-6 h-6 text-black mt-2" />}
                   </div>
-                  <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6">Connect your application using the TomorrowOS HTTP API.</p>
-                  <div className="mt-auto flex items-center text-sm font-medium hover:underline">
-                    Learn more <ArrowRight className="w-4 h-4 ml-1" />
-                  </div>
+                  <p className="text-sm md:text-base text-gray-600">Connect your application using the TomorrowOS HTTP API.</p>
                 </CardContent>
               </Card>
             </div>
