@@ -13,6 +13,12 @@ import { PlaceholderText } from './PlaceholderText';
 import First_time_setup from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/First_time_setup.png'
 import App_management from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/App_management.png'
 import CMS_pair_code from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Deployment/CMS_pair_code.png'
+import App_url from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/App_url.png'
+import Install_app from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Install_app.png'
+import Orientation_page from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Orientation_page.png'
+import Enter_endpoint from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Enter_endpoint.png'
+import Screen_pair_code from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Deployment/Screen_pair_code.png'
+import Active_tizen from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Active_tizen.png'
 
 
 export function SamsungTizenJourney({ onViewAllSteps }: { onViewAllSteps?: () => void }) {
@@ -281,11 +287,10 @@ function SamsungStep4() {
 
       <p className="text-sm text-gray-600 mb-8"><strong>Expected result:</strong> The display downloads the TomorrowOS Runtime and launches it when installation is complete.</p>
 
-      <div className="grid md:grid-cols-2 gap-4 mb-6">
-        <ScreenshotPlaceholder id="SAMSUNG-04A" description="Samsung Custom App. Highlight: Install Custom App or Install Web App" caption="Select the installation option shown by your firmware." className="h-48" />
-        <ScreenshotPlaceholder id="SAMSUNG-04B" description="Samsung installation URL field. Highlight: The full https://tmr.sh/tizen URL" caption="Enter the TomorrowOS installation URL exactly." className="h-48" />
-      </div>
-      <ScreenshotPlaceholder id="SAMSUNG-04C" description="Samsung display. Highlight: Installation progress or TomorrowOS launch" caption="Wait for installation to complete before continuing." className="mb-6 h-48" />
+      <ScreenshotPlaceholder image={App_url}/>
+
+      
+      <ScreenshotPlaceholder image={Install_app} />
 
       <TroubleshootingAccordion title="The installation URL does not load">
         <ul className="list-disc pl-4 space-y-2 mb-4">
@@ -324,12 +329,7 @@ function SamsungStep5() {
         <div className="px-4 py-2 border border-gray-300 rounded-md text-sm bg-gray-50 text-gray-500">Portrait counter-clockwise</div>
       </div>
 
-      <ScreenshotPlaceholder 
-        id="SAMSUNG-05" 
-        description="TomorrowOS Runtime. Highlight: Orientation selection" 
-        caption="Choose the orientation matching the physical display installation."
-        className="mb-6 h-64"
-      />
+      <ScreenshotPlaceholder image={Orientation_page} />
 
       <p className="text-sm text-gray-600 mb-6">This setting can be changed later through the approved TomorrowOS Runtime setup process.</p>
 
@@ -379,12 +379,7 @@ function SamsungStep6() {
         This guide does not send the CMS URL to your Samsung display. Enter it manually using the Samsung remote.
       </div>
 
-      <ScreenshotPlaceholder 
-        id="SAMSUNG-06" 
-        description="TomorrowOS Runtime. Highlight: CMS URL field" 
-        caption="Enter the public HTTPS address of your CMS."
-        className="mb-6 h-64"
-      />
+      <ScreenshotPlaceholder image={Enter_endpoint} />
 
       <div className="border rounded-lg bg-white overflow-hidden mt-6 mb-6">
         <button 
@@ -442,12 +437,7 @@ function SamsungStep7() {
 
       <p className="text-sm text-gray-600 mb-8">Leave this screen open while you complete the next step.</p>
 
-      <ScreenshotPlaceholder 
-        id="SAMSUNG-07" 
-        description="TomorrowOS Runtime on Samsung display. Highlight: Pairing code. Must clearly say: Example only." 
-        caption="Your pairing code appears on the physical display."
-        className="mb-8 h-64"
-      />
+      <ScreenshotPlaceholder image={Screen_pair_code} />
 
       <TroubleshootingAccordion title="No pairing code appears">
         <ul className="list-disc pl-4 space-y-2">
@@ -570,10 +560,10 @@ function SamsungStep9() {
 
       <p className="text-sm font-medium text-gray-900 mb-6">A successful restart test is required before considering installation complete.</p>
 
-      <div className="grid md:grid-cols-2 gap-4 mb-6">
-        <ScreenshotPlaceholder id="SAMSUNG-09A" description="Generated CMS. Highlight: Samsung device shown online" caption="Confirm the display appears online in your CMS." className="h-48" />
-        <ScreenshotPlaceholder id="SAMSUNG-09B" description="Samsung display. Highlight: TomorrowOS Runtime after restart" caption="Confirm the Runtime launches again after restarting the display." className="h-48" />
-      </div>
+      {/* <div className="grid md:grid-cols-2 gap-4 mb-6"> */}
+        <ScreenshotPlaceholder image={Active_tizen} />
+        {/* <ScreenshotPlaceholder id="SAMSUNG-09B" description="Samsung display. Highlight: TomorrowOS Runtime after restart" caption="Confirm the Runtime launches again after restarting the display." className="h-48" />
+      </div> */}
 
       <p className="text-xs text-gray-500 italic mb-6">
         This confirmation updates your onboarding progress only. TomorrowOS.org does not independently verify the restart.
