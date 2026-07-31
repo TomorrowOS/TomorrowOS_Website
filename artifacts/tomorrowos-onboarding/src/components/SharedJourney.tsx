@@ -216,8 +216,8 @@ function SharedStep3() {
 
       <div className="flex flex-col sm:flex-row gap-3 mb-8">
          <Button variant="outline" onClick={handleOpenCms}>Open your CMS</Button>
-         <Button variant="outline">Show me where to enter the code</Button>
-         <Button variant="outline">View pairing troubleshooting</Button>
+         {/* <Button variant="outline">Show me where to enter the code</Button>
+         <Button variant="outline">View pairing troubleshooting</Button> */}
          <Button variant="outline" onClick={() => setLocation('/guides/content')}>Open content guide</Button>
       </div>
 
