@@ -1,16 +1,8 @@
-# Prototype/preview robots policy.
-# Crawling is allowed so robots can read the page-level
-# "noindex, follow" directive (do not Disallow paths that must
-# communicate noindex). No sitemap is published while the site
-# is not in production.
-#
-# At production launch (see LAUNCH_CHECKLIST.md):
-# 1. Build with VITE_SITE_ENV=production
-# 2. Run: node scripts/generate-sitemap.mjs --env=production
-# 3. Replace this file with:
-#    User-agent: *
-#    Disallow:
-#
-#    Sitemap: https://tomorrowos.org/sitemap.xml
+# Production robots policy (see LAUNCH_CHECKLIST.md).
+# Crawling is allowed everywhere; per-route indexing is controlled by
+# page-level robots meta tags generated from src/lib/seoConfig.ts
+# (non-indexable routes emit an explicit "noindex, follow").
 User-agent: *
 Disallow:
+
+Sitemap: https://tomorrowos.org/sitemap.xml

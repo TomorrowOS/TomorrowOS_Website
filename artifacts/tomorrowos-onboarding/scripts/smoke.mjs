@@ -25,6 +25,16 @@ const routes = [
   '/cookie-policy', '/cookie-settings', '/quickstart',
 ];
 
+// Routes expected to be indexable in production (must mirror the
+// `indexable: true` entries in src/lib/seoConfig.ts). All other routes must
+// carry an explicit "noindex, follow" baked in by the prerender plugin.
+const indexableRoutes = new Set([
+  '/', '/about', '/connect/server-sdk', '/connect/api',
+  '/guides/supabase', '/guides/cloudinary', '/guides/vercel', '/guides/neon',
+  '/guides/vercel-blob', '/guides/content', '/guides/platforms',
+  '/guides/platforms/samsung-tizen', '/compatibility/media',
+]);
+
 const staticFiles = ['/robots.txt', '/favicon.svg', '/og/tomorrowos-social-v1.png'];
 if (envArg === 'production') staticFiles.push('/sitemap.xml');
 
@@ -42,10 +52,19 @@ for (const path of [...routes, ...staticFiles]) {
       if (/\{\{[A-Z_]+\}\}/.test(body)) fail(`${path} → unresolved {{PLACEHOLDER}} in HTML`);
       if (body.includes('[object Object]')) fail(`${path} → [object Object] in HTML`);
       if (body.includes('>undefined<')) fail(`${path} → literal undefined in HTML`);
-      // Global robots directive from the built shell:
+      // Robots directive from the built shell. Production builds bake a
+      // per-route directive into each pre-rendered page: indexable routes
+      // get "index, follow", everything else an explicit "noindex, follow".
       const robots = body.match(/<meta name="robots" content="([^"]+)"/)?.[1];
       if (envArg === 'production') {
-        if (robots && robots.includes('noindex')) fail(`${path} → production build carries global noindex ("${robots}")`);
+        if (path === '/quickstart') {
+          // Redirect alias: no prerendered page — hosts serve the homepage
+          // shell (canonical "/") and the client redirects to "/".
+        } else if (indexableRoutes.has(path)) {
+          if (!robots || robots.includes('noindex')) fail(`${path} → indexable route carries noindex in production ("${robots ?? 'missing'}")`);
+        } else {
+          if (!robots || !robots.includes('noindex')) fail(`${path} → non-indexable route missing explicit noindex in production ("${robots ?? 'missing'}")`);
+        }
       } else {
         if (!robots || !robots.includes('noindex')) fail(`${path} → prototype/preview build missing global noindex`);
         if (robots && robots.includes('index, follow') && !robots.includes('noindex')) fail(`${path} → prototype build allows indexing`);
@@ -75,9 +94,10 @@ try {
 /* robots.txt consistency with environment */
 try {
   const robotsTxt = await (await fetch(`${base}/robots.txt`)).text();
-  if (envArg !== 'production' && /^Sitemap:/m.test(robotsTxt)) {
-    fail('robots.txt advertises a sitemap in a non-production environment');
-  }
+  // Post-launch, public/robots.txt is the production template (crawling
+  // allowed + Sitemap line) in every environment; non-production builds
+  // still emit a global noindex meta, which robots can only read because
+  // crawling is not blocked. Only a crawl-blocking robots.txt is a failure.
   if (/Disallow:\s*\/\s*$/m.test(robotsTxt)) {
     fail('robots.txt blocks all crawling — robots cannot read page-level noindex directives');
   }
