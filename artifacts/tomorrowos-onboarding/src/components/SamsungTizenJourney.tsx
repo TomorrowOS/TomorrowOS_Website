@@ -19,6 +19,7 @@ import Orientation_page from '../../../../attached_assets/Start_building/Start_a
 import Enter_endpoint from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Enter_endpoint.png'
 import Screen_pair_code from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Deployment/Screen_pair_code.png'
 import Active_tizen from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Active_tizen.png'
+import Custom_app from '../../../../attached_assets/Start_building/Start_a_new_project/Guided_setup/Platform Setup/Samsung_setup/Custom_app.png'
 
 
 export function SamsungTizenJourney({ onViewAllSteps }: { onViewAllSteps?: () => void }) {
@@ -151,12 +152,7 @@ function SamsungStep1() {
         </Card>
       </div>
 
-      <ScreenshotPlaceholder 
-        id="SAMSUNG-01" 
-        description="Samsung display first-time setup. Highlight: Language, network and orientation setup" 
-        caption="Complete Samsung's initial display setup before installing TomorrowOS."
-        className="mb-6 h-64"
-      />
+      <ScreenshotPlaceholder image={First_time_setup} />
 
       <p className="text-xs text-gray-500 italic mb-4">
         Completing this step in the guide does not verify the Samsung display or CMS. Confirm the result on the display before continuing.
@@ -189,7 +185,7 @@ function SamsungStep2() {
       </div>
 
       <ScreenshotPlaceholder 
-        image={First_time_setup}
+        image={Custom_app}
       />
 
       <div className="grid sm:grid-cols-2 gap-4 mb-6">
