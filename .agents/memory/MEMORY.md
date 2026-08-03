@@ -4,4 +4,5 @@
 - [Social OG image pipeline](social-og-image-pipeline.md) — social card is versioned 1200×630 PNG from public/og-source HTML; never overwrite same URL; validate:social must pass.
 - [CopyActionBlock standard](copy-action-block.md) — all copyable content must use the shared CopyActionBlock; no inline clipboard calls; never reword the maintained SDK trigger prompts.
 - [Route-sync safeguard](route-sync-safeguard.md) — validate-seo enforces route sync across 6 files; prototype builds delete public/sitemap.xml (regen with --env=production).
+- [BrightSign claims evidence](brightsign-claims-evidence.md) — publish only publicly verifiable BrightSign claims; named test models are internal-only pending sign-off.
 - [Mobile e2e testing setup](mobile-e2e-testing.md) — playwright-core + nix chromium for real interaction tests; seed localStorage `tomorrowos_prototype` to jump journey steps.
