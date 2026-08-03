@@ -1,0 +1,293 @@
+You are working inside the existing TomorrowOS website repository.
+
+This is a production website. Your first task is a read-only audit.
+
+Do not modify, create, delete, rename, move or reformat any files.
+
+Do not install packages.
+
+Do not change dependencies.
+
+Do not change routes.
+
+Do not change navigation.
+
+Do not change metadata.
+
+Do not change the homepage.
+
+Do not alter the build configuration, deployment configuration, sitemap, robots.txt or analytics.
+
+Do not begin building the Learn section yet.
+
+Your job is to inspect the existing codebase and produce a detailed implementation plan for safely adding a new Developer Resource Centre at:
+
+/learn
+
+The new section must be added without affecting the current TomorrowOS website, existing routes, visual design, metadata, SEO, responsive behaviour or deployment.
+
+## Project goal
+
+TomorrowOS currently has three separate information layers:
+
+1. tomorrowos.org
+   Explains the product and directs users toward the appropriate journey.
+
+2. docs.tomorrowos.org
+   Contains implementation documentation, setup instructions, API references and technical product documentation.
+
+3. GitHub
+   Contains source code, releases, issues, discussions and contribution workflows.
+
+The proposed `/learn` section will be a separate discovery and education layer.
+
+Its purpose is to answer broader questions such as:
+
+* How do I build a digital signage CMS?
+* What is a digital signage SDK?
+* How does a digital signage API work?
+* What is headless digital signage?
+* How do Samsung Tizen and BrightSign signage players work?
+* How can a product team build and own digital signage software?
+
+It must not duplicate detailed implementation documentation already contained within Mintlify or GitHub.
+
+The intended relationship is:
+
+Learn → educate
+Documentation → implement
+GitHub → inspect, contribute and develop
+
+## Future Phase 1 routes
+
+The Learn section will eventually include these pages:
+
+* /learn
+* /learn/build-a-digital-signage-cms
+* /learn/digital-signage-sdk
+* /learn/digital-signage-api
+* /learn/open-source-digital-signage
+* /learn/self-hosted-digital-signage
+* /learn/headless-digital-signage
+* /learn/samsung-tizen-digital-signage-player
+* /learn/brightsign-digital-signage-player
+
+Do not create these routes during this audit.
+
+## Audit the following
+
+### 1. Framework and architecture
+
+Identify:
+
+* Framework and version
+* Rendering model
+* Routing system
+* Application entry points
+* Page structure
+* Component structure
+* Styling system
+* State management
+* Build tooling
+* Deployment configuration
+* Whether the site is static, server-rendered or client-rendered
+* How 404 routes are currently handled
+
+### 2. Navigation
+
+Identify:
+
+* Where desktop navigation is defined
+* Where mobile navigation is defined
+* Whether they share the same data source
+* How navigation links are styled
+* How external links are handled
+* The safest location for a future `Learn` navigation item
+* Any risk that adding one item could affect layout on smaller screens
+
+Do not add the item yet.
+
+### 3. Existing visual system
+
+Document:
+
+* Fonts
+* Type scale
+* Colours
+* Spacing system
+* Container widths
+* Grid system
+* Border styles
+* Border radius
+* Shadows
+* Buttons
+* Cards
+* Icons
+* Responsive breakpoints
+* Existing reusable page sections
+* Existing animation or interaction patterns
+
+Identify which existing components should be reused for `/learn`.
+
+Do not propose an unrelated visual redesign.
+
+### 4. SEO implementation
+
+Identify exactly how the current site handles:
+
+* Page titles
+* Meta descriptions
+* Canonical URLs
+* Open Graph metadata
+* Twitter metadata
+* Structured data
+* Sitemap generation
+* robots.txt
+* Route-specific indexing controls
+* Alternate environments or noindex behaviour
+* Page-level metadata
+* Social preview images
+* 404 metadata
+
+Confirm whether metadata is available in the initial HTML or inserted after page load.
+
+Flag any risks involved in adding new indexable routes.
+
+### 5. Existing content destinations
+
+Identify all current links and integrations involving:
+
+* docs.tomorrowos.org
+* GitHub
+* npm
+* Quickstart
+* Discussions
+* Device installation guides
+* Platform pages
+* Supported-platform information
+
+Explain how `/learn` should link into these destinations without duplicating their content.
+
+### 6. Performance and accessibility
+
+Review:
+
+* Current bundle and route-loading approach
+* Route-level code splitting
+* Image optimisation
+* Font loading
+* Semantic HTML
+* Heading hierarchy
+* Keyboard navigation
+* Focus styles
+* Mobile navigation
+* Screen-reader behaviour
+* Existing accessibility utilities
+* Any risks introduced by a future search component or resource cards
+
+### 7. Safe implementation approach
+
+Provide a recommended step-by-step implementation plan for adding `/learn` while keeping existing functionality untouched.
+
+The plan must clearly separate:
+
+Phase A — shared foundation
+Phase B — `/learn` resource-centre homepage
+Phase C — individual educational pages
+Phase D — navigation exposure
+Phase E — sitemap, metadata and launch validation
+
+Recommend whether the `/learn` page should initially be linked in the header, footer, homepage, or a combination of these.
+
+Explain the safest rollout sequence.
+
+### 8. Proposed reusable components
+
+Recommend components only after inspecting what already exists.
+
+Possible future responsibilities may include:
+
+* LearnPageLayout
+* LearnHero
+* LearningPathCard
+* ResourceSection
+* ResourceCard
+* StatusBadge
+* ArticleLayout
+* ArticleSidebar
+* RelatedResources
+* LearnSearch
+* PageFooterCTA
+
+Do not assume these exact names are correct.
+
+Prefer extending existing components over creating duplicates.
+
+### 9. Risk register
+
+Create a table with:
+
+* Risk
+* Likelihood
+* Impact
+* Affected area
+* Mitigation
+* Required verification
+
+Include risks relating to:
+
+* Existing navigation regression
+* Mobile overflow
+* Metadata changes
+* Canonical conflicts
+* Duplicate content with Mintlify
+* Broken routes
+* Sitemap errors
+* Styling leakage
+* Dependency changes
+* Performance regression
+* Accessibility regression
+* Client-side rendering
+* Accidental publication of placeholder pages
+
+### 10. Required output
+
+Return:
+
+1. Executive summary
+2. Current architecture
+3. Existing reusable components
+4. Current SEO architecture
+5. Navigation findings
+6. Risks
+7. Recommended `/learn` architecture
+8. Recommended rollout sequence
+9. Proposed file changes for the next implementation phase
+10. Tests that must be run after implementation
+11. Any questions or unknowns that require human confirmation
+
+For every proposed future file change, state:
+
+* File path
+* Why it would change
+* Whether it is new or existing
+* Risk level
+* How the change would be tested
+
+## Final rule
+
+This task is analysis only.
+
+Do not write code.
+
+Do not change files.
+
+Do not create the `/learn` route.
+
+Do not add navigation.
+
+Do not install anything.
+
+Do not publish or deploy anything.
+
+Finish with a clear statement confirming that no repository files were modified.
