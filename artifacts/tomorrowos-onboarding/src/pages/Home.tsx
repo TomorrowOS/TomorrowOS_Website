@@ -99,7 +99,7 @@ export default function Home() {
       {/* HERO SECTION */}
       <section className="pt-16 pb-6 md:pt-32 md:pb-16 px-4 md:px-8 text-center max-w-5xl mx-auto flex flex-col items-center">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6 max-w-4xl">
-          Build and own your digital signage software.
+          The infrastructure platform for building digital signage software.
         </h1>
         <p className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-3xl leading-relaxed">
           Build your own CMS, add screen management to an existing application or create an entirely new digital signage product.
