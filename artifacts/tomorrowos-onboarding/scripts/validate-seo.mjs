@@ -134,9 +134,8 @@ ok(`scanned ${files.length} source files for link/domain issues`);
  */
 
 // Deliberate exclusions, each documented at its source:
-const REDIRECT_ALIASES = ['/quickstart']; // client redirect to /
+const REDIRECT_ALIASES = ['/quickstart']; // client redirect to / — exempt from SEO/prerender checks, NOT from mirror-host checks
 const SPA_ONLY_ROUTES = ['/github', '/community', '/license']; // PlaceholderPage, component-level noindex
-const SMOKE_EXCLUDED = SPA_ONLY_ROUTES; // mirrored by smokeExcludedRoutes in scripts/smoke.mjs
 
 // -- source 1: App.tsx static routes (already parsed above as appRoutes) --
 const appStatic = appRoutes.filter((p) => !p.includes(':'));
@@ -154,6 +153,15 @@ const smokeIndexBlock = smokeSrc.match(/const indexableRoutes = new Set\(\[([\s\
 const smokeRoutes = new Set([...smokeRoutesBlock.matchAll(/'(\/[^']*)'/g)].map((x) => x[1]));
 const smokeIndexable = new Set([...smokeIndexBlock.matchAll(/'(\/[^']*)'/g)].map((x) => x[1]));
 if (smokeRoutes.size < 10) fail('route-sync: could not parse the routes list in scripts/smoke.mjs');
+// Smoke exclusions live in one place — scripts/smoke.mjs (smokeExcludedRoutes).
+// Parse them from there so the two files cannot drift apart silently, and
+// require every exclusion to be a documented SPA-only route.
+const smokeExcludedBlock = smokeSrc.match(/const smokeExcludedRoutes = \[([\s\S]*?)\]/)?.[1] ?? '';
+const SMOKE_EXCLUDED = [...smokeExcludedBlock.matchAll(/'(\/[^']*)'/g)].map((x) => x[1]);
+if (SMOKE_EXCLUDED.length === 0) fail('route-sync: could not parse smokeExcludedRoutes in scripts/smoke.mjs');
+for (const p of SMOKE_EXCLUDED) {
+  if (!SPA_ONLY_ROUTES.includes(p)) fail(`route-sync: ${p} is excluded from smoke coverage in scripts/smoke.mjs but is not a documented SPA-only route — remove the exclusion or document the route`);
+}
 
 // -- sources 5 & 6: mirror-host explicit entries --
 const redirectsSrc = readFileSync(join(root, 'public/_redirects'), 'utf8');
@@ -173,7 +181,9 @@ const vercelRoutes = new Set(
 const seoByKey = new Map(routes.map((r) => [r.key, r]));
 
 for (const p of appStatic) {
-  if (REDIRECT_ALIASES.includes(p)) continue;
+  // Redirect aliases (REDIRECT_ALIASES) have no seoConfig entry (checked in
+  // router coverage above) and no prerendered file, but still require
+  // explicit mirror-host entries — so they are NOT skipped here.
   const isSpaOnly = SPA_ONLY_ROUTES.includes(p);
 
   // (a) App route missing SEO configuration (placeholder routes are
