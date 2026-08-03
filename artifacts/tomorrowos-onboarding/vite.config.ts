@@ -170,6 +170,70 @@ function prerenderPlugin() {
       canonicalPath: '/compatibility/media',
       indexable: true,
     },
+    // Learn section (Phase A shells) — noindex until real content ships.
+    '/learn': {
+      rawTitle: 'Developer Resource Centre',
+      description:
+        'The TomorrowOS learning centre: developer resources for building digital signage software on an open-source foundation.',
+      canonicalPath: '/learn',
+      indexable: false,
+    },
+    '/learn/build-a-digital-signage-cms': {
+      rawTitle: 'Build a Digital Signage CMS',
+      description:
+        'Part of the TomorrowOS learning centre: how a digital signage CMS fits together and where TomorrowOS provides the foundation.',
+      canonicalPath: '/learn/build-a-digital-signage-cms',
+      indexable: false,
+    },
+    '/learn/digital-signage-sdk': {
+      rawTitle: 'Digital Signage SDK',
+      description:
+        'Part of the TomorrowOS learning centre: the role of a server SDK when connecting an existing product to digital signage infrastructure.',
+      canonicalPath: '/learn/digital-signage-sdk',
+      indexable: false,
+    },
+    '/learn/digital-signage-api': {
+      rawTitle: 'Digital Signage API',
+      description:
+        'Part of the TomorrowOS learning centre: how an HTTP API connects any backend to digital signage devices and playback.',
+      canonicalPath: '/learn/digital-signage-api',
+      indexable: false,
+    },
+    '/learn/open-source-digital-signage': {
+      rawTitle: 'Open-Source Digital Signage',
+      description:
+        'Part of the TomorrowOS learning centre: what open-source means for digital signage architecture and ownership.',
+      canonicalPath: '/learn/open-source-digital-signage',
+      indexable: false,
+    },
+    '/learn/self-hosted-digital-signage': {
+      rawTitle: 'Self-Hosted Digital Signage',
+      description:
+        'Part of the TomorrowOS learning centre: considerations for running digital signage infrastructure on your own hosting.',
+      canonicalPath: '/learn/self-hosted-digital-signage',
+      indexable: false,
+    },
+    '/learn/headless-digital-signage': {
+      rawTitle: 'Headless Digital Signage',
+      description:
+        'Part of the TomorrowOS learning centre: separating signage infrastructure from the interface layer with a headless approach.',
+      canonicalPath: '/learn/headless-digital-signage',
+      indexable: false,
+    },
+    '/learn/samsung-tizen-digital-signage-player': {
+      rawTitle: 'Samsung Tizen Signage Player',
+      description:
+        'Part of the TomorrowOS learning centre: the Samsung Tizen platform for digital signage playback.',
+      canonicalPath: '/learn/samsung-tizen-digital-signage-player',
+      indexable: false,
+    },
+    '/learn/brightsign-digital-signage-player': {
+      rawTitle: 'BrightSign Signage Player',
+      description:
+        'Part of the TomorrowOS learning centre: the BrightSign platform for digital signage playback.',
+      canonicalPath: '/learn/brightsign-digital-signage-player',
+      indexable: false,
+    },
     '/privacy': {
       rawTitle: 'Privacy Policy',
       description: 'How TomorrowOS collects, uses and protects your information.',

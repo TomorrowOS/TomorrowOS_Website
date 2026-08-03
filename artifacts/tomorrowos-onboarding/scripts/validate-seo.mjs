@@ -116,6 +116,138 @@ for (const f of files) {
 }
 ok(`scanned ${files.length} source files for link/domain issues`);
 
+/* ================================================================== */
+/* ---- route-sync safeguard ----------------------------------------- */
+/* Compares route definitions across the six sources that must stay in
+ * sync whenever a route is added, renamed or removed:
+ *   1. src/App.tsx                  (application router)
+ *   2. src/lib/seoConfig.ts         (metadata + indexing policy)
+ *   3. vite.config.ts               (prerender route table)
+ *   4. scripts/smoke.mjs            (route + indexable coverage)
+ *   5. public/_redirects            (Netlify mirror-host routing)
+ *   6. vercel.json                  (Vercel mirror-host routing)
+ *
+ * Mirror-host convention (documented in _redirects/vercel.json): routes in
+ * the prerender table are served from their static files by the host
+ * filesystem, so they need NO explicit mirror entry. Routes NOT prerendered
+ * must be explicitly listed in BOTH mirror files.
+ */
+
+// Deliberate exclusions, each documented at its source:
+const REDIRECT_ALIASES = ['/quickstart']; // client redirect to /
+const SPA_ONLY_ROUTES = ['/github', '/community', '/license']; // PlaceholderPage, component-level noindex
+const SMOKE_EXCLUDED = SPA_ONLY_ROUTES; // mirrored by smokeExcludedRoutes in scripts/smoke.mjs
+
+// -- source 1: App.tsx static routes (already parsed above as appRoutes) --
+const appStatic = appRoutes.filter((p) => !p.includes(':'));
+
+// -- source 3: prerender table in vite.config.ts --
+const viteSrc = readFileSync(join(root, 'vite.config.ts'), 'utf8');
+const prerenderRoutes = [...viteSrc.matchAll(/'(\/[^']*)':\s*\{\s*rawTitle:/g)].map((x) => x[1]);
+if (prerenderRoutes.length < 10) fail(`route-sync: only parsed ${prerenderRoutes.length} prerender routes from vite.config.ts — parser or config problem`);
+const prerenderSet = new Set(prerenderRoutes);
+
+// -- source 4: smoke.mjs route list + indexable set --
+const smokeSrc = readFileSync(join(root, 'scripts/smoke.mjs'), 'utf8');
+const smokeRoutesBlock = smokeSrc.match(/const routes = \[([\s\S]*?)\];/)?.[1] ?? '';
+const smokeIndexBlock = smokeSrc.match(/const indexableRoutes = new Set\(\[([\s\S]*?)\]\)/)?.[1] ?? '';
+const smokeRoutes = new Set([...smokeRoutesBlock.matchAll(/'(\/[^']*)'/g)].map((x) => x[1]));
+const smokeIndexable = new Set([...smokeIndexBlock.matchAll(/'(\/[^']*)'/g)].map((x) => x[1]));
+if (smokeRoutes.size < 10) fail('route-sync: could not parse the routes list in scripts/smoke.mjs');
+
+// -- sources 5 & 6: mirror-host explicit entries --
+const redirectsSrc = readFileSync(join(root, 'public/_redirects'), 'utf8');
+const redirectsRoutes = new Set(
+  redirectsSrc.split('\n')
+    .filter((l) => !l.trim().startsWith('#'))
+    .map((l) => l.trim().match(/^(\/\S*)\s+\S+\s+\d+/)?.[1])
+    .filter((p) => p && p !== '/*'),
+);
+const vercelJson = JSON.parse(readFileSync(join(root, 'vercel.json'), 'utf8'));
+const vercelRoutes = new Set(
+  (vercelJson.routes ?? [])
+    .map((r) => r.src)
+    .filter((s) => typeof s === 'string' && /^\/[\w/-]*$/.test(s)),
+);
+
+const seoByKey = new Map(routes.map((r) => [r.key, r]));
+
+for (const p of appStatic) {
+  if (REDIRECT_ALIASES.includes(p)) continue;
+  const isSpaOnly = SPA_ONLY_ROUTES.includes(p);
+
+  // (a) App route missing SEO configuration (placeholder routes are
+  //     component-level noindex — covered by the earlier router check).
+  //     Already checked above; here we continue with the entry if present.
+  const seo = seoByKey.get(p);
+
+  // (b)/(c) prerender coverage: every configured static route should be
+  //     prerendered (matches the existing architecture); SPA-only routes
+  //     are the documented exception.
+  if (!isSpaOnly && seo && !prerenderSet.has(p)) {
+    fail(`route-sync: ${p} is in seoConfig.ts but missing from the vite.config.ts prerender table — add it so its static HTML (title/canonical/robots) is generated`);
+  }
+
+  // (d) smoke coverage.
+  if (!SMOKE_EXCLUDED.includes(p) && !smokeRoutes.has(p)) {
+    fail(`route-sync: ${p} is registered in App.tsx but missing from the routes list in scripts/smoke.mjs — add it to smoke coverage`);
+  }
+
+  // (e) mirror-host coverage: prerendered routes are served from the
+  //     filesystem; everything else needs explicit entries in BOTH files.
+  if (!prerenderSet.has(p)) {
+    if (!redirectsRoutes.has(p)) fail(`route-sync: ${p} is not prerendered and missing from public/_redirects — add an explicit "${p} /index.html 200" entry`);
+    if (!vercelRoutes.has(p)) fail(`route-sync: ${p} is not prerendered and missing from vercel.json routes — add an explicit {"src": "${p}", "dest": "/index.html"} entry`);
+  }
+}
+
+// (c) Prerender route missing application route.
+for (const p of prerenderRoutes) {
+  if (!appStatic.includes(p)) {
+    fail(`route-sync: ${p} is in the vite.config.ts prerender table but not registered in src/App.tsx — register the route or remove it from the prerender table`);
+  }
+}
+
+// seoConfig route not registered in the app (dead metadata).
+for (const r of routes) {
+  if (!appStatic.includes(r.key)) {
+    fail(`route-sync: ${r.key} is in seoConfig.ts but has no route in src/App.tsx — register the route or remove the stale entry`);
+  }
+}
+
+// (f) indexable routes must be in the smoke indexable set — and only they.
+for (const r of routes) {
+  if (r.indexable && !smokeIndexable.has(r.key)) {
+    fail(`route-sync: ${r.key} is indexable:true in seoConfig.ts but missing from indexableRoutes in scripts/smoke.mjs — add it so production smoke asserts "index, follow"`);
+  }
+}
+for (const p of smokeIndexable) {
+  const seo = seoByKey.get(p);
+  if (!seo) fail(`route-sync: ${p} is in smoke indexableRoutes but has no seoConfig.ts entry — remove it or configure the route`);
+  else if (!seo.indexable) fail(`route-sync: ${p} is in smoke indexableRoutes but marked indexable:false in seoConfig.ts — resolve the conflicting indexing policy`);
+}
+
+// (g) placeholder metadata must never be indexable.
+const PLACEHOLDER_PATTERNS = /\b(TBD|Draft|Placeholder|Coming Soon|Content pending|currently being prepared|being prepared)\b/i;
+for (const r of routes) {
+  if (r.indexable && PLACEHOLDER_PATTERNS.test(`${r.title} ${r.description}`)) {
+    fail(`route-sync: ${r.key} is indexable:true but its metadata looks like placeholder content — finish the metadata or set indexable:false`);
+  }
+}
+
+// prerender table metadata must mirror seoConfig (title/indexable drift).
+const preEntryRe = /'(\/[^']*)':\s*\{\s*rawTitle:\s*'((?:[^'\\]|\\.)*)',\s*description:\s*\n?\s*'((?:[^'\\]|\\.)*)',\s*canonicalPath:\s*'([^']+)',\s*indexable:\s*(true|false)/g;
+let pm;
+while ((pm = preEntryRe.exec(viteSrc)) !== null) {
+  const [, key, , , , indexable] = pm;
+  const seo = seoByKey.get(key);
+  if (seo && seo.indexable !== (indexable === 'true')) {
+    fail(`route-sync: ${key} indexable flag differs between seoConfig.ts (${seo.indexable}) and the vite.config.ts prerender table (${indexable}) — keep the two in sync`);
+  }
+}
+
+ok(`route-sync safeguard checked ${appStatic.length} app routes across App.tsx, seoConfig.ts, vite.config.ts, smoke.mjs, _redirects and vercel.json`);
+
 if (failures > 0) {
   console.error(`\n${failures} validation failure(s)`);
   process.exit(1);

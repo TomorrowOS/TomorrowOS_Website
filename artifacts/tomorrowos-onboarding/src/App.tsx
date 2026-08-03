@@ -25,6 +25,9 @@ const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 const CookieSettings = lazy(() => import('./pages/CookieSettings'));
 const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
+// Learn section (Phase A shells): one lazy component serves every registered
+// /learn route so Learn code stays out of the primary entry bundle.
+const LearnRouteShell = lazy(() => import('./pages/learn/LearnRouteShell'));
 
 const queryClient = new QueryClient();
 
@@ -75,6 +78,17 @@ function Router() {
         <Route path="/guides/platforms/samsung-tizen/magicinfo" component={SamsungTizenGuide} />
         <Route path="/guides/platforms/samsung-tizen" component={SamsungTizenGuide} />
         <Route path="/guides/platforms" component={PlatformGuides} />
+        {/* Learn (Phase A): registered, noindex, absent from navigation.
+            Unknown /learn/* paths fall through to NotFound below. */}
+        <Route path="/learn" component={LearnRouteShell} />
+        <Route path="/learn/build-a-digital-signage-cms" component={LearnRouteShell} />
+        <Route path="/learn/digital-signage-sdk" component={LearnRouteShell} />
+        <Route path="/learn/digital-signage-api" component={LearnRouteShell} />
+        <Route path="/learn/open-source-digital-signage" component={LearnRouteShell} />
+        <Route path="/learn/self-hosted-digital-signage" component={LearnRouteShell} />
+        <Route path="/learn/headless-digital-signage" component={LearnRouteShell} />
+        <Route path="/learn/samsung-tizen-digital-signage-player" component={LearnRouteShell} />
+        <Route path="/learn/brightsign-digital-signage-player" component={LearnRouteShell} />
         <Route path="/compatibility/media" component={MediaCompatibility} />
         <Route path="/compatibility" component={Compatibility} />
         <Route component={NotFound} />

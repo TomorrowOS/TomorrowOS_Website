@@ -10,7 +10,7 @@
     { "src": "/community", "dest": "/index.html" },
     { "src": "/license",   "dest": "/index.html" },
     {
-      "comment": "Serve prerendered per-route HTML files and static assets directly from the filesystem. For every known route (/, /about, /guides/*, etc.) the build emits <route>/index.html with route-specific title, canonical, og:url, and JSON-LD baked in.",
+      "comment": "Serve prerendered per-route HTML files and static assets directly from the filesystem. For every known route (/, /about, /guides/*, /learn/*, etc.) the build emits <route>/index.html with route-specific title, canonical, og:url, and JSON-LD baked in.",
       "handle": "filesystem"
     },
     {

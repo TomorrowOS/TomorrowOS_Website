@@ -142,6 +142,73 @@ export const seoRoutes: Record<string, RouteSeo> = {
     canonicalPath: '/compatibility/media',
     indexable: true,
   },
+  // ---- Learn section (Phase A) ------------------------------------------
+  // Draft metadata for the future Developer Resource Centre. All routes stay
+  // indexable: false (and therefore out of the sitemap) until each page's
+  // real content passes its quality gate.
+  '/learn': {
+    title: 'Developer Resource Centre',
+    description:
+      'The TomorrowOS learning centre: developer resources for building digital signage software on an open-source foundation.',
+    canonicalPath: '/learn',
+    indexable: false, // Phase A shell — flip only when real content ships
+  },
+  '/learn/build-a-digital-signage-cms': {
+    title: 'Build a Digital Signage CMS',
+    description:
+      'Part of the TomorrowOS learning centre: how a digital signage CMS fits together and where TomorrowOS provides the foundation.',
+    canonicalPath: '/learn/build-a-digital-signage-cms',
+    indexable: false, // Phase A shell
+  },
+  '/learn/digital-signage-sdk': {
+    title: 'Digital Signage SDK',
+    description:
+      'Part of the TomorrowOS learning centre: the role of a server SDK when connecting an existing product to digital signage infrastructure.',
+    canonicalPath: '/learn/digital-signage-sdk',
+    indexable: false, // Phase A shell
+  },
+  '/learn/digital-signage-api': {
+    title: 'Digital Signage API',
+    description:
+      'Part of the TomorrowOS learning centre: how an HTTP API connects any backend to digital signage devices and playback.',
+    canonicalPath: '/learn/digital-signage-api',
+    indexable: false, // Phase A shell
+  },
+  '/learn/open-source-digital-signage': {
+    title: 'Open-Source Digital Signage',
+    description:
+      'Part of the TomorrowOS learning centre: what open-source means for digital signage architecture and ownership.',
+    canonicalPath: '/learn/open-source-digital-signage',
+    indexable: false, // Phase A shell
+  },
+  '/learn/self-hosted-digital-signage': {
+    title: 'Self-Hosted Digital Signage',
+    description:
+      'Part of the TomorrowOS learning centre: considerations for running digital signage infrastructure on your own hosting.',
+    canonicalPath: '/learn/self-hosted-digital-signage',
+    indexable: false, // Phase A shell
+  },
+  '/learn/headless-digital-signage': {
+    title: 'Headless Digital Signage',
+    description:
+      'Part of the TomorrowOS learning centre: separating signage infrastructure from the interface layer with a headless approach.',
+    canonicalPath: '/learn/headless-digital-signage',
+    indexable: false, // Phase A shell
+  },
+  '/learn/samsung-tizen-digital-signage-player': {
+    title: 'Samsung Tizen Signage Player',
+    description:
+      'Part of the TomorrowOS learning centre: the Samsung Tizen platform for digital signage playback.',
+    canonicalPath: '/learn/samsung-tizen-digital-signage-player',
+    indexable: false, // Phase A shell
+  },
+  '/learn/brightsign-digital-signage-player': {
+    title: 'BrightSign Signage Player',
+    description:
+      'Part of the TomorrowOS learning centre: the BrightSign platform for digital signage playback.',
+    canonicalPath: '/learn/brightsign-digital-signage-player',
+    indexable: false, // Phase A shell
+  },
   '/privacy': {
     title: 'Privacy Policy',
     description: 'How TomorrowOS collects, uses and protects your information.',

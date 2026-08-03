@@ -21,9 +21,26 @@ const routes = [
   '/connect/api', '/guides/supabase', '/guides/cloudinary', '/guides/vercel',
   '/guides/neon', '/guides/vercel-blob', '/guides/content',
   '/guides/platforms', '/guides/platforms/samsung-tizen',
+  '/guides/platforms/samsung-tizen/magicinfo',
   '/compatibility', '/compatibility/media', '/privacy', '/terms',
   '/cookie-policy', '/cookie-settings', '/quickstart',
+  // Learn section (Phase A shells) — must always be noindex.
+  '/learn',
+  '/learn/build-a-digital-signage-cms',
+  '/learn/digital-signage-sdk',
+  '/learn/digital-signage-api',
+  '/learn/open-source-digital-signage',
+  '/learn/self-hosted-digital-signage',
+  '/learn/headless-digital-signage',
+  '/learn/samsung-tizen-digital-signage-player',
+  '/learn/brightsign-digital-signage-player',
 ];
+
+// Deliberate smoke-coverage exclusions: SPA-only placeholder routes with
+// component-level noindex and no prerendered HTML (production builds serve
+// the raw shell for them, which carries no robots meta). Documented here so
+// the route-sync safeguard in validate-seo.mjs can account for them.
+export const smokeExcludedRoutes = ['/github', '/community', '/license'];
 
 // Routes expected to be indexable in production (must mirror the
 // `indexable: true` entries in src/lib/seoConfig.ts). All other routes must
