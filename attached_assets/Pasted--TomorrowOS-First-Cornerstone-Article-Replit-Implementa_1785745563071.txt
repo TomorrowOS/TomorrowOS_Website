@@ -1,0 +1,884 @@
+# TomorrowOS First Cornerstone Article — Replit Implementation Master Prompt
+
+You are working inside the existing production TomorrowOS website repository.
+
+The Blog foundation is already complete.
+
+Learn is preserved behind `VITE_ENABLE_LEARN` and must remain disabled by default.
+
+Your task is to implement the first complete cornerstone article:
+
+`/build-a-digital-signage-cms`
+
+The final article copy is supplied separately by the user in a Word document or pasted content.
+
+Use that supplied article as the editorial source of truth.
+
+Do not independently rewrite, shorten, expand, paraphrase or “SEO optimise” the final article copy unless a narrowly necessary correction is identified and reported.
+
+This is the reference implementation for the remaining seven cornerstone pages.
+
+Do not publish or deploy anything.
+
+---
+
+# Primary objective
+
+Create a world-class, permanent educational page explaining how to build a digital signage CMS.
+
+The finished page must be:
+
+* technically credible;
+* highly readable;
+* visually consistent with TomorrowOS;
+* indexable;
+* prerendered;
+* fast;
+* accessible;
+* mobile-first;
+* suitable for Google Search and AI retrieval;
+* linked from the Blog as its first featured article.
+
+Do not make it feel like:
+
+* a generic company blog;
+* a documentation page;
+* an AI-generated wall of text;
+* a marketing landing page;
+* a heavily animated editorial experiment.
+
+It should feel like a premium engineering guide from an open-source infrastructure project.
+
+---
+
+# Safety rules
+
+Do not:
+
+* redesign the existing website;
+* modify the homepage;
+* modify About;
+* modify current guides;
+* modify compatibility content;
+* expose Learn;
+* change Learn feature-flag behaviour;
+* add dependencies;
+* add MDX;
+* add a CMS;
+* add a search service;
+* add analytics packages;
+* modify global design tokens;
+* modify the lockfile;
+* change deployment configuration;
+* create unfinished related pillar routes;
+* link to unavailable routes;
+* invent product capabilities;
+* invent supported platforms;
+* invent test results;
+* invent customer claims;
+* publish or deploy.
+
+Create a reversible checkpoint before making changes.
+
+---
+
+# Route
+
+Create the canonical root-level route:
+
+`/build-a-digital-signage-cms`
+
+Do not place this page under `/blog`.
+
+This is a permanent cornerstone resource surfaced through the Blog index.
+
+Register it consistently across:
+
+* `src/App.tsx`;
+* `src/lib/seoConfig.ts`;
+* `vite.config.ts`;
+* `scripts/smoke.mjs`;
+* route-sync validation;
+* mirror-host configuration where required.
+
+It must be:
+
+* lazy-loaded;
+* prerendered;
+* indexable;
+* included in the production sitemap;
+* represented in Blog navigation active-state logic;
+* represented in `src/lib/blogArticles.ts`.
+
+Unknown similar URLs must continue to resolve to NotFound.
+
+---
+
+# Blog data record
+
+Add the first real record to:
+
+`src/lib/blogArticles.ts`
+
+Use:
+
+* `href`: `/build-a-digital-signage-cms`
+* `title`: `How to Build a Digital Signage CMS`
+* `category`: `Building Digital Signage`
+* `featured`: `true`
+* `indexable`: `true`
+* author: `TomorrowOS`
+* accurate publication date
+* reading time calculated from the final rendered word count
+* description aligned with the final metadata
+
+The Blog homepage should then render:
+
+* this article as the featured article;
+* this article in the article index;
+* the represented category;
+* no empty state.
+
+Avoid rendering the same article twice in a visually repetitive way. If the existing Blog design naturally shows a featured card and an index record, ensure the layouts have distinct purposes.
+
+---
+
+# Blog indexability
+
+The Blog currently remains `indexable: false`.
+
+Once this article is complete and linked:
+
+* review whether `/blog` now provides enough useful content to be indexed;
+* recommended action: change `/blog` to `indexable: true` because it now has a real featured resource, useful editorial introduction and valid crawl path;
+* include `/blog` in the production sitemap;
+* confirm the page no longer displays an empty state.
+
+Do not make this change until the article itself passes all quality checks.
+
+Document the exact indexing flip.
+
+---
+
+# Metadata
+
+Use:
+
+## Meta title
+
+`How to Build a Digital Signage CMS | TomorrowOS`
+
+## Meta description
+
+`Learn how to build a reliable digital signage CMS, including architecture, device pairing, content delivery, offline playback, telemetry and multi-platform runtimes.`
+
+## Canonical
+
+`https://tomorrowos.org/build-a-digital-signage-cms`
+
+## H1
+
+`How to Build a Digital Signage CMS`
+
+## Open Graph title
+
+`How to Build a Digital Signage CMS`
+
+## Open Graph description
+
+`A practical architecture guide covering everything required to build reliable digital signage software.`
+
+Use the existing social card initially unless a dedicated article image is supplied.
+
+Do not overwrite an existing versioned social asset.
+
+Ensure all metadata is present in the initial prerendered HTML.
+
+---
+
+# Structured data
+
+Add only page-appropriate markup supported by the current architecture:
+
+* `Article` or `TechArticle`;
+* `BreadcrumbList`;
+* `FAQPage` only because the final article contains visible FAQs.
+
+Article data should include:
+
+* headline;
+* description;
+* canonical URL;
+* publisher: TomorrowOS;
+* publication date;
+* modified date;
+* main entity of page;
+* author or organisation attribution.
+
+Do not add:
+
+* ratings;
+* reviews;
+* pricing;
+* aggregate scores;
+* invented images;
+* unsupported claims.
+
+The visible FAQ wording and FAQ structured data must match.
+
+---
+
+# Article layout
+
+Create reusable article components only where they will benefit the remaining cornerstone pages.
+
+Recommended architecture:
+
+* `src/components/blog/ArticleLayout.tsx`
+* `src/components/blog/ArticleHero.tsx`
+* `src/components/blog/ArticleMeta.tsx`
+* `src/components/blog/ArticleTableOfContents.tsx`
+* `src/components/blog/ArticleCallout.tsx`
+* `src/components/blog/ArticleDiagram.tsx`
+* `src/components/blog/ArticleChecklist.tsx`
+* `src/components/blog/ArticleComparisonTable.tsx`
+* `src/components/blog/ArticleFAQ.tsx`
+* `src/components/blog/ArticleRelatedResources.tsx`
+* `src/components/blog/ArticleFooterCTA.tsx`
+
+Do not over-componentise simple paragraphs and headings.
+
+Use the existing:
+
+* `WebsiteLayout`;
+* header;
+* footer;
+* Breadcrumb;
+* Card;
+* Button;
+* typography;
+* spacing;
+* borders;
+* focus styles;
+* external-link conventions;
+* code-copy component where needed.
+
+---
+
+# Page structure
+
+Render the supplied article in this order:
+
+1. Breadcrumbs
+2. Article hero
+3. Direct introductory answer
+4. Article metadata
+5. Table of contents
+6. Full article sections
+7. FAQ
+8. Related resources
+9. Closing CTA
+
+Breadcrumbs:
+
+* Home
+* Blog
+* How to Build a Digital Signage CMS
+
+The Blog breadcrumb may link to `/blog`.
+
+---
+
+# Hero
+
+Use a restrained, text-led hero.
+
+Display:
+
+* category;
+* H1;
+* concise article description;
+* author/publisher;
+* publication date;
+* updated date when applicable;
+* reading time;
+* primary CTA: `Start building`;
+* secondary CTA: `View documentation`.
+
+Do not add a decorative stock image.
+
+A subtle architecture visual may appear below the introductory answer rather than competing with the H1.
+
+---
+
+# Direct-answer block
+
+The first visible article content should answer the search intent immediately.
+
+Use the opening paragraphs from the supplied article.
+
+Do not begin with:
+
+* a long company introduction;
+* a table of contents;
+* a history of TomorrowOS;
+* generic industry statistics;
+* a newsletter signup.
+
+The reader should understand within the first screen that:
+
+* a digital signage CMS is a distributed system;
+* reliable implementations require server and player infrastructure;
+* the article explains all major layers.
+
+---
+
+# Table of contents
+
+Create a static, accessible table of contents derived from the major H2 sections.
+
+Desktop:
+
+* may use a restrained sticky side navigation if it does not reduce readability;
+* or a compact in-flow contents panel.
+
+Mobile:
+
+* use an inline native `<details>/<summary>` pattern;
+* do not create a persistent overlay;
+* do not hide content.
+
+Requirements:
+
+* semantic `<nav aria-label="On this page">`;
+* anchor links;
+* `scroll-margin-top`;
+* keyboard accessible;
+* no JavaScript scroll hijacking;
+* active-section tracking is optional and should be omitted if it adds complexity.
+
+---
+
+# Editorial presentation
+
+The article must not be a wall of text.
+
+Use the supplied copy exactly, but enhance comprehension with:
+
+* short paragraphs;
+* bullet lists;
+* numbered sequences;
+* diagrams;
+* comparison tables;
+* checklists;
+* callout panels;
+* definitions;
+* warnings;
+* implementation notes.
+
+Do not convert every paragraph into a card.
+
+Maintain a calm editorial rhythm.
+
+Target readable text width:
+
+* approximately 680–780px for main prose;
+* wider only for diagrams and tables.
+
+---
+
+# Required diagrams
+
+Build diagrams using semantic HTML/CSS or accessible inline SVG.
+
+Do not use Mermaid unless already installed.
+
+Do not add a diagram package.
+
+Create the following original visuals.
+
+## 1. Complete architecture
+
+Show:
+
+* Users and administrators
+* Customer CMS
+* Server SDK or API
+* Device, content and policy services
+* Synchronisation
+* Runtime
+* Supported platform adapters
+
+Alt description:
+
+`Diagram showing users managing a CMS connected through server services to an on-device runtime and supported screen platforms.`
+
+## 2. Pairing sequence
+
+Show:
+
+* Player requests pairing
+* Server creates short-lived code
+* Operator confirms code
+* Organisation ownership is assigned
+* Permanent device credentials are issued
+
+Alt description:
+
+`Sequence showing how a digital signage player is securely paired with an organisation.`
+
+## 3. Content delivery lifecycle
+
+Show:
+
+* Policy update
+* Manifest
+* Asset comparison
+* Download
+* Integrity check
+* Activation
+* Playback
+
+Alt description:
+
+`Flow showing content being verified locally before a new playlist becomes active.`
+
+## 4. Offline lifecycle
+
+Show:
+
+* Connected
+* Synced
+* Network unavailable
+* Cached playback continues
+* Retry
+* Reconnect
+* Reconcile changes
+
+Alt description:
+
+`Flow showing a signage player continuing playback offline and synchronising after reconnecting.`
+
+## 5. Platform adapter model
+
+Show:
+
+* Common runtime interface
+* Samsung Tizen
+* BrightSign
+* LG webOS
+* Windows
+* Android
+
+Clearly distinguish currently verified support from general architectural examples.
+
+Do not label an unverified platform as currently available.
+
+Use neutral wording such as:
+
+* Supported
+* In development
+* Planned
+
+only when sourced from current project data.
+
+---
+
+# Required structured elements
+
+## CMS component checklist
+
+Create a polished checklist covering:
+
+* identity;
+* content;
+* devices;
+* scheduling;
+* playback;
+* monitoring;
+* platform integration.
+
+## Backend modules
+
+Present the conceptual backend modules in a clear architecture panel.
+
+## Content states
+
+Show:
+
+* not downloaded;
+* downloading;
+* downloaded;
+* verified;
+* active;
+* failed.
+
+## Command lifecycle
+
+Show:
+
+* created;
+* queued;
+* delivered;
+* acknowledged;
+* completed or failed.
+
+## Build-options comparison
+
+Create an accessible comparison table:
+
+Columns:
+
+* Build everything
+* Finished CMS
+* Shared infrastructure
+
+Rows:
+
+* Product control
+* Runtime ownership
+* Time to market
+* Platform maintenance
+* Custom workflows
+* Deployment control
+* Ongoing engineering burden
+* Best suited for
+
+Keep wording objective.
+
+## Practical build sequence
+
+Render the seven development phases as a polished numbered sequence.
+
+## Pre-launch checklist
+
+Render the Product, Content, Devices, Runtime, Operations, Platforms and Security checks in a reusable checklist component.
+
+---
+
+# Callouts
+
+Use three restrained callout styles:
+
+* Engineering note
+* Important
+* Practical guidance
+
+Use existing design tokens only.
+
+Do not use a rainbow of alert colours.
+
+Suggested high-value callouts:
+
+1. `Reliability is an architectural requirement, not a feature added at the end.`
+2. `A file should become active only after its download and integrity checks have completed.`
+3. `Series-level platform support does not certify every model, firmware and media profile.`
+4. `AI can accelerate implementation, but it cannot compensate for an undefined runtime architecture.`
+
+---
+
+# Internal links
+
+Link only to live, useful destinations.
+
+Required live links:
+
+* `/blog`
+* `/start`
+* `/compatibility`
+* `/compatibility/media`
+* existing guides where relevant
+* documentation
+* GitHub
+* npm if appropriate
+
+Future pillar references:
+
+* `/digital-signage-sdk`
+* `/digital-signage-api`
+* `/open-source-digital-signage`
+* `/self-hosted-digital-signage`
+* `/headless-digital-signage`
+* `/samsung-tizen-digital-signage-player`
+* `/brightsign-digital-signage-player`
+
+Do not create or link to these future routes until they are live.
+
+Where the text references those subjects, retain plain text or link to the closest current documentation.
+
+Document where links should be added later.
+
+---
+
+# TomorrowOS product-truth rules
+
+The TomorrowOS section must remain accurate.
+
+Before implementation, verify against the current website, docs, package and repositories:
+
+* current product description;
+* current licence;
+* current SDK/package name;
+* current platform support;
+* current documentation URLs;
+* current Quickstart URL;
+* current GitHub URLs.
+
+Do not introduce new product claims.
+
+Use the article’s general statement that TomorrowOS provides reusable infrastructure, but ensure every specific capability listed is supported by current product evidence.
+
+Add a brief visible limitation:
+
+`Platform and version support changes over time. Check the current compatibility pages and documentation before planning a deployment.`
+
+---
+
+# FAQ implementation
+
+Render all supplied FAQs visibly.
+
+Use native semantic layout or accessible `<details>/<summary>`.
+
+Do not hide answer text from prerendered HTML.
+
+Ensure FAQ structured data matches the visible answers exactly.
+
+---
+
+# Related resources
+
+Create a final related-resource block linking to:
+
+* Platform Compatibility
+* Media Compatibility
+* Documentation
+* GitHub
+* Start Building
+
+When future pillar pages are live, this component should accept additional related article records.
+
+---
+
+# Closing CTA
+
+H2:
+
+`Start building your digital signage product`
+
+Supporting direction:
+
+Explain that TomorrowOS provides reusable open-source infrastructure while the developer owns the product, workflow and customer experience.
+
+Primary CTA:
+
+`Start building`
+
+Secondary CTA:
+
+`Read the documentation`
+
+Tertiary link:
+
+`Explore GitHub`
+
+Use verified current destinations.
+
+---
+
+# Accessibility
+
+Verify:
+
+* one H1;
+* logical H2/H3 hierarchy;
+* semantic article element;
+* breadcrumbs;
+* accessible publication metadata;
+* table of contents labelled as navigation;
+* diagrams have accessible descriptions;
+* tables use captions and `<th scope>`;
+* links have meaningful names;
+* external links are identified;
+* FAQ keyboard behaviour;
+* visible focus;
+* 200% zoom;
+* no horizontal page overflow;
+* code or diagrams do not trap keyboard focus;
+* mobile tap targets;
+* reduced-motion handling;
+* status is never colour-only.
+
+---
+
+# Responsive requirements
+
+Test:
+
+* 1440px
+* 1280px
+* 1024px
+* 768px
+* 390px
+* 320px
+
+Requirements:
+
+* readable prose width;
+* diagrams reflow or stack;
+* tables become accessible mobile records or use a visible scroll affordance;
+* no tiny table text;
+* CTAs stack;
+* TOC adapts;
+* no page-level horizontal overflow;
+* long headings wrap cleanly;
+* checklists remain readable.
+
+---
+
+# Performance
+
+Requirements:
+
+* route-level lazy loading;
+* no new dependencies;
+* static article content;
+* no CMS;
+* no MDX unless already part of the project;
+* no runtime fetch;
+* no GitHub API requests;
+* no large raster imagery;
+* diagrams use HTML/CSS/SVG;
+* explicit dimensions for any assets;
+* no additional fonts;
+* no global styling unless unavoidable;
+* no animation library;
+* no client-side metadata injection;
+* entry bundle should not materially increase.
+
+---
+
+# SEO and AI-discoverability quality gate
+
+The page must:
+
+* return a real successful route;
+* be indexable;
+* be in the sitemap;
+* have unique metadata;
+* answer the question immediately;
+* contain original diagrams;
+* contain clear definitions;
+* use natural headings;
+* include honest limitations;
+* cite or link to primary technical sources where external factual claims require support;
+* avoid keyword stuffing;
+* avoid artificial content chunking solely for AI;
+* avoid hidden text;
+* avoid duplicated documentation;
+* use consistent TomorrowOS entity wording;
+* expose content in prerendered HTML;
+* remain accessible to permitted search crawlers through the existing robots policy.
+
+Do not add `llms.txt` or special AI markup as part of this task.
+
+---
+
+# Tests
+
+Record a clean baseline.
+
+After implementation run:
+
+* TypeScript check;
+* prototype build;
+* production build;
+* SEO validation;
+* social validation;
+* route-sync validation;
+* smoke tests against development;
+* smoke tests against production output;
+* generated HTML inspection;
+* schema validation;
+* link validation;
+* responsive screenshots;
+* keyboard tests;
+* 200% zoom;
+* no-overflow test;
+* main-bundle comparison;
+* representative regression checks.
+
+Verify:
+
+* article title;
+* description;
+* canonical;
+* `og:url`;
+* robots `index, follow`;
+* sitemap inclusion;
+* Blog `index, follow` after approved flip;
+* Blog sitemap inclusion;
+* Article and Breadcrumb JSON-LD;
+* FAQ JSON-LD;
+* full main content in prerendered HTML;
+* Blog card and featured article;
+* Blog active navigation;
+* Learn remains disabled;
+* no Learn links leak;
+* existing pages remain unchanged;
+* dependencies unchanged;
+* lockfile unchanged;
+* deployment unchanged.
+
+---
+
+# Human review gate
+
+Before finalising, provide a list of product claims requiring human confirmation.
+
+At minimum:
+
+* TomorrowOS licence;
+* SDK package name;
+* infrastructure capability list;
+* current supported platforms;
+* Quickstart destination;
+* documentation destination;
+* GitHub destination;
+* compatibility wording;
+* AI-assisted setup wording.
+
+Do not index the page if these claims conflict with the current source of truth.
+
+---
+
+# Required final report
+
+Return:
+
+1. Executive summary
+2. Final word count
+3. Route and Blog integration
+4. Article component architecture
+5. Diagram inventory
+6. Structured-element inventory
+7. Internal links
+8. Deferred future links
+9. Product-truth review
+10. Metadata
+11. Structured data
+12. Indexing changes
+13. Sitemap changes
+14. Accessibility results
+15. Responsive results
+16. Performance comparison
+17. Test results
+18. Regression review
+19. Human sign-off list
+20. Known limitations
+21. Rollback instructions
+22. Recommendation on readiness to publish
+
+Do not deploy.
+
+Finish by confirming that the article and Blog are ready for final editorial and technical review.

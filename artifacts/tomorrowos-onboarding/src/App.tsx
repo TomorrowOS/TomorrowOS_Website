@@ -21,6 +21,8 @@ const MediaCompatibility = lazy(() => import('./pages/MediaCompatibility'));
 const PlatformGuides = lazy(() => import('./pages/PlatformGuides'));
 const NotFound = lazy(() => import('./pages/not-found'));
 const Blog = lazy(() => import('./pages/Blog'));
+// Cornerstone articles (root-level pillar pages, listed on /blog).
+const BuildDigitalSignageCms = lazy(() => import('./pages/BuildDigitalSignageCms'));
 const About = lazy(() => import('./pages/About'));
 const PlaceholderPage = lazy(() => import('./pages/PlaceholderPage'));
 const Privacy = lazy(() => import('./pages/Privacy'));
@@ -83,6 +85,7 @@ function Router() {
         <Route path="/guides/platforms/samsung-tizen" component={SamsungTizenGuide} />
         <Route path="/guides/platforms" component={PlatformGuides} />
         <Route path="/blog" component={Blog} />
+        <Route path="/build-a-digital-signage-cms" component={BuildDigitalSignageCms} />
         {/* Learn: fully feature-gated behind VITE_ENABLE_LEARN. When the flag
             is not 'true' (production default), no Learn route is registered,
             so /learn and /learn/* fall through to NotFound below. */}

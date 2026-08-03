@@ -149,7 +149,15 @@ export const seoRoutes: Record<string, RouteSeo> = {
     description:
       'Read practical guides about building digital signage software, open-source infrastructure, screen platforms, playback and reliable device operations.',
     canonicalPath: '/blog',
-    indexable: false, // stays noindex until the first complete pillar article ships
+    indexable: true, // flipped 2026-08-03 — first pillar article shipped
+  },
+  // ---- Cornerstone articles (root-level pillar pages) ---------------------
+  '/build-a-digital-signage-cms': {
+    title: 'How to Build a Digital Signage CMS',
+    description:
+      'Learn how to build a reliable digital signage CMS, including architecture, device pairing, content delivery, offline playback, telemetry and multi-platform runtimes.',
+    canonicalPath: '/build-a-digital-signage-cms',
+    indexable: true,
   },
   // ---- Learn section (Phase A) ------------------------------------------
   // Feature-gated behind VITE_ENABLE_LEARN (default off in production).

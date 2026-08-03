@@ -22,10 +22,10 @@ import {
 /**
  * TomorrowOS Blog index (/blog).
  *
- * All article content derives from src/lib/blogArticles.ts. While no article
- * is published the page renders a purposeful empty state — no fake cards,
- * no "coming soon". Stays noindex until the first complete pillar article
- * ships (see seoConfig.ts).
+ * All article content derives from src/lib/blogArticles.ts. If no article is
+ * published the page renders a purposeful empty state — no fake cards, no
+ * "coming soon". Indexable since 2026-08-03, when the first pillar article
+ * (/build-a-digital-signage-cms) shipped (see seoConfig.ts).
  */
 
 const PrimaryA =
@@ -113,10 +113,36 @@ function EmptyState() {
   );
 }
 
+/**
+ * Compact index row — deliberately lighter than the featured card so the same
+ * article can appear in both places with distinct purposes (featured =
+ * discovery card with description and CTA; index = complete scannable list).
+ */
+function ArticleIndexRow({ article }: { article: BlogArticle }) {
+  return (
+    <li className="flex flex-col gap-1.5 border-b border-border/60 py-4 first:pt-0 last:border-b-0">
+      <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+        <span>{article.category}</span>
+        <span aria-hidden="true">·</span>
+        <span>{article.publishedAt}</span>
+        <span aria-hidden="true">·</span>
+        <span>{article.readingTimeMinutes} min read</span>
+      </div>
+      <h3 className="text-base font-semibold tracking-tight text-foreground">
+        <Link
+          href={article.href}
+          className="underline underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+        >
+          {article.title}
+        </Link>
+      </h3>
+    </li>
+  );
+}
+
 export default function Blog() {
   usePageSeo('/blog');
   const categories = getActiveCategories();
-  const listed = BLOG_ARTICLES.filter((a) => !a.featured);
 
   return (
     <div className="w-full">
@@ -218,11 +244,11 @@ export default function Blog() {
           {BLOG_ARTICLES.length === 0 ? (
             <EmptyState />
           ) : (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {listed.map((a) => (
-                <ArticleCard key={a.slug} article={a} />
+            <ul className="flex flex-col">
+              {BLOG_ARTICLES.map((a) => (
+                <ArticleIndexRow key={a.slug} article={a} />
               ))}
-            </div>
+            </ul>
           )}
         </section>
 

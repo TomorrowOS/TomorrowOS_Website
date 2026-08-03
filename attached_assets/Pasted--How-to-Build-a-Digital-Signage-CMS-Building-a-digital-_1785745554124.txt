@@ -1,0 +1,1418 @@
+# How to Build a Digital Signage CMS
+
+Building a digital signage content management system looks deceptively simple.
+
+Upload an image. Create a playlist. Connect a screen. Press publish.
+
+That may be enough for a prototype. It is not enough for a dependable product.
+
+A production digital signage CMS is a distributed software system responsible for coordinating users, media, schedules, devices, networks, playback and recovery across remote hardware. Screens may be installed thousands of kilometres away, operate without staff nearby, lose internet access unexpectedly and run on several different operating systems.
+
+A useful CMS therefore has to do much more than manage content. It must keep screens operating when infrastructure fails.
+
+This guide explains the major systems required to build one, how those systems fit together, which decisions become difficult at scale and where open-source infrastructure such as TomorrowOS can reduce the amount of platform-specific work your team needs to own.
+
+---
+
+## What is a digital signage CMS?
+
+A digital signage CMS is the software used to manage content and connected screens.
+
+At a basic level, it allows an operator to:
+
+* upload images, videos or web content;
+* organise those assets into playlists;
+* assign content to screens;
+* schedule when content should play;
+* monitor connected devices;
+* publish changes remotely.
+
+A commercial platform normally needs several additional capabilities:
+
+* organisations and user permissions;
+* device registration and pairing;
+* media metadata and versioning;
+* reliable content downloads;
+* local device storage;
+* offline playback;
+* scheduling and priority rules;
+* remote commands;
+* health telemetry;
+* player logs and diagnostics;
+* automatic recovery;
+* runtime updates;
+* support for different screen operating systems.
+
+The visible dashboard is only one layer. Behind it sits the infrastructure that communicates with every device and keeps playback functioning.
+
+---
+
+## A signage CMS is not a website CMS
+
+A website CMS publishes content to browsers that normally have:
+
+* a live internet connection;
+* a user present;
+* an established browser environment;
+* the ability to refresh after an error;
+* a relatively short session lifecycle.
+
+A signage player may run unattended for months or years.
+
+It might be:
+
+* mounted behind a menu board;
+* installed inside a shopping centre;
+* operating in a warehouse;
+* connected through an unreliable mobile network;
+* rebooted after a power interruption;
+* expected to play content while completely offline.
+
+This changes the architecture.
+
+A webpage can often fail visibly and wait for the user to retry. A digital signage player must detect problems, recover automatically and continue using locally stored content whenever the server is unavailable.
+
+The player is therefore not just a browser showing a webpage. It is an edge runtime with its own identity, state, storage and recovery behaviour.
+
+---
+
+## The complete system at a glance
+
+A modern digital signage platform typically contains four main layers.
+
+### 1. Product layer
+
+This is the customer-facing application:
+
+* dashboard;
+* organisations;
+* users;
+* media library;
+* playlists;
+* schedules;
+* reports;
+* settings;
+* branding;
+* commercial workflows.
+
+### 2. Server layer
+
+This coordinates the system:
+
+* authentication;
+* device records;
+* content metadata;
+* APIs;
+* schedules;
+* policies;
+* commands;
+* event handling;
+* telemetry;
+* queues;
+* storage references.
+
+### 3. Runtime layer
+
+This runs on the screen or media player:
+
+* pairing;
+* server connection;
+* content download;
+* local storage;
+* playback;
+* scheduling;
+* command execution;
+* telemetry;
+* offline operation;
+* recovery.
+
+### 4. Platform adapter
+
+This handles differences between operating systems and hardware:
+
+* application installation;
+* storage APIs;
+* media playback;
+* browser engines;
+* device identifiers;
+* remote commands;
+* firmware behaviour;
+* operating-system limitations.
+
+A useful high-level architecture is:
+
+```text
+Users and administrators
+          │
+          ▼
+Customer application and CMS
+          │
+          ▼
+Server SDK or API
+          │
+ ┌────────┼───────────────┐
+ ▼        ▼               ▼
+Devices  Content       Policies
+          │
+          ▼
+Communication and synchronisation
+          │
+          ▼
+On-device runtime
+          │
+ ┌────────┼───────────┬───────────┐
+ ▼        ▼           ▼           ▼
+Samsung  BrightSign  LG webOS   Other platforms
+```
+
+The product layer should not need to understand every platform-specific detail. The runtime and adapters should absorb those differences wherever practical.
+
+---
+
+## The systems every CMS eventually needs
+
+A first version may begin with three features:
+
+* upload;
+* playlist;
+* publish.
+
+Production deployments usually force the platform to add many more systems.
+
+### Identity and tenancy
+
+The platform needs to know:
+
+* which organisation owns the screen;
+* which users belong to that organisation;
+* what each user can change;
+* which content belongs to which customer;
+* who published an update;
+* who can issue remote commands.
+
+Most commercial systems are multi-tenant. A common hierarchy is:
+
+```text
+Organisation
+├── Users
+├── Locations
+├── Screen groups
+├── Devices
+├── Media
+├── Playlists
+└── Policies
+```
+
+Designing tenancy early is easier than trying to separate customer data after the product has grown.
+
+### Content
+
+The platform must manage:
+
+* file uploads;
+* metadata;
+* validation;
+* storage;
+* versions;
+* replacement;
+* deletion;
+* distribution;
+* local caching.
+
+### Devices
+
+It must also manage:
+
+* registration;
+* pairing;
+* ownership;
+* groups;
+* status;
+* software version;
+* firmware information;
+* commands;
+* replacement;
+* decommissioning.
+
+### Playback
+
+The player needs to determine:
+
+* what to play;
+* in which order;
+* at what time;
+* under which policy;
+* what happens when content is missing;
+* what happens when the network disappears;
+* what fallback should be shown;
+* how playback recovers after an error.
+
+### Monitoring
+
+Operators need visibility into:
+
+* connection status;
+* last heartbeat;
+* current runtime version;
+* storage availability;
+* active content;
+* download progress;
+* errors;
+* reboot history;
+* offline status.
+
+The operational quality of these systems often matters more than the number of features shown in the dashboard.
+
+---
+
+## Designing the frontend
+
+The frontend is the control surface for the customer.
+
+Typical areas include:
+
+* login and account management;
+* organisation administration;
+* screen overview;
+* media library;
+* playlist builder;
+* scheduling calendar;
+* user permissions;
+* device diagnostics;
+* reporting;
+* platform settings.
+
+The frontend should hide infrastructure complexity without hiding important outcomes.
+
+For example, a customer usually does not need to see the internal synchronisation algorithm. They do need to know:
+
+* which screens received the update;
+* which screens are still downloading;
+* which screens are offline;
+* whether older content remains available;
+* whether the update failed.
+
+A strong signage interface translates low-level device activity into clear operational states.
+
+Instead of displaying only:
+
+> Online
+
+consider showing:
+
+* Connected;
+* Content current;
+* Downloading update;
+* Offline, playing cached content;
+* Attention required;
+* Last seen 18 minutes ago.
+
+These states are more useful to an operator.
+
+---
+
+## Designing the backend
+
+The backend coordinates every application and player interaction.
+
+A sensible starting architecture may use one application with clearly separated modules:
+
+```text
+API layer
+├── Authentication
+├── Organisations
+├── Users
+├── Devices
+├── Media
+├── Playlists
+├── Schedules
+├── Commands
+├── Events
+└── Telemetry
+```
+
+These modules do not need to become separate services immediately.
+
+Prematurely splitting a small product into many networked services can increase complexity. Clear boundaries inside a modular application are often enough initially.
+
+The important part is separating responsibilities so they can evolve independently.
+
+For example:
+
+* device communication should not depend on dashboard layout;
+* media processing should not be embedded inside playlist logic;
+* telemetry storage should not block device commands;
+* platform-specific runtime behaviour should not leak into every API endpoint.
+
+---
+
+## API design
+
+The API connects the customer application, server services and device runtime.
+
+Common API areas include:
+
+* authentication;
+* organisations;
+* media;
+* playlists;
+* schedules;
+* devices;
+* pairing;
+* commands;
+* events;
+* telemetry.
+
+Example conceptual endpoints might include:
+
+```text
+POST /media
+GET  /devices
+POST /devices/pair
+POST /playlists
+POST /publish
+POST /devices/{id}/commands
+GET  /devices/{id}/telemetry
+```
+
+The exact route names matter less than consistency.
+
+Good API design should provide:
+
+* stable request and response formats;
+* predictable errors;
+* idempotent operations where appropriate;
+* versioning;
+* authentication;
+* authorisation;
+* auditability;
+* clear retry behaviour.
+
+Device-facing APIs deserve special care because players may retry requests after network interruptions. An operation that creates duplicate commands or conflicting registrations when retried will eventually cause field issues.
+
+---
+
+## Database design
+
+A signage database stores more than file references.
+
+Common entities include:
+
+* organisations;
+* users;
+* roles;
+* locations;
+* device groups;
+* devices;
+* pairing sessions;
+* media assets;
+* media versions;
+* playlists;
+* playlist items;
+* schedules;
+* policies;
+* commands;
+* device events;
+* telemetry;
+* audit records.
+
+A simplified relationship might look like:
+
+```text
+Organisation
+    │
+    ├── Location
+    │      └── Device group
+    │             └── Device
+    │
+    ├── Media library
+    │      └── Media versions
+    │
+    └── Playlist
+           └── Schedule
+                  └── Assigned devices
+```
+
+Do not model only the current user interface.
+
+Model the long-lived operational relationships.
+
+A device may outlive several playlists. A playlist may be assigned to several groups. A media asset may have multiple versions. A command may be queued while a device is offline.
+
+Those relationships affect the data model.
+
+---
+
+## Media storage and processing
+
+Media files should normally be stored outside the main application server in object storage or an equivalent storage layer.
+
+A typical pipeline is:
+
+```text
+Upload
+  ↓
+File validation
+  ↓
+Metadata extraction
+  ↓
+Optional processing
+  ↓
+Object storage
+  ↓
+Version record
+  ↓
+Distribution
+```
+
+Useful metadata includes:
+
+* filename;
+* container;
+* codec;
+* width;
+* height;
+* frame rate;
+* bitrate;
+* duration;
+* audio information;
+* file size;
+* checksum;
+* upload time;
+* asset version.
+
+This information helps with:
+
+* compatibility checks;
+* device targeting;
+* troubleshooting;
+* bandwidth planning;
+* duplicate detection;
+* validation;
+* reporting.
+
+Do not rely only on the file extension. Two MP4 files can have very different codec profiles, resolutions and playback requirements.
+
+---
+
+## Media validation
+
+The platform should decide what happens when an unsupported or unverified media profile is uploaded.
+
+Possible strategies include:
+
+* reject the upload;
+* accept it with a warning;
+* transcode it;
+* restrict it to compatible devices;
+* require a validation test.
+
+A professional system should not imply that every file with an accepted extension is safe across every player.
+
+Media compatibility depends on:
+
+* container;
+* codec;
+* codec profile;
+* resolution;
+* frame rate;
+* bitrate;
+* audio;
+* playback context;
+* hardware;
+* firmware;
+* runtime version.
+
+The CMS should preserve enough metadata to make those decisions visible.
+
+---
+
+## Device pairing
+
+Pairing establishes trust between a physical device and an organisation.
+
+A common flow is:
+
+```text
+Player starts
+      ↓
+Requests temporary pairing session
+      ↓
+Server returns short-lived code
+      ↓
+Code appears on screen
+      ↓
+Operator enters code in CMS
+      ↓
+Server confirms organisation ownership
+      ↓
+Permanent device identity is issued
+      ↓
+Device becomes managed
+```
+
+Pairing performs several jobs:
+
+* prevents unauthorised devices from joining;
+* assigns ownership;
+* creates a long-term identity;
+* provides credentials;
+* connects the physical screen to the correct tenant.
+
+A pairing code should be:
+
+* temporary;
+* difficult to guess at scale;
+* single-use;
+* invalid after expiry;
+* bound to a specific session.
+
+The permanent credentials should not be exposed in the user-facing pairing code.
+
+---
+
+## Device identity and lifecycle
+
+Once paired, a device needs a durable identity.
+
+That identity should normally survive:
+
+* normal reboots;
+* network interruptions;
+* content updates;
+* runtime restarts.
+
+The system must also support deliberate lifecycle actions:
+
+* unpair;
+* replace hardware;
+* transfer location;
+* reset credentials;
+* decommission;
+* reprovision.
+
+Treating a device as a permanent operational asset makes fleet management easier.
+
+Avoid generating a new record after every reinstall unless the user explicitly intends to register a replacement device.
+
+---
+
+## Content delivery
+
+Publishing should not mean immediately switching playback to a file that may still be downloading.
+
+A safer sequence is:
+
+```text
+Policy updated
+      ↓
+Player receives new manifest
+      ↓
+Player compares required assets
+      ↓
+Missing assets enter download queue
+      ↓
+Files download to temporary storage
+      ↓
+Integrity is checked
+      ↓
+Assets move into active storage
+      ↓
+New policy becomes eligible
+      ↓
+Playback switches safely
+```
+
+This prevents:
+
+* partially downloaded files;
+* missing playlist items;
+* broken transitions;
+* blank screens after publication.
+
+The player should activate a new playlist only when the required content is ready or an explicit fallback policy allows partial availability.
+
+---
+
+## Content manifests
+
+Rather than sending every playlist definition and file repeatedly, the server can provide a versioned manifest.
+
+A manifest may describe:
+
+* assigned policy;
+* playlist version;
+* required assets;
+* asset versions;
+* checksums;
+* schedules;
+* fallback behaviour;
+* expiry or refresh rules.
+
+The player compares the manifest with local state and downloads only what changed.
+
+This reduces bandwidth and makes synchronisation easier to reason about.
+
+---
+
+## Scheduling
+
+Scheduling becomes complex quickly.
+
+A useful engine may need to support:
+
+* start and end dates;
+* times of day;
+* days of week;
+* recurring schedules;
+* screen groups;
+* locations;
+* priority;
+* overrides;
+* emergency messaging;
+* fallback playlists;
+* time zones;
+* daylight-saving changes.
+
+A schedule should produce a deterministic result.
+
+Given the same:
+
+* current time;
+* device;
+* assignments;
+* policies;
+
+the system should consistently determine the same active content.
+
+Ambiguous priority rules create support problems.
+
+A simple explicit model is often better than a highly flexible system nobody can predict.
+
+---
+
+## The player runtime
+
+The on-device runtime is one of the most important parts of the entire platform.
+
+It is responsible for turning server intent into reliable local playback.
+
+Typical runtime components include:
+
+```text
+Runtime
+├── Device identity
+├── Server connection
+├── Synchronisation engine
+├── Download manager
+├── Local database
+├── File storage
+├── Scheduler
+├── Playback engine
+├── Command handler
+├── Telemetry
+└── Recovery supervisor
+```
+
+The runtime must continue operating independently when the server is unavailable.
+
+This is where a prototype becomes infrastructure.
+
+---
+
+## Local state
+
+The player needs to remember:
+
+* device identity;
+* credentials;
+* current policy;
+* downloaded assets;
+* asset versions;
+* active playlist;
+* schedule state;
+* pending downloads;
+* last server connection;
+* command results;
+* runtime configuration.
+
+That state should be stored deliberately.
+
+If all local state disappears after a restart, the player may become unusable during a network outage.
+
+The system should also handle corrupt state safely, ideally with:
+
+* validation;
+* backups;
+* atomic writes;
+* recovery defaults;
+* a known-good configuration.
+
+---
+
+## Offline playback
+
+Professional digital signage should not stop when the internet connection fails.
+
+A reliable offline lifecycle looks like:
+
+```text
+Connected
+   ↓
+Content synchronised
+   ↓
+Network unavailable
+   ↓
+Player detects disconnection
+   ↓
+Existing local policy remains active
+   ↓
+Cached content continues playing
+   ↓
+Player retries connection
+   ↓
+Network restored
+   ↓
+Player reconciles state
+   ↓
+Only changed content downloads
+```
+
+Offline playback requires more than caching files.
+
+The device also needs:
+
+* its current schedule;
+* playlist structure;
+* policy rules;
+* timestamps;
+* local clock handling;
+* fallback behaviour;
+* sufficient storage.
+
+If the player knows only which URL to request next, it is not truly offline-capable.
+
+---
+
+## Download integrity
+
+An interrupted download must not become active content.
+
+Useful safeguards include:
+
+* temporary filenames;
+* file-size checks;
+* checksums;
+* atomic move into active storage;
+* retry limits;
+* download resumption where supported;
+* failure reporting.
+
+A player should know the difference between:
+
+* not downloaded;
+* downloading;
+* downloaded;
+* verified;
+* active;
+* failed.
+
+Without those states, operational diagnostics become difficult.
+
+---
+
+## Recovery
+
+Failures are inevitable.
+
+The system should plan for:
+
+* power loss;
+* network interruption;
+* storage exhaustion;
+* corrupted downloads;
+* application crashes;
+* firmware differences;
+* expired credentials;
+* invalid policies;
+* failed updates.
+
+Recovery behaviour may include:
+
+* restarting the playback process;
+* reconnecting to the server;
+* falling back to a previous policy;
+* removing an invalid asset;
+* reporting diagnostic information;
+* restarting the device where supported.
+
+The goal is not to pretend failures never occur. The goal is to recover without requiring someone to visit the screen.
+
+---
+
+## Telemetry
+
+Telemetry allows the CMS to understand what is happening across the fleet.
+
+Useful fields include:
+
+* connection state;
+* last heartbeat;
+* runtime version;
+* firmware or OS version;
+* available storage;
+* active policy;
+* active media;
+* download state;
+* recent error;
+* uptime;
+* last reboot;
+* network information.
+
+Telemetry should answer operational questions, not merely generate data.
+
+A useful screen-health view should help an operator determine:
+
+* Is the player connected?
+* Is it playing the expected content?
+* Is it running the expected software?
+* Is storage becoming full?
+* Does anyone need to act?
+
+---
+
+## Remote commands
+
+Common device commands include:
+
+* restart runtime;
+* reboot device;
+* refresh content;
+* request synchronisation;
+* clear selected cache;
+* capture screenshot;
+* collect logs;
+* request diagnostics;
+* update configuration.
+
+Commands should have clear states:
+
+```text
+Created
+  ↓
+Queued
+  ↓
+Delivered
+  ↓
+Acknowledged
+  ↓
+Completed or failed
+```
+
+Devices may be offline when a command is issued.
+
+The server must decide:
+
+* whether the command waits;
+* how long it remains valid;
+* whether it can be retried;
+* whether duplicate execution is safe.
+
+A reboot command, for example, should not execute repeatedly because acknowledgements were lost.
+
+---
+
+## Supporting multiple platforms
+
+Multi-platform digital signage is difficult because each environment behaves differently.
+
+Differences can include:
+
+* packaging;
+* installation;
+* startup behaviour;
+* storage APIs;
+* media decoders;
+* browser engines;
+* security restrictions;
+* remote commands;
+* firmware updates;
+* debugging tools;
+* application lifecycle.
+
+Samsung Tizen and BrightSign are not two cosmetic variations of the same browser.
+
+A useful abstraction should standardise common behaviour while preserving platform-specific constraints.
+
+For example:
+
+```text
+Common runtime interface
+├── identifyDevice()
+├── storeFile()
+├── playContent()
+├── reportHealth()
+├── executeCommand()
+└── restartRuntime()
+
+Platform adapters
+├── Samsung Tizen implementation
+├── BrightSign implementation
+├── LG webOS implementation
+├── Windows implementation
+└── Android implementation
+```
+
+Not every platform will support every command.
+
+The API should represent capabilities honestly rather than pretending all devices are identical.
+
+---
+
+## Security
+
+A signage platform controls remote devices and public-facing screens. Security needs to be designed into the system.
+
+Important areas include:
+
+* encrypted transport;
+* device authentication;
+* user authentication;
+* role-based permissions;
+* pairing expiry;
+* credential rotation;
+* audit history;
+* signed or verified updates;
+* protected secrets;
+* tenant isolation;
+* command authorisation.
+
+Do not place private server credentials in frontend code or publicly distributed player configuration.
+
+A device should receive only the credentials and permissions it needs.
+
+Remote commands deserve particular protection because they may affect physical hardware.
+
+---
+
+## Common mistakes
+
+### Treating the player like a webpage
+
+A webpage can assume connectivity. A signage player cannot.
+
+### Activating content before downloads finish
+
+This creates missing files, blank playback and inconsistent screens.
+
+### Treating all MP4 files as equivalent
+
+Container, codec, bitrate and profile matter.
+
+### Ignoring firmware
+
+The same player model may behave differently after an operating-system update.
+
+### Building no rollback path
+
+A failed policy or runtime release needs a safe recovery route.
+
+### Using weak pairing
+
+Permanent credentials should never be exposed through predictable or reusable activation codes.
+
+### Recording only “online” or “offline”
+
+Operational states need more detail.
+
+### Assuming every platform behaves the same
+
+Platform abstraction should not erase genuine hardware limitations.
+
+### Creating many services too early
+
+Use clear boundaries first. Split deployments only when scale or ownership requires it.
+
+### Treating reliability as a future enhancement
+
+Offline operation, recovery and verification are architectural decisions, not polish added at the end.
+
+---
+
+## Build everything yourself, buy a CMS or use infrastructure?
+
+There are three broad pathways.
+
+### Build everything internally
+
+This provides maximum control.
+
+Your team owns:
+
+* product;
+* server;
+* APIs;
+* device communication;
+* runtime;
+* platform adapters;
+* offline operation;
+* testing;
+* maintenance.
+
+This can make sense when:
+
+* device infrastructure is itself the core differentiator;
+* the organisation has a substantial engineering team;
+* platform ownership justifies the cost;
+* long-term hardware support is funded.
+
+The main cost is not the initial prototype. It is maintaining runtime behaviour across devices, firmware and years of field use.
+
+### Adopt a finished CMS
+
+A finished digital signage platform is often the best choice when:
+
+* the required workflows already exist;
+* speed matters more than custom ownership;
+* the customer wants software rather than infrastructure;
+* bespoke product development is unnecessary.
+
+This avoids most engineering work but limits control over:
+
+* product design;
+* workflows;
+* deployment model;
+* licensing;
+* commercial model;
+* runtime behaviour.
+
+### Use shared infrastructure
+
+The third option is to build the product while reusing common signage infrastructure.
+
+Your team owns:
+
+* customer experience;
+* vertical workflows;
+* branding;
+* business rules;
+* commercial model;
+* frontend;
+* product data.
+
+The infrastructure layer handles reusable capabilities such as:
+
+* pairing;
+* content delivery;
+* runtime communication;
+* local playback;
+* offline behaviour;
+* commands;
+* telemetry;
+* platform adapters.
+
+This is the role TomorrowOS is designed to fill.
+
+---
+
+## Where TomorrowOS fits
+
+TomorrowOS is an open-source foundation for building digital signage software.
+
+It is not intended to dictate the customer experience or replace every product decision.
+
+A product built with TomorrowOS can still have its own:
+
+* interface;
+* users;
+* workflows;
+* data;
+* vertical features;
+* branding;
+* commercial model.
+
+TomorrowOS focuses on shared infrastructure beneath that product.
+
+Conceptually:
+
+```text
+Your product
+├── Users
+├── Workflows
+├── Brand
+├── Customer data
+└── Commercial experience
+        │
+        ▼
+TomorrowOS infrastructure
+├── Server SDK and APIs
+├── Device communication
+├── Content delivery
+├── Policies
+├── Commands and events
+├── Offline runtime
+└── Platform adapters
+        │
+        ▼
+Supported screen environments
+```
+
+This separation allows a developer to concentrate on the part customers see while avoiding the need to independently rebuild every common device capability.
+
+Current platform and version claims should always be checked against the live TomorrowOS compatibility pages and documentation before deployment.
+
+---
+
+## Building with AI-assisted development tools
+
+Tools such as Replit, Cursor, Claude Code, OpenAI Codex, GitHub Copilot and Gemini CLI can accelerate product development.
+
+They are particularly useful for:
+
+* scaffolding dashboards;
+* creating database schemas;
+* building forms;
+* implementing API clients;
+* generating tests;
+* reviewing code;
+* documenting integrations;
+* creating deployment scripts.
+
+They do not remove the need to understand the architecture.
+
+An AI-generated CMS can still fail because it:
+
+* stores secrets in the frontend;
+* assumes permanent connectivity;
+* activates incomplete downloads;
+* ignores tenant isolation;
+* lacks rollback;
+* misunderstands device lifecycle;
+* treats platform behaviour as generic web behaviour.
+
+The safest approach is to give the AI tool:
+
+* a defined architecture;
+* explicit security rules;
+* current SDK documentation;
+* clear environment boundaries;
+* acceptance tests;
+* supported-platform constraints;
+* a definition of done.
+
+TomorrowOS can provide the reusable infrastructure and documented build path, while AI tools help developers assemble the application around it.
+
+---
+
+## A practical build sequence
+
+A sensible sequence for developing a new CMS is:
+
+### Phase 1: Define the product
+
+Decide:
+
+* target customer;
+* use case;
+* supported platforms;
+* deployment model;
+* ownership model;
+* required workflows.
+
+### Phase 2: Build the application foundation
+
+Implement:
+
+* authentication;
+* organisations;
+* users;
+* roles;
+* database;
+* storage;
+* media records.
+
+### Phase 3: Add device management
+
+Implement:
+
+* pairing;
+* device records;
+* groups;
+* status;
+* credentials;
+* lifecycle actions.
+
+### Phase 4: Add content and policies
+
+Implement:
+
+* media library;
+* playlists;
+* schedules;
+* assignments;
+* versioning;
+* publication workflow.
+
+### Phase 5: Connect the runtime
+
+Implement:
+
+* server communication;
+* manifests;
+* downloads;
+* local storage;
+* playback;
+* offline state;
+* recovery.
+
+### Phase 6: Add operations
+
+Implement:
+
+* telemetry;
+* commands;
+* logs;
+* alerts;
+* diagnostics;
+* update control.
+
+### Phase 7: Validate exact deployments
+
+Test:
+
+* device model;
+* firmware;
+* runtime version;
+* media profile;
+* offline playback;
+* reboot recovery;
+* network reconnection;
+* storage behaviour.
+
+Do not define production readiness based only on the dashboard working.
+
+---
+
+## Pre-launch checklist
+
+Before launching a CMS, confirm:
+
+### Product
+
+* The intended user and workflow are clear.
+* Roles and organisation boundaries are defined.
+* The product explains device states clearly.
+
+### Content
+
+* Files are validated.
+* Media metadata is recorded.
+* Versioning and rollback exist.
+* Downloads are verified before activation.
+
+### Devices
+
+* Pairing is secure.
+* Identity persists after reboot.
+* Credentials can be revoked.
+* Replacement and decommissioning are supported.
+
+### Runtime
+
+* Content plays offline.
+* Interrupted downloads recover.
+* Invalid files do not become active.
+* A known-good fallback exists.
+* Reboots recover automatically.
+
+### Operations
+
+* Telemetry answers real support questions.
+* Commands have delivery and completion states.
+* Logs can be collected.
+* Runtime and firmware versions are visible.
+
+### Platforms
+
+* Exact models are recorded.
+* Exact firmware is recorded.
+* Media is tested on deployment hardware.
+* Platform limitations are documented.
+
+### Security
+
+* Secrets are not exposed.
+* Tenant data is isolated.
+* Commands require authorisation.
+* Credentials can rotate.
+* Updates can be verified.
+
+---
+
+## Frequently asked questions
+
+### How long does it take to build a digital signage CMS?
+
+A basic prototype can be created quickly, particularly with modern frameworks and AI-assisted tools. A dependable commercial platform takes longer because the difficult work involves device communication, offline playback, recovery, telemetry, security and platform validation rather than the visible dashboard alone.
+
+### Can I build a signage CMS with React or Next.js?
+
+Yes. Modern web frameworks are suitable for the customer-facing application. They do not by themselves solve the device runtime, offline storage, pairing, content synchronisation or platform-specific playback layers.
+
+### Do I need to build my own player?
+
+A CMS needs some form of on-device software or runtime. Teams can build that runtime themselves, use a finished platform or use infrastructure such as TomorrowOS that provides reusable runtime and platform capabilities.
+
+### Can digital signage work without internet?
+
+It should. Professional players normally download content and policy information locally so playback can continue when the server is unreachable. Offline capability must be designed into the runtime and scheduling model.
+
+### How do screens connect to the CMS?
+
+A player normally registers with the server and completes a pairing process. After pairing, it receives a persistent identity and credentials used for synchronisation, commands and telemetry.
+
+### Is every media file supported on every screen?
+
+No. Compatibility varies by container, codec, resolution, bitrate, hardware, firmware and playback context. Media should be tested on the exact deployment combination.
+
+### What is the difference between a CMS and a player?
+
+The CMS is the management application and server-side control system. The player or runtime runs on the device, stores content, applies schedules, plays media, communicates with the server and recovers from failures.
+
+### What is a headless digital signage CMS?
+
+A headless system separates the customer-facing application from the underlying signage services. Developers build their own interface and workflows while using APIs and runtimes for devices, content and playback.
+
+### Can I self-host a digital signage CMS?
+
+Yes, depending on the infrastructure chosen. Self-hosting gives greater deployment and data control but also makes your team responsible for security, updates, monitoring, storage and reliability.
+
+### Can AI build a complete CMS?
+
+AI tools can accelerate implementation, but they need accurate architecture, platform constraints and tests. Without those guardrails, an AI-generated application may look complete while missing critical offline, security or recovery behaviour.
+
+---
+
+## Next steps
+
+A successful digital signage CMS is not defined by how quickly a playlist editor can be built.
+
+It is defined by whether remote screens:
+
+* receive the right content;
+* keep playing when networks fail;
+* recover after interruptions;
+* report useful health information;
+* behave predictably across supported platforms.
+
+The most valuable engineering work usually sits beneath the interface.
+
+TomorrowOS provides an open-source infrastructure layer for teams that want to build and own their product without independently recreating every common server-to-screen capability.
+
+Continue with:
+
+* **Start Building** — begin a new TomorrowOS project.
+* **Documentation** — review implementation and API guidance.
+* **GitHub** — explore the source and contribute.
+* **Platform Compatibility** — confirm supported hardware and operating-system scope.
+* **Media Compatibility** — review tested media profiles and limitations.

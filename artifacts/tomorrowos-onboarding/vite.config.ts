@@ -6,6 +6,11 @@ import { defineConfig } from 'vite';
 
 import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
 
+// Shared article metadata + FAQ source of truth for the cornerstone article.
+// Imported by BOTH this prerender plugin and the article page so the
+// structured data can never drift from the visible content.
+import { CMS_ARTICLE, CMS_ARTICLE_FAQ } from './src/lib/cmsArticleMeta';
+
 // Replit always injects PORT/BASE_PATH via artifact.toml.
 // Local defaults keep `pnpm run dev:web` working in VS Code without env setup.
 const rawPort = process.env.PORT ?? '5173';
@@ -41,6 +46,10 @@ function prerenderPlugin() {
     description: string;
     canonicalPath: string;
     indexable: boolean;
+    /** Optional OG title override (used when og:title must omit the " | TomorrowOS" suffix). */
+    ogTitle?: string;
+    /** Optional OG description override (when it should differ from the meta description). */
+    ogDescription?: string;
   }
 
   // Mirror of src/lib/seoConfig.ts — keep in sync.
@@ -177,7 +186,20 @@ function prerenderPlugin() {
       description:
         'Read practical guides about building digital signage software, open-source infrastructure, screen platforms, playback and reliable device operations.',
       canonicalPath: '/blog',
-      indexable: false,
+      // Flipped to indexable on 2026-08-03 — first pillar article shipped.
+      indexable: true,
+    },
+    // Cornerstone article (root-level pillar page). Metadata sourced from
+    // src/lib/cmsArticleMeta.ts so it cannot drift from the page. The key is
+    // a literal (not CMS_ARTICLE.path) so validate-seo's route-sync parser
+    // can see it; a startup assertion below guards against divergence.
+    '/build-a-digital-signage-cms': {
+      rawTitle: CMS_ARTICLE.headline,
+      description: CMS_ARTICLE.description,
+      canonicalPath: CMS_ARTICLE.path,
+      indexable: true,
+      ogTitle: CMS_ARTICLE.ogTitle,
+      ogDescription: CMS_ARTICLE.ogDescription,
     },
     // Learn section — feature-gated behind VITE_ENABLE_LEARN. Entries are
     // preserved metadata drafts; the prerender loop skips them when the flag
@@ -271,6 +293,13 @@ function prerenderPlugin() {
     },
   };
 
+  // Guard: the literal cornerstone key above must match the shared module.
+  if (!routes[CMS_ARTICLE.path]) {
+    throw new Error(
+      `[prerender] cornerstone route key mismatch: routes table has no entry for CMS_ARTICLE.path "${CMS_ARTICLE.path}" — keep the literal key in sync with src/lib/cmsArticleMeta.ts`,
+    );
+  }
+
   /** Escape a string for safe use in an HTML attribute value (double-quoted). */
   function escAttr(s: string): string {
     return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
@@ -291,6 +320,49 @@ function prerenderPlugin() {
    */
   function buildJsonLd(routePath: string, route: PreRoute): string {
     const schemas: unknown[] = [];
+
+    // Cornerstone article: TechArticle + BreadcrumbList (Home → Blog → title)
+    // + FAQPage, all sourced from src/lib/cmsArticleMeta.ts so the structured
+    // data always matches the visible page content.
+    if (routePath === CMS_ARTICLE.path) {
+      const canonicalUrl = `${SITE_URL}${route.canonicalPath}`;
+      schemas.push({
+        '@context': 'https://schema.org',
+        '@type': 'TechArticle',
+        headline: CMS_ARTICLE.headline,
+        description: CMS_ARTICLE.description,
+        url: canonicalUrl,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+        datePublished: CMS_ARTICLE.datePublished,
+        dateModified: CMS_ARTICLE.dateModified,
+        author: { '@type': 'Organization', name: 'TomorrowOS', url: `${SITE_URL}/` },
+        publisher: { '@type': 'Organization', name: 'TomorrowOS', url: `${SITE_URL}/` },
+      });
+      schemas.push({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog` },
+          { '@type': 'ListItem', position: 3, name: CMS_ARTICLE.headline, item: canonicalUrl },
+        ],
+      });
+      schemas.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: CMS_ARTICLE_FAQ.map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: { '@type': 'Answer', text: f.answer },
+        })),
+      });
+      return schemas
+        .map(
+          (s, i) =>
+            `    <script type="application/ld+json" id="prerender-jsonld-${i}">${JSON.stringify(s)}</script>`,
+        )
+        .join('\n');
+    }
 
     if (routePath === '/') {
       schemas.push({
@@ -431,21 +503,23 @@ function prerenderPlugin() {
           /<meta name="description" content="[^"]*"\s*\/?>/,
           `<meta name="description" content="${escAttr(route.description)}" />`,
         );
+        const ogTitle = route.ogTitle ?? fullTitle;
+        const ogDescription = route.ogDescription ?? route.description;
         html = html.replace(
           /<meta property="og:title" content="[^"]*"\s*\/?>/,
-          `<meta property="og:title" content="${escAttr(fullTitle)}" />`,
+          `<meta property="og:title" content="${escAttr(ogTitle)}" />`,
         );
         html = html.replace(
           /<meta property="og:description" content="[^"]*"\s*\/?>/,
-          `<meta property="og:description" content="${escAttr(route.description)}" />`,
+          `<meta property="og:description" content="${escAttr(ogDescription)}" />`,
         );
         html = html.replace(
           /<meta name="twitter:title" content="[^"]*"\s*\/?>/,
-          `<meta name="twitter:title" content="${escAttr(fullTitle)}" />`,
+          `<meta name="twitter:title" content="${escAttr(ogTitle)}" />`,
         );
         html = html.replace(
           /<meta name="twitter:description" content="[^"]*"\s*\/?>/,
-          `<meta name="twitter:description" content="${escAttr(route.description)}" />`,
+          `<meta name="twitter:description" content="${escAttr(ogDescription)}" />`,
         );
 
         // Replace canonical, og:url, og:image in-place — these tags are

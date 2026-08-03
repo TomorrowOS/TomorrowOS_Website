@@ -48,8 +48,22 @@ export interface BlogArticle {
   indexable: boolean;
 }
 
-/** Published articles only. Empty until the first pillar article ships. */
-export const BLOG_ARTICLES: BlogArticle[] = [];
+/** Published articles only. */
+export const BLOG_ARTICLES: BlogArticle[] = [
+  {
+    slug: 'build-a-digital-signage-cms',
+    href: '/build-a-digital-signage-cms',
+    title: 'How to Build a Digital Signage CMS',
+    description:
+      'Learn how to build a reliable digital signage CMS, including architecture, device pairing, content delivery, offline playback, telemetry and multi-platform runtimes.',
+    category: 'Building Digital Signage',
+    publishedAt: '2026-08-03',
+    readingTimeMinutes: 21,
+    author: 'TomorrowOS',
+    featured: true,
+    indexable: true,
+  },
+];
 
 export const FEATURED_ARTICLE: BlogArticle | undefined = BLOG_ARTICLES.find(
   (a) => a.featured,
