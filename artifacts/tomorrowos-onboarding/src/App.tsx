@@ -28,6 +28,7 @@ const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 // Learn section (Phase A shells): one lazy component serves every registered
 // /learn route so Learn code stays out of the primary entry bundle.
 const LearnRouteShell = lazy(() => import('./pages/learn/LearnRouteShell'));
+const LearnIndex = lazy(() => import('./pages/learn/LearnIndex'));
 
 const queryClient = new QueryClient();
 
@@ -80,7 +81,7 @@ function Router() {
         <Route path="/guides/platforms" component={PlatformGuides} />
         {/* Learn (Phase A): registered, noindex, absent from navigation.
             Unknown /learn/* paths fall through to NotFound below. */}
-        <Route path="/learn" component={LearnRouteShell} />
+        <Route path="/learn" component={LearnIndex} />
         <Route path="/learn/build-a-digital-signage-cms" component={LearnRouteShell} />
         <Route path="/learn/digital-signage-sdk" component={LearnRouteShell} />
         <Route path="/learn/digital-signage-api" component={LearnRouteShell} />

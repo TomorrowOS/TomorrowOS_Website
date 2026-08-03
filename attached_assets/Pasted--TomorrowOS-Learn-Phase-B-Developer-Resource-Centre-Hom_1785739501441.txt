@@ -1,0 +1,1255 @@
+# TomorrowOS Learn — Phase B Developer Resource Centre Homepage
+
+You are working inside the existing TomorrowOS website repository.
+
+Phase A has been completed successfully.
+
+The following foundation now exists:
+
+* Nine `/learn` routes are registered.
+* Every Learn route is lazy-loaded.
+* Every Learn route is pre-rendered.
+* Every Learn route remains `indexable: false`.
+* No Learn route appears in the sitemap.
+* No Learn route appears in the header or footer.
+* A permanent route-sync safeguard validates App routes, SEO configuration, prerender coverage, smoke coverage and mirror-host routing.
+* Existing website behaviour remains unchanged.
+
+This task is **Phase B only**.
+
+## Objective
+
+Replace the technical shell at:
+
+`/learn`
+
+with the complete **TomorrowOS Developer Resource Centre homepage**.
+
+The page must remain:
+
+* `indexable: false`
+* excluded from the sitemap
+* absent from the header navigation
+* unavailable from the homepage
+* footer-linked only
+* unpublished until manually deployed after review
+
+Do not build the eight article pages during this task.
+
+Do not change their shell content.
+
+Do not begin Phase C.
+
+---
+
+# Critical safety rules
+
+Do not:
+
+* redesign the current website
+* modify the homepage
+* modify the header
+* modify existing pages
+* modify existing page metadata
+* change existing routes
+* change existing `/guides` URLs
+* duplicate content from Mintlify
+* duplicate GitHub content
+* install packages
+* modify dependencies
+* modify the lockfile
+* add search
+* add MDX
+* add a CMS
+* add analytics events
+* add user progress tracking
+* use localStorage
+* change robots.txt
+* change sitemap-generation logic
+* change deployment configuration
+* publish or deploy
+
+Create a new reversible checkpoint or branch before making changes.
+
+---
+
+# Product and information architecture
+
+TomorrowOS now has four distinct information layers.
+
+## Website
+
+`tomorrowos.org`
+
+Purpose:
+
+* Explain the product
+* Establish positioning
+* Direct users to appropriate journeys
+
+## Learn
+
+`tomorrowos.org/learn`
+
+Purpose:
+
+* Educate
+* Answer broad developer and industry questions
+* Build SEO and AI-search authority
+* Explain concepts and architecture
+* Direct readers toward implementation resources
+
+## Documentation
+
+`docs.tomorrowos.org`
+
+Purpose:
+
+* Setup
+* Installation
+* SDK usage
+* API implementation
+* Configuration
+* Technical reference
+* Troubleshooting
+
+## GitHub
+
+Purpose:
+
+* Source code
+* Releases
+* Issues
+* Discussions
+* Contributions
+
+The intended handoff is:
+
+Learn → educate
+Documentation → implement
+GitHub → inspect, contribute and develop
+
+The `/learn` homepage must reinforce this relationship without overexplaining it.
+
+---
+
+# Page identity
+
+Navigation label, when added in a later phase:
+
+`Learn`
+
+Current page H1:
+
+`Developer Resource Centre`
+
+Primary supporting statement:
+
+`Everything you need to build digital signage software.`
+
+The page must feel like:
+
+* a developer resource centre
+* a curated technical learning system
+* a long-term knowledge hub
+
+It must not feel like:
+
+* a blog
+* a news archive
+* a WordPress template
+* a second documentation site
+* an empty launch page
+* a list of future promises
+
+---
+
+# Existing design system
+
+Use the audited existing system:
+
+* `WebsiteLayout`
+* `WebsiteHeader`
+* `WebsiteFooter`
+* existing breadcrumb component
+* existing `ui/card`
+* existing `ui/button`
+* existing typography
+* existing spacing
+* existing container widths
+* existing colour tokens
+* existing border radius
+* existing shadows
+* existing icon system
+* existing responsive breakpoints
+* existing focus states
+* existing reduced-motion handling
+* existing external-link treatment
+
+Do not create a new global style system.
+
+Do not modify `src/index.css` unless an unavoidable implementation issue is discovered. If a global change appears necessary, stop and explain it rather than making it automatically.
+
+---
+
+# Required new components
+
+Create the minimum reusable Learn components needed for the homepage.
+
+Recommended files:
+
+* `src/lib/learnResources.ts`
+* `src/components/learn/ResourceStatusBadge.tsx`
+* `src/components/learn/ResourceCard.tsx`
+* `src/components/learn/ResourceSection.tsx`
+* `src/components/learn/LearningPathCard.tsx`
+* `src/pages/learn/LearnIndex.tsx`
+
+Reuse existing components wherever possible.
+
+Do not build `ArticleLayout` or article-only components during Phase B unless technically unavoidable. Those belong in Phase C.
+
+---
+
+# Single source of truth
+
+Create:
+
+`src/lib/learnResources.ts`
+
+This must become the single structured source for:
+
+* resource titles
+* short descriptions
+* destination URLs
+* whether links are internal or external
+* maturity statuses
+* category membership
+* learning-path membership
+* CTA labels
+
+Avoid duplicating resource definitions across the page.
+
+The page sections and learning paths should derive from this resource map.
+
+Use TypeScript types for:
+
+* resource status
+* resource category
+* resource destination
+* learning-path step
+
+Do not add runtime state.
+
+---
+
+# Resource maturity model
+
+Use exactly these statuses:
+
+* `production-ready`
+* `available`
+* `in-development`
+* `platform-validation`
+* `community-contribution`
+* `planned`
+
+Visible labels:
+
+* Production Ready
+* Available
+* In Development
+* Platform Validation
+* Community Contribution
+* Planned
+
+Rules:
+
+## Production Ready
+
+Meaning:
+
+The resource or platform is shipped, supported and validated for its stated scope.
+
+Behaviour:
+
+* Clickable
+* Links to a live page, Learn article, guide or documentation
+* Badge may be hidden or visually subtle
+
+CTA:
+
+* Read the guide
+* View documentation
+* View platform
+
+## Available
+
+Meaning:
+
+Useful material or capability exists today.
+
+Behaviour:
+
+* Clickable
+* Links to a genuine existing destination
+* Badge may be hidden or neutral
+
+CTA:
+
+* Read
+* View documentation
+* Explore
+
+## In Development
+
+Meaning:
+
+The resource is actively being built or documented.
+
+Behaviour:
+
+* Clickable only when there is a useful current destination
+* Link to GitHub discussion, roadmap, existing guide or documentation
+* Never link to an empty Learn article shell
+
+CTA:
+
+* Follow progress
+* View current documentation
+
+## Platform Validation
+
+Meaning:
+
+Support or documentation is undergoing hardware, firmware or workflow validation.
+
+Behaviour:
+
+* Link to the compatibility page, tested-platform information or existing guide
+* Never imply full production support
+
+CTA:
+
+* See validation status
+
+## Community Contribution
+
+Meaning:
+
+The resource is suitable for community contribution.
+
+Behaviour:
+
+* Link to GitHub Discussions, contributing information or an appropriate repository
+* Must not imply that the guide already exists
+
+CTA:
+
+* Contribute
+
+## Planned
+
+Meaning:
+
+The resource is planned but not currently available.
+
+Behaviour:
+
+* It must still link somewhere useful, such as a roadmap, relevant documentation overview or GitHub discussion
+* If no useful destination exists, omit the card rather than make it dead
+* Never create a placeholder article route solely for the card
+
+CTA:
+
+* View roadmap
+* Follow development
+
+Never use:
+
+`Coming Soon`
+
+No card may be visually disabled or unclickable dead weight.
+
+Every visible card must lead somewhere useful and truthful.
+
+---
+
+# Truthfulness rule
+
+Before assigning statuses and links, inspect the current website, documentation links and GitHub destinations available in the repository.
+
+Do not assume that a resource exists.
+
+Do not claim support based only on roadmap intent.
+
+Where status is uncertain:
+
+* choose the more conservative status
+* link to compatibility or roadmap information
+* note the uncertainty in the final implementation report
+
+Samsung Tizen and BrightSign may use stronger statuses only where the current website and compatibility information support them.
+
+LG webOS, Android and Windows must not be described as production ready unless the current repository explicitly confirms that state.
+
+---
+
+# `/learn` page structure
+
+Build the page in this exact overall order.
+
+## 1. Breadcrumbs
+
+Use the existing breadcrumb component.
+
+Structure:
+
+* Home
+* Learn
+
+Requirements:
+
+* semantic breadcrumb navigation
+* `aria-current="page"`
+* breadcrumb structured data using the existing project pattern
+* no duplicate H1
+
+---
+
+## 2. Hero
+
+H1:
+
+`Developer Resource Centre`
+
+Primary supporting line:
+
+`Everything you need to build digital signage software.`
+
+Supporting paragraph direction:
+
+Explain briefly that this resource centre helps developers understand how to build a new CMS, connect an existing product, work with supported platforms and learn the architecture underneath reliable signage software.
+
+Also explain, in one concise sentence, that implementation details live in the TomorrowOS documentation.
+
+Do not make inflated claims.
+
+CTAs:
+
+Primary:
+
+`Start exploring`
+
+Destination:
+
+`#start-here`
+
+Secondary:
+
+`View documentation`
+
+Destination:
+
+`https://docs.tomorrowos.org`
+
+Requirements:
+
+* CTA elements must be links, not buttons
+* secondary external link uses the existing external-link convention
+* mobile buttons stack cleanly
+* no hero image in Phase B
+* preserve a restrained, text-led design
+
+---
+
+## 3. Learning paths
+
+Section ID:
+
+`learning-paths`
+
+H2:
+
+`Choose your path`
+
+Supporting direction:
+
+Help users select the path that matches what they are trying to build.
+
+Create five learning-path cards.
+
+### Build a New CMS
+
+Audience:
+
+Founders and teams building a signage product from scratch.
+
+Recommended steps:
+
+1. Build a Digital Signage CMS
+2. Digital Signage SDK
+3. Digital Signage API
+4. Self-Hosted Digital Signage
+
+Current destination behaviour:
+
+* Article routes remain shells and noindex.
+* Do not link users to unfinished Learn article shells.
+* Until those articles are complete, use the best relevant existing Quickstart, Start Building or documentation destinations.
+* Structure the resource map so destinations can later switch to Learn articles without editing the component.
+
+Outcome:
+
+Understand the platform layers and the route from idea to product.
+
+CTA:
+
+`Start building`
+
+### Connect an Existing Product
+
+Audience:
+
+SaaS and software teams adding digital signage to an existing application.
+
+Recommended steps:
+
+1. Digital Signage SDK
+2. Digital Signage API
+3. Headless Digital Signage
+4. Device pairing documentation
+
+Outcome:
+
+Understand the integration surface between an existing product and TomorrowOS.
+
+CTA:
+
+`Explore integration`
+
+### Build with AI
+
+Audience:
+
+Developers using Replit, Claude Code, Cursor, ChatGPT or similar tools.
+
+Recommended steps:
+
+1. Build a CMS overview
+2. Choose an AI-guided setup
+3. Configure the server and services
+4. Pair a supported screen
+
+Use existing `/start` or guided setup destinations where available.
+
+Outcome:
+
+Begin an AI-assisted signage build using the existing TomorrowOS workflow.
+
+CTA:
+
+`View AI-assisted setup`
+
+### Build a Custom Player
+
+Audience:
+
+Developers focused on Samsung Tizen, BrightSign and device runtimes.
+
+Recommended steps:
+
+1. Platform compatibility
+2. Samsung Tizen or BrightSign guide
+3. Runtime behaviour
+4. Testing and validation
+
+Outcome:
+
+Understand the player layer and supported device pathways.
+
+CTA:
+
+`Explore platforms`
+
+### Learn the Architecture
+
+Audience:
+
+Developers and technical decision-makers evaluating digital signage infrastructure.
+
+Recommended steps:
+
+1. Open-source infrastructure
+2. Self-hosted architecture
+3. Headless architecture
+4. Offline playback
+5. Commands, events and telemetry
+
+Outcome:
+
+Understand how a modern digital signage stack works.
+
+CTA:
+
+`Explore architecture`
+
+Learning-path cards contain multiple links.
+
+Therefore:
+
+* do not wrap the whole card in one anchor
+* use a heading, ordered list of links and one final CTA
+* ensure logical keyboard order
+* do not use persistent progress tracking
+
+Responsive layout:
+
+* one column on small screens
+* two columns at medium widths
+* three columns at large widths
+* allow the final two cards to wrap cleanly
+* do not use horizontal carousels
+
+---
+
+## 4. Start Here
+
+Section ID:
+
+`start-here`
+
+H2:
+
+`Start here`
+
+Supporting direction:
+
+Introduce the three foundational concepts for building with TomorrowOS.
+
+Create three visually prioritised cards:
+
+* Build a Digital Signage CMS
+* Digital Signage SDK
+* Digital Signage API
+
+Important:
+
+The three article routes are not complete in Phase B.
+
+Do not link these cards to the unfinished article shells.
+
+Instead, link each to the best existing useful destination:
+
+* `/start`
+* relevant documentation
+* appropriate existing guide or integration route
+
+The structured resource data must make it easy to switch each card to the final Learn article later.
+
+Suggested statuses:
+
+* Use `in-development` where the Learn article itself is being created.
+* The card description can explain the concept in one sentence and indicate that the full Learn guide is in development.
+* The destination must still be useful now.
+
+---
+
+## 5. Architecture
+
+Section ID:
+
+`architecture`
+
+H2:
+
+`Architecture`
+
+Supporting direction:
+
+Explain the underlying systems required for reliable digital signage software.
+
+Include resources where useful destinations currently exist:
+
+* Offline Playback
+* Digital Signage Runtime
+* Device Pairing
+* Self-Hosted Digital Signage
+* Headless Digital Signage
+* Content Delivery
+* Commands and Events
+* Telemetry
+* Recovery
+
+Rules:
+
+* Link to documentation for implementation subjects.
+* Link to existing guides where appropriate.
+* Link to GitHub or roadmap only where genuinely helpful.
+* Omit cards with no useful destination.
+* Do not create routes for these cards during Phase B.
+
+---
+
+## 6. Platforms
+
+Section ID:
+
+`platforms`
+
+H2:
+
+`Platforms`
+
+Supporting direction:
+
+Show the platforms TomorrowOS currently supports, validates or plans to support.
+
+Resources:
+
+* Samsung Tizen
+* BrightSign
+* LG webOS
+* Android
+* Windows
+
+Use truthful maturity states.
+
+Samsung and BrightSign should link to the strongest existing platform guides or compatibility pages until their Learn articles are complete.
+
+LG webOS, Android and Windows should link to compatibility or roadmap information where available.
+
+Do not imply that planned platforms are currently supported.
+
+---
+
+## 7. AI Development
+
+Section ID:
+
+`ai-development`
+
+H2:
+
+`AI development`
+
+Supporting direction:
+
+Show how developers can use modern AI development tools alongside TomorrowOS.
+
+Potential resources:
+
+* Replit
+* Claude Code
+* Cursor
+* ChatGPT
+* OpenAI Codex
+* GitHub Copilot
+* Gemini CLI
+
+Rules:
+
+* Include only cards with a real useful destination.
+* Replit may link to the existing guided Replit setup.
+* Other tools may link to relevant docs or GitHub Discussions where they exist.
+* If no meaningful destination exists, omit the card.
+* Do not imply official integrations unless the current product supports them.
+
+---
+
+## 8. Engineering
+
+Section ID:
+
+`engineering`
+
+H2:
+
+`Engineering`
+
+Supporting direction:
+
+Introduce the engineering topics involved in operating signage reliably at scale.
+
+Potential resources:
+
+* Content Synchronisation
+* Storage
+* Scheduling
+* Telemetry
+* Commands
+* Player Recovery
+* Testing
+* Release Engineering
+
+Again:
+
+* link only to existing useful destinations
+* omit cards with no useful destination
+* do not create placeholder routes
+* use conservative statuses
+
+---
+
+## 9. Evidence
+
+Section ID:
+
+`evidence`
+
+H2:
+
+`Evidence`
+
+Supporting direction:
+
+Surface transparent compatibility, testing and validation information.
+
+Resources:
+
+* Platform Compatibility
+* Media Compatibility
+* Firmware Validation
+* Offline Testing
+* Case Studies
+* Engineering Reviews
+
+Use existing internal destinations where available:
+
+* `/compatibility`
+* `/compatibility/media`
+* existing platform guides
+* relevant GitHub resources
+
+The first two are likely `available`.
+
+The remaining cards should only appear if they have a real destination.
+
+This section should reinforce TomorrowOS as evidence-led, but must not claim tests or case studies that are not publicly available.
+
+---
+
+## 10. Closing CTA
+
+Create a restrained full-width closing section consistent with existing TomorrowOS page-ending CTAs.
+
+H2:
+
+`Ready to build?`
+
+Supporting direction:
+
+Encourage the user to move from learning into implementation.
+
+Primary CTA:
+
+`Start building`
+
+Destination:
+
+`/start`
+
+Secondary CTA:
+
+`Read the documentation`
+
+Destination:
+
+`https://docs.tomorrowos.org`
+
+Tertiary text link:
+
+`Explore GitHub`
+
+Use the repository URL already configured in the website.
+
+---
+
+## 11. Footer exposure
+
+Add one `Learn` link to the existing footer only.
+
+Use the most appropriate existing footer group.
+
+Do not create a new footer column.
+
+Do not change the footer layout.
+
+Do not add Learn to the header.
+
+Do not change mobile header navigation.
+
+The footer link should navigate to:
+
+`/learn`
+
+The page remains `noindex`, even though it is footer-linked.
+
+---
+
+# Resource card design
+
+`ResourceCard` props should support:
+
+* `title`
+* `description`
+* `href`
+* `external`
+* `status`
+* `ctaLabel`
+* `emphasis`
+
+Requirements:
+
+* one destination per resource card
+* the whole card may be one semantic link
+* use `wouter` links for internal destinations
+* use existing external-link conventions for external destinations
+* visible focus treatment
+* minimum 44px effective target size
+* no nested interactive elements
+* no JavaScript click handlers for navigation
+* status badge uses text, not colour alone
+* card should work with long titles
+* no fixed-height copy that truncates meaningful text
+* hover effects only where the existing site uses them
+* reduced-motion support
+* no heavy shadows or gradients
+
+---
+
+# Resource section design
+
+`ResourceSection` should support:
+
+* `id`
+* `heading`
+* `intro`
+* `resources`
+* optional emphasis mode
+
+Requirements:
+
+* render as a semantic `<section>`
+* heading referenced by `aria-labelledby`
+* resources rendered as `<ul>` and `<li>`
+* render nothing when there are no valid resources
+* no empty section headings
+* grid:
+
+  * one column mobile
+  * two columns medium
+  * three columns large
+* preserve existing max-width system
+* no horizontal overflow at 320px
+
+---
+
+# Status badge design
+
+Map the six statuses to existing design tokens.
+
+Do not invent new brand colours.
+
+Requirements:
+
+* fixed or predictable height
+* no layout shift
+* clear text label
+* colour is supplementary, not the only meaning
+* restrained visual treatment
+* `Production Ready` and `Available` may be visually hidden from cards where their absence does not create ambiguity
+* non-live maturity states should remain visible
+
+Do not use traffic-light styling that feels like an operations dashboard.
+
+---
+
+# SEO
+
+The `/learn` metadata already exists from Phase A.
+
+Review and improve only the `/learn` homepage metadata if needed.
+
+It must remain:
+
+`indexable: false`
+
+Do not change metadata for any article route.
+
+Requirements:
+
+* unique title
+* unique description
+* self-referencing canonical
+* matching `og:url`
+* existing social card unless a new asset is explicitly required
+* breadcrumb structured data
+* appropriate WebPage or CollectionPage structured data only if compatible with the current SEO architecture
+* no unsupported schema
+* no FAQ schema on the index page
+* no Article schema on the index page
+
+Do not make `/learn` indexable.
+
+Do not add it to the sitemap.
+
+---
+
+# Accessibility
+
+Verify:
+
+* existing skip link reaches the main content
+* one H1
+* logical H2 hierarchy
+* breadcrumbs are announced correctly
+* learning-path cards have correct multi-link semantics
+* resource cards have one accessible destination
+* external destinations are identified
+* all focus states are visible
+* no keyboard trap
+* no horizontal overflow at 320px
+* colour contrast passes
+* status meaning does not rely on colour
+* card grids remain understandable at 200% zoom
+* section anchors do not hide headings beneath the fixed header
+* reduced-motion preference is respected
+
+---
+
+# Performance
+
+Requirements:
+
+* `/learn` remains route-level lazy-loaded
+* no new dependencies
+* no search
+* no images required
+* no additional font weights
+* no global CSS
+* minimal client-side JavaScript
+* no runtime data fetching
+* no localStorage
+* no animation library
+* no homepage bundle import of Learn-only components
+* compare build output before and after
+* entry bundle should not materially grow beyond route registration effects
+
+---
+
+# Tests
+
+Before changes, record the current clean baseline.
+
+After implementation run:
+
+* `npx tsc --noEmit`
+* production build
+* prototype or non-production build
+* SEO validation
+* social validation
+* smoke tests against development
+* smoke tests against served production output
+* route-sync validation
+* screenshot checks at:
+
+  * 1280px
+  * 1024px
+  * 768px
+  * 390px
+  * 320px
+* keyboard navigation test
+* mobile overflow test
+* existing representative-page regression checks
+
+Verify `/learn` generated HTML includes:
+
+* correct unique title
+* correct description
+* correct canonical
+* correct `og:url`
+* `noindex, follow`
+* breadcrumb JSON-LD if implemented
+* no homepage metadata leakage
+
+Verify:
+
+* `/learn` remains absent from sitemap
+* all eight article routes remain unchanged and noindex
+* Learn does not appear in header
+* Learn appears once in footer
+* no existing footer link was removed
+* no dependency or lockfile change
+* no homepage change
+* no existing page metadata change
+
+---
+
+# Visual review requirements
+
+Capture or report screenshots for:
+
+* desktop 1280px
+* desktop/tablet 1024px
+* navigation breakpoint 768px
+* mobile 390px
+* narrow mobile 320px
+
+Review:
+
+* hero spacing
+* CTA stacking
+* five learning-path cards
+* three Start Here cards
+* section rhythm
+* resource-card density
+* status badge consistency
+* footer placement
+* no visual regressions on:
+
+  * homepage
+  * About
+  * one existing guide
+  * compatibility page
+
+---
+
+# Files expected to change
+
+Expected new files:
+
+* `src/lib/learnResources.ts`
+* `src/components/learn/ResourceStatusBadge.tsx`
+* `src/components/learn/ResourceCard.tsx`
+* `src/components/learn/ResourceSection.tsx`
+* `src/components/learn/LearningPathCard.tsx`
+* `src/pages/learn/LearnIndex.tsx`
+
+Expected modified files:
+
+* `src/App.tsx` only if required to point `/learn` to `LearnIndex`
+* existing footer configuration or footer component
+* `/learn` metadata entry only if refinement is required
+* route validation coverage only if the page implementation reveals a genuine gap
+
+Files that must remain unchanged:
+
+* homepage
+* WebsiteHeader
+* navigation configuration
+* eight article shell routes
+* existing article or guide pages
+* robots.txt
+* sitemap-generation logic
+* deployment configuration
+* dependencies
+* lockfile
+* global design tokens
+
+If another file must change, explain why and keep it narrowly scoped.
+
+---
+
+# Required final report
+
+Return:
+
+## 1. Executive summary
+
+What was implemented and whether the existing website remains unchanged.
+
+## 2. Resource map
+
+List every visible resource, its status and its destination.
+
+Clearly flag any resource omitted because no useful destination exists.
+
+## 3. Files changed
+
+Path, purpose and risk level.
+
+## 4. Component architecture
+
+Describe each new component and why it exists.
+
+## 5. Footer exposure
+
+State exactly where Learn was added and confirm the header remains unchanged.
+
+## 6. SEO verification
+
+Confirm:
+
+* `noindex, follow`
+* sitemap exclusion
+* canonical
+* prerender output
+* metadata
+* structured data
+
+## 7. Accessibility review
+
+Report keyboard, focus, semantic and mobile results.
+
+## 8. Responsive review
+
+Report findings at all required widths.
+
+## 9. Performance comparison
+
+Before and after bundle output.
+
+## 10. Test results
+
+Exact pass/fail result for every required check.
+
+## 11. Regression review
+
+Confirm existing pages, navigation, metadata, dependencies and deployment remain unaffected.
+
+## 12. Truthfulness review
+
+List all maturity-status decisions and explain any conservative choices.
+
+## 13. Known limitations
+
+Anything requiring human review.
+
+## 14. Rollback
+
+Explain how Phase B can be reverted separately from Phase A.
+
+## 15. Next phase
+
+State that Phase C will build the first three complete Learn articles:
+
+* Build a Digital Signage CMS
+* Digital Signage SDK
+* Digital Signage API
+
+Do not begin Phase C.
+
+---
+
+# Definition of done
+
+Phase B is complete only when:
+
+* `/learn` is a complete Developer Resource Centre homepage
+* it uses structured reusable resource data
+* every visible card leads somewhere useful
+* no fake or placeholder article is linked
+* no card says Coming Soon
+* maturity states are honest
+* the footer links to `/learn`
+* the header remains unchanged
+* `/learn` remains noindex
+* `/learn` remains absent from the sitemap
+* all eight article routes remain unchanged
+* all tests pass
+* existing pages remain visually and technically unchanged
+* no dependency is added
+* no deployment occurs
+
+Finish by confirming that Phase B is complete and ready for human review.

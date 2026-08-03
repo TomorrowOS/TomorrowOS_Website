@@ -306,6 +306,7 @@ function prerenderPlugin() {
 
     const hasBreadcrumb =
       routePath === '/about' ||
+      routePath === '/learn' ||
       routePath.startsWith('/guides/') ||
       routePath.startsWith('/connect/') ||
       routePath.startsWith('/compatibility');
@@ -322,7 +323,9 @@ function prerenderPlugin() {
         });
       }
       crumbs.push({
-        name: route.rawTitle,
+        // Visible breadcrumb on /learn says "Learn"; keep structured data
+        // consistent with what users see.
+        name: routePath === '/learn' ? 'Learn' : route.rawTitle,
         item: `${SITE_URL}${route.canonicalPath}`,
       });
       schemas.push({
