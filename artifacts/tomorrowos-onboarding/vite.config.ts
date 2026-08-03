@@ -159,8 +159,9 @@ function prerenderPlugin() {
       indexable: false,
     },
     '/compatibility': {
-      rawTitle: 'Compatibility',
-      description: 'Check device and platform compatibility for TomorrowOS.',
+      rawTitle: 'Platform Compatibility',
+      description:
+        'See supported platforms, tested devices, validated firmware, runtime status and known limitations for TomorrowOS digital signage players.',
       canonicalPath: '/compatibility',
       indexable: false,
     },
@@ -334,7 +335,9 @@ function prerenderPlugin() {
             ? 'Learn'
             : routePath === '/learn/brightsign-digital-signage-player'
               ? 'BrightSign'
-              : route.rawTitle,
+              : routePath === '/compatibility'
+                ? 'Compatibility'
+                : route.rawTitle,
         item: `${SITE_URL}${route.canonicalPath}`,
       });
       schemas.push({

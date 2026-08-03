@@ -1,0 +1,1343 @@
+# TomorrowOS Media Compatibility — Full UI/UX and Accuracy Rebuild
+
+You are working inside the existing production TomorrowOS website repository.
+
+The current route already exists:
+
+`/compatibility/media`
+
+Your task is to audit and rebuild this page into a world-class **Media Compatibility Centre**.
+
+This page must become the authoritative public source for:
+
+* supported media types;
+* tested file formats;
+* tested codecs;
+* tested resolutions;
+* tested frame rates;
+* tested bitrates;
+* tested orientations;
+* looping behaviour;
+* transition behaviour;
+* offline playback;
+* restart recovery;
+* device-specific limitations;
+* unsupported or unvalidated media profiles;
+* current media-test coverage.
+
+This task must improve the `/compatibility/media` page only.
+
+Do not redesign the rest of the website.
+
+Do not change the homepage.
+
+Do not alter existing navigation behaviour.
+
+Do not change unrelated routes or metadata.
+
+Do not install new packages.
+
+Do not modify dependencies or the lockfile.
+
+Do not publish or deploy.
+
+---
+
+# Primary objective
+
+Create a media compatibility page that allows a developer, content producer, integrator or technical support team to answer these questions quickly:
+
+1. Is this file type supported?
+2. Has this exact codec and resolution been tested?
+3. On which device, firmware and runtime was it tested?
+4. Did it loop cleanly?
+5. Did it continue playing offline?
+6. Did it recover correctly after reboot?
+7. Are there known black-frame, playback, memory or performance limitations?
+8. Which media profile should we use for the safest deployment?
+9. What should be tested before deploying an unlisted media profile?
+
+The page must look premium, technically credible and easy to understand without presenting incomplete testing as certification.
+
+Think:
+
+* Apple media-format documentation;
+* professional broadcast compatibility matrices;
+* enterprise hardware validation portals;
+* a modern engineering evidence centre.
+
+Do not make it look like:
+
+* a spreadsheet pasted into a webpage;
+* a generic list of supported extensions;
+* a marketing claims page;
+* an unfinished test tracker;
+* a codec specification copied from device manufacturers;
+* a dense support document with no hierarchy.
+
+---
+
+# Critical distinction
+
+This page must distinguish between:
+
+## Hardware capability
+
+A device manufacturer states that the hardware can decode or display a media format.
+
+## Runtime support
+
+The TomorrowOS runtime is designed to process or play the media type.
+
+## Physically tested
+
+The exact file was tested on a recorded device, firmware and TomorrowOS runtime combination.
+
+## Validated media profile
+
+The media profile passed the defined TomorrowOS validation workflow.
+
+## Production recommended
+
+The profile is recommended for real deployments within the stated platform limitations.
+
+## Requires validation
+
+The format may work, but the exact combination has not completed testing.
+
+## Unsupported
+
+The format or profile is known not to work correctly in the relevant combination.
+
+Do not treat hardware datasheets as TomorrowOS test evidence.
+
+Do not use “supported” and “validated” interchangeably.
+
+---
+
+# Source-of-truth audit
+
+Before changing the page, inspect all available media-compatibility evidence.
+
+Review at minimum:
+
+* existing `/compatibility/media` page;
+* existing `/compatibility` page;
+* any media compatibility data files;
+* compatibility spreadsheets stored in the repository;
+* test workbooks;
+* sample media libraries;
+* media manifest files;
+* testing scripts;
+* automated playback tests;
+* screenshots;
+* videos;
+* logs;
+* test reports;
+* issue reports;
+* Samsung Tizen repository;
+* BrightSign repository;
+* TomorrowOS SDK repository;
+* runtime source;
+* content-download and storage logic;
+* playlist logic;
+* image rendering;
+* video rendering;
+* HTML rendering;
+* audio handling;
+* transition behaviour;
+* loop behaviour;
+* offline playback;
+* reboot and recovery;
+* package release notes;
+* firmware notes;
+* existing platform guides;
+* GitHub issues and discussions available locally.
+
+Inspect sample media metadata where available, including:
+
+* container;
+* codec;
+* profile;
+* level;
+* width;
+* height;
+* aspect ratio;
+* frame rate;
+* bitrate;
+* duration;
+* audio codec;
+* audio channels;
+* file size;
+* orientation;
+* alpha channel;
+* colour profile where relevant.
+
+Do not infer file details from filenames alone where inspectable media metadata exists.
+
+---
+
+# Required internal evidence table
+
+Before implementation, create an internal source table:
+
+| Test ID | Media type | Container | Codec | Resolution | Frame rate | Bitrate | Orientation | Device | Firmware | Runtime | Result | Evidence | Confidence |
+| ------- | ---------- | --------- | ----- | ---------- | ---------- | ------- | ----------- | ------ | -------- | ------- | ------ | -------- | ---------- |
+
+Confidence values:
+
+* Confirmed by completed physical test
+* Confirmed by automated test
+* Confirmed by repository documentation
+* Manufacturer capability only
+* Claimed but not validated
+* Unknown
+
+Only physical or automated test evidence may support:
+
+* Validated
+* Pass
+* Production Recommended
+* Tested
+
+Repository documentation may support:
+
+* Runtime supported
+* Intended support
+* Requires validation
+
+Manufacturer capability alone must not be represented as TomorrowOS validation.
+
+---
+
+# Conflict handling
+
+If repositories, tests, spreadsheets or documentation disagree:
+
+1. Record the conflict.
+2. Prefer the exact completed test result.
+3. Prefer exact device, firmware and runtime data over general statements.
+4. Prefer media metadata extracted from the actual file over its filename.
+5. Use the more conservative public wording.
+6. Include the conflict in the final report.
+7. Do not silently reconcile contradictory results.
+
+---
+
+# Known provisional media position
+
+Verify all of the following before publishing them.
+
+Potentially established information includes:
+
+* 1080p H.264 video is the likely safest baseline profile.
+* BrightSign Series 3 may not support TomorrowOS deployment of 4K H.264 reliably.
+* Series 3 may require validated 1080p H.264 content.
+* Native video playback may behave differently from video inside an HTML widget.
+* Samsung Tizen and BrightSign may have different codec, profile and performance constraints.
+* Offline playback is part of the intended TomorrowOS runtime behaviour.
+* Exact firmware can materially affect playback behaviour.
+* A BrightSign firmware issue affecting HTML/CSS or video playback may have been fixed in BrightSign OS 9.1.140 Beta.
+* Not every media combination has completed testing.
+
+Treat each statement as provisional until verified.
+
+Do not include the Menuzen/Signagelive widget black-gap issue as a TomorrowOS media limitation unless the evidence directly shows that TomorrowOS is affected.
+
+---
+
+# Route and SEO
+
+Keep the existing canonical route:
+
+`/compatibility/media`
+
+Do not create a replacement route.
+
+Recommended working metadata:
+
+Meta title:
+
+`Media Compatibility | TomorrowOS`
+
+Meta description:
+
+`See tested media formats, codecs, resolutions, playback results and known device limitations across TomorrowOS-supported digital signage platforms.`
+
+Canonical:
+
+`https://tomorrowos.org/compatibility/media`
+
+H1:
+
+`Media compatibility`
+
+Preserve its existing indexability unless the page is currently materially inaccurate and human review requires temporary noindex.
+
+Do not change indexability automatically.
+
+Report the current state and your recommendation.
+
+Preserve:
+
+* prerendering;
+* canonical behaviour;
+* Open Graph metadata;
+* Twitter metadata;
+* sitemap generation;
+* route-sync validation;
+* existing deployment behaviour.
+
+---
+
+# Page architecture
+
+Build the page in this order.
+
+## 1. Breadcrumbs
+
+Structure:
+
+* Home
+* Compatibility
+* Media
+
+Use the existing breadcrumb component and BreadcrumbList structured data.
+
+---
+
+## 2. Hero
+
+H1:
+
+`Media compatibility`
+
+Supporting statement:
+
+`See which media formats and playback profiles have been tested across TomorrowOS-supported screen platforms.`
+
+Supporting paragraph:
+
+Explain that a media result is tied to an exact file profile, hardware model, firmware version and TomorrowOS runtime—not merely a file extension.
+
+Primary CTA:
+
+`View tested media`
+
+Destination:
+
+`#tested-media`
+
+Secondary CTA:
+
+`Platform compatibility`
+
+Destination:
+
+`/compatibility`
+
+Do not add a decorative hero image.
+
+The hero should feel technical, premium and calm.
+
+---
+
+## 3. Media coverage summary
+
+Create a compact evidence summary using counts derived from the structured media-test data.
+
+Potential metrics:
+
+* Media files tested
+* Validated profiles
+* Device combinations covered
+* Profiles requiring validation
+* Known unsupported profiles
+* Last reviewed date
+
+Do not hardcode or inflate counts.
+
+If testing data is incomplete, use safer metrics such as:
+
+* Recorded test files
+* Named test devices
+* Platform families covered
+* Open validation gaps
+
+Add a note:
+
+`Every result is tied to the device, firmware, runtime and exact media profile shown below.`
+
+---
+
+## 4. Recommended baseline
+
+Create a prominent but restrained section:
+
+`Recommended baseline`
+
+This should present the safest verified media profile for broad use, if evidence supports one.
+
+Potential profile:
+
+* MP4 container
+* H.264 video
+* AAC audio
+* 1920 × 1080
+* 16:9
+* 25 or 30 fps
+* moderate bitrate
+* no unsupported advanced codec features
+
+Do not publish values unless supported by the current evidence.
+
+If there is not enough evidence for one universal profile, present platform-specific recommendations instead:
+
+* Samsung Tizen recommended profile
+* BrightSign recommended profile
+
+Include a warning:
+
+`A recommended profile reduces risk but does not replace testing on the exact deployment hardware and firmware.`
+
+---
+
+## 5. Media status legend
+
+Define and display:
+
+* Production Recommended
+* Validated
+* Tested with Limitations
+* Runtime Supported
+* Requires Validation
+* Unsupported
+* Not Yet Tested
+
+Every status requires:
+
+* a clear definition;
+* text-based meaning;
+* restrained visual styling;
+* no colour-only communication.
+
+Suggested definitions:
+
+### Production Recommended
+
+The exact media profile has passed the required validation workflow across the stated deployment scope.
+
+### Validated
+
+The exact profile passed testing on the listed device, firmware and runtime.
+
+### Tested with Limitations
+
+Playback passed partially or requires a documented constraint or workaround.
+
+### Runtime Supported
+
+The runtime supports the media category, but the exact profile has not necessarily completed validation.
+
+### Requires Validation
+
+The format may work, but the exact combination must be tested.
+
+### Unsupported
+
+The profile is known not to work correctly for the listed platform or combination.
+
+### Not Yet Tested
+
+No public test result has been recorded.
+
+Do not call every passing individual test “Production Recommended.”
+
+---
+
+# 6. Media category overview
+
+Create premium overview cards for:
+
+* Video
+* Images
+* HTML content
+* Audio
+* Web content or widgets, only if TomorrowOS explicitly supports this category
+* Documents, only if supported
+* Live streams, only if supported
+
+Each card should show:
+
+* category;
+* current maturity;
+* tested formats;
+* safest known profile;
+* principal limitation;
+* number of recorded test profiles;
+* CTA to its section.
+
+Do not display categories that TomorrowOS does not support or for which there is no meaningful information.
+
+---
+
+# 7. Tested media library
+
+Section ID:
+
+`tested-media`
+
+This is the central evidence table.
+
+Create a responsive, filterable-by-page-controls media matrix without adding a search dependency.
+
+Permitted controls:
+
+* Platform
+* Device
+* Media type
+* Status
+* Resolution class
+
+Use simple existing React state only on this page if useful.
+
+Do not add a third-party table or filtering package.
+
+Include a clear:
+
+`Clear filters`
+
+control.
+
+The complete data must still be available in the rendered page or accessible without relying on search-engine interaction.
+
+If filtering would hide important prerendered content from crawlers, render the full semantic table and enhance it progressively on the client.
+
+Columns:
+
+* Test ID
+* Media type
+* Container / format
+* Codec
+* Profile / level
+* Resolution
+* Frame rate
+* Bitrate
+* Audio
+* Orientation
+* Device
+* Firmware / OS
+* Runtime
+* Loop result
+* Offline result
+* Reboot recovery
+* Overall status
+* Last tested
+* Notes
+
+Do not show columns that are universally unknown.
+
+Do not hide unknown values with dashes.
+
+Use explicit labels:
+
+* Not recorded
+* Not tested
+* Not applicable
+* Requires validation
+
+Every row must represent an actual recorded media test or verified result.
+
+Do not create generic rows such as “H.264 supported” without an exact evidence basis.
+
+---
+
+# 8. Mobile table behaviour
+
+The matrix is too wide for small screens.
+
+Implement one of these:
+
+## Preferred
+
+Desktop and tablet:
+
+Accessible semantic table.
+
+Mobile:
+
+Stacked media-result cards generated from the same data source.
+
+Each mobile card should show:
+
+* media profile;
+* platform and device;
+* firmware/runtime;
+* overall result;
+* key limitations;
+* expandable details using native `<details>`.
+
+## Acceptable alternative
+
+Accessible horizontal scrolling with:
+
+* visible scroll affordance;
+* sticky first column only if accessible;
+* no page-level horizontal overflow;
+* minimum readable font size.
+
+Do not compress the table to unreadable text.
+
+Do not duplicate the data source.
+
+---
+
+# 9. Video compatibility
+
+Create a detailed section for video.
+
+Cover where verified:
+
+* MP4;
+* H.264/AVC;
+* H.265/HEVC;
+* WebM;
+* MPEG transport stream;
+* 1080p;
+* 4K;
+* frame-rate limits;
+* bitrate limits;
+* profile/level considerations;
+* audio codecs;
+* looping;
+* portrait video;
+* offline playback;
+* memory/performance;
+* black-frame or gap behaviour;
+* device and firmware differences.
+
+Do not list formats merely because hardware documentation mentions them.
+
+Use a platform comparison table where enough evidence exists.
+
+Explicitly state:
+
+`Video capability varies by exact device, firmware, container, codec profile, bitrate and playback context.`
+
+---
+
+# 10. Image compatibility
+
+Cover where verified:
+
+* JPEG;
+* PNG;
+* WebP;
+* SVG;
+* GIF or animated image formats;
+* transparency;
+* large image dimensions;
+* portrait images;
+* scaling behaviour;
+* colour handling;
+* offline storage;
+* memory constraints.
+
+Do not imply SVG, animated GIF or WebP support without evidence.
+
+If only JPEG and PNG have meaningful evidence, keep the section focused.
+
+---
+
+# 11. HTML and web-content compatibility
+
+Clearly distinguish:
+
+* standalone native media playback;
+* HTML application playback;
+* video embedded inside HTML;
+* third-party widgets;
+* externally hosted webpages.
+
+Cover verified considerations such as:
+
+* Chromium/WebView version;
+* CSS support;
+* JavaScript support;
+* memory use;
+* autoplay;
+* video looping;
+* local assets;
+* remote assets;
+* network dependence;
+* offline caching;
+* browser crashes;
+* firmware-specific issues;
+* `@starting-style` or other known browser defects, only where directly relevant and verified.
+
+Do not attribute a third-party widget problem to TomorrowOS unless reproduced through the TomorrowOS runtime.
+
+Add an important note:
+
+`A video playing correctly as native media does not guarantee identical behaviour when embedded inside HTML or a third-party widget.`
+
+---
+
+# 12. Orientation and canvas guidance
+
+Explain:
+
+* landscape;
+* portrait;
+* square;
+* custom aspect ratios;
+* rotation;
+* content scaling;
+* cropping;
+* letterboxing;
+* safe-zone considerations.
+
+Tie claims to actual platform and runtime behaviour.
+
+Do not promise arbitrary canvas support without evidence.
+
+Provide recommended production guidance where known.
+
+---
+
+# 13. Looping and transition behaviour
+
+Create a specific section covering:
+
+* seamless looping;
+* first-frame delay;
+* last-frame hold;
+* black frame between loops;
+* playlist item transitions;
+* native versus HTML playback;
+* audio discontinuity;
+* multi-item playlists.
+
+Use only verified results.
+
+For every known issue include:
+
+* platform;
+* device;
+* firmware;
+* media profile;
+* playback context;
+* symptom;
+* workaround;
+* status.
+
+This section is especially important for menu-board and motion-content customers.
+
+---
+
+# 14. Offline and recovery behaviour
+
+Explain how media validation includes more than visible playback.
+
+Test dimensions should include:
+
+* initial download;
+* checksum or integrity confirmation;
+* local persistence;
+* playback with network disconnected;
+* player reboot while offline;
+* reconnection;
+* content reconciliation;
+* interrupted download recovery;
+* invalid or incomplete file handling;
+* storage exhaustion where tested.
+
+Do not claim these behaviours passed unless evidence exists.
+
+Where not tested, state:
+
+`Not yet validated for this profile.`
+
+---
+
+# 15. Known limitations
+
+Create a public limitations section grouped by:
+
+* Platform
+* Firmware
+* Codec
+* Resolution
+* Playback context
+* Looping
+* Offline behaviour
+* Storage
+* Memory/performance
+* Untested media
+
+Each limitation must include:
+
+* affected platform and model;
+* firmware where known;
+* media profile;
+* symptom or restriction;
+* workaround;
+* status;
+* last reviewed.
+
+Potential examples to verify:
+
+* BrightSign Series 3 4K H.264 limitation;
+* Series 3 firmware requirement;
+* firmware-specific BrightSign Chromium crash;
+* video looping gap in an HTML/widget context;
+* unsupported codec/profile;
+* very high bitrate playback;
+* unsupported alpha video;
+* browser-dependent HTML behaviour.
+
+Do not include speculative issues.
+
+---
+
+# 16. Media validation methodology
+
+Create a clear, polished workflow explaining how TomorrowOS validates media.
+
+Suggested sequence:
+
+1. Assign a unique test ID.
+2. Record the original file.
+3. Extract technical metadata.
+4. Record the exact device.
+5. Record firmware or OS build.
+6. Record TomorrowOS runtime version.
+7. Publish the file.
+8. Confirm download completion.
+9. Play through the complete duration.
+10. Test repeated looping.
+11. Test portrait or landscape behaviour.
+12. Disconnect the network.
+13. Verify offline playback.
+14. Restart the device.
+15. Verify recovery.
+16. Restore the network.
+17. Confirm reconnection.
+18. Record visual, audio and log evidence.
+19. Record limitations.
+20. Approve, reject or require further validation.
+
+Add:
+
+`A file is not considered validated solely because it starts playing.`
+
+---
+
+# 17. Submit a media test
+
+Create a useful contribution section:
+
+`Help expand the media test library`
+
+Explain how developers or partners can contribute a media profile or test result.
+
+Link only to a genuine destination such as:
+
+* GitHub issue template;
+* GitHub Discussion;
+* contribution guide;
+* public test workflow.
+
+Do not create an upload form unless one already exists and is secure.
+
+Do not invite users to upload proprietary client media publicly without a warning.
+
+Include:
+
+* remove confidential content;
+* use reproducible sample files;
+* provide exact device and firmware;
+* include file metadata;
+* state whether public redistribution is permitted.
+
+---
+
+# 18. Pre-deployment checklist
+
+Create a polished checklist:
+
+`Before deploying new media`
+
+Items:
+
+* Record exact file metadata
+* Confirm target device
+* Confirm firmware
+* Confirm runtime version
+* Test complete playback
+* Test at least five loops
+* Test audio if present
+* Test offline playback
+* Restart while offline
+* Restore network connectivity
+* Confirm recovery
+* Check storage use
+* Keep a fallback media profile
+* Record the result
+
+This should be prominent and practical.
+
+---
+
+# 19. Related resources
+
+Link to:
+
+* `/compatibility`
+* Samsung Tizen guide
+* BrightSign guide or Learn page
+* platform installation guides
+* documentation
+* GitHub test resources
+* Start Building
+
+Do not link to blank routes.
+
+---
+
+# 20. Closing CTA
+
+H2:
+
+`Validate your media before deployment`
+
+Supporting direction:
+
+Encourage users to test their exact media files on their actual device and firmware before production rollout.
+
+Primary CTA:
+
+`View platform compatibility`
+
+Destination:
+
+`/compatibility`
+
+Secondary CTA:
+
+`Read the documentation`
+
+Destination:
+
+`https://docs.tomorrowos.org`
+
+Tertiary CTA:
+
+`Contribute a test result`
+
+Only show this if a verified contribution destination exists.
+
+---
+
+# Data architecture
+
+Create or improve one typed source of truth.
+
+Recommended:
+
+`src/lib/mediaCompatibility.ts`
+
+Do not hardcode media results in multiple components.
+
+Conceptual types:
+
+```ts
+type MediaValidationStatus =
+  | "production-recommended"
+  | "validated"
+  | "tested-with-limitations"
+  | "runtime-supported"
+  | "requires-validation"
+  | "unsupported"
+  | "not-tested";
+
+type TestResult =
+  | "pass"
+  | "pass-with-limitations"
+  | "fail"
+  | "not-tested"
+  | "not-applicable"
+  | "not-recorded";
+
+interface MediaCompatibilityResult {
+  id: string;
+  title: string;
+  mediaType: "video" | "image" | "html" | "audio" | "stream";
+  sourceFile?: string;
+  container?: string;
+  codec?: string;
+  profile?: string;
+  level?: string;
+  width?: number;
+  height?: number;
+  frameRate?: number;
+  bitrateKbps?: number;
+  durationSeconds?: number;
+  audioCodec?: string;
+  audioChannels?: number;
+  orientation?: "landscape" | "portrait" | "square" | "custom";
+  platform: string;
+  deviceModel: string;
+  firmware?: string;
+  runtimeVersion?: string;
+  playback: TestResult;
+  looping: TestResult;
+  offline: TestResult;
+  rebootRecovery: TestResult;
+  status: MediaValidationStatus;
+  validationDate?: string;
+  evidence?: CompatibilityEvidence[];
+  limitations?: string[];
+  notes?: string;
+}
+```
+
+Adapt to project conventions.
+
+Include source or evidence references in the data structure where practical.
+
+Summary counts, category cards, tables and limitations must derive from this source.
+
+---
+
+# UI component architecture
+
+Prefer reusable components such as:
+
+* `MediaCompatibilitySummary`
+* `MediaStatusLegend`
+* `MediaCategoryCard`
+* `MediaFilterBar`
+* `MediaCompatibilityTable`
+* `MediaCompatibilityMobileCard`
+* `MediaProfileBadge`
+* `MediaLimitationList`
+* `MediaValidationWorkflow`
+* `MediaPreDeploymentChecklist`
+
+Reuse existing cards, buttons, badges, breadcrumbs and layout components.
+
+Do not over-componentise simple sections.
+
+---
+
+# UI/UX requirements
+
+The page should feel:
+
+* technically authoritative;
+* calm;
+* transparent;
+* evidence-led;
+* easy to scan;
+* world-class on mobile and desktop.
+
+Use:
+
+* strong hierarchy;
+* generous spacing;
+* clear categories;
+* subtle borders;
+* existing design tokens;
+* concise status badges;
+* accessible progressive disclosure;
+* sticky filter controls only if they do not obstruct content;
+* clear empty-result states when filters return no rows.
+
+Avoid:
+
+* giant codec logos;
+* animated counters;
+* colourful dashboard styling;
+* gradients;
+* glassmorphism;
+* heavy shadows;
+* dense spreadsheet appearance;
+* novelty charts;
+* automatic carousels;
+* hidden test failures;
+* collapsing important limitations behind unclear controls.
+
+---
+
+# Accessibility
+
+Verify:
+
+* one H1;
+* correct H2/H3 hierarchy;
+* semantic breadcrumbs;
+* labels for filter controls;
+* keyboard-accessible filters;
+* clear reset control;
+* status conveyed by text;
+* table headings use `<th scope>`;
+* mobile records retain all essential information;
+* `<details>` controls work by keyboard;
+* no horizontal page overflow;
+* no focus loss after filtering;
+* empty filter result is announced appropriately;
+* external links identified;
+* 200% zoom works;
+* reduced-motion respected;
+* screen readers can understand pass, fail and not-tested states.
+
+Do not use icons alone to represent test outcomes.
+
+---
+
+# Performance
+
+Requirements:
+
+* preserve route-level lazy loading;
+* no new dependency;
+* no large client-side dataset fetch;
+* no GitHub API request;
+* no runtime media inspection;
+* static typed data;
+* simple client filtering only;
+* no global CSS unless unavoidable;
+* no additional fonts;
+* no animation library;
+* preserve prerendered content;
+* main bundle must not materially increase;
+* full data remains crawlable and accessible.
+
+---
+
+# SEO and structured data
+
+Recommended metadata:
+
+Title:
+
+`Media Compatibility | TomorrowOS`
+
+Description:
+
+`See tested media formats, codecs, resolutions, playback results and known platform limitations for TomorrowOS digital signage players.`
+
+Canonical:
+
+`https://tomorrowos.org/compatibility/media`
+
+Use:
+
+* BreadcrumbList
+* WebPage or CollectionPage where supported
+
+Do not use:
+
+* Product schema;
+* ratings;
+* reviews;
+* aggregate scores;
+* unsupported dataset claims;
+* FAQ schema unless a visible FAQ is added;
+* invented test statistics.
+
+Make all principal compatibility data available in prerendered HTML.
+
+---
+
+# Relationship to Platform Compatibility
+
+The rebuilt pages should have a clear division:
+
+## `/compatibility`
+
+Answers:
+
+* Which hardware, platform and firmware combinations support TomorrowOS?
+
+## `/compatibility/media`
+
+Answers:
+
+* Which media profiles were tested on those combinations, and what happened?
+
+Add a prominent reciprocal link between the two pages.
+
+Do not duplicate the entire platform matrix here.
+
+Media rows must still identify the device and firmware used because media results cannot exist independently from hardware context.
+
+---
+
+# Human sign-off requirements
+
+Create an approval table covering:
+
+* media file metadata;
+* codec/profile claims;
+* validated resolutions;
+* frame rates;
+* bitrates;
+* recommended baseline;
+* Samsung results;
+* BrightSign results;
+* Series 3 limitations;
+* HTML playback findings;
+* looping behaviour;
+* offline results;
+* recovery results;
+* known unsupported profiles;
+* contribution workflow;
+* validation methodology;
+* last-reviewed dates.
+
+Recommended approvers:
+
+* James — runtime and playback behaviour
+* Dylan — public wording and positioning
+* Technical tester or media-test owner — exact physical results
+* Content/video specialist — source-file metadata and encoding guidance
+
+Do not strengthen a status until the relevant approver confirms it.
+
+---
+
+# Indexability decision
+
+Inspect the current page.
+
+If it is already indexable:
+
+* preserve indexability only if the rebuilt page contains meaningful, accurate evidence;
+* if the evidence dataset is still materially empty, recommend temporary noindex but do not apply it without explicit human approval.
+
+If it is currently noindex:
+
+* keep it noindex until technical sign-off.
+
+Report the recommendation clearly.
+
+Do not change indexability silently.
+
+---
+
+# Testing
+
+Before changes, record the clean baseline.
+
+After implementation run:
+
+* TypeScript check;
+* prototype build;
+* production build;
+* SEO validation;
+* social validation;
+* route-sync validation;
+* smoke tests against development;
+* smoke tests against production output;
+* static HTML inspection;
+* filter behaviour tests;
+* responsive screenshots at:
+
+  * 1440px
+  * 1280px
+  * 1024px
+  * 768px
+  * 390px
+  * 320px
+* keyboard tests;
+* screen-reader semantics review;
+* table/mobile-card parity test;
+* 200% zoom;
+* no-overflow test;
+* representative existing-page regression checks.
+
+Verify:
+
+* correct title;
+* correct description;
+* correct canonical;
+* matching `og:url`;
+* correct robots directive;
+* correct sitemap behaviour;
+* media data is present in initial HTML;
+* filters do not remove data from prerendered source;
+* platform compatibility page unchanged except any approved reciprocal link;
+* Learn pages unchanged;
+* homepage unchanged;
+* header unchanged;
+* footer unchanged;
+* no dependency changes;
+* no lockfile changes.
+
+---
+
+# Required final report
+
+Return:
+
+1. Executive summary
+2. Sources audited
+3. Evidence inventory
+4. Final terminology
+5. Recommended baseline findings
+6. Video findings
+7. Image findings
+8. HTML/web findings
+9. Audio findings
+10. Orientation findings
+11. Looping findings
+12. Offline and recovery findings
+13. Samsung-specific results
+14. BrightSign-specific results
+15. Known limitations
+16. Conflicts discovered
+17. Claims deliberately excluded
+18. Media test matrix
+19. Data architecture
+20. UI/UX implementation
+21. Files changed
+22. SEO verification
+23. Accessibility results
+24. Responsive results
+25. Filter testing
+26. Performance comparison
+27. Human sign-off checklist
+28. Indexability recommendation
+29. Rollback instructions
+30. Recommendation for the next media-testing phase
+
+Do not publish or deploy.
+
+Finish by confirming that the Media Compatibility page is ready for technical, content and visual human review.
+
+---
+
+# Definition of done
+
+This task is complete only when:
+
+* `/compatibility/media` is a polished Media Compatibility Centre;
+* all claims are evidence-led;
+* hardware capability and TomorrowOS validation are clearly separated;
+* media results identify exact device, firmware and runtime context;
+* validated and untested profiles are clearly distinguished;
+* the recommended baseline is supported by evidence or omitted;
+* video, image and HTML behaviour are explained accurately;
+* looping, offline and recovery results are visible;
+* known limitations are transparent;
+* the test methodology is clear;
+* one typed data source powers the page;
+* mobile and desktop UX are excellent;
+* accessibility checks pass;
+* Platform Compatibility remains a separate source of truth;
+* existing website pages remain unaffected;
+* all tests pass;
+* no dependency is added;
+* no deployment occurs.

@@ -131,10 +131,11 @@ export const seoRoutes: Record<string, RouteSeo> = {
     indexable: false, // troubleshooting subpath of the main Tizen guide
   },
   '/compatibility': {
-    title: 'Compatibility',
-    description: 'Check device and platform compatibility for TomorrowOS.',
+    title: 'Platform Compatibility',
+    description:
+      'See supported platforms, tested devices, validated firmware, runtime status and known limitations for TomorrowOS digital signage players.',
     canonicalPath: '/compatibility',
-    indexable: false, // placeholder content pending compatibility matrix
+    indexable: false, // compatibility claims pending human technical sign-off
   },
   '/compatibility/media': {
     title: 'Media compatibility',

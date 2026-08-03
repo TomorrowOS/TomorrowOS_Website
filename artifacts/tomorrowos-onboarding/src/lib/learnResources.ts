@@ -297,12 +297,12 @@ export const learnResources: LearnResource[] = [
     id: 'evidence-platform-compat',
     title: 'Platform Compatibility',
     description:
-      'Device and platform compatibility for TomorrowOS. The full matrix is being prepared — confirm models and firmware before installation.',
+      'Supported platforms, firmware requirements, known limitations and the validation workflow. Confirm your exact model and firmware before installation.',
     href: '/compatibility',
     external: false,
-    status: 'in-development',
+    status: 'available',
     category: 'evidence',
-    ctaLabel: 'See validation status',
+    ctaLabel: 'View compatibility',
   },
   {
     id: 'evidence-media-compat',

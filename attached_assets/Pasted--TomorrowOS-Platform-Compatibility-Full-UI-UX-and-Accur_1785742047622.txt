@@ -1,0 +1,1182 @@
+# TomorrowOS Platform Compatibility — Full UI/UX and Accuracy Rebuild
+
+You are working inside the existing production TomorrowOS website repository.
+
+The current route already exists:
+
+`/compatibility`
+
+Your task is to audit and rebuild this page into a world-class **Platform Compatibility Centre**.
+
+This page must become the authoritative public source for:
+
+* supported operating systems;
+* supported hardware generations;
+* physically tested models;
+* validated firmware and OS builds;
+* runtime compatibility;
+* current support maturity;
+* known limitations;
+* planned platforms;
+* links to installation guides and evidence.
+
+This task must improve the `/compatibility` page only.
+
+Do not redesign the rest of the website.
+
+Do not change the homepage.
+
+Do not alter existing navigation behaviour.
+
+Do not change unrelated routes or metadata.
+
+Do not install new packages.
+
+Do not change dependencies or the lockfile.
+
+Do not publish or deploy.
+
+---
+
+# Primary objective
+
+Create a compatibility page that allows a developer, integrator or technical buyer to answer these questions quickly:
+
+1. Does TomorrowOS support my platform?
+2. Has my exact model been tested?
+3. Which firmware or OS version was tested?
+4. Is the combination production-ready or still being validated?
+5. Are there important codec, playback or platform limitations?
+6. Where can I find installation guidance?
+7. What should I test before using this combination in production?
+
+The page must look premium and polished while remaining factual, conservative and easy to scan.
+
+Think:
+
+* Apple developer hardware matrices;
+* Stripe system-status clarity;
+* Cloudflare documentation quality;
+* enterprise hardware compatibility portals.
+
+Do not make it look like:
+
+* a spreadsheet embedded in a webpage;
+* a marketing comparison table;
+* a generic blog article;
+* a wall of technical text;
+* an unfinished roadmap.
+
+---
+
+# Source-of-truth audit
+
+Before changing code, inspect all current sources of platform compatibility information.
+
+Review at minimum:
+
+* existing `/compatibility` page;
+* existing `/compatibility/media` page;
+* `src/lib` configuration files;
+* platform data files;
+* Samsung Tizen guide;
+* BrightSign guide;
+* Learn resource map;
+* TomorrowOS SDK repository;
+* TomorrowOS Tizen repository;
+* TomorrowOS BrightSign repository;
+* package and release metadata;
+* changelogs;
+* firmware notes;
+* test files;
+* compatibility workbooks or static data stored in the repository;
+* README files;
+* installation guides;
+* known issues;
+* GitHub releases;
+* GitHub issues and discussions if available locally;
+* current supported-platform wording across the homepage and docs.
+
+Do not assume the existing compatibility page is accurate.
+
+Do not assume repository README text represents completed physical validation.
+
+Create an internal evidence table before implementation:
+
+| Platform | Series / OS | Model | Firmware / OS build | Runtime version | Evidence type | Result | Confidence | Public wording |
+| -------- | ----------- | ----- | ------------------- | --------------- | ------------- | ------ | ---------- | -------------- |
+
+Confidence values:
+
+* Confirmed by completed physical test
+* Confirmed by code
+* Confirmed by repository documentation
+* Claimed but not validated
+* Unknown
+
+Only completed physical tests may support wording such as:
+
+* Validated
+* Tested
+* Production Ready
+
+Code or documentation alone may support:
+
+* Supported
+* Designed for
+* Requires validation
+
+Unknowns must remain unknown.
+
+---
+
+# Compatibility terminology
+
+Use the following definitions consistently throughout the page.
+
+## Production Ready
+
+The exact platform, hardware, OS build and runtime combination has completed the required validation workflow and is approved for deployment within its documented limitations.
+
+## Validated
+
+The exact combination has completed physical testing and passed the published acceptance criteria.
+
+## Supported
+
+TomorrowOS is designed to operate on the platform or series, but not every model, firmware or media combination has necessarily been validated.
+
+## Platform Validation
+
+Implementation exists and testing is currently underway.
+
+## Requires Validation
+
+The platform may fall inside the supported scope, but the exact combination has not completed testing.
+
+## Planned
+
+Support is on the roadmap but is not currently available.
+
+## Unsupported
+
+The combination is known not to work or falls outside the supported product scope.
+
+Never use these terms interchangeably.
+
+---
+
+# Known provisional platform position
+
+Verify the following against the current repositories and evidence.
+
+Do not publish any item until confirmed.
+
+## Samsung Tizen
+
+Provisional support scope:
+
+* Tizen 6.5
+* Tizen 7.0
+
+Known named device families may include:
+
+* QMB
+* QMC
+* QBC
+* QHC
+
+Known installation destination:
+
+* `https://tmr.sh/tizen`
+
+Verify:
+
+* exact tested models;
+* exact firmware versions;
+* runtime/package version;
+* orientation;
+* offline playback;
+* pairing;
+* content sync;
+* recovery;
+* known limitations.
+
+## BrightSign
+
+Provisional support scope:
+
+* Series 3
+* Series 4
+* Series 5
+* Series 6
+
+Known named test hardware may include:
+
+* XD233
+* HD225
+* HD226
+
+Known Series 3 constraint:
+
+* BrightSign OS 9.1.140 or later may be required;
+* Series 3 4K H.264 may not be supported;
+* validated 1080p H.264 may be the recommended media profile.
+
+Verify all of this from the BrightSign repository and test evidence.
+
+Do not invent a Series 4 tested model.
+
+## LG webOS
+
+Likely:
+
+* in development or platform validation.
+
+Do not imply current production support unless verified.
+
+## Android
+
+Likely:
+
+* planned or in development.
+
+Do not imply current production support unless verified.
+
+## Windows
+
+Likely:
+
+* planned or in development.
+
+Do not imply current production support unless verified.
+
+If the current repository evidence conflicts with these provisional statements, use the more conservative verified position.
+
+---
+
+# Route and SEO
+
+Keep the existing canonical route:
+
+`/compatibility`
+
+Do not create a replacement route.
+
+Review the current metadata and improve it where justified.
+
+Recommended working metadata:
+
+Meta title:
+
+`Platform Compatibility | TomorrowOS`
+
+Meta description:
+
+`See supported platforms, tested hardware, validated firmware, runtime status and known limitations for TomorrowOS digital signage players.`
+
+Canonical:
+
+`https://tomorrowos.org/compatibility`
+
+H1:
+
+`Platform compatibility`
+
+If the page is currently indexable and already public:
+
+* preserve indexability unless inaccurate or incomplete content creates a material risk;
+* do not change its indexability without reporting why.
+
+Preserve:
+
+* prerendering;
+* canonical behaviour;
+* sitemap generation;
+* Open Graph;
+* Twitter metadata;
+* route-sync safeguards.
+
+---
+
+# Page architecture
+
+Build the page in the following order.
+
+## 1. Breadcrumbs
+
+Structure:
+
+* Home
+* Compatibility
+
+Use the existing breadcrumb component and BreadcrumbList structured data.
+
+---
+
+## 2. Hero
+
+H1:
+
+`Platform compatibility`
+
+Supporting statement:
+
+`See which screen operating systems, hardware models and firmware combinations are supported, tested or still being validated with TomorrowOS.`
+
+Supporting paragraph:
+
+Explain that compatibility is validated by exact platform, device, OS build, runtime version and representative media—not by platform name alone.
+
+Primary CTA:
+
+`View tested platforms`
+
+Destination:
+
+`#platforms`
+
+Secondary CTA:
+
+`Media compatibility`
+
+Destination:
+
+`/compatibility/media`
+
+Do not add a decorative hero image.
+
+Keep the hero clean, technical and premium.
+
+---
+
+## 3. Compatibility summary
+
+Create a compact summary strip with live counts derived from the structured compatibility data.
+
+Potential metrics:
+
+* Supported platforms
+* Validated device combinations
+* Models in validation
+* Planned platforms
+* Last reviewed date
+
+Do not hardcode misleading counts.
+
+If exact validated-combination data is incomplete, show:
+
+* Supported platform families
+* Named test devices
+* Platforms in validation
+* Planned platforms
+
+Add a short note:
+
+`Support status is based on the exact hardware, firmware, runtime and test profile listed below.`
+
+---
+
+## 4. Status explanation
+
+Create a clear horizontal or card-based legend for:
+
+* Production Ready
+* Validated
+* Supported
+* Platform Validation
+* Requires Validation
+* Planned
+* Unsupported
+
+Each status needs:
+
+* label;
+* one-sentence definition;
+* restrained visual treatment;
+* text-based meaning, not colour alone.
+
+Use existing TomorrowOS tokens.
+
+Do not make this look like a traffic-light monitoring dashboard.
+
+---
+
+## 5. Platform overview cards
+
+Section ID:
+
+`platforms`
+
+Create one premium overview card for each platform:
+
+* Samsung Tizen
+* BrightSign
+* LG webOS
+* Android
+* Windows
+
+Each card should show:
+
+* platform name;
+* platform logo only if an approved existing asset is already present;
+* current maturity;
+* supported scope;
+* named tested models;
+* latest verified runtime version if known;
+* key limitation;
+* last reviewed date;
+* primary CTA;
+* secondary CTA where useful.
+
+Example CTA destinations:
+
+Samsung:
+
+* View compatibility
+* Installation guide
+
+BrightSign:
+
+* View compatibility
+* BrightSign Learn page or guide
+
+LG / Android / Windows:
+
+* View roadmap
+* Follow development
+
+Do not link to blank routes.
+
+Do not create new routes for planned platforms.
+
+Cards should feel substantial, but remain easy to scan.
+
+Responsive grid:
+
+* one column mobile;
+* two columns tablet;
+* two or three columns desktop depending on actual card density.
+
+Do not force all cards to identical height if it harms readability.
+
+---
+
+# Platform detail system
+
+Below the overview cards, create detailed platform sections.
+
+Use either:
+
+* accessible tabs with progressive enhancement;
+* stacked platform sections;
+* or an anchored left-side platform navigation on desktop with stacked sections on mobile.
+
+Choose the approach that best fits the existing site and introduces the least JavaScript.
+
+Prefer stacked sections or anchor navigation over complex tabs.
+
+Each platform section should have:
+
+* platform heading;
+* status;
+* plain-language support statement;
+* scope;
+* tested models;
+* firmware requirements;
+* runtime requirements;
+* known limitations;
+* installation links;
+* validation notes;
+* related resources.
+
+---
+
+# Samsung Tizen section
+
+Create a detailed Samsung Tizen section.
+
+Include only verified data.
+
+Potential fields:
+
+* Supported Tizen versions
+* Tested models
+* Tested firmware
+* Runtime/package version
+* Installation method
+* Pairing result
+* Content playback result
+* Offline result
+* Recovery result
+* Orientation support
+* Known limitations
+* Last validated
+
+Provide a responsive matrix.
+
+Columns:
+
+* Tizen version
+* Model
+* Firmware
+* Runtime
+* Pairing
+* Playback
+* Offline
+* Recovery
+* Status
+* Notes
+
+Use exact values where available.
+
+Where a value is missing, write:
+
+* Not yet recorded
+* Requires validation
+* No public test result
+
+Do not use dashes that conceal missing evidence.
+
+Add links to:
+
+* Samsung installation guide;
+* `tmr.sh/tizen`;
+* media compatibility;
+* documentation;
+* relevant GitHub repository.
+
+---
+
+# BrightSign section
+
+Create a detailed BrightSign section.
+
+Include only verified data.
+
+Potential fields:
+
+* Supported series
+* Tested model
+* BrightSign OS build
+* Runtime version
+* Pairing
+* Playback
+* Offline
+* Recovery
+* Media limitation
+* Status
+* Notes
+
+Create a responsive matrix.
+
+Columns:
+
+* Series
+* Exact model
+* BrightSign OS
+* Runtime
+* Pairing
+* Playback
+* Offline
+* Recovery
+* Status
+* Notes
+
+Explicitly distinguish:
+
+* Series-level support
+* Exact model validation
+* Exact firmware validation
+
+If Series 4 has no recorded physical test device:
+
+Show:
+
+`Series 4 support is within the intended scope, but no public exact-model validation result is currently recorded.`
+
+If verified, include the Series 3 firmware and media limitation prominently.
+
+Link to:
+
+* BrightSign Learn page;
+* BrightSign guide;
+* BrightSign repository;
+* media compatibility.
+
+---
+
+# LG webOS section
+
+Use the verified current state.
+
+If development is incomplete:
+
+* label Platform Validation or Planned;
+* state what is being worked on;
+* state what is not yet available;
+* avoid model or version claims without evidence;
+* link to compatibility, roadmap or GitHub development information.
+
+Do not create an empty compatibility table.
+
+Use a compact development-status panel instead.
+
+---
+
+# Android section
+
+Use the verified current state.
+
+If planned:
+
+* label Planned;
+* explain that public runtime and validation data are not yet available;
+* link to roadmap or GitHub discussion;
+* do not imply APK availability;
+* do not list Android versions without evidence.
+
+---
+
+# Windows section
+
+Use the verified current state.
+
+If planned or in development:
+
+* use the appropriate conservative status;
+* explain the intended use case;
+* state that validated OS builds and deployment instructions will be published after testing;
+* link to roadmap or GitHub discussion.
+
+Do not imply a released Windows player without evidence.
+
+---
+
+# Device validation matrix
+
+Create a consolidated matrix below the platform sections.
+
+Purpose:
+
+Allow technical users to compare tested combinations across platforms.
+
+Columns:
+
+* Platform
+* OS / series
+* Exact device
+* Firmware / OS build
+* Runtime version
+* Validation date
+* Pairing
+* Playback
+* Offline
+* Recovery
+* Media profile
+* Status
+
+This matrix should include only exact combinations for which useful evidence exists.
+
+Do not include generic supported series as if they are exact tests.
+
+If fewer than three fully populated rows exist, still show the table but add:
+
+`Only combinations with recorded evidence are listed. Supported platforms without completed validation remain in their platform sections above.`
+
+---
+
+# Known limitations
+
+Create a dedicated section:
+
+`Known limitations`
+
+Group limitations by platform.
+
+Potential categories:
+
+* Firmware
+* Media
+* HTML/runtime
+* Storage
+* Network
+* Orientation
+* Offline
+* Recovery
+* Hardware-specific
+* Untested behaviour
+
+Each limitation must include:
+
+* affected platform;
+* affected model or series;
+* affected firmware where known;
+* symptom or constraint;
+* workaround;
+* current status;
+* last reviewed.
+
+Do not include speculative internal issues.
+
+Do not include unrelated third-party playback bugs unless TomorrowOS itself is affected.
+
+---
+
+# Validation methodology
+
+Create a clear section explaining how TomorrowOS validates a platform.
+
+Use a step-by-step sequence:
+
+1. Record exact hardware model.
+2. Record firmware or OS build.
+3. Install the exact TomorrowOS runtime version.
+4. Confirm server connection.
+5. Confirm device pairing.
+6. Publish representative content.
+7. Validate playback.
+8. Disconnect the network.
+9. Validate offline playback.
+10. Restore the network.
+11. Validate reconnection and synchronisation.
+12. Restart the device.
+13. Validate automatic recovery.
+14. Test representative media profiles.
+15. Record results, limitations and evidence.
+
+Add a note:
+
+`A platform is not considered fully validated solely because the application starts successfully.`
+
+Link to media compatibility.
+
+---
+
+# Pre-deployment checklist
+
+Create a compact checklist:
+
+`Before deploying TomorrowOS on a new device`
+
+Items:
+
+* Confirm exact model
+* Confirm firmware
+* Confirm runtime version
+* Confirm network access
+* Test pairing
+* Test representative media
+* Test offline operation
+* Test reboot recovery
+* Record results
+* Keep a rollback path
+
+This should be visually polished and highly practical.
+
+---
+
+# Resource CTAs
+
+Each platform should have appropriate links.
+
+Possible destinations:
+
+* Installation guide
+* Learn article
+* Documentation
+* GitHub repository
+* Compatibility evidence
+* Media compatibility
+* Start Building
+
+Do not show CTAs without verified working destinations.
+
+External links must follow existing accessibility and security conventions.
+
+---
+
+# Data architecture
+
+Do not hardcode platform data across multiple components.
+
+Create or improve a single typed data source.
+
+Recommended:
+
+`src/lib/platformCompatibility.ts`
+
+It should define:
+
+* platforms;
+* maturity status;
+* support scope;
+* devices;
+* firmware;
+* runtime versions;
+* validation results;
+* limitations;
+* dates;
+* guide URLs;
+* repository URLs;
+* documentation URLs.
+
+Suggested conceptual types:
+
+```ts
+type CompatibilityStatus =
+  | "production-ready"
+  | "validated"
+  | "supported"
+  | "platform-validation"
+  | "requires-validation"
+  | "planned"
+  | "unsupported";
+
+interface PlatformCompatibility {
+  id: string;
+  name: string;
+  status: CompatibilityStatus;
+  summary: string;
+  scope: string[];
+  devices: DeviceCompatibility[];
+  limitations: PlatformLimitation[];
+  links: CompatibilityLink[];
+  lastReviewed?: string;
+}
+
+interface DeviceCompatibility {
+  model: string;
+  family?: string;
+  osVersion?: string;
+  firmware?: string;
+  runtimeVersion?: string;
+  validationDate?: string;
+  pairing?: TestResult;
+  playback?: TestResult;
+  offline?: TestResult;
+  recovery?: TestResult;
+  mediaProfile?: string;
+  status: CompatibilityStatus;
+  notes?: string;
+}
+```
+
+Adapt this to existing project conventions.
+
+The page UI, summary counts and matrices must derive from this data.
+
+Do not duplicate values manually in page markup.
+
+---
+
+# UI/UX requirements
+
+The page should feel premium, technical and calm.
+
+Use:
+
+* strong typography hierarchy;
+* generous white space;
+* clear grouping;
+* compact status chips;
+* subtle borders;
+* existing radius and shadow styles;
+* accessible tables;
+* restrained iconography;
+* progressive disclosure for dense details;
+* sticky anchor navigation only if it does not complicate mobile or accessibility.
+
+Avoid:
+
+* gradients;
+* glassmorphism;
+* oversized illustrations;
+* excessive badges;
+* bright traffic-light colours;
+* dashboard widgets;
+* animated counters;
+* dense spreadsheet styling;
+* novelty interactions;
+* horizontal carousels.
+
+The page must work at:
+
+* 1440px
+* 1280px
+* 1024px
+* 768px
+* 390px
+* 320px
+
+No horizontal overflow.
+
+Tables must either:
+
+* transform into stacked mobile records; or
+* use an existing accessible horizontal scrolling pattern with visible affordance.
+
+Do not shrink text to make tables fit.
+
+---
+
+# Accessibility
+
+Verify:
+
+* one H1;
+* logical H2/H3 hierarchy;
+* semantic sections;
+* accessible breadcrumbs;
+* status conveyed by text;
+* tables include captions or preceding headings;
+* `<th scope>` used correctly;
+* keyboard focus visible;
+* anchor navigation works by keyboard;
+* external links are identified;
+* no colour-only meaning;
+* no horizontal page overflow;
+* card and table content works at 200% zoom;
+* no sticky element hides headings;
+* reduced-motion preferences respected.
+
+---
+
+# Performance
+
+Requirements:
+
+* preserve route-level lazy loading;
+* no new packages;
+* no runtime data fetching;
+* no GitHub API calls;
+* no additional font weights;
+* no unnecessary images;
+* no global CSS unless unavoidable;
+* no animation library;
+* summary counts derived locally;
+* main bundle must not materially increase;
+* no client-side metadata injection;
+* preserve prerendering.
+
+---
+
+# SEO and structured data
+
+Review the current `/compatibility` metadata.
+
+Recommended final metadata:
+
+Title:
+
+`Platform Compatibility | TomorrowOS`
+
+Description:
+
+`See supported platforms, tested devices, validated firmware, runtime status and known limitations for TomorrowOS digital signage players.`
+
+Canonical:
+
+`https://tomorrowos.org/compatibility`
+
+Use:
+
+* BreadcrumbList
+* WebPage or CollectionPage where supported by the current system
+
+Do not use:
+
+* Product schema;
+* ratings;
+* reviews;
+* unsupported SoftwareApplication markup;
+* FAQ schema unless a visible FAQ section is added;
+* invented release data.
+
+Ensure all compatibility text is present in prerendered HTML.
+
+---
+
+# Relationship to media compatibility
+
+Do not duplicate `/compatibility/media`.
+
+Platform compatibility should answer:
+
+* Which hardware and firmware combinations support TomorrowOS?
+
+Media compatibility should answer:
+
+* Which files and media profiles play correctly on those combinations?
+
+Link the pages prominently in both directions where possible.
+
+Do not copy the media matrix into the platform page.
+
+The device matrix may list only the representative media profile used during validation.
+
+---
+
+# Existing `/learn` integration
+
+Update the Learn resource data only after the page is accurate.
+
+The Evidence card:
+
+`Platform Compatibility`
+
+must link to:
+
+`/compatibility`
+
+Use the correct maturity status based on the final evidence.
+
+Do not label it Available if the page itself states that its core matrix is still being prepared.
+
+If this rebuild provides a meaningful factual compatibility source, `available` may be appropriate.
+
+Do not change unrelated Learn cards.
+
+---
+
+# Human technical approval
+
+Before indexing or publishing any stronger compatibility statement, create a human sign-off table covering:
+
+* supported Samsung Tizen versions;
+* exact tested Samsung models;
+* tested Samsung firmware;
+* Samsung runtime version;
+* Samsung offline/recovery results;
+* supported BrightSign series;
+* exact tested BrightSign models;
+* tested BrightSign OS builds;
+* Series 3 minimum OS;
+* Series 3 media limitation;
+* BrightSign offline/recovery;
+* LG status;
+* Android status;
+* Windows status;
+* latest runtime versions;
+* validation dates;
+* public limitations;
+* repository links;
+* installation links.
+
+State who should approve each claim.
+
+Recommended approvers:
+
+* James — runtime, platform and firmware claims
+* Dylan — product positioning and public wording
+* Technical tester / owner — physical validation results
+
+---
+
+# Testing
+
+Before changes, record the baseline.
+
+After implementation run:
+
+* TypeScript check;
+* prototype build;
+* production build;
+* SEO validation;
+* social validation;
+* route-sync validation;
+* smoke tests against development;
+* smoke tests against production output;
+* static HTML inspection;
+* responsive screenshots at:
+
+  * 1440px
+  * 1280px
+  * 1024px
+  * 768px
+  * 390px
+  * 320px
+* keyboard test;
+* table accessibility review;
+* 200% zoom review;
+* mobile overflow test;
+* representative existing-page regression checks.
+
+Verify:
+
+* correct title;
+* correct description;
+* correct canonical;
+* correct `og:url`;
+* correct robots directive;
+* correct sitemap presence;
+* compatibility content present in initial HTML;
+* no homepage metadata leakage;
+* `/compatibility/media` unchanged;
+* Learn article shells unchanged;
+* homepage unchanged;
+* header unchanged;
+* footer unchanged;
+* no dependency changes;
+* no lockfile changes.
+
+---
+
+# Required final report
+
+Return:
+
+1. Executive summary
+2. Sources audited
+3. Evidence table
+4. Final support definitions
+5. Samsung findings
+6. BrightSign findings
+7. LG findings
+8. Android findings
+9. Windows findings
+10. Tested-device matrix
+11. Firmware findings
+12. Runtime findings
+13. Known limitations
+14. Conflicts discovered
+15. Claims excluded
+16. Data architecture
+17. UI/UX implementation
+18. Files changed
+19. SEO verification
+20. Accessibility results
+21. Responsive results
+22. Test results
+23. Performance comparison
+24. Human sign-off checklist
+25. Rollback instructions
+26. Recommendation on whether the page is ready to publish and remain indexable
+
+Do not publish or deploy.
+
+Finish by confirming that the Platform Compatibility page is ready for technical and visual human review.
+
+---
+
+# Definition of done
+
+This task is complete only when:
+
+* `/compatibility` is a polished Platform Compatibility Centre;
+* support terminology is explicit;
+* all public claims have evidence;
+* supported and tested are clearly separated;
+* Samsung and BrightSign have detailed accurate sections;
+* planned platforms do not imply current support;
+* exact device and firmware data is shown only when known;
+* unknown values remain visible as unknown;
+* known limitations are public and useful;
+* compatibility data uses one typed source;
+* responsive behaviour is excellent;
+* accessibility checks pass;
+* `/compatibility/media` remains separate;
+* existing website pages are unaffected;
+* all tests pass;
+* no dependency is added;
+* no deployment occurs.
