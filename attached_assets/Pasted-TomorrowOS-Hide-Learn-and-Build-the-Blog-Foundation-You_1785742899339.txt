@@ -1,0 +1,615 @@
+TomorrowOS — Hide Learn and Build the Blog Foundation
+
+You are working inside the existing production TomorrowOS website repository.
+
+The /learn Developer Resource Centre foundation has already been built successfully.
+
+The project direction has now changed.
+
+Do not delete any Learn files, components, structured resource data or article shells.
+
+Preserve all Learn work for a future launch.
+
+Your task is to:
+
+Remove Learn entirely from the public production website.
+Preserve the Learn implementation safely in the codebase.
+Create the foundation for a simple, high-quality TomorrowOS Blog.
+Do not build the eight final pillar articles during this task.
+
+Do not publish or deploy anything.
+
+Part 1 — Hide Learn completely
+
+The Learn section is not ready for public use.
+
+It must no longer be discoverable or accessible through the normal production website.
+
+Remove public exposure
+
+Remove the existing Learn footer link.
+
+Confirm:
+
+Learn is not present in the header.
+Learn is not present in the footer.
+Learn is not linked from the homepage.
+Learn is not linked from any existing public page.
+Learn is not included in the sitemap.
+All existing Learn routes remain indexable: false.
+No existing indexed page links to a Learn route.
+
+Do not delete Learn components or content.
+
+Production feature flag
+
+Implement the safest production feature flag supported by the existing architecture.
+
+Recommended name:
+
+VITE_ENABLE_LEARN
+
+Behaviour:
+
+When true
+Existing /learn routes behave exactly as they currently do.
+Useful for local development, previews and future relaunch.
+When false or absent
+/learn
+/learn/*
+
+must resolve to the existing NotFound experience.
+
+They must not render Learn content.
+
+They must not be prerendered as public production pages.
+
+They must not appear in the sitemap.
+
+They must not appear in smoke coverage as publicly available production routes.
+
+They must not appear in mirror-host route declarations as active routes where this would expose them.
+
+The feature flag must be handled consistently across:
+
+application routes;
+SEO configuration;
+prerendering;
+smoke tests;
+route-sync validation;
+mirror-host configuration;
+production builds;
+development builds.
+
+Do not weaken the existing route-sync safeguard.
+
+Update it so feature-gated routes are explicitly understood rather than silently excluded.
+
+The validation should fail if:
+
+a disabled Learn route is accidentally indexable;
+a disabled Learn route appears in the production sitemap;
+a public navigation link points to a disabled route;
+a disabled Learn page is prerendered in the production build;
+feature-gated route configuration drifts between relevant files.
+
+Default production state:
+
+VITE_ENABLE_LEARN=false
+
+Do not change deployment configuration or set production environment variables during this task.
+
+Document the required variable for future use.
+
+Preserve Learn work
+
+The following must remain intact unless a narrow feature-flag integration requires a small change:
+
+Learn page components
+Learn resource data
+Learn article shells
+status components
+learning-path components
+existing content structure
+existing styling
+existing route metadata drafts
+
+Do not refactor Learn unnecessarily.
+
+Do not move its files.
+
+Do not rewrite its content.
+
+Part 2 — Create the Blog foundation
+
+Create a new route:
+
+/blog
+
+This will become the TomorrowOS editorial and organic-discovery hub.
+
+It is different from Learn.
+
+Blog purpose
+
+The Blog should publish:
+
+evergreen educational articles;
+open-source project insights;
+digital signage architecture;
+platform-specific engineering guides;
+practical development guidance;
+technical evidence and testing;
+project announcements where genuinely useful.
+
+It should not become:
+
+a chronological company-news archive;
+a second documentation site;
+a replacement for GitHub;
+an empty content roadmap;
+a grid of Coming Soon cards.
+Initial pillar article routes
+
+The Blog will eventually surface these eight root-level pages:
+
+/build-a-digital-signage-cms
+/digital-signage-sdk
+/digital-signage-api
+/open-source-digital-signage
+/self-hosted-digital-signage
+/headless-digital-signage
+/samsung-tizen-digital-signage-player
+/brightsign-digital-signage-player
+
+Do not build these article routes during this task unless they already exist independently.
+
+Do not create empty article shells for them.
+
+The Blog homepage should only show articles that actually exist.
+
+If no articles are published yet, create a useful but restrained initial Blog page with:
+
+the Blog hero;
+editorial-purpose explanation;
+links to existing high-value guides or project resources;
+no fake article cards;
+no Coming Soon labels;
+no indexed empty archive.
+
+Keep /blog as indexable: false until the first complete pillar article is published.
+
+Blog navigation
+
+Add one navigation item:
+
+Blog
+
+Recommended primary navigation order:
+
+Home
+About
+Blog
+Docs
+
+Preserve existing GitHub and Start Building actions.
+
+Use the existing single navigation source.
+
+Add correct active-state behaviour:
+
+/blog
+/blog/*
+
+should activate Blog.
+
+Root-level pillar articles should also activate Blog where the existing navigation architecture can support this cleanly.
+
+Do not change the visual design or behaviour of the navigation.
+
+Verify desktop and mobile layouts.
+
+Footer
+
+Add one Blog link to the appropriate existing footer group.
+
+Do not add a new footer column.
+
+Do not change footer layout.
+
+Learn must no longer appear.
+
+Blog homepage
+
+Create:
+
+/blog
+
+H1:
+
+TomorrowOS Blog
+
+Supporting statement:
+
+Engineering guides, platform insights and practical resources for building digital signage software.
+
+Supporting paragraph:
+
+Explain briefly that the Blog covers open-source digital signage infrastructure, CMS development, screen platforms and real-world engineering lessons.
+
+Primary CTA:
+
+Explore articles
+
+Destination:
+
+#articles
+
+Secondary CTA:
+
+View documentation
+
+Destination:
+
+https://docs.tomorrowos.org
+
+Blog page structure
+1. Breadcrumbs
+Home
+Blog
+
+Use the existing breadcrumb component and structured-data pattern.
+
+2. Hero
+
+Clean, text-led and consistent with the current TomorrowOS site.
+
+No decorative image required.
+
+3. Featured article
+
+Render only when a published article is marked featured.
+
+Do not show an empty featured panel.
+
+4. Article index
+
+Section ID:
+
+articles
+
+Render published articles from a typed data source.
+
+If no articles exist, show a restrained useful state explaining the Blog’s purpose and linking to current guides, documentation and GitHub.
+
+Do not say Coming Soon.
+
+5. Categories
+
+Use only categories represented by published articles.
+
+Future supported categories:
+
+Building Digital Signage
+Open Source
+Architecture
+Platforms
+Engineering
+AI Development
+
+Do not show empty category filters.
+
+6. Closing CTA
+
+H2:
+
+Build with TomorrowOS
+
+Primary:
+
+Start building
+
+Secondary:
+
+Read the documentation
+
+Tertiary:
+
+Explore GitHub
+
+Blog article data source
+
+Create:
+
+src/lib/blogArticles.ts
+
+This should become the single source of truth for editorial articles.
+
+Suggested fields:
+
+interface BlogArticle {
+  slug: string;
+  href: string;
+  title: string;
+  description: string;
+  category: BlogCategory;
+  publishedAt: string;
+  updatedAt?: string;
+  readingTimeMinutes: number;
+  author: string;
+  featured?: boolean;
+  indexable: boolean;
+}
+
+Add only articles that genuinely exist.
+
+Do not add the eight future pages as published records yet.
+
+It is acceptable for the initial data list to be empty.
+
+The Blog UI must handle an empty list elegantly without appearing broken.
+
+Blog components
+
+Create only the components needed now.
+
+Potential components:
+
+BlogIndexPage
+BlogHero
+BlogArticleCard
+BlogFeaturedArticle
+BlogCategoryFilter
+BlogEmptyState
+
+Do not create article-layout components yet unless they are already needed.
+
+Reuse:
+
+WebsiteLayout
+Breadcrumb
+Card
+Button
+current typography
+current spacing
+current icons
+current tokens
+
+No new dependencies.
+
+Empty-state content
+
+If there are no published Blog articles yet, use a purposeful state such as:
+
+Heading:
+
+Practical resources for digital signage builders
+
+Supporting direction:
+
+Explain that TomorrowOS publishes engineering guides and open-source resources as they are completed and technically reviewed.
+
+Useful links:
+
+Start Building
+Documentation
+GitHub
+Existing guides
+Platform Compatibility
+Media Compatibility
+
+Do not create article cards that lead to unfinished content.
+
+Do not use:
+
+Coming Soon
+Under Construction
+Check Back Later
+SEO
+
+Create a Blog SEO entry.
+
+Working metadata:
+
+Title:
+
+Digital Signage Engineering Blog | TomorrowOS
+
+Description:
+
+Read practical guides about building digital signage software, open-source infrastructure, screen platforms, playback and reliable device operations.
+
+Canonical:
+
+https://tomorrowos.org/blog
+
+Initial state:
+
+indexable: false
+
+Keep /blog out of the sitemap until the first complete article exists.
+
+Use:
+
+BreadcrumbList
+CollectionPage or WebPage where compatible with the existing system
+
+Do not use Article schema on the Blog index.
+
+Do not add BlogPosting schema unless actual article cards exist.
+
+Future article URL model
+
+Preserve this model:
+
+Pillar pages
+
+Root-level URLs:
+
+/build-a-digital-signage-cms
+/digital-signage-sdk
+/digital-signage-api
+/open-source-digital-signage
+/self-hosted-digital-signage
+/headless-digital-signage
+/samsung-tizen-digital-signage-player
+/brightsign-digital-signage-player
+Supporting editorial content
+
+Nested under:
+
+/blog/<slug>
+
+Do not change this model during this task.
+
+Document how root-level articles will be represented inside blogArticles.ts.
+
+Safety and regression requirements
+
+Do not change:
+
+homepage content;
+About page;
+existing guide content;
+Documentation links;
+GitHub links;
+compatibility pages;
+existing indexed metadata;
+current design tokens;
+dependencies;
+lockfile;
+deployment configuration;
+sitemap-generation logic except feature-flag awareness where necessary;
+robots.txt.
+
+Verify that hiding Learn does not break any existing route.
+
+Performance
+
+Requirements:
+
+Blog route lazy-loaded;
+Learn remains lazy-loaded when enabled;
+no new dependency;
+no runtime fetch;
+no CMS;
+no MDX;
+no search;
+no images required;
+no main-bundle material increase;
+no global CSS;
+preserve prerendering.
+Accessibility
+
+Verify:
+
+one H1;
+logical H2 hierarchy;
+accessible breadcrumbs;
+card links have clear accessible names;
+keyboard focus visible;
+categories, if present, are keyboard accessible;
+no horizontal overflow;
+mobile navigation remains usable;
+external links identified;
+empty state is understandable;
+Blog page works at 200% zoom.
+Testing
+
+Record the clean baseline before changes.
+
+After implementation run:
+
+TypeScript check;
+development/prototype build;
+production build with Learn disabled;
+production build with Learn enabled;
+SEO validation;
+social validation;
+route-sync validation;
+smoke tests for both flag states;
+static HTML inspection;
+sitemap inspection;
+navigation tests;
+footer tests;
+responsive screenshots at:
+1280px
+1024px
+768px
+390px
+320px
+keyboard tests;
+mobile overflow tests;
+representative existing-page regression checks.
+
+Verify with Learn disabled:
+
+no Learn link in header;
+no Learn link in footer;
+/learn returns the existing NotFound experience;
+/learn/* returns the existing NotFound experience;
+no Learn prerendered HTML;
+no Learn sitemap entries;
+no indexable Learn metadata;
+Blog is available;
+Blog remains noindex;
+Blog appears in header and footer.
+
+Verify with Learn enabled:
+
+existing Learn implementation still works;
+Learn remains noindex;
+no Learn sitemap entries;
+no Blog regression.
+Required final report
+
+Return:
+
+Executive summary
+Learn preservation summary
+Feature-flag design
+Production-disabled behaviour
+Preview-enabled behaviour
+Blog architecture
+Blog resource data
+Files changed
+Navigation changes
+Footer changes
+SEO verification
+Sitemap verification
+Accessibility results
+Responsive results
+Performance comparison
+Test results
+Regression review
+Known limitations
+Rollback instructions
+Next recommended task
+
+The next recommended task should be:
+
+Build the first complete pillar article:
+
+/build-a-digital-signage-cms
+
+Do not begin that article during this task.
+
+Definition of done
+
+This task is complete only when:
+
+all Learn code is preserved;
+Learn is completely hidden when disabled;
+disabled Learn routes resolve to NotFound;
+Learn remains available when explicitly enabled;
+no Learn public links remain;
+/blog exists;
+Blog is linked in header and footer;
+Blog remains noindex until the first article;
+no fake article is published;
+the future eight pillar URLs are documented;
+route-sync validation supports the feature flag;
+both flag states pass validation;
+existing website pages remain unchanged;
+no dependency is added;
+no deployment occurs.

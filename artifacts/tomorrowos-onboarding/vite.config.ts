@@ -166,8 +166,9 @@ function prerenderPlugin() {
       indexable: false,
     },
     '/compatibility/media': {
-      rawTitle: 'Media compatibility',
-      description: 'Supported media formats for TomorrowOS playback.',
+      rawTitle: 'Media Compatibility',
+      description:
+        'See tested media formats, codecs, resolutions, playback results and known platform limitations for TomorrowOS digital signage players.',
       canonicalPath: '/compatibility/media',
       indexable: true,
     },
@@ -328,6 +329,10 @@ function prerenderPlugin() {
       if (routePath.startsWith('/learn/')) {
         crumbs.push({ name: 'Learn', item: `${SITE_URL}/learn` });
       }
+      // Insert the Compatibility crumb for compatibility sub-pages.
+      if (routePath.startsWith('/compatibility/')) {
+        crumbs.push({ name: 'Compatibility', item: `${SITE_URL}/compatibility` });
+      }
       crumbs.push({
         // Keep structured data consistent with the visible breadcrumbs.
         name:
@@ -337,7 +342,9 @@ function prerenderPlugin() {
               ? 'BrightSign'
               : routePath === '/compatibility'
                 ? 'Compatibility'
-                : route.rawTitle,
+                : routePath === '/compatibility/media'
+                  ? 'Media'
+                  : route.rawTitle,
         item: `${SITE_URL}${route.canonicalPath}`,
       });
       schemas.push({

@@ -138,8 +138,9 @@ export const seoRoutes: Record<string, RouteSeo> = {
     indexable: false, // compatibility claims pending human technical sign-off
   },
   '/compatibility/media': {
-    title: 'Media compatibility',
-    description: 'Supported media formats for TomorrowOS playback.',
+    title: 'Media Compatibility',
+    description:
+      'See tested media formats, codecs, resolutions, playback results and known platform limitations for TomorrowOS digital signage players.',
     canonicalPath: '/compatibility/media',
     indexable: true,
   },
