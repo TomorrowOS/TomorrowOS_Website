@@ -15,6 +15,10 @@ export interface RouteSeo {
   canonicalPath: string;
   /** Whether this route should be indexed once the site goes live. */
   indexable: boolean;
+  /** Optional og:title override (used when og:title must omit the " | TomorrowOS" suffix). */
+  ogTitle?: string;
+  /** Optional og:description override (when it should differ from the meta description). */
+  ogDescription?: string;
 }
 
 export const seoRoutes: Record<string, RouteSeo> = {
@@ -158,6 +162,9 @@ export const seoRoutes: Record<string, RouteSeo> = {
       'Learn how to build a reliable digital signage CMS, including architecture, device pairing, content delivery, offline playback, telemetry and multi-platform runtimes.',
     canonicalPath: '/build-a-digital-signage-cms',
     indexable: true,
+    ogTitle: 'How to Build a Digital Signage CMS',
+    ogDescription:
+      'A practical architecture guide covering everything required to build reliable digital signage software.',
   },
   // ---- Learn section (Phase A) ------------------------------------------
   // Feature-gated behind VITE_ENABLE_LEARN (default off in production).

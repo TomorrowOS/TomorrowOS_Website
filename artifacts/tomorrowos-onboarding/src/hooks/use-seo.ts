@@ -7,6 +7,10 @@ interface SeoProps {
   /** When true, `title` is used verbatim instead of being suffixed with "| TomorrowOS". */
   fullTitle?: boolean;
   description?: string;
+  /** Optional og:title override (verbatim; e.g. to omit the "| TomorrowOS" suffix). */
+  ogTitle?: string;
+  /** Optional og:description override (when it should differ from the meta description). */
+  ogDescription?: string;
   /** Path (e.g. "/about") used to build the canonical URL and og:url. */
   canonicalPath?: string;
   /** Absolute or root-relative URL for the social share image. */
@@ -35,16 +39,20 @@ function metaByProperty(property: string) {
   return el;
 }
 
-export function useSeo({ title, fullTitle = false, description, canonicalPath, socialImage, noindex = siteConfig.isPrototype }: SeoProps) {
+export function useSeo({ title, fullTitle = false, description, ogTitle, ogDescription, canonicalPath, socialImage, noindex = siteConfig.isPrototype }: SeoProps) {
   useEffect(() => {
     const baseTitle = 'TomorrowOS';
     const resolvedTitle = title ? (fullTitle ? title : `${title} | ${baseTitle}`) : baseTitle;
     document.title = resolvedTitle;
-    upsertMeta('meta[property="og:title"]', () => metaByProperty('og:title'), resolvedTitle);
+    // og:title may deliberately differ from <title> (e.g. no brand suffix).
+    // Keep this in lockstep with the prerender plugin in vite.config.ts.
+    upsertMeta('meta[property="og:title"]', () => metaByProperty('og:title'), ogTitle ?? resolvedTitle);
+    upsertMeta('meta[name="twitter:title"]', () => metaByName('twitter:title'), ogTitle ?? resolvedTitle);
 
     if (description) {
       upsertMeta('meta[name="description"]', () => metaByName('description'), description);
-      upsertMeta('meta[property="og:description"]', () => metaByProperty('og:description'), description);
+      upsertMeta('meta[property="og:description"]', () => metaByProperty('og:description'), ogDescription ?? description);
+      upsertMeta('meta[name="twitter:description"]', () => metaByName('twitter:description'), ogDescription ?? description);
     }
 
     if (canonicalPath) {

@@ -11,6 +11,8 @@ export function usePageSeo(path: string) {
   useSeo({
     title: entry?.title,
     description: entry?.description,
+    ogTitle: entry?.ogTitle,
+    ogDescription: entry?.ogDescription,
     canonicalPath: entry?.canonicalPath ?? path,
     // While the site is a prototype, everything stays noindex via useSeo's
     // default. Once live, non-indexable routes keep an explicit noindex.
