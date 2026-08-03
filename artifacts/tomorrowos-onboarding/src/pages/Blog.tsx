@@ -71,8 +71,7 @@ function EmptyState() {
     { label: 'Documentation', href: siteConfig.links.docs, external: true },
     { label: 'GitHub', href: siteConfig.links.github, external: true },
     { label: 'Platform guides', href: '/guides/platforms' },
-    { label: 'Platform Compatibility', href: '/compatibility' },
-    { label: 'Media Compatibility', href: '/compatibility/media' },
+    { label: 'Samsung Tizen guide', href: '/guides/platforms/samsung-tizen' },
   ];
   return (
     <div className="flex flex-col gap-4 rounded-[12px] border border-border bg-muted/30 p-6 md:p-8">

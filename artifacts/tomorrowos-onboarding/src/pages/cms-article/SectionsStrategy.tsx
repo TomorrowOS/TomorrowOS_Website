@@ -96,9 +96,8 @@ export function SectionsStrategy() {
           </div>
         </ArticleDiagram>
         <p className="text-sm text-muted-foreground">
-          Status labels come from the live{' '}
-          <IntLink href="/compatibility">Platform Compatibility</IntLink> data: “Supported” and
-          “Platform Validation” describe current TomorrowOS runtimes; “Planned” platforms are
+          Status labels reflect current TomorrowOS platform data: “Supported” and “Platform
+          Validation” describe current TomorrowOS runtimes; “Planned” platforms are
           architectural targets, not currently available adapters.
         </p>
         <P>Not every platform will support every command.</P>
@@ -332,13 +331,14 @@ export function SectionsStrategy() {
           in the <ExtLink href={siteConfig.links.docs}>documentation</ExtLink>.
         </P>
         <P>
-          Current platform and version claims should always be checked against the live
-          TomorrowOS compatibility pages and documentation before deployment.
+          Platform support changes as runtimes, firmware and testing evolve. Review the current
+          TomorrowOS <ExtLink href={siteConfig.links.docs}>documentation</ExtLink> and{' '}
+          <ExtLink href={siteConfig.links.github}>GitHub repositories</ExtLink> before planning
+          a production deployment.
         </P>
         <ArticleCallout kind="important">
-          Platform and version support changes over time. Check the current{' '}
-          <IntLink href="/compatibility">compatibility pages</IntLink> and{' '}
-          <ExtLink href={siteConfig.links.docs}>documentation</ExtLink> before planning a
+          Platform support changes as runtimes, firmware and testing evolve. Review the current
+          TomorrowOS documentation and GitHub repositories before planning a production
           deployment.
         </ArticleCallout>
       </section>

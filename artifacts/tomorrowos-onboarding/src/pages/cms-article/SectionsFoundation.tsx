@@ -3,8 +3,9 @@ import {
   SubHeading,
   P,
   UL,
-  IntLink,
+  ExtLink,
 } from '@/components/blog/articlePrimitives';
+import { siteConfig } from '@/config/site';
 import { ArticleCallout } from '@/components/blog/ArticleCallout';
 import {
   ArticleDiagram,
@@ -607,8 +608,8 @@ GET  /devices/{id}/telemetry`}</code>
         </UL>
         <P>The CMS should preserve enough metadata to make those decisions visible.</P>
         <P>
-          The TomorrowOS <IntLink href="/compatibility/media">Media Compatibility</IntLink> page
-          documents how this evidence-led approach works in practice.
+          The TomorrowOS <ExtLink href={siteConfig.links.docs}>documentation</ExtLink> covers
+          how this evidence-led approach works in practice.
         </P>
       </section>
     </>

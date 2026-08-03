@@ -14,7 +14,10 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { SectionHeading, P, Lead, UL, IntLink, ExtLink } from '@/components/blog/articlePrimitives';
-import { ArticleTableOfContents, type TocEntry } from '@/components/blog/ArticleTableOfContents';
+import {
+  ArticleTableOfContents,
+  type ArticleTocGroup,
+} from '@/components/blog/ArticleTableOfContents';
 import { ArticleFAQ } from '@/components/blog/ArticleFAQ';
 import { SectionsFoundation } from './cms-article/SectionsFoundation';
 import { SectionsRuntime } from './cms-article/SectionsRuntime';
@@ -37,39 +40,64 @@ import { SectionsStrategy } from './cms-article/SectionsStrategy';
  * the closest live destination instead. Add the links when each pillar ships.
  */
 
-const TOC: TocEntry[] = [
-  { id: 'what-is-a-digital-signage-cms', label: 'What is a digital signage CMS?' },
-  { id: 'not-a-website-cms', label: 'A signage CMS is not a website CMS' },
-  { id: 'the-complete-system-at-a-glance', label: 'The complete system at a glance' },
-  { id: 'the-systems-every-cms-eventually-needs', label: 'The systems every CMS eventually needs' },
-  { id: 'designing-the-frontend', label: 'Designing the frontend' },
-  { id: 'designing-the-backend', label: 'Designing the backend' },
-  { id: 'api-design', label: 'API design' },
-  { id: 'database-design', label: 'Database design' },
-  { id: 'media-storage-and-processing', label: 'Media storage and processing' },
-  { id: 'media-validation', label: 'Media validation' },
-  { id: 'device-pairing', label: 'Device pairing' },
-  { id: 'device-identity-and-lifecycle', label: 'Device identity and lifecycle' },
-  { id: 'content-delivery', label: 'Content delivery' },
-  { id: 'content-manifests', label: 'Content manifests' },
-  { id: 'scheduling', label: 'Scheduling' },
-  { id: 'the-player-runtime', label: 'The player runtime' },
-  { id: 'local-state', label: 'Local state' },
-  { id: 'offline-playback', label: 'Offline playback' },
-  { id: 'download-integrity', label: 'Download integrity' },
-  { id: 'recovery', label: 'Recovery' },
-  { id: 'telemetry', label: 'Telemetry' },
-  { id: 'remote-commands', label: 'Remote commands' },
-  { id: 'supporting-multiple-platforms', label: 'Supporting multiple platforms' },
-  { id: 'security', label: 'Security' },
-  { id: 'common-mistakes', label: 'Common mistakes' },
-  { id: 'build-buy-or-use-infrastructure', label: 'Build, buy or use infrastructure?' },
-  { id: 'where-tomorrowos-fits', label: 'Where TomorrowOS fits' },
-  { id: 'building-with-ai-assisted-development-tools', label: 'Building with AI-assisted tools' },
-  { id: 'a-practical-build-sequence', label: 'A practical build sequence' },
-  { id: 'pre-launch-checklist', label: 'Pre-launch checklist' },
-  { id: 'faq', label: 'Frequently asked questions' },
-  { id: 'next-steps', label: 'Next steps' },
+/**
+ * Hand-curated chapter groups for the "grouped" contents mode. Deliberately
+ * NOT a list of every H2 — only the approved major sections. All section
+ * anchor IDs remain on their headings, so direct links to unlisted sections
+ * keep working.
+ */
+const TOC_GROUPS: ArticleTocGroup[] = [
+  {
+    number: '01',
+    title: 'Foundations',
+    items: [
+      { label: 'What is a digital signage CMS?', href: '#what-is-a-digital-signage-cms' },
+      { label: 'The complete system at a glance', href: '#the-complete-system-at-a-glance' },
+      { label: 'Designing the frontend', href: '#designing-the-frontend' },
+      { label: 'Designing the backend', href: '#designing-the-backend' },
+    ],
+  },
+  {
+    number: '02',
+    title: 'Devices and content',
+    items: [
+      { label: 'Device pairing', href: '#device-pairing' },
+      { label: 'Content delivery', href: '#content-delivery' },
+      { label: 'Scheduling', href: '#scheduling' },
+      { label: 'Media validation', href: '#media-validation' },
+    ],
+  },
+  {
+    number: '03',
+    title: 'Runtime and reliability',
+    items: [
+      { label: 'The player runtime', href: '#the-player-runtime' },
+      { label: 'Offline playback', href: '#offline-playback' },
+      { label: 'Recovery', href: '#recovery' },
+      { label: 'Telemetry', href: '#telemetry' },
+      { label: 'Remote commands', href: '#remote-commands' },
+    ],
+  },
+  {
+    number: '04',
+    title: 'Platforms and security',
+    items: [
+      { label: 'Supporting multiple platforms', href: '#supporting-multiple-platforms' },
+      { label: 'Security', href: '#security' },
+      { label: 'Common mistakes', href: '#common-mistakes' },
+    ],
+  },
+  {
+    number: '05',
+    title: 'Build strategy',
+    items: [
+      { label: 'Build, buy or use infrastructure?', href: '#build-buy-or-use-infrastructure' },
+      { label: 'Where TomorrowOS fits', href: '#where-tomorrowos-fits' },
+      { label: 'Building with AI-assisted tools', href: '#building-with-ai-assisted-development-tools' },
+      { label: 'A practical build sequence', href: '#a-practical-build-sequence' },
+      { label: 'Pre-launch checklist', href: '#pre-launch-checklist' },
+    ],
+  },
 ];
 
 const PrimaryA =
@@ -243,8 +271,8 @@ export default function BuildDigitalSignageCms() {
           </P>
         </section>
 
-        {/* 5. Table of contents */}
-        <ArticleTableOfContents entries={TOC} />
+        {/* 5. Table of contents — grouped editorial navigation. */}
+        <ArticleTableOfContents mode="grouped" groups={TOC_GROUPS} />
 
         {/* 6. Full article sections */}
         <SectionsFoundation />
@@ -286,12 +314,8 @@ export default function BuildDigitalSignageCms() {
               contribute.
             </li>
             <li>
-              <IntLink href="/compatibility">Platform Compatibility</IntLink> — confirm
-              supported hardware and operating-system scope.
-            </li>
-            <li>
-              <IntLink href="/compatibility/media">Media Compatibility</IntLink> — review tested
-              media profiles and limitations.
+              <IntLink href="/guides/platforms/samsung-tizen">Samsung Tizen guide</IntLink> —
+              install the TomorrowOS player on Samsung Tizen displays.
             </li>
           </UL>
         </section>
@@ -308,14 +332,9 @@ export default function BuildDigitalSignageCms() {
           <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {[
               {
-                label: 'Platform Compatibility',
-                href: '/compatibility',
-                desc: 'Supported platforms, runtime status and known limitations.',
-              },
-              {
-                label: 'Media Compatibility',
-                href: '/compatibility/media',
-                desc: 'Tested media formats, codecs and playback behaviour.',
+                label: 'Samsung Tizen guide',
+                href: '/guides/platforms/samsung-tizen',
+                desc: 'Install the TomorrowOS player on Samsung Tizen displays.',
               },
               {
                 label: 'Documentation',
