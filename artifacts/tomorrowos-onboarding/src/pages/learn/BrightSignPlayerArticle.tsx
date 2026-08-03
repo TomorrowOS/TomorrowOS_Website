@@ -125,7 +125,7 @@ const FAQ_ITEMS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: 'Which BrightSign players have been physically tested?',
-    a: 'Public test evidence currently exists at series level: Series 3 video and firmware behaviour was established in field testing, and a Series 5 rendering issue was found and fixed in the player code. Exact tested model numbers and OS builds have not yet been published, so treat individual models as requiring validation.',
+    a: 'Public test evidence currently exists at series level: Series 3 video and firmware behaviour was established in field testing, and the player code contains a Series 5-specific rendering fix. Exact tested model numbers and OS builds have not yet been published, so treat individual models as requiring validation.',
   },
   {
     q: 'Does the player continue working offline?',
@@ -315,7 +315,7 @@ export default function BrightSignPlayerArticle() {
                 'Series 5',
                 'No public test model recorded',
                 'No public tested build',
-                'Physical testing evidenced by a Series 5 rendering fix in the player code',
+                'Series 5-specific rendering fix present in the player code',
                 'Not publicly certified',
                 'Requires validation (per model)',
                 'Inflated-viewport layout issue found and corrected in the runtime',
