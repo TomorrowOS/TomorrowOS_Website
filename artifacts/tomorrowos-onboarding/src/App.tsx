@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Redirect, Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import { PrototypeProvider } from './components/PrototypeProvider';
+import { LEARN_ENABLED } from './lib/featureFlags';
 import { WebsiteLayout } from './components/WebsiteLayout';
 // Homepage stays statically imported so the landing route renders immediately.
 import Home from './pages/Home';
@@ -19,6 +20,7 @@ const Compatibility = lazy(() => import('./pages/Compatibility'));
 const MediaCompatibility = lazy(() => import('./pages/MediaCompatibility'));
 const PlatformGuides = lazy(() => import('./pages/PlatformGuides'));
 const NotFound = lazy(() => import('./pages/not-found'));
+const Blog = lazy(() => import('./pages/Blog'));
 const About = lazy(() => import('./pages/About'));
 const PlaceholderPage = lazy(() => import('./pages/PlaceholderPage'));
 const Privacy = lazy(() => import('./pages/Privacy'));
@@ -80,17 +82,23 @@ function Router() {
         <Route path="/guides/platforms/samsung-tizen/magicinfo" component={SamsungTizenGuide} />
         <Route path="/guides/platforms/samsung-tizen" component={SamsungTizenGuide} />
         <Route path="/guides/platforms" component={PlatformGuides} />
-        {/* Learn (Phase A): registered, noindex, absent from navigation.
-            Unknown /learn/* paths fall through to NotFound below. */}
-        <Route path="/learn" component={LearnIndex} />
-        <Route path="/learn/build-a-digital-signage-cms" component={LearnRouteShell} />
-        <Route path="/learn/digital-signage-sdk" component={LearnRouteShell} />
-        <Route path="/learn/digital-signage-api" component={LearnRouteShell} />
-        <Route path="/learn/open-source-digital-signage" component={LearnRouteShell} />
-        <Route path="/learn/self-hosted-digital-signage" component={LearnRouteShell} />
-        <Route path="/learn/headless-digital-signage" component={LearnRouteShell} />
-        <Route path="/learn/samsung-tizen-digital-signage-player" component={LearnRouteShell} />
-        <Route path="/learn/brightsign-digital-signage-player" component={BrightSignPlayerArticle} />
+        <Route path="/blog" component={Blog} />
+        {/* Learn: fully feature-gated behind VITE_ENABLE_LEARN. When the flag
+            is not 'true' (production default), no Learn route is registered,
+            so /learn and /learn/* fall through to NotFound below. */}
+        {LEARN_ENABLED && (
+          <>
+            <Route path="/learn" component={LearnIndex} />
+            <Route path="/learn/build-a-digital-signage-cms" component={LearnRouteShell} />
+            <Route path="/learn/digital-signage-sdk" component={LearnRouteShell} />
+            <Route path="/learn/digital-signage-api" component={LearnRouteShell} />
+            <Route path="/learn/open-source-digital-signage" component={LearnRouteShell} />
+            <Route path="/learn/self-hosted-digital-signage" component={LearnRouteShell} />
+            <Route path="/learn/headless-digital-signage" component={LearnRouteShell} />
+            <Route path="/learn/samsung-tizen-digital-signage-player" component={LearnRouteShell} />
+            <Route path="/learn/brightsign-digital-signage-player" component={BrightSignPlayerArticle} />
+          </>
+        )}
         <Route path="/compatibility/media" component={MediaCompatibility} />
         <Route path="/compatibility" component={Compatibility} />
         <Route component={NotFound} />

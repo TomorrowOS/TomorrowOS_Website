@@ -144,7 +144,17 @@ export const seoRoutes: Record<string, RouteSeo> = {
     canonicalPath: '/compatibility/media',
     indexable: true,
   },
+  '/blog': {
+    title: 'Digital Signage Engineering Blog',
+    description:
+      'Read practical guides about building digital signage software, open-source infrastructure, screen platforms, playback and reliable device operations.',
+    canonicalPath: '/blog',
+    indexable: false, // stays noindex until the first complete pillar article ships
+  },
   // ---- Learn section (Phase A) ------------------------------------------
+  // Feature-gated behind VITE_ENABLE_LEARN (default off in production).
+  // Entries stay here as preserved metadata drafts; they are all
+  // indexable: false, so they can never reach the sitemap in either state.
   // Draft metadata for the future Developer Resource Centre. All routes stay
   // indexable: false (and therefore out of the sitemap) until each page's
   // real content passes its quality gate.

@@ -9,9 +9,31 @@ import { cn } from '@/lib/utils';
 
 const logoSrc = `${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`;
 
+/**
+ * Root-level pillar articles that belong to the Blog editorial section.
+ * Keep in sync with the URL model documented in src/lib/blogArticles.ts.
+ */
+const BLOG_PILLAR_PATHS = [
+  '/build-a-digital-signage-cms',
+  '/digital-signage-sdk',
+  '/digital-signage-api',
+  '/open-source-digital-signage',
+  '/self-hosted-digital-signage',
+  '/headless-digital-signage',
+  '/samsung-tizen-digital-signage-player',
+  '/brightsign-digital-signage-player',
+];
+
 function isActive(location: string, href: string) {
   if (href === '/start') {
     return location.startsWith('/start') || location.startsWith('/connect') || location.startsWith('/guides');
+  }
+  if (href === '/blog') {
+    return (
+      location === '/blog' ||
+      location.startsWith('/blog/') ||
+      BLOG_PILLAR_PATHS.includes(location)
+    );
   }
   return location === href;
 }

@@ -55,6 +55,10 @@ _Populate as you build — non-obvious choices a reader couldn't infer from the 
 
 _Populate as you build — explicit user instructions worth remembering across sessions._
 
+## Feature flags
+
+- `VITE_ENABLE_LEARN` — gates the entire `/learn` Developer Resource Centre in `artifacts/tomorrowos-onboarding` (see `src/lib/featureFlags.ts`). Production default: unset/false — `/learn` and `/learn/*` resolve to NotFound, are not prerendered, never appear in the sitemap and are absent from navigation and public links. Set `VITE_ENABLE_LEARN=true` at build time (local dev, previews, future relaunch) to restore the full Learn experience. Build-time flag: switching states requires a rebuild. Do not set it in production deployment config until Learn is approved for relaunch.
+
 ## Gotchas
 
 _Populate as you build — sharp edges, "always run X before Y" rules._

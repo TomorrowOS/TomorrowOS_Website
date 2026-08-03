@@ -4,6 +4,7 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 import { usePageSeo } from '@/hooks/use-page-seo';
 import { JsonLd } from '@/components/JsonLd';
 import { absoluteUrl } from '@/lib/seoConfig';
+import { isRouteEnabled } from '@/lib/featureFlags';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -732,7 +733,9 @@ export default function MediaCompatibility() {
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <li><InA href="/compatibility">Platform compatibility</InA></li>
             <li><InA href="/guides/platforms/samsung-tizen">Samsung Tizen installation guide</InA></li>
-            <li><InA href="/learn/brightsign-digital-signage-player">BrightSign support article</InA></li>
+            {isRouteEnabled('/learn/brightsign-digital-signage-player') && (
+              <li><InA href="/learn/brightsign-digital-signage-player">BrightSign support article</InA></li>
+            )}
             <li><InA href="/guides/platforms">Platform guides</InA></li>
             <li><ExtA href={DOCS_URL}>Documentation</ExtA></li>
             <li><ExtA href={TIZEN_REPO_URL}>Tizen player repository</ExtA></li>

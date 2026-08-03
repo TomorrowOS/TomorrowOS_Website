@@ -258,6 +258,68 @@ while ((pm = preEntryRe.exec(viteSrc)) !== null) {
 
 ok(`route-sync safeguard checked ${appStatic.length} app routes across App.tsx, seoConfig.ts, vite.config.ts, smoke.mjs, _redirects and vercel.json`);
 
+/* ================================================================== */
+/* ---- feature-gated routes (VITE_ENABLE_LEARN) ---------------------- */
+/* The /learn section is feature-gated: routes stay declared in App.tsx,
+ * seoConfig.ts, the prerender table and smoke.mjs (so the sync checks
+ * above keep passing), but every consumer must gate on the flag. These
+ * checks make the gating explicit rather than silently excluded. */
+const FEATURE_GATED_PREFIX = '/learn';
+const gated = routes.filter(
+  (r) => r.key === FEATURE_GATED_PREFIX || r.key.startsWith(`${FEATURE_GATED_PREFIX}/`),
+);
+if (gated.length === 0) fail('feature-gate: no /learn entries found in seoConfig.ts — gating checks have nothing to verify');
+
+// (a) A gated route must never be indexable (in either flag state).
+for (const r of gated) {
+  if (r.indexable) fail(`feature-gate: ${r.key} is feature-gated but marked indexable:true — gated routes must stay noindex`);
+}
+
+// (b) A gated route must never appear in the committed sitemap.
+const sitemapPath2 = join(root, 'public/sitemap.xml');
+if (existsSync(sitemapPath2)) {
+  const sm = readFileSync(sitemapPath2, 'utf8');
+  if (sm.includes(`${FEATURE_GATED_PREFIX}`)) fail('feature-gate: production sitemap contains a /learn URL');
+}
+
+// (c) Every consumer must gate on the flag rather than list routes
+//     unconditionally.
+if (!appSrc.includes('LEARN_ENABLED')) fail('feature-gate: src/App.tsx does not gate /learn routes on LEARN_ENABLED');
+if (!viteSrc.includes('VITE_ENABLE_LEARN')) fail('feature-gate: vite.config.ts prerender plugin does not gate /learn routes on VITE_ENABLE_LEARN');
+if (!smokeSrc.includes('VITE_ENABLE_LEARN')) fail('feature-gate: scripts/smoke.mjs does not gate /learn coverage on VITE_ENABLE_LEARN');
+
+// (d) No public navigation or page may link into /learn unless the link is
+//     rendered behind the flag. Files under src/pages/learn and
+//     src/components/learn are the gated section itself; learnResources.ts is
+//     its data. Everything else must either not mention /learn hrefs or
+//     visibly gate them (isRouteEnabled / LEARN_ENABLED) — data files are
+//     allowed only when listed here with their gating render site.
+const LEARN_LINK_ALLOWED = new Map([
+  ['src/lib/platformCompatibility.ts', 'links filtered through isRouteEnabled in src/pages/Compatibility.tsx'],
+  ['src/lib/featureFlags.ts', 'flag definition itself'],
+  ['src/lib/seoConfig.ts', 'preserved metadata drafts, all noindex'],
+  ['src/App.tsx', 'routes gated by LEARN_ENABLED'],
+]);
+for (const f of files) {
+  const rel = f.slice(root.length + 1);
+  if (rel.startsWith('src/pages/learn/') || rel.startsWith('src/components/learn/')) continue;
+  if (rel === 'src/lib/learnResources.ts') continue;
+  const text = readFileSync(f, 'utf8');
+  const linksLearn = /(href="\/learn|href: '\/learn|href={["']\/learn|to="\/learn)/.test(text);
+  if (!linksLearn) continue;
+  if (LEARN_LINK_ALLOWED.has(rel)) continue;
+  if (text.includes('isRouteEnabled') || text.includes('LEARN_ENABLED')) continue;
+  fail(`feature-gate: ${rel} links to a /learn route without gating on the feature flag (wrap with isRouteEnabled or remove the link)`);
+}
+
+// (e) When the flag is off, a built dist must contain no prerendered /learn
+//     HTML (run after a build to verify the emitted output).
+const distLearn = join(root, 'dist/public/learn');
+if (process.env.VITE_ENABLE_LEARN !== 'true' && existsSync(join(root, 'dist/public')) && existsSync(distLearn)) {
+  fail('feature-gate: VITE_ENABLE_LEARN is off but dist/public/learn exists — stale or wrongly gated prerender output');
+}
+ok(`feature-gate safeguard checked ${gated.length} gated /learn routes (flag: VITE_ENABLE_LEARN=${process.env.VITE_ENABLE_LEARN ?? 'unset'})`);
+
 if (failures > 0) {
   console.error(`\n${failures} validation failure(s)`);
   process.exit(1);

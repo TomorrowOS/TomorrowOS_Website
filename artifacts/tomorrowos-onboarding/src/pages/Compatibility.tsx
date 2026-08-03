@@ -3,6 +3,7 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 import { usePageSeo } from '@/hooks/use-page-seo';
 import { JsonLd } from '@/components/JsonLd';
 import { absoluteUrl } from '@/lib/seoConfig';
+import { isRouteEnabled } from '@/lib/featureFlags';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -253,7 +254,7 @@ function PlatformDetailSection({ platform }: { platform: PlatformCompatibility }
           <div className="flex flex-col gap-2">
             <div className="text-sm font-semibold text-foreground">Resources</div>
             <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-              {platform.links.map((l) => (
+              {platform.links.filter((l) => l.external || isRouteEnabled(l.href)).map((l) => (
                 <li key={l.href + l.label}>
                   {l.external ? (
                     <ExtA href={l.href}>{l.label}</ExtA>
@@ -473,7 +474,9 @@ export default function Compatibility() {
                       View compatibility
                     </a>
                   )}
-                  <CtaLink link={p.primaryCta} primary={p.status === 'planned'} />
+                  {(p.primaryCta.external || isRouteEnabled(p.primaryCta.href)) && (
+                    <CtaLink link={p.primaryCta} primary={p.status === 'planned'} />
+                  )}
                   {p.secondaryCta && <CtaLink link={p.secondaryCta} />}
                 </div>
               </div>

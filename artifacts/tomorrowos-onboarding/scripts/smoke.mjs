@@ -15,8 +15,14 @@
 const base = process.argv[2]?.startsWith('http') ? process.argv[2] : 'http://127.0.0.1:80';
 const envArg = process.argv.find((a) => a.startsWith('--env='))?.slice(6) ?? 'prototype';
 
+// Learn is feature-gated behind VITE_ENABLE_LEARN (see src/lib/featureFlags.ts).
+// When disabled (production default) the /learn routes resolve to the SPA
+// NotFound experience and are excluded from prerendering, so smoke coverage
+// checks them only when the flag is explicitly enabled.
+const LEARN_ENABLED = process.env.VITE_ENABLE_LEARN === 'true';
+
 const routes = [
-  '/', '/about', '/start', '/start/guided', '/start/guided/replit',
+  '/', '/about', '/blog', '/start', '/start/guided', '/start/guided/replit',
   '/start/guided/vercel', '/start/terminal', '/connect/server-sdk',
   '/connect/api', '/guides/supabase', '/guides/cloudinary', '/guides/vercel',
   '/guides/neon', '/guides/vercel-blob', '/guides/content',
@@ -24,7 +30,8 @@ const routes = [
   '/guides/platforms/samsung-tizen/magicinfo',
   '/compatibility', '/compatibility/media', '/privacy', '/terms',
   '/cookie-policy', '/cookie-settings', '/quickstart',
-  // Learn section (Phase A shells) — must always be noindex.
+  // Learn section — feature-gated (skipped below unless VITE_ENABLE_LEARN=true);
+  // must always be noindex in either state.
   '/learn',
   '/learn/build-a-digital-signage-cms',
   '/learn/digital-signage-sdk',
@@ -58,7 +65,9 @@ if (envArg === 'production') staticFiles.push('/sitemap.xml');
 let failures = 0;
 const fail = (msg) => { failures++; console.error(`FAIL ${msg}`); };
 
-for (const path of [...routes, ...staticFiles]) {
+const activeRoutes = routes.filter((r) => LEARN_ENABLED || !r.startsWith('/learn'));
+
+for (const path of [...activeRoutes, ...staticFiles]) {
   try {
     const res = await fetch(`${base}${path}`, { redirect: 'follow' });
     const isAsset = staticFiles.includes(path);

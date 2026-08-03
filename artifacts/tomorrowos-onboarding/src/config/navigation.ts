@@ -12,6 +12,7 @@ export const siteNavigation: { primary: NavItem[]; actions: NavItem[] } = {
   primary: [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
+    { label: 'Blog', href: '/blog' },
     { label: 'Docs', href: siteConfig.links.docs, external: true },
   ],
   actions: [

@@ -172,7 +172,16 @@ function prerenderPlugin() {
       canonicalPath: '/compatibility/media',
       indexable: true,
     },
-    // Learn section (Phase A shells) — noindex until real content ships.
+    '/blog': {
+      rawTitle: 'Digital Signage Engineering Blog',
+      description:
+        'Read practical guides about building digital signage software, open-source infrastructure, screen platforms, playback and reliable device operations.',
+      canonicalPath: '/blog',
+      indexable: false,
+    },
+    // Learn section — feature-gated behind VITE_ENABLE_LEARN. Entries are
+    // preserved metadata drafts; the prerender loop skips them when the flag
+    // is off, so no /learn HTML is emitted in a disabled build.
     '/learn': {
       rawTitle: 'Developer Resource Centre',
       description:
@@ -308,6 +317,7 @@ function prerenderPlugin() {
 
     const hasBreadcrumb =
       routePath === '/about' ||
+      routePath === '/blog' ||
       routePath === '/learn' ||
       routePath === '/learn/brightsign-digital-signage-player' ||
       routePath.startsWith('/guides/') ||
@@ -336,7 +346,9 @@ function prerenderPlugin() {
       crumbs.push({
         // Keep structured data consistent with the visible breadcrumbs.
         name:
-          routePath === '/learn'
+          routePath === '/blog'
+            ? 'Blog'
+            : routePath === '/learn'
             ? 'Learn'
             : routePath === '/learn/brightsign-digital-signage-player'
               ? 'BrightSign'
@@ -387,7 +399,21 @@ function prerenderPlugin() {
       const template = readFileSync(templatePath, 'utf-8');
       let routeCount = 0;
 
-      for (const [routePath, route] of Object.entries(routes)) {
+      // Feature gate: when VITE_ENABLE_LEARN is not 'true', /learn routes are
+      // not registered in the app router, so no static HTML may be emitted
+      // for them — a disabled Learn page must resolve to the SPA NotFound
+      // experience, not a prerendered shell.
+      const learnEnabled = process.env.VITE_ENABLE_LEARN === 'true';
+      const activeRoutes = Object.entries(routes).filter(
+        ([p]) => learnEnabled || !(p === '/learn' || p.startsWith('/learn/')),
+      );
+      if (!learnEnabled) {
+        console.log(
+          '   [prerender] VITE_ENABLE_LEARN is off — /learn routes excluded from prerendering.',
+        );
+      }
+
+      for (const [routePath, route] of activeRoutes) {
         const fullTitle = formatTitle(routePath, route.rawTitle);
         const canonicalUrl = `${SITE_URL}${route.canonicalPath}`;
         const ogImageUrl = `${SITE_URL}/og/tomorrowos-social-v1.png`;
