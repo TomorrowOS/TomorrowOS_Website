@@ -1,0 +1,703 @@
+# TomorrowOS Learn — Technical Architecture and UX Specification
+
+You have already completed a read-only audit of the existing TomorrowOS website.
+
+This next task is still analysis and specification only.
+
+Do not modify, create, delete, rename, reformat or move any repository files.
+
+Do not install packages.
+
+Do not change routes.
+
+Do not change navigation.
+
+Do not change metadata.
+
+Do not change the homepage.
+
+Do not build `/learn` yet.
+
+Your task is to produce the final technical architecture and UX specification for safely adding the TomorrowOS Learn section to the existing production website.
+
+---
+
+# Existing ecosystem responsibilities
+
+The TomorrowOS ecosystem has three distinct information layers:
+
+## Website
+
+`tomorrowos.org`
+
+Purpose:
+
+* Explain TomorrowOS
+* Establish the product category
+* Introduce supported use cases
+* Direct users toward the appropriate next step
+
+## Documentation
+
+`docs.tomorrowos.org`
+
+Purpose:
+
+* Installation
+* Setup
+* Configuration
+* SDK usage
+* API implementation
+* Device pairing
+* Player installation
+* Troubleshooting
+* Technical reference
+
+## GitHub
+
+Purpose:
+
+* Source code
+* Releases
+* Issues
+* Discussions
+* Contributions
+* Changelog
+* Repository-level technical information
+
+## Learn
+
+Proposed route:
+
+`/learn`
+
+Purpose:
+
+* Educate users who are researching how to build digital signage software
+* Answer broad industry and development questions
+* Build SEO and AI-search authority
+* Explain concepts before directing users into implementation documentation
+* Avoid duplicating Mintlify documentation or GitHub content
+
+The relationship must remain:
+
+Learn → educate
+Documentation → implement
+GitHub → inspect, contribute and develop
+
+---
+
+# Core principle
+
+The Learn section must feel like a native extension of the current TomorrowOS website.
+
+It must not:
+
+* Redesign the website
+* Introduce a new visual language
+* Replace existing guides
+* Duplicate Mintlify documentation
+* Duplicate GitHub content
+* Change existing routes
+* Change existing metadata
+* Affect the homepage
+* Affect the current navigation until the approved rollout phase
+* Add dependencies unless absolutely unavoidable
+* Introduce a CMS, MDX layer or search service during Phase 1
+
+---
+
+# Page identity
+
+The navigation label should eventually be:
+
+`Learn`
+
+The `/learn` page heading should be:
+
+`Developer Resource Centre`
+
+The supporting message should be:
+
+`Everything you need to build digital signage software.`
+
+The Learn section should feel like an educational and engineering resource centre, not a chronological blog.
+
+Avoid:
+
+* Blog archive layouts
+* Publication-month navigation
+* Generic article cards
+* News-first structure
+* Empty category pages
+* Search before it is genuinely required
+
+---
+
+# Phase 1 content scope
+
+The initial Learn system will eventually contain:
+
+* `/learn`
+* `/learn/build-a-digital-signage-cms`
+* `/learn/digital-signage-sdk`
+* `/learn/digital-signage-api`
+* `/learn/open-source-digital-signage`
+* `/learn/self-hosted-digital-signage`
+* `/learn/headless-digital-signage`
+* `/learn/samsung-tizen-digital-signage-player`
+* `/learn/brightsign-digital-signage-player`
+
+Do not create these routes yet.
+
+---
+
+# Required information architecture
+
+Design the Learn section around the following structure.
+
+## Start Here
+
+* Build a Digital Signage CMS
+* Digital Signage SDK
+* Digital Signage API
+
+## Learning Paths
+
+### Build a New CMS
+
+For users creating a digital signage product from scratch.
+
+### Connect an Existing Product
+
+For users adding signage capabilities to an existing SaaS product or platform.
+
+### Build with AI
+
+For users working with Replit, Claude Code, Cursor, ChatGPT, Codex or similar tools.
+
+### Build a Custom Player
+
+For users focused on device runtimes, commercial displays and platform-specific deployment.
+
+### Learn the Architecture
+
+For users researching runtime design, offline playback, content delivery, pairing and reliability.
+
+## Architecture
+
+* Offline Playback
+* Digital Signage Runtime
+* Device Pairing
+* Self-Hosted Digital Signage
+* Headless Digital Signage
+* Content Delivery
+* Commands and Events
+* Telemetry
+* Recovery
+
+## Platforms
+
+* Samsung Tizen
+* BrightSign
+* LG webOS
+* Android
+* Windows
+
+## AI Development
+
+* Replit
+* Claude Code
+* Cursor
+* ChatGPT
+* OpenAI Codex
+* GitHub Copilot
+* Gemini CLI
+
+## Engineering
+
+* Content Synchronisation
+* Storage
+* Scheduling
+* Telemetry
+* Commands
+* Player Recovery
+* Testing
+* Release Engineering
+
+## Evidence
+
+* Platform Compatibility
+* Media Compatibility
+* Firmware Validation
+* Offline Testing
+* Case Studies
+* Engineering Reviews
+
+---
+
+# Resource status model
+
+Do not use the wording:
+
+`Coming Soon`
+
+Define a reusable maturity system.
+
+Allowed states:
+
+* Production Ready
+* Available
+* In Development
+* Platform Validation
+* Community Contribution
+* Planned
+
+For each state, specify:
+
+* Meaning
+* Visual treatment
+* Whether the card is clickable
+* Destination behaviour
+* Whether the route should exist
+* Whether the route should be indexable
+* Whether it should appear in navigation
+* Appropriate CTA wording
+
+Important:
+
+Do not create placeholder article routes merely because a card exists.
+
+Where content does not yet exist, the preferred behaviour is usually:
+
+* Show the resource on `/learn`
+* Explain its current maturity
+* Link to the best existing documentation, GitHub discussion, roadmap or supported-platform page
+* Avoid publishing an empty or low-value route
+
+Recommend exceptions only where a meaningful standalone status page would genuinely help users.
+
+---
+
+# Learning-path behaviour
+
+For each learning path, define:
+
+* Intended audience
+* Entry point
+* Recommended resource order
+* Completion outcome
+* Primary CTA
+* Related documentation destination
+* Related GitHub destination
+* Whether progress tracking is needed
+
+Do not add persistent user state, accounts, completion tracking or localStorage during Phase 1.
+
+Learning paths should be simple, static and understandable.
+
+---
+
+# `/learn` homepage specification
+
+Provide a complete section-by-section specification for `/learn`.
+
+Include:
+
+1. Header and breadcrumbs
+2. Hero
+3. Learning paths
+4. Start Here resources
+5. Architecture
+6. Platforms
+7. AI Development
+8. Engineering
+9. Evidence
+10. Closing CTA
+11. Footer integration
+
+For every section specify:
+
+* Purpose
+* Heading
+* Supporting copy
+* Card count
+* Grid behaviour
+* Status treatment
+* CTA behaviour
+* Internal links
+* External links
+* Mobile behaviour
+* Accessibility considerations
+* Empty-state behaviour
+
+Do not write the final marketing copy yet.
+
+Provide clear placeholder-level content direction only.
+
+---
+
+# Navigation recommendation
+
+Using the existing navigation architecture from the audit, provide the final rollout recommendation.
+
+Evaluate:
+
+## Option A
+
+Footer link first, then header after three live articles.
+
+## Option B
+
+Header and footer from launch of `/learn`.
+
+## Option C
+
+Header only after all eight Phase 1 articles are live.
+
+Recommend one option.
+
+Your recommendation must account for:
+
+* Current desktop navigation capacity
+* Mobile drawer behaviour
+* User expectations
+* Empty-section risk
+* Crawlability
+* Internal linking
+* SEO
+* Launch confidence
+
+Specify the exact recommended location for `Learn` within the existing navigation order.
+
+Also specify how the active-state logic should work for all `/learn` child routes.
+
+---
+
+# Existing guides
+
+The current website already has `/guides/*` content.
+
+Determine the relationship between `/guides` and `/learn`.
+
+Evaluate these options:
+
+## Option 1
+
+Keep `/guides` separate permanently.
+
+## Option 2
+
+Surface existing guides inside `/learn` without changing their URLs.
+
+## Option 3
+
+Gradually migrate selected guides into `/learn`.
+
+## Option 4
+
+Redirect `/guides` into `/learn`.
+
+Recommend the safest approach.
+
+Avoid changing existing URLs unless there is a compelling reason.
+
+The preferred direction is likely to preserve existing indexed URLs and surface them contextually inside Learn.
+
+Confirm or challenge that recommendation with reasons.
+
+---
+
+# Shared component specification
+
+Based on the existing codebase, provide the exact proposed component architecture.
+
+Prefer extending existing components over creating duplicates.
+
+For every proposed component specify:
+
+* Proposed file path
+* Responsibility
+* Props
+* Existing component it reuses
+* Whether it is Learn-specific or reusable globally
+* Accessibility requirements
+* Responsive behaviour
+* SEO implications
+* Test requirements
+
+Potential responsibilities include:
+
+* LearnIndexPage
+* LearningPathCard
+* ResourceSection
+* ResourceCard
+* ResourceStatusBadge
+* ArticleLayout
+* ArticleHero
+* ArticleTableOfContents
+* RelatedResources
+* ArticleFooterCTA
+
+Do not add Learn search during Phase 1.
+
+State when search would become justified and what content threshold should trigger it.
+
+---
+
+# Article architecture
+
+Define the standard layout for future Learn articles.
+
+The layout should support:
+
+* Breadcrumbs
+* H1
+* Direct answer or summary
+* Last-reviewed date
+* Publisher attribution
+* Optional status badge
+* Optional in-page table of contents
+* Section hierarchy
+* Diagrams
+* Tables
+* Code examples
+* Limitations
+* Related resources
+* Documentation CTA
+* GitHub CTA
+* Start Building CTA
+* FAQ
+* Structured data
+
+Explain which sections are mandatory and which are optional.
+
+Explain how Learn articles must avoid duplicating Mintlify implementation documentation.
+
+Define the editorial handoff point:
+
+* Learn explains the concept and architecture
+* Documentation contains implementation instructions
+* GitHub contains source, release and contribution details
+
+---
+
+# SEO architecture
+
+Based on the audited SEO system, provide the exact route-addition checklist for every new Learn page.
+
+The specification must include:
+
+* `src/App.tsx`
+* `src/lib/seoConfig.ts`
+* `vite.config.ts` prerender route table
+* `scripts/smoke.mjs`
+* `public/_redirects`
+* `vercel.json`
+* Sitemap generation
+* Production and non-production indexing
+* Canonical URLs
+* Open Graph
+* Twitter metadata
+* JSON-LD
+* Route-level lazy loading
+* 404 behaviour
+* Validation scripts
+
+Recommend a permanent safeguard that verifies:
+
+* Every static route has an SEO config entry
+* Every indexable route is prerendered
+* Every prerender route is registered
+* Every production route is represented correctly in mirror-host configurations
+* No Learn placeholder route becomes indexable accidentally
+
+Provide the exact validation logic conceptually, but do not write code.
+
+---
+
+# Indexing strategy
+
+Provide a safe indexing lifecycle.
+
+Recommended lifecycle:
+
+1. Route registered
+2. `indexable: false`
+3. Page implemented
+4. Content reviewed
+5. Technical claims approved
+6. Metadata validated
+7. Production prerender checked
+8. Quality gate passed
+9. `indexable: true`
+10. Sitemap generated
+11. URL inspected
+12. Post-launch monitoring
+
+Confirm or improve this sequence.
+
+Clarify whether `/learn` itself should become indexable before the first three articles are complete.
+
+---
+
+# Visual and UX rules
+
+The specification must preserve the current TomorrowOS design system.
+
+Define:
+
+* Container width
+* Page spacing
+* Card behaviour
+* Typography hierarchy
+* Status badge treatment
+* Grid breakpoints
+* Hover behaviour
+* Focus behaviour
+* Reduced-motion behaviour
+* Mobile stacking
+* Long-title handling
+* External-link treatment
+* CTA hierarchy
+
+Do not invent new colours outside existing tokens unless technically necessary.
+
+Do not add gradients, heavy shadows, glass effects or a separate documentation aesthetic.
+
+---
+
+# Accessibility
+
+Define requirements for:
+
+* Semantic landmarks
+* One H1 per page
+* Heading hierarchy
+* Keyboard navigation
+* Focus states
+* Card link semantics
+* Status badges
+* Screen-reader labels
+* Breadcrumbs
+* External links
+* Tables
+* Code blocks
+* Accordions
+* Sticky table of contents
+* Skip links
+* Small-screen behaviour
+
+---
+
+# Performance
+
+Define the expected performance approach.
+
+Include:
+
+* Route-level lazy loading
+* No new dependencies
+* No search library in Phase 1
+* Static content
+* Existing font strategy
+* Existing image loading patterns
+* Minimal client-side JavaScript
+* No unnecessary hydration work
+* No layout shift from status badges or cards
+* Bundle comparison before and after
+* Lighthouse and route-loading checks
+
+---
+
+# Rollout plan
+
+Produce a recommended implementation sequence.
+
+It should include:
+
+## Phase A — Foundation
+
+Shared components and route architecture.
+
+## Phase B — `/learn` homepage
+
+Resource centre homepage, initially noindex.
+
+## Phase C — First three articles
+
+* Build a Digital Signage CMS
+* Digital Signage SDK
+* Digital Signage API
+
+## Phase D — Navigation exposure
+
+Add Learn to navigation only when the agreed launch threshold is reached.
+
+## Phase E — Remaining Phase 1 articles
+
+* Open-Source Digital Signage
+* Self-Hosted Digital Signage
+* Headless Digital Signage
+* Samsung Tizen Digital Signage Player
+* BrightSign Digital Signage Player
+
+## Phase F — Validation and launch
+
+SEO, responsive, accessibility, route and deployment checks.
+
+For every phase specify:
+
+* Files affected
+* Risk level
+* Review requirement
+* Test requirement
+* Rollback approach
+* Definition of done
+
+---
+
+# Required output
+
+Return one complete specification containing:
+
+1. Executive recommendation
+2. Final information architecture
+3. `/learn` homepage specification
+4. Learning-path structure
+5. Resource-status model
+6. Navigation recommendation
+7. Existing-guides strategy
+8. Shared component architecture
+9. Article-page architecture
+10. SEO and indexing lifecycle
+11. Accessibility requirements
+12. Performance requirements
+13. Implementation phases
+14. Risk register
+15. Test plan
+16. Proposed file-change map
+17. Definition of done
+18. Remaining human decisions
+
+Finish with a concise implementation recommendation stating exactly what the first production change should be after this specification is approved.
+
+---
+
+# Final rule
+
+This task is specification only.
+
+Do not write code.
+
+Do not modify files.
+
+Do not create routes.
+
+Do not add navigation.
+
+Do not install packages.
+
+Do not publish or deploy anything.
+
+Confirm at the end that the repository remains unchanged.
