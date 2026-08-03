@@ -11,8 +11,10 @@
 # - /community    — PlaceholderPage
 # - /license      — PlaceholderPage
 #
-# The nine /learn routes (Phase A) are prerendered like other known routes,
-# so Netlify serves their static files directly — no explicit entries needed.
+# The nine /learn routes are feature-gated behind VITE_ENABLE_LEARN. When
+# enabled they are prerendered like other known routes (static files served
+# directly); when disabled (production default) no /learn HTML exists and the
+# catch-all 404 rule below serves the SPA shell, which renders NotFound.
 #
 # Unknown paths fall through to the catch-all 404 rule.
 # Keep SPA-only entries below in sync with src/App.tsx whenever placeholder
