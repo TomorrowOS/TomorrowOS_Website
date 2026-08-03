@@ -15,7 +15,7 @@ export function WebsiteFooter() {
             <img src={`${import.meta.env.BASE_URL}assets/brand/tomorrowos-logo.svg`} alt="TomorrowOS" className="h-6 w-auto" />
           </Link>
           <p className="text-sm text-muted-foreground mt-2">
-            Open-source digital signage foundation.
+            The infrastructure platform for building digital signage software.
           </p>
         </div>
 
