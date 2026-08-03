@@ -1,0 +1,610 @@
+# TomorrowOS Learn — Phase A Foundation Implementation
+
+You are working inside the existing production TomorrowOS website repository.
+
+You have already completed:
+
+1. A read-only architecture and SEO audit.
+2. A technical architecture and UX specification for the `/learn` Developer Resource Centre.
+
+This task is the first controlled production implementation.
+
+## Objective
+
+Implement only the guarded technical foundation required for the future TomorrowOS Learn section.
+
+This is **Phase A only**.
+
+Do not build the `/learn` homepage.
+
+Do not build any article content.
+
+Do not add Learn to the header.
+
+Do not add Learn to the footer.
+
+Do not change the homepage.
+
+Do not change any existing page content or metadata.
+
+Do not publish or deploy anything.
+
+The existing TomorrowOS website must continue to behave and render exactly as it does now.
+
+---
+
+# Approved Learn routes
+
+Register the following future routes:
+
+* `/learn`
+* `/learn/build-a-digital-signage-cms`
+* `/learn/digital-signage-sdk`
+* `/learn/digital-signage-api`
+* `/learn/open-source-digital-signage`
+* `/learn/self-hosted-digital-signage`
+* `/learn/headless-digital-signage`
+* `/learn/samsung-tizen-digital-signage-player`
+* `/learn/brightsign-digital-signage-player`
+
+All nine routes must initially be:
+
+* registered
+* lazy-loaded
+* pre-rendered
+* assigned unique draft metadata
+* explicitly `indexable: false`
+* excluded from the production sitemap
+* absent from all public navigation
+* safe on Replit, Netlify and Vercel hosting configurations
+
+No Learn route may become indexable during this task.
+
+---
+
+# Critical safety rules
+
+Do not:
+
+* redesign any part of the website
+* modify existing visual components
+* edit existing page metadata
+* change existing routes
+* alter the homepage
+* change robots.txt
+* change the sitemap-generation logic
+* change deployment settings
+* install packages
+* modify dependencies
+* modify the lockfile
+* introduce MDX
+* introduce a CMS
+* introduce search
+* create public placeholder content
+* add navigation links
+* copy content from Mintlify
+* change the existing `/guides` structure
+* make unsupported product claims
+
+Before beginning, create a local checkpoint or equivalent reversible state using the repository’s existing workflow.
+
+---
+
+# Step 1 — Reconfirm repository state
+
+Before changing files:
+
+1. Confirm the relevant paths discovered in the prior audit still exist.
+2. Confirm there are no uncommitted changes that would be overwritten.
+3. Record the current results of:
+
+   * TypeScript checking
+   * SEO validation
+   * social validation
+   * production build
+   * smoke tests
+4. Record the current main bundle size or Vite build output for later comparison.
+
+Do not repair unrelated pre-existing failures without clearly separating them from this task.
+
+---
+
+# Step 2 — Create minimal route shell pages
+
+Create minimal internal route components for all nine Learn routes.
+
+These route components are technical shells only.
+
+They must not contain final article copy.
+
+They must not resemble published placeholder landing pages.
+
+They should render a restrained internal message such as:
+
+* Page title
+* “This resource is currently being prepared.”
+* A clear link back to the TomorrowOS homepage or documentation
+
+However:
+
+* These routes must not be linked from navigation.
+* They must remain `noindex`.
+* They must not be included in the sitemap.
+* They must not include promotional claims.
+* They must not pretend the resource is complete.
+* They must not use “Coming Soon.”
+
+Use the existing `WebsiteLayout`, typography, buttons and page spacing.
+
+Do not introduce a new visual system.
+
+Create the shells so that they can later be replaced by the proper Learn homepage and article layouts without changing the canonical route.
+
+---
+
+# Step 3 — Add route-level lazy loading
+
+Register all nine routes in the existing `src/App.tsx` routing system.
+
+Requirements:
+
+* Follow the existing `React.lazy` and suspense conventions.
+* Keep Learn code out of the primary entry bundle.
+* Preserve every existing route exactly.
+* Do not change existing route order unless technically required.
+* Unknown `/learn/*` routes must continue to resolve to the existing NotFound behaviour.
+
+---
+
+# Step 4 — Add draft SEO configuration
+
+Add all nine routes to:
+
+`src/lib/seoConfig.ts`
+
+Each must have:
+
+* a unique title
+* a unique description
+* the correct canonical path
+* `indexable: false`
+
+Use restrained draft metadata.
+
+Do not use:
+
+* “TBD”
+* “Draft”
+* keyword-stuffed titles
+* unsupported claims
+* invented features
+
+Suggested draft titles:
+
+* `/learn`
+  `Developer Resource Centre | TomorrowOS`
+
+* `/learn/build-a-digital-signage-cms`
+  `Build a Digital Signage CMS | TomorrowOS`
+
+* `/learn/digital-signage-sdk`
+  `Digital Signage SDK | TomorrowOS`
+
+* `/learn/digital-signage-api`
+  `Digital Signage API | TomorrowOS`
+
+* `/learn/open-source-digital-signage`
+  `Open-Source Digital Signage | TomorrowOS`
+
+* `/learn/self-hosted-digital-signage`
+  `Self-Hosted Digital Signage | TomorrowOS`
+
+* `/learn/headless-digital-signage`
+  `Headless Digital Signage | TomorrowOS`
+
+* `/learn/samsung-tizen-digital-signage-player`
+  `Samsung Tizen Signage Player | TomorrowOS`
+
+* `/learn/brightsign-digital-signage-player`
+  `BrightSign Signage Player | TomorrowOS`
+
+Descriptions should state that the resource is part of the TomorrowOS learning centre, without claiming the content is complete.
+
+All canonicals must use the existing absolute TomorrowOS canonical system.
+
+Do not create manual canonical logic.
+
+---
+
+# Step 5 — Add all routes to prerendering
+
+Add all nine routes to the prerender route table in:
+
+`vite.config.ts`
+
+Requirements:
+
+* Follow the existing route format.
+* Ensure each route produces its own static HTML.
+* Ensure the generated initial HTML contains:
+
+  * the correct title
+  * the correct description
+  * the correct canonical
+  * the correct Open Graph metadata
+  * the correct Twitter metadata
+  * `noindex, follow`
+* Do not alter prerender behaviour for existing pages.
+
+---
+
+# Step 6 — Update smoke-test coverage
+
+Update:
+
+`scripts/smoke.mjs`
+
+Add all nine Learn routes to the route coverage list.
+
+They must be treated as non-indexable.
+
+The smoke test must confirm:
+
+* the route renders
+* the expected static HTML exists
+* the robots directive is `noindex, follow`
+* the page does not contain homepage metadata
+* the canonical matches the route
+* the route is not incorrectly included in the indexable-route set
+
+Also review the route list mismatch identified in the audit.
+
+The audit noted that the current smoke list may omit some existing routes, including examples such as:
+
+* `/guides/platforms/samsung-tizen/magicinfo`
+* `/github`
+* `/community`
+* `/license`
+
+Do not silently change these.
+
+Report whether the mismatch still exists.
+
+Only correct existing omissions in this task if doing so is clearly safe, directly related to route-validation integrity, and does not change runtime behaviour.
+
+Clearly list any such corrections.
+
+---
+
+# Step 7 — Update mirror-host routing
+
+Update:
+
+* `public/_redirects`
+* `vercel.json`
+
+Register all nine Learn routes using the same explicit route pattern as existing known routes.
+
+Requirements:
+
+* Each valid Learn route must return the application correctly.
+* Unknown routes must preserve the existing 404 strategy.
+* Do not modify unrelated redirect behaviour.
+* Do not change Replit deployment configuration.
+
+---
+
+# Step 8 — Build the route-sync safeguard
+
+Extend:
+
+`scripts/validate-seo.mjs`
+
+This is the most important part of Phase A.
+
+Create a permanent validation safeguard that compares the route definitions across:
+
+1. `src/App.tsx`
+2. `src/lib/seoConfig.ts`
+3. `vite.config.ts` prerender route table
+4. `scripts/smoke.mjs`
+5. `public/_redirects`
+6. `vercel.json`
+
+The validation should fail clearly when any of the following occurs:
+
+## App route missing SEO configuration
+
+A static route is registered in the application but absent from `seoConfig`.
+
+## Indexable route missing prerender coverage
+
+A route marked `indexable: true` is not included in the prerender table.
+
+Prefer checking all static routes for prerender coverage if that matches the existing architecture safely.
+
+## Prerender route missing application route
+
+A route exists in the prerender table but is not registered in the application.
+
+## Route missing smoke coverage
+
+A route expected to be publicly served is not represented in smoke-test coverage.
+
+## Route missing mirror-host configuration
+
+A registered route is missing from either:
+
+* `_redirects`
+* `vercel.json`
+
+Account for any deliberate exclusions already documented by the project.
+
+## Indexable route missing indexable smoke assertion
+
+Any route marked `indexable: true` must be present in the smoke test’s expected indexable set.
+
+## Placeholder metadata accidentally indexable
+
+Fail if a route marked `indexable: true` contains obvious placeholder metadata, including patterns such as:
+
+* TBD
+* Draft
+* Placeholder
+* Coming Soon
+* Content pending
+* Resource currently being prepared
+
+This rule must not fail for the new Learn routes while they remain `indexable: false`.
+
+## Duplicate metadata
+
+Preserve or strengthen the existing checks for duplicate titles and descriptions.
+
+## Clear errors
+
+Every validation failure must identify:
+
+* the route
+* the missing or inconsistent source
+* the expected correction
+
+Do not implement a brittle solution based only on line numbers.
+
+Use the safest parsing approach compatible with the current repository and validation style.
+
+Do not introduce a new dependency.
+
+---
+
+# Step 9 — Deliberate safeguard test
+
+After implementing the safeguard:
+
+1. Temporarily create one controlled route-sync mismatch.
+2. Run the SEO validation.
+3. Confirm it fails with a clear message.
+4. Revert the deliberate mismatch.
+5. Run validation again.
+6. Confirm it passes.
+
+Do not leave the repository in a deliberately broken state.
+
+Document the exact test performed and the error produced.
+
+---
+
+# Step 10 — Sitemap verification
+
+Do not manually edit the sitemap.
+
+Run the production sitemap-generation process.
+
+Confirm:
+
+* none of the nine Learn routes appears in the sitemap
+* all currently indexable existing routes remain present
+* no existing sitemap entry disappears unexpectedly
+* last-modified behaviour remains unchanged
+
+---
+
+# Step 11 — Regression testing
+
+Run all relevant project checks after implementation:
+
+* `npx tsc --noEmit`
+* development build or dev validation as appropriate
+* production build
+* SEO validation
+* social validation
+* smoke tests against development
+* smoke tests against the served production build
+
+Also inspect the generated HTML for every Learn route.
+
+For each route verify:
+
+* static file exists
+* unique `<title>`
+* unique meta description
+* correct canonical
+* correct `og:url`
+* correct robots directive
+* no homepage title leakage
+* no accidental `index, follow`
+* no sitemap inclusion
+
+Test existing representative routes, including:
+
+* homepage
+* about
+* quickstart or start flow
+* one existing guide
+* compatibility
+* NotFound behaviour
+
+Confirm there are no visual or routing regressions.
+
+---
+
+# Step 12 — Performance comparison
+
+Compare the build output before and after.
+
+Confirm:
+
+* Learn routes are split into lazy chunks
+* the main entry bundle has not materially increased
+* no new dependency was added
+* no new font or global style was introduced
+* no existing chunk unexpectedly grew because of Learn
+
+Report the before-and-after build output.
+
+---
+
+# Files expected to change
+
+Expected new files:
+
+* minimal Learn route shell components under the existing page structure
+
+Expected modified files:
+
+* `src/App.tsx`
+* `src/lib/seoConfig.ts`
+* `vite.config.ts`
+* `scripts/smoke.mjs`
+* `scripts/validate-seo.mjs`
+* `public/_redirects`
+* `vercel.json`
+
+Possibly new shared Learn route-shell component if useful.
+
+Files that must remain unchanged:
+
+* homepage
+* existing page content
+* existing guide content
+* `robots.txt`
+* sitemap-generation script
+* dependencies
+* lockfile
+* deployment configuration
+* navigation configuration
+* header
+* footer
+* global styling tokens
+
+If you believe another file must change, explain why before changing it and keep the modification narrowly scoped.
+
+---
+
+# Required final report
+
+When complete, return:
+
+## 1. Executive summary
+
+What was implemented and whether existing behaviour was preserved.
+
+## 2. Files changed
+
+For every file:
+
+* path
+* whether new or modified
+* exact purpose
+* risk level
+
+## 3. Routes registered
+
+List all nine routes and confirm they remain `noindex`.
+
+## 4. Route-sync safeguard
+
+Explain:
+
+* what sources are compared
+* what failures are detected
+* the deliberate failure test performed
+* the resulting validation message
+
+## 5. SEO verification
+
+For each route confirm:
+
+* title
+* canonical
+* robots directive
+* prerender output
+* sitemap exclusion
+
+## 6. Test results
+
+Report the exact result of:
+
+* TypeScript
+* builds
+* SEO validation
+* social validation
+* smoke tests
+* production static HTML checks
+
+## 7. Regression review
+
+Confirm:
+
+* homepage unchanged
+* existing routes unchanged
+* navigation unchanged
+* footer unchanged
+* current metadata unchanged
+* dependencies unchanged
+* lockfile unchanged
+* deployment config unchanged
+
+## 8. Performance comparison
+
+Before and after bundle or build output.
+
+## 9. Known limitations
+
+Anything still requiring human review.
+
+## 10. Rollback
+
+Explain how this single Phase A change can be reverted cleanly.
+
+## 11. Next recommended implementation
+
+State that the next phase is:
+
+Phase B — build the `/learn` Developer Resource Centre homepage while it remains `noindex` and footer-only.
+
+Do not begin Phase B during this task.
+
+---
+
+# Definition of done
+
+Phase A is complete only when:
+
+* all nine routes are registered
+* all nine routes are lazy-loaded
+* all nine routes are prerendered
+* all nine routes have unique metadata
+* all nine routes remain `indexable: false`
+* none appears in the sitemap
+* mirror-host routes are configured
+* route-sync validation detects deliberate drift
+* every test passes
+* existing pages remain unchanged
+* no navigation link is added
+* no dependency is added
+* no deployment occurs
+
+Do not publish or deploy the changes.
+
+Finish by confirming that Phase A is complete and ready for human review.
