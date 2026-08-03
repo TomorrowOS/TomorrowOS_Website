@@ -203,11 +203,11 @@ export const seoRoutes: Record<string, RouteSeo> = {
     indexable: false, // Phase A shell
   },
   '/learn/brightsign-digital-signage-player': {
-    title: 'BrightSign Signage Player',
+    title: 'BrightSign Digital Signage Player Support',
     description:
-      'Part of the TomorrowOS learning centre: the BrightSign platform for digital signage playback.',
+      'See supported BrightSign series, tested models, firmware requirements, media limitations and the TomorrowOS player installation and pairing flow.',
     canonicalPath: '/learn/brightsign-digital-signage-player',
-    indexable: false, // Phase A shell
+    indexable: false, // Claims pending human technical review before indexation
   },
   '/privacy': {
     title: 'Privacy Policy',

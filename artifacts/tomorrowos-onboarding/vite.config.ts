@@ -228,9 +228,9 @@ function prerenderPlugin() {
       indexable: false,
     },
     '/learn/brightsign-digital-signage-player': {
-      rawTitle: 'BrightSign Signage Player',
+      rawTitle: 'BrightSign Digital Signage Player Support',
       description:
-        'Part of the TomorrowOS learning centre: the BrightSign platform for digital signage playback.',
+        'See supported BrightSign series, tested models, firmware requirements, media limitations and the TomorrowOS player installation and pairing flow.',
       canonicalPath: '/learn/brightsign-digital-signage-player',
       indexable: false,
     },
@@ -307,6 +307,7 @@ function prerenderPlugin() {
     const hasBreadcrumb =
       routePath === '/about' ||
       routePath === '/learn' ||
+      routePath === '/learn/brightsign-digital-signage-player' ||
       routePath.startsWith('/guides/') ||
       routePath.startsWith('/connect/') ||
       routePath.startsWith('/compatibility');
@@ -322,10 +323,18 @@ function prerenderPlugin() {
           item: `${SITE_URL}/guides/platforms`,
         });
       }
+      // Insert the Learn crumb for Learn article sub-pages.
+      if (routePath.startsWith('/learn/')) {
+        crumbs.push({ name: 'Learn', item: `${SITE_URL}/learn` });
+      }
       crumbs.push({
-        // Visible breadcrumb on /learn says "Learn"; keep structured data
-        // consistent with what users see.
-        name: routePath === '/learn' ? 'Learn' : route.rawTitle,
+        // Keep structured data consistent with the visible breadcrumbs.
+        name:
+          routePath === '/learn'
+            ? 'Learn'
+            : routePath === '/learn/brightsign-digital-signage-player'
+              ? 'BrightSign'
+              : route.rawTitle,
         item: `${SITE_URL}${route.canonicalPath}`,
       });
       schemas.push({

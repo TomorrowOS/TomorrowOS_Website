@@ -1,0 +1,869 @@
+# TomorrowOS Learn — BrightSign Compatibility Page Audit and Implementation
+
+You are working inside the existing TomorrowOS website repository and have access to the TomorrowOS BrightSign player repository or its checked-out source.
+
+Phase A and Phase B of the Learn section have already been completed.
+
+The route already exists as a noindex shell:
+
+`/learn/brightsign-digital-signage-player`
+
+Your task is to replace that shell with a complete, evidence-led BrightSign compatibility and player overview page.
+
+This task has two inseparable stages:
+
+1. Audit the actual TomorrowOS BrightSign repository and existing website/docs sources.
+2. Build the page using only findings that can be verified from those sources.
+
+Do not invent support claims.
+
+Do not infer that every model in a supported series has been physically tested.
+
+Do not make the page indexable during this task.
+
+Do not publish or deploy anything.
+
+---
+
+# Objective
+
+Build a transparent BrightSign platform page that tells developers:
+
+* what TomorrowOS supports;
+* what has been physically tested;
+* which firmware requirements are known;
+* what the player runtime handles;
+* how the installation and pairing flow works;
+* which media and platform limitations matter;
+* which combinations still require validation;
+* where implementation documentation and source code live.
+
+The page must help a developer decide whether their BrightSign hardware is appropriate for TomorrowOS without overstating certification.
+
+---
+
+# Critical product-language rule
+
+The page must distinguish between:
+
+## Supported series
+
+A player generation that the TomorrowOS runtime is designed to support.
+
+## Tested model
+
+An exact model that has been run through physical TomorrowOS testing.
+
+## Tested firmware
+
+An exact BrightSign OS build that has completed the validation workflow.
+
+## Media certified
+
+A media profile that has passed defined playback and recovery testing on a specific model and firmware.
+
+Do not use these terms interchangeably.
+
+Do not use “certified” unless there is a completed supporting result.
+
+---
+
+# Known provisional position to verify
+
+The following information has been identified in existing TomorrowOS planning and review materials.
+
+Treat it as provisional until verified against the current BrightSign repository and website/docs source:
+
+* BrightSign Series 3, 4, 5 and 6 are within the supported scope.
+* BrightSign Series 3 requires BrightSign OS 9.1.140 or later.
+* BrightSign Series 3 4K H.264 is not supported.
+* Validated 1080p H.264 media is the recommended Series 3 pathway.
+* Known physical test models include:
+
+  * XD233 — Series 3
+  * HD225 — Series 5
+  * HD226 — Series 6
+* Series 4 support is claimed at series level, but a named physical Series 4 test device may not yet be recorded.
+* Exact tested OS builds may still be incomplete in the public validation data.
+* Existing platform materials indicate native-player / TomorrowOS Runtime playback.
+* The current BrightSign documentation needs a stronger quick-start layer.
+
+Verify every point.
+
+If repository evidence conflicts with these statements, report the conflict and use the more conservative public wording.
+
+---
+
+# Stage 1 — Repository and source audit
+
+Before changing website files, inspect the TomorrowOS BrightSign repository thoroughly.
+
+Review at minimum:
+
+* README
+* package metadata
+* release files
+* release notes
+* changelog
+* source directories
+* player entry point
+* autorun files
+* BrightScript files
+* HTML/JavaScript runtime
+* configuration files
+* build scripts
+* packaging scripts
+* installation instructions
+* SD-card structure
+* environment or endpoint configuration
+* pairing implementation
+* content-download logic
+* local storage and cache logic
+* offline behaviour
+* command handling
+* telemetry or event handling
+* watchdog or recovery behaviour
+* firmware checks
+* model or series checks
+* codec or resolution checks
+* screenshots
+* tests
+* CI workflows
+* open issues
+* closed issues relating to compatibility
+* repository discussions if accessible
+* tagged releases and downloadable bundles
+
+Also inspect the existing TomorrowOS website and documentation for:
+
+* BrightSign guide
+* compatibility page
+* media compatibility page
+* supported-platform wording
+* player download links
+* install instructions
+* GitHub links
+* firmware statements
+* known limitations
+
+Do not rely on memory or general BrightSign knowledge where the TomorrowOS repository does not support a claim.
+
+---
+
+# Required audit output before implementation
+
+Create an internal findings table containing:
+
+| Field                      | Verified finding | Evidence source | Confidence | Public wording |
+| -------------------------- | ---------------- | --------------- | ---------- | -------------- |
+| Supported series           |                  |                 |            |                |
+| Explicitly tested models   |                  |                 |            |                |
+| Explicitly tested firmware |                  |                 |            |                |
+| Minimum firmware           |                  |                 |            |                |
+| Installation method        |                  |                 |            |                |
+| Player bundle location     |                  |                 |            |                |
+| CMS endpoint configuration |                  |                 |            |                |
+| Pairing behaviour          |                  |                 |            |                |
+| Pairing-code format        |                  |                 |            |                |
+| Content download           |                  |                 |            |                |
+| Local storage              |                  |                 |            |                |
+| Offline playback           |                  |                 |            |                |
+| Recovery behaviour         |                  |                 |            |                |
+| Remote commands            |                  |                 |            |                |
+| Telemetry/events           |                  |                 |            |                |
+| Video support              |                  |                 |            |                |
+| Image support              |                  |                 |            |                |
+| HTML support               |                  |                 |            |                |
+| Orientation support        |                  |                 |            |                |
+| Known limitations          |                  |                 |            |                |
+| Known issues               |                  |                 |            |                |
+| Untested combinations      |                  |                 |            |                |
+| Release version            |                  |                 |            |                |
+| Corresponding SDK version  |                  |                 |            |                |
+
+Confidence values:
+
+* Confirmed in code
+* Confirmed in repository documentation
+* Confirmed by test evidence
+* Claimed but not verified
+* Unknown
+
+Only the first three confidence levels may be stated as facts on the public page.
+
+“Claimed but not verified” must be described as requiring validation.
+
+“Unknown” must not be filled with assumptions.
+
+---
+
+# Conflict handling
+
+If the repository, website, documentation or workbook disagree:
+
+1. Record the conflict.
+2. Prefer executable code and completed physical test evidence over marketing text.
+3. Prefer an exact model/firmware result over a general series-level claim.
+4. Use the most conservative public statement.
+5. Add the conflict to the final report.
+6. Do not silently reconcile incompatible statements.
+
+---
+
+# Known-issues classification
+
+Create a verified known-issues register using these categories:
+
+* Firmware requirement
+* Unsupported media
+* Playback limitation
+* HTML/runtime limitation
+* Storage limitation
+* Network limitation
+* Pairing issue
+* Offline/recovery issue
+* Installation issue
+* Model-specific issue
+* Unverified behaviour
+
+Each issue must include:
+
+* affected series/model;
+* affected firmware where known;
+* symptom;
+* verified cause where known;
+* workaround;
+* status;
+* evidence source;
+* retest trigger.
+
+Do not publish internal-only speculation.
+
+---
+
+# Page route
+
+Replace the shell at:
+
+`/learn/brightsign-digital-signage-player`
+
+Do not create a second BrightSign Learn route.
+
+Do not change the canonical slug.
+
+The page must remain:
+
+* `indexable: false`
+* excluded from the sitemap
+* absent from header navigation
+* accessible through the existing Learn resource card only
+* pre-rendered with unique metadata
+
+---
+
+# Page title and metadata
+
+Use this working metadata unless the repository audit establishes a more accurate alternative.
+
+Meta title:
+
+`BrightSign Digital Signage Player Support | TomorrowOS`
+
+Target meta description:
+
+`See supported BrightSign series, tested models, firmware requirements, media limitations and the TomorrowOS player installation and pairing flow.`
+
+Canonical:
+
+`https://tomorrowos.org/learn/brightsign-digital-signage-player`
+
+H1:
+
+`BrightSign digital signage player support`
+
+Keep `indexable: false`.
+
+Do not add the page to the sitemap.
+
+---
+
+# Article structure
+
+Build the page in this order.
+
+## 1. Breadcrumbs
+
+* Home
+* Learn
+* BrightSign
+
+Use existing breadcrumb components and BreadcrumbList structured data.
+
+---
+
+## 2. Hero
+
+H1:
+
+`BrightSign digital signage player support`
+
+Direct-answer summary:
+
+State the verified supported series, the distinction between supported and tested hardware, the minimum Series 3 firmware if confirmed, and the most important known media limitation.
+
+Do not use vague copy such as:
+
+* Works on all BrightSign players
+* Universal BrightSign support
+* Fully certified across Series 3–6
+
+Add a visible status badge based on evidence:
+
+* Available, or
+* Platform Validation
+
+Choose the more conservative state.
+
+Primary CTA:
+
+`View installation guide`
+
+Destination:
+
+The strongest verified BrightSign installation destination.
+
+Secondary CTA:
+
+`Explore the BrightSign repository`
+
+Destination:
+
+The verified TomorrowOS BrightSign GitHub repository.
+
+If either URL cannot be established, omit that CTA and report why.
+
+---
+
+## 3. Compatibility summary
+
+Create a concise summary band showing:
+
+* Supported series
+* Physically tested models
+* Minimum firmware
+* Current validation status
+
+Every statement must be derived from verified findings.
+
+Example format:
+
+* Supported scope: Series 3–6
+* Named test models: XD233, HD225, HD226
+* Series 3 minimum: BrightSign OS 9.1.140+
+* Validation: model- and firmware-specific
+
+Only use these values if confirmed.
+
+---
+
+## 4. Understand the compatibility labels
+
+Explain:
+
+* Supported
+* Tested
+* Firmware validated
+* Media certified
+* Requires validation
+* Unsupported
+
+This section is mandatory.
+
+It must clearly state that series-level support does not certify every model, firmware build or media combination.
+
+---
+
+## 5. Hardware and firmware matrix
+
+Create a responsive compatibility table.
+
+Columns:
+
+* Series
+* Model family
+* Exact tested model
+* Firmware / OS build
+* Runtime result
+* Playback result
+* Offline result
+* Status
+* Notes
+
+Include only verified rows.
+
+Where a supported series has no recorded exact physical test:
+
+* show “No public test model recorded”
+* set status to “Requires validation”
+
+Do not invent Series 4 test data.
+
+The table must work at 320px without breaking the page. Use the existing responsive table approach or an accessible stacked-card fallback.
+
+---
+
+## 6. What the TomorrowOS BrightSign player handles
+
+Describe only verified runtime responsibilities, potentially including:
+
+* CMS connection
+* device pairing
+* content download
+* local storage
+* playlist or policy playback
+* offline playback
+* reconnection
+* commands
+* telemetry/events
+* recovery
+
+Separate each item into:
+
+* Confirmed
+* Partial / conditional
+* Not publicly verified
+
+Do not transform planned behaviour into current capability.
+
+---
+
+## 7. Installation overview
+
+Provide a high-level process only.
+
+The detailed implementation steps should remain in documentation or GitHub.
+
+Cover, where verified:
+
+1. Obtain the correct TomorrowOS player release.
+2. Prepare the SD card.
+3. Add or configure the CMS endpoint.
+4. Insert the card and start the player.
+5. Wait for the first boot.
+6. Record the pairing code.
+7. Pair the player in the TomorrowOS application.
+8. Verify content sync and offline storage.
+
+Include:
+
+* expected files;
+* where the bundle comes from;
+* expected first-boot behaviour;
+* pairing-code format;
+* safe re-pair behaviour;
+* common first-boot failures.
+
+Do not publish commands or file names unless confirmed from the repository.
+
+Link to the detailed installation documentation.
+
+---
+
+## 8. Media support and limitations
+
+Create a practical table covering verified media behaviour.
+
+Potential rows:
+
+* 1080p H.264 video
+* 4K H.264 video
+* images
+* HTML content
+* portrait playback
+* looping
+* audio
+* offline playback
+
+Columns:
+
+* Media profile
+* Series 3
+* Series 4
+* Series 5
+* Series 6
+* Notes
+* Evidence status
+
+Use:
+
+* Supported
+* Unsupported
+* Requires validation
+* Not yet tested
+
+Do not use generic BrightSign hardware specifications as proof that TomorrowOS has certified a media type.
+
+If the only confirmed limitation is Series 3 4K H.264, say so clearly and leave other unverified cells as requiring validation.
+
+---
+
+## 9. Series 3 guidance
+
+Create a dedicated section because Series 3 has special constraints.
+
+Cover only verified items:
+
+* minimum required BrightSign OS;
+* 4K H.264 limitation;
+* recommended media profile;
+* any known crash, playback or firmware behaviour;
+* whether later firmware fixed a known runtime failure;
+* when Series 3 should be avoided for a deployment.
+
+Do not generalise a specific XD233 finding to every Series 3 model without evidence.
+
+---
+
+## 10. Known issues and operational notes
+
+Create a public known-issues table.
+
+Columns:
+
+* Issue
+* Affected hardware
+* Affected firmware
+* Symptom
+* Workaround
+* Status
+* Last reviewed
+
+Include only issues supported by repository code, repository issues, test evidence or approved internal technical documentation.
+
+Possible examples to verify:
+
+* Series 3 firmware requirement
+* Series 3 4K H.264 limitation
+* firmware-specific HTML or Chromium crash
+* playback gaps or black frames
+* storage-card preparation errors
+* invalid CMS endpoint
+* pairing failure
+* incomplete content download
+* network loss behaviour
+
+Do not include the unrelated Signagelive Menuzen widget issue unless it directly involves the TomorrowOS runtime and is documented as such.
+
+---
+
+## 11. What is not yet certified
+
+List the meaningful gaps honestly, potentially including:
+
+* Series 4 exact test model
+* untested model families
+* untested firmware builds
+* 4K media profiles
+* codecs not in the public test library
+* synchronised multi-player playback
+* advanced I/O or GPIO
+* BrightSign peripheral integrations
+
+Only include gaps that are genuinely relevant.
+
+This section should make TomorrowOS look responsible, not unfinished.
+
+Use wording such as:
+
+`Support is validated by exact player, OS build and media profile. Combinations not listed above should be tested before production deployment.`
+
+---
+
+## 12. Validation methodology
+
+Explain how TomorrowOS compatibility should be established:
+
+1. Record model and OS build.
+2. Install the exact runtime version.
+3. Confirm server connection.
+4. Pair the player.
+5. Sync content.
+6. Test playback.
+7. Disconnect the network.
+8. Confirm offline playback.
+9. Restore the network.
+10. Confirm recovery.
+11. Restart the player.
+12. Confirm automatic recovery.
+13. Test representative media.
+14. Record evidence and limitations.
+
+Do not claim a test passed unless the evidence exists.
+
+Link to the current compatibility and media-testing pages.
+
+---
+
+## 13. FAQ
+
+Include concise answers to verified questions such as:
+
+* Which BrightSign series does TomorrowOS support?
+* Is every BrightSign model certified?
+* What firmware does Series 3 require?
+* Does TomorrowOS support 4K video on Series 3?
+* Which BrightSign players have been physically tested?
+* Does the player continue working offline?
+* How is the TomorrowOS player installed?
+* Where can I report a model or firmware issue?
+
+FAQ JSON-LD may be added only if the answers are visible on the page and the existing schema system supports it safely.
+
+---
+
+## 14. Related resources
+
+Link to:
+
+* `/learn`
+* `/compatibility`
+* `/compatibility/media`
+* existing BrightSign installation guide
+* TomorrowOS BrightSign GitHub repository
+* Start Building
+* Documentation
+
+Do not duplicate detailed documentation.
+
+---
+
+## 15. Closing CTA
+
+H2:
+
+`Build for BrightSign with verified constraints`
+
+Supporting direction:
+
+Encourage developers to validate their exact player, firmware and media profile before production deployment.
+
+Primary CTA:
+
+`View the installation guide`
+
+Secondary CTA:
+
+`Explore compatibility`
+
+Tertiary:
+
+`View source on GitHub`
+
+Only show CTAs with verified destinations.
+
+---
+
+# Structured data
+
+Use:
+
+* Article or TechArticle only if compatible with the existing Learn article architecture
+* BreadcrumbList
+* FAQPage only when a visible FAQ section is present
+
+Do not use:
+
+* Product ratings
+* Review markup
+* AggregateRating
+* unsupported SoftwareApplication claims
+* invented version or pricing information
+
+---
+
+# Learn resource-map update
+
+Update the BrightSign resource in:
+
+`src/lib/learnResources.ts`
+
+Change its destination from `/compatibility` to:
+
+`/learn/brightsign-digital-signage-player`
+
+Only after the complete page is built.
+
+Its visible status must remain conservative:
+
+* `platform-validation`, unless the evidence clearly supports `available`.
+
+Do not mark it `production-ready` during this task.
+
+---
+
+# Article state and indexing
+
+The page remains:
+
+`indexable: false`
+
+Do not add it to the sitemap.
+
+The reason is that the final compatibility claims require human technical review before indexation.
+
+At the end of the task, create a clear list of claims requiring James’s sign-off.
+
+---
+
+# Required human sign-off list
+
+At minimum identify whether James must approve:
+
+* supported series;
+* Series 3 minimum firmware;
+* Series 3 4K limitation;
+* named tested models;
+* exact tested firmware;
+* player-installation sequence;
+* pairing-code format;
+* offline behaviour;
+* recovery behaviour;
+* command support;
+* telemetry support;
+* media matrix;
+* known issues;
+* release and SDK version relationship.
+
+No indexing flip occurs until these are approved.
+
+---
+
+# SEO and content-quality rules
+
+The page must:
+
+* answer the compatibility question immediately;
+* avoid keyword stuffing;
+* avoid repeated “BrightSign digital signage player” phrasing;
+* distinguish support from certification;
+* include limitations near the top;
+* include original compatibility data where available;
+* use exact model and firmware terminology;
+* clearly date the last review;
+* identify TomorrowOS as the publisher;
+* avoid copying the GitHub README or Mintlify guide verbatim.
+
+The page is education and evidence.
+
+The docs remain implementation.
+
+GitHub remains source, releases and contribution.
+
+---
+
+# Accessibility
+
+Verify:
+
+* one H1;
+* logical heading hierarchy;
+* accessible breadcrumbs;
+* responsive tables;
+* table headers with correct scope;
+* keyboard-accessible links;
+* visible focus;
+* no horizontal overflow at 320px;
+* status does not rely on colour;
+* external links are identified;
+* code or file snippets use the existing CopyActionBlock;
+* no sticky element obscures headings.
+
+---
+
+# Performance
+
+Requirements:
+
+* preserve route-level lazy loading;
+* no new dependencies;
+* no runtime API requests;
+* no GitHub API dependency;
+* no large screenshots unless necessary;
+* diagrams should be HTML/CSS or optimised static assets;
+* no global CSS;
+* no entry-bundle regression beyond route mapping;
+* no client-side metadata injection.
+
+Repository findings should be converted to static content at build time, not fetched dynamically.
+
+---
+
+# Testing
+
+Before changes, record the clean baseline.
+
+After implementation run:
+
+* TypeScript check
+* production build
+* prototype/non-production build
+* SEO validation
+* social validation
+* route-sync validation
+* smoke tests against dev
+* smoke tests against served production output
+* generated HTML inspection
+* responsive screenshots at 1280, 1024, 768, 390 and 320px
+* keyboard review
+* table overflow review
+* representative existing-page regression checks
+
+Verify:
+
+* correct unique title;
+* correct meta description;
+* correct canonical;
+* matching og:url;
+* `noindex, follow`;
+* absent from sitemap;
+* article shell replaced only for BrightSign;
+* other seven article shells unchanged;
+* homepage unchanged;
+* header unchanged;
+* footer unchanged except existing Phase B state;
+* no dependency changes;
+* no lockfile changes.
+
+---
+
+# Required final report
+
+Return:
+
+1. Executive summary
+2. Repository audit
+3. Verified support statement
+4. Supported-series findings
+5. Tested-model findings
+6. Firmware findings
+7. Runtime-capability findings
+8. Media findings
+9. Known issues
+10. Conflicts discovered
+11. Public claims used
+12. Claims deliberately excluded
+13. Files changed
+14. Page structure
+15. SEO verification
+16. Accessibility and responsive results
+17. Test results
+18. Performance comparison
+19. Human sign-off checklist
+20. Rollback instructions
+21. Recommendation on whether the page is ready to become indexable
+
+Do not make the page indexable.
+
+Do not publish or deploy.
+
+Finish by confirming that the BrightSign page is ready for technical human review.

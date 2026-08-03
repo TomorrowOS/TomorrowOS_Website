@@ -184,8 +184,8 @@ export const learnResources: LearnResource[] = [
     id: 'platform-brightsign',
     title: 'BrightSign',
     description:
-      'BrightSign media player support is undergoing device and firmware validation. Confirm your model before deployment.',
-    href: '/compatibility',
+      'BrightSign Series 3–6 support, firmware requirements, media limitations and the installation and pairing flow.',
+    href: '/learn/brightsign-digital-signage-player',
     external: false,
     status: 'platform-validation',
     category: 'platforms',

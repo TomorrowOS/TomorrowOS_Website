@@ -29,6 +29,7 @@ const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 // /learn route so Learn code stays out of the primary entry bundle.
 const LearnRouteShell = lazy(() => import('./pages/learn/LearnRouteShell'));
 const LearnIndex = lazy(() => import('./pages/learn/LearnIndex'));
+const BrightSignPlayerArticle = lazy(() => import('./pages/learn/BrightSignPlayerArticle'));
 
 const queryClient = new QueryClient();
 
@@ -89,7 +90,7 @@ function Router() {
         <Route path="/learn/self-hosted-digital-signage" component={LearnRouteShell} />
         <Route path="/learn/headless-digital-signage" component={LearnRouteShell} />
         <Route path="/learn/samsung-tizen-digital-signage-player" component={LearnRouteShell} />
-        <Route path="/learn/brightsign-digital-signage-player" component={LearnRouteShell} />
+        <Route path="/learn/brightsign-digital-signage-player" component={BrightSignPlayerArticle} />
         <Route path="/compatibility/media" component={MediaCompatibility} />
         <Route path="/compatibility" component={Compatibility} />
         <Route component={NotFound} />
