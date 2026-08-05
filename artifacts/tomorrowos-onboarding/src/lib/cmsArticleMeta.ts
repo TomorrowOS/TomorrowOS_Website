@@ -21,7 +21,8 @@ export const CMS_ARTICLE = {
   ogDescription:
     'A practical architecture guide covering everything required to build reliable digital signage software.',
   datePublished: '2026-08-03',
-  dateModified: '2026-08-03',
+  /** Last technical review date — shown in the hero and emitted as schema dateModified. */
+  dateModified: '2026-08-05',
   readingTimeMinutes: 21,
   author: 'TomorrowOS',
 } as const;

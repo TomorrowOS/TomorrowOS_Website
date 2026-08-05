@@ -214,16 +214,14 @@ export default function BuildDigitalSignageCms() {
                 </time>
               </dd>
             </div>
-            {CMS_ARTICLE.dateModified !== CMS_ARTICLE.datePublished && (
-              <div className="flex gap-1.5">
-                <dt className="font-medium text-foreground">Updated</dt>
-                <dd>
-                  <time dateTime={CMS_ARTICLE.dateModified}>
-                    {formatDate(CMS_ARTICLE.dateModified)}
-                  </time>
-                </dd>
-              </div>
-            )}
+            <div className="flex gap-1.5">
+              <dt className="font-medium text-foreground">Last technically reviewed</dt>
+              <dd>
+                <time dateTime={CMS_ARTICLE.dateModified}>
+                  {formatDate(CMS_ARTICLE.dateModified)}
+                </time>
+              </dd>
+            </div>
             <div className="flex gap-1.5">
               <dt className="sr-only">Reading time</dt>
               <dd>{CMS_ARTICLE.readingTimeMinutes} min read</dd>
