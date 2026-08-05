@@ -321,6 +321,31 @@ if (process.env.VITE_ENABLE_LEARN !== 'true' && existsSync(join(root, 'dist/publ
 }
 ok(`feature-gate safeguard checked ${gated.length} gated /learn routes (flag: VITE_ENABLE_LEARN=${process.env.VITE_ENABLE_LEARN ?? 'unset'})`);
 
+// ---------------------------------------------------------------------------
+// /blog → /journal migration safeguard (moved 2026-08-05).
+// Detects drift: public UI links pointing back at /blog, an indexable /blog
+// route reappearing in seoConfig, or the /journal route going missing.
+// The only permitted /blog references in src/ are the client redirect in
+// App.tsx and comments.
+{
+  const { execSync } = await import('node:child_process');
+  let hits = '';
+  try {
+    hits = execSync(
+      `grep -rn 'href="/blog"\\|href={"/blog"}\\|href: '"'"'/blog'"'"'\\|to="/blog"' src/ || true`,
+      { cwd: root, encoding: 'utf8' },
+    ).trim();
+  } catch { /* grep unavailable — skip silently */ }
+  if (hits) fail(`blog-migration: public UI still links to /blog (must link to /journal):\n${hits}`);
+  if (routes.some((r) => r.key === '/blog')) {
+    fail('blog-migration: /blog reappeared in seoConfig — it must stay a redirect alias only');
+  }
+  if (!routes.some((r) => r.key === '/journal')) {
+    fail('blog-migration: /journal route missing from seoConfig');
+  }
+  ok('blog-migration safeguard: no public /blog links; /journal registered; /blog not reintroduced');
+}
+
 if (failures > 0) {
   console.error(`\n${failures} validation failure(s)`);
   process.exit(1);

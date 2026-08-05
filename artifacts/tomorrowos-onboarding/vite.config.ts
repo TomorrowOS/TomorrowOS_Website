@@ -185,9 +185,9 @@ function prerenderPlugin() {
       indexable: true,
     },
     '/journal': {
-      rawTitle: 'TomorrowOS Journal — Digital Signage Engineering',
+      rawTitle: 'Digital Signage Engineering Journal',
       description:
-        'Read practical guides about building digital signage software, open-source infrastructure, screen platforms, playback and reliable device operations.',
+        'Read practical engineering guides, architecture notes and implementation insights for building digital signage software and connected-screen products.',
       canonicalPath: '/journal',
       // Indexable since 2026-08-03 (as /blog); moved to /journal 2026-08-05 with 301s.
       indexable: true,

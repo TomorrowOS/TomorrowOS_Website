@@ -149,9 +149,9 @@ export const seoRoutes: Record<string, RouteSeo> = {
     indexable: true,
   },
   '/journal': {
-    title: 'TomorrowOS Journal — Digital Signage Engineering',
+    title: 'Digital Signage Engineering Journal',
     description:
-      'Read practical guides about building digital signage software, open-source infrastructure, screen platforms, playback and reliable device operations.',
+      'Read practical engineering guides, architecture notes and implementation insights for building digital signage software and connected-screen products.',
     canonicalPath: '/journal',
     indexable: true, // indexable since 2026-08-03 (as /blog); moved to /journal 2026-08-05 with 301s
   },
