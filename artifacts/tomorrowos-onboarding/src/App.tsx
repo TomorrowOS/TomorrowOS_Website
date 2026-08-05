@@ -24,6 +24,7 @@ const Blog = lazy(() => import('./pages/Blog'));
 // Cornerstone articles (root-level pillar pages, listed on /blog).
 const BuildDigitalSignageCms = lazy(() => import('./pages/BuildDigitalSignageCms'));
 const ModernDigitalSignageArchitecture = lazy(() => import('./pages/ModernDigitalSignageArchitecture'));
+const BuildVsBuyDigitalSignageCms = lazy(() => import('./pages/BuildVsBuyDigitalSignageCms'));
 const HowToStartADoohNetwork = lazy(() => import('./pages/HowToStartADoohNetwork'));
 const About = lazy(() => import('./pages/About'));
 const PlaceholderPage = lazy(() => import('./pages/PlaceholderPage'));
@@ -93,6 +94,7 @@ function Router() {
         <Route path="/build-a-digital-signage-cms" component={BuildDigitalSignageCms} />
         <Route path="/how-to-start-a-dooh-network" component={HowToStartADoohNetwork} />
         <Route path="/modern-digital-signage-architecture" component={ModernDigitalSignageArchitecture} />
+        <Route path="/build-vs-buy-digital-signage-cms" component={BuildVsBuyDigitalSignageCms} />
         {/* Learn: fully feature-gated behind VITE_ENABLE_LEARN. When the flag
             is not 'true' (production default), no Learn route is registered,
             so /learn and /learn/* fall through to NotFound below. */}

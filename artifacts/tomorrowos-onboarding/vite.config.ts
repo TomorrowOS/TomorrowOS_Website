@@ -12,6 +12,7 @@ import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
 import { CMS_ARTICLE, CMS_ARTICLE_FAQ, BLOG_AUTHOR } from './src/lib/cmsArticleMeta';
 import { DOOH_ARTICLE, DOOH_ARTICLE_FAQ } from './src/lib/doohArticleMeta';
 import { ARCH_ARTICLE, ARCH_ARTICLE_FAQ } from './src/lib/archArticleMeta';
+import { BUY_ARTICLE, BUY_ARTICLE_FAQ } from './src/lib/buyArticleMeta';
 
 // Replit always injects PORT/BASE_PATH via artifact.toml.
 // Local defaults keep `pnpm run dev:web` working in VS Code without env setup.
@@ -223,6 +224,16 @@ function prerenderPlugin() {
       ogTitle: ARCH_ARTICLE.ogTitle,
       ogDescription: ARCH_ARTICLE.ogDescription,
     },
+    // Cornerstone article #4 — same literal-key rule as above; metadata
+    // sourced from src/lib/buyArticleMeta.ts.
+    '/build-vs-buy-digital-signage-cms': {
+      rawTitle: BUY_ARTICLE.headline,
+      description: BUY_ARTICLE.description,
+      canonicalPath: BUY_ARTICLE.path,
+      indexable: true,
+      ogTitle: BUY_ARTICLE.ogTitle,
+      ogDescription: BUY_ARTICLE.ogDescription,
+    },
     // Learn section — feature-gated behind VITE_ENABLE_LEARN. Entries are
     // preserved metadata drafts; the prerender loop skips them when the flag
     // is off, so no /learn HTML is emitted in a disabled build.
@@ -321,6 +332,11 @@ function prerenderPlugin() {
       `[prerender] cornerstone route key mismatch: routes table has no entry for CMS_ARTICLE.path "${CMS_ARTICLE.path}" — keep the literal key in sync with src/lib/cmsArticleMeta.ts`,
     );
   }
+  if (!routes[BUY_ARTICLE.path]) {
+    throw new Error(
+      `[prerender] cornerstone route key mismatch: routes table has no entry for BUY_ARTICLE.path "${BUY_ARTICLE.path}" — keep the literal key in sync with src/lib/buyArticleMeta.ts`,
+    );
+  }
   if (!routes[ARCH_ARTICLE.path]) {
     throw new Error(
       `[prerender] cornerstone route key mismatch: routes table has no entry for ARCH_ARTICLE.path "${ARCH_ARTICLE.path}" — keep the literal key in sync with src/lib/archArticleMeta.ts`,
@@ -370,7 +386,9 @@ function prerenderPlugin() {
         ? { meta: CMS_ARTICLE, faq: CMS_ARTICLE_FAQ, author: personAuthor }
         : routePath === DOOH_ARTICLE.path
           ? { meta: DOOH_ARTICLE, faq: DOOH_ARTICLE_FAQ, author: personAuthor }
-          : routePath === ARCH_ARTICLE.path
+          : routePath === BUY_ARTICLE.path
+            ? { meta: BUY_ARTICLE, faq: BUY_ARTICLE_FAQ, author: personAuthor }
+            : routePath === ARCH_ARTICLE.path
             ? {
                 meta: ARCH_ARTICLE,
                 faq: ARCH_ARTICLE_FAQ,

@@ -186,6 +186,16 @@ export const seoRoutes: Record<string, RouteSeo> = {
     ogDescription:
       'A practical guide to the product, server, content, runtime and platform layers behind reliable digital signage software.',
   },
+  '/build-vs-buy-digital-signage-cms': {
+    title: 'Build vs Buy a Digital Signage CMS',
+    description:
+      'Should you build your own digital signage CMS or buy an existing platform? Learn the real costs, engineering trade-offs and when each approach makes sense.',
+    canonicalPath: '/build-vs-buy-digital-signage-cms',
+    indexable: true,
+    ogTitle: 'Build vs Buy a Digital Signage CMS',
+    ogDescription:
+      'A practical decision guide to buying an existing platform, building custom software or using shared digital signage infrastructure.',
+  },
   // ---- Learn section (Phase A) ------------------------------------------
   // Feature-gated behind VITE_ENABLE_LEARN (default off in production).
   // Entries stay here as preserved metadata drafts; they are all

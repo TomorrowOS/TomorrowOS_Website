@@ -30,7 +30,8 @@ export type BlogCategory =
   | 'Platforms'
   | 'Engineering'
   | 'AI Development'
-  | 'DOOH and Retail Media';
+  | 'DOOH and Retail Media'
+  | 'Strategy';
 
 /** Editorial layout system (see docs/editorial-template.md). */
 export type EditorialLayoutMode = 'document' | 'document-with-rail';
@@ -108,6 +109,22 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     reviewedAt: '2026-08-05',
     readingTimeMinutes: 16,
     author: 'TomorrowOS',
+    documentType: 'Cornerstone Guide',
+    indexable: true,
+    layoutMode: 'document-with-rail',
+    tocMode: 'rail',
+  },
+  {
+    slug: 'build-vs-buy-digital-signage-cms',
+    href: '/build-vs-buy-digital-signage-cms',
+    title: 'Build vs Buy a Digital Signage CMS',
+    description:
+      'Should you build your own digital signage CMS or buy an existing platform? Learn the real costs, engineering trade-offs and when each approach makes sense.',
+    category: 'Strategy',
+    publishedAt: '2026-08-05',
+    reviewedAt: '2026-08-05',
+    readingTimeMinutes: 16,
+    author: 'Dylan Holtzhausen / TomorrowOS',
     documentType: 'Cornerstone Guide',
     indexable: true,
     layoutMode: 'document-with-rail',
