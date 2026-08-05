@@ -24,7 +24,7 @@ export function ArticleDiagram({
       <div
         role="img"
         aria-label={alt}
-        className="flex flex-col gap-0 rounded-[12px] border border-border bg-muted/20 p-4 md:p-6"
+        className="flex break-inside-avoid flex-col gap-0 border border-border bg-muted/20 p-4 font-mono md:p-6 print:bg-white"
       >
         {children}
       </div>
@@ -43,9 +43,9 @@ export function DiagramNode({
 }) {
   return (
     <div
-      className={`rounded-md border px-3 py-2 text-center text-sm ${
+      className={`border px-3 py-2 text-center text-sm ${
         emphasis
-          ? 'border-foreground/30 bg-background font-semibold text-foreground'
+          ? 'border-foreground/40 bg-background font-semibold text-foreground'
           : 'border-border bg-background text-foreground'
       }`}
     >
@@ -84,7 +84,7 @@ export function DiagramBranchRow({ items }: { items: React.ReactNode[] }) {
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item, i) => (
         <div key={i} className="flex">
-          <div className="w-full rounded-md border border-border bg-background px-3 py-2 text-center text-sm text-foreground">
+          <div className="w-full border border-border bg-background px-3 py-2 text-center text-sm text-foreground">
             {item}
           </div>
         </div>
@@ -102,7 +102,7 @@ export function DiagramPanel({
   items: string[];
 }) {
   return (
-    <div className="flex w-full flex-col overflow-hidden rounded-md border border-border bg-background">
+    <div className="flex w-full flex-col border border-border bg-background">
       <p className="border-b border-border bg-muted/40 px-3 py-2 text-sm font-semibold text-foreground">
         {title}
       </p>

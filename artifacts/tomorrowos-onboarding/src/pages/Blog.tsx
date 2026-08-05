@@ -1,5 +1,5 @@
 import { Link } from 'wouter';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { usePageSeo } from '@/hooks/use-page-seo';
 import { JsonLd } from '@/components/JsonLd';
 import { absoluteUrl } from '@/lib/seoConfig';
@@ -20,49 +20,27 @@ import {
 } from '@/lib/blogArticles';
 
 /**
- * TomorrowOS Blog index (/blog).
+ * /blog — the TomorrowOS Journal index.
+ *
+ * Presented as an editorial archive of technical writing rather than a
+ * marketing blog: journal masthead, short editorial statement, one featured
+ * record, then a text-led archive of records separated by thin rules. The
+ * navigation label and URL remain "Blog" / /blog — only the on-page identity
+ * is "TomorrowOS Journal".
  *
  * All article content derives from src/lib/blogArticles.ts. If no article is
  * published the page renders a purposeful empty state — no fake cards, no
- * "coming soon". Indexable since 2026-08-03, when the first pillar article
- * (/build-a-digital-signage-cms) shipped (see seoConfig.ts).
+ * "coming soon". Indexable since 2026-08-03 (see seoConfig.ts).
  */
 
-const PrimaryA =
-  'inline-flex h-11 items-center justify-center whitespace-nowrap rounded-md bg-foreground px-8 text-sm font-medium text-background transition-colors hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
-const SecondaryA =
-  'inline-flex h-11 items-center justify-center whitespace-nowrap rounded-md border border-input bg-background px-8 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
-
-function ArticleCard({ article }: { article: BlogArticle }) {
-  return (
-    <article className="flex flex-col gap-3 rounded-[12px] border border-border bg-card p-5">
-      <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-        <span className="inline-flex h-6 items-center rounded-full border border-border bg-muted px-2.5 font-medium text-foreground">
-          {article.category}
-        </span>
-        <span>{article.publishedAt}</span>
-        <span aria-hidden="true">·</span>
-        <span>{article.readingTimeMinutes} min read</span>
-      </div>
-      <h3 className="text-lg font-bold tracking-tight text-foreground">
-        <Link
-          href={article.href}
-          className="hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
-        >
-          {article.title}
-        </Link>
-      </h3>
-      <p className="text-sm text-muted-foreground">{article.description}</p>
-      <Link
-        href={article.href}
-        className="mt-auto inline-flex items-center gap-1 pt-1 text-sm font-medium text-foreground underline underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
-        aria-label={`Read article: ${article.title}`}
-      >
-        Read article
-        <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-      </Link>
-    </article>
-  );
+/** Formats an ISO date as e.g. "3 August 2026". */
+function formatDate(iso: string): string {
+  const [y, m, d] = iso.split('-').map(Number);
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+  return `${d} ${months[m - 1]} ${y}`;
 }
 
 function EmptyState() {
@@ -74,7 +52,7 @@ function EmptyState() {
     { label: 'Samsung Tizen guide', href: '/guides/platforms/samsung-tizen' },
   ];
   return (
-    <div className="flex flex-col gap-4 rounded-[12px] border border-border bg-muted/30 p-6 md:p-8">
+    <div className="flex flex-col gap-4 border-y border-border py-6 md:py-8">
       <h3 className="text-xl font-bold tracking-tight text-foreground">
         Practical resources for digital signage builders
       </h3>
@@ -113,35 +91,46 @@ function EmptyState() {
 }
 
 /**
- * Compact index row — deliberately lighter than the featured card so the same
- * article can appear in both places with distinct purposes (featured =
- * discovery card with description and CTA; index = complete scannable list).
+ * Archive record — the standard journal index entry. Text-led: uppercase
+ * category line, title, one-sentence description, date and reading time.
+ * Thin rules between records; a subtle blue-grey wash on hover.
  */
-function ArticleIndexRow({ article }: { article: BlogArticle }) {
+function ArchiveRecord({ article, featured }: { article: BlogArticle; featured?: boolean }) {
   return (
-    <li className="flex flex-col gap-1.5 border-b border-border/60 py-4 first:pt-0 last:border-b-0">
-      <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-        <span>{article.category}</span>
-        <span aria-hidden="true">·</span>
-        <span>{article.publishedAt}</span>
-        <span aria-hidden="true">·</span>
-        <span>{article.readingTimeMinutes} min read</span>
-      </div>
-      <h3 className="text-base font-semibold tracking-tight text-foreground">
+    <article className="group relative -mx-3 flex flex-col gap-1.5 border-b border-border px-3 py-5 transition-colors first:border-t hover:bg-[#eef2f6]/60">
+      <p className="text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
+        {article.category}
+        {featured ? ' · Featured' : ''}
+        {article.documentType ? ` · ${article.documentType}` : ''}
+      </p>
+      <h3
+        className={`font-bold tracking-tight text-foreground ${
+          featured ? 'text-xl md:text-2xl' : 'text-lg'
+        }`}
+      >
         <Link
           href={article.href}
-          className="underline underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm after:absolute after:inset-0 group-hover:underline group-hover:underline-offset-4"
         >
           {article.title}
         </Link>
       </h3>
-    </li>
+      <p className="max-w-[70ch] text-sm leading-relaxed text-muted-foreground">
+        {article.description}
+      </p>
+      <p className="pt-0.5 text-xs text-muted-foreground">
+        <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
+        {' · '}
+        {article.readingTimeMinutes} min read
+      </p>
+    </article>
   );
 }
 
 export default function Blog() {
   usePageSeo('/blog');
   const categories = getActiveCategories();
+  const archive = BLOG_ARTICLES.filter((a) => !a.featured);
 
   return (
     <div className="w-full">
@@ -158,7 +147,7 @@ export default function Blog() {
       />
 
       <div className="w-full px-4 pt-8 md:px-8">
-        <div className="mx-auto max-w-[1050px]">
+        <div className="mx-auto max-w-[820px]">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -175,110 +164,101 @@ export default function Blog() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-[1050px] flex-col gap-14 px-4 py-10 md:px-8 md:py-14">
-        {/* Hero */}
-        <header className="flex max-w-[820px] flex-col gap-5">
+      <div className="mx-auto flex max-w-[820px] flex-col gap-12 px-4 py-10 md:px-8 md:py-14">
+        {/* Journal masthead */}
+        <header className="flex flex-col gap-4 border-b-2 border-foreground pb-8">
           <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-[2.75rem] md:leading-[1.1]">
-            TomorrowOS Blog
+            TomorrowOS Journal
           </h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            Engineering guides, platform insights and practical resources for building digital
-            signage software.
+          <p className="max-w-[62ch] text-lg leading-relaxed text-muted-foreground">
+            Technical writing on digital signage engineering — CMS architecture, screen
+            platforms, DOOH networks and the operational reality of running software on remote
+            displays. Every entry is written and technically reviewed by the people building
+            TomorrowOS.
           </p>
-          <p className="text-muted-foreground">
-            The Blog covers open-source digital signage infrastructure, CMS development, screen
-            platforms like Samsung Tizen and BrightSign, and real-world engineering lessons from
-            building and validating player software.
-          </p>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            <a href="#articles" className={PrimaryA}>
-              Explore articles
-              <ArrowRight className="ml-1.5 h-3.5 w-3.5" aria-hidden="true" />
-            </a>
-            <a
-              href={siteConfig.links.docs}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={SecondaryA}
-            >
-              View documentation
-              <ExternalLink className="ml-1.5 h-3.5 w-3.5 opacity-70" aria-hidden="true" />
-              <span className="sr-only"> (opens in a new window)</span>
-            </a>
-          </div>
         </header>
 
-        {/* Featured article — rendered only when one exists. */}
+        {/* Featured record — rendered only when one exists. */}
         {FEATURED_ARTICLE && (
-          <section aria-labelledby="featured" className="flex flex-col gap-4">
-            <h2 id="featured" className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+          <section aria-labelledby="featured" className="flex flex-col gap-3">
+            <h2
+              id="featured"
+              className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-foreground"
+            >
               Featured
             </h2>
-            <ArticleCard article={FEATURED_ARTICLE} />
+            <ArchiveRecord article={FEATURED_ARTICLE} featured />
           </section>
         )}
 
-        {/* Article index */}
-        <section aria-labelledby="articles-heading" className="flex flex-col gap-5">
+        {/* Archive */}
+        <section aria-labelledby="articles-heading" className="flex flex-col gap-3">
           <h2
             id="articles"
-            className="scroll-mt-24 text-2xl font-bold tracking-tight text-foreground md:text-3xl"
+            className="scroll-mt-24 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-foreground"
           >
-            <span id="articles-heading">Articles</span>
+            <span id="articles-heading">Archive</span>
           </h2>
 
-          {/* Categories — only those represented by published articles. */}
+          {/* Categories — plain text, only those represented by published articles. */}
           {categories.length > 0 && (
-            <ul className="flex flex-wrap gap-2" aria-label="Article categories">
-              {categories.map((c) => (
-                <li key={c}>
-                  <span className="inline-flex h-7 items-center rounded-full border border-border bg-muted px-3 text-xs font-medium text-foreground">
-                    {c}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <p className="text-xs text-muted-foreground" aria-label="Article categories">
+              {categories.join(' · ')}
+            </p>
           )}
 
           {BLOG_ARTICLES.length === 0 ? (
             <EmptyState />
+          ) : archive.length === 0 ? (
+            <p className="border-t border-border pt-4 text-sm text-muted-foreground">
+              All published entries are shown above.
+            </p>
           ) : (
-            <ul className="flex flex-col">
-              {BLOG_ARTICLES.map((a) => (
-                <ArticleIndexRow key={a.slug} article={a} />
+            <div className="flex flex-col">
+              {archive.map((a) => (
+                <ArchiveRecord key={a.slug} article={a} />
               ))}
-            </ul>
+            </div>
           )}
         </section>
 
-        {/* Closing CTA */}
-        <section aria-labelledby="closing" className="flex flex-col gap-4">
-          <h2 id="closing" className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+        {/* Quiet closing links */}
+        <section aria-labelledby="closing" className="flex flex-col gap-3 border-t border-border pt-8">
+          <h2
+            id="closing"
+            className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-foreground"
+          >
             Build with TomorrowOS
           </h2>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            <Link href="/start" className={PrimaryA}>
+          <p className="max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
+            Use open-source server-to-screen infrastructure while retaining ownership of your
+            product, workflow and commercial model.
+          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+            <Link
+              href="/start"
+              className="font-medium text-foreground underline underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+            >
               Start building
-              <ArrowRight className="ml-1.5 h-3.5 w-3.5" aria-hidden="true" />
             </Link>
             <a
               href={siteConfig.links.docs}
               target="_blank"
               rel="noopener noreferrer"
-              className={SecondaryA}
+              className="inline-flex items-center gap-1 font-medium text-foreground underline underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
             >
-              Read the documentation
-              <ExternalLink className="ml-1.5 h-3.5 w-3.5 opacity-70" aria-hidden="true" />
+              Documentation
+              <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
               <span className="sr-only"> (opens in a new window)</span>
             </a>
             <a
               href={siteConfig.links.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={SecondaryA}
+              className="inline-flex items-center gap-1 font-medium text-foreground underline underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
             >
-              Explore GitHub
-              <ExternalLink className="ml-1.5 h-3.5 w-3.5 opacity-70" aria-hidden="true" />
+              GitHub
+              <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
               <span className="sr-only"> (opens in a new window)</span>
             </a>
           </div>

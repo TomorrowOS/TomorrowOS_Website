@@ -32,12 +32,29 @@ export function IntLink({ href, children }: { href: string; children: React.Reac
   );
 }
 
-export function SectionHeading({ id, children }: { id: string; children: React.ReactNode }) {
+export function SectionHeading({
+  id,
+  number,
+  children,
+}: {
+  id: string;
+  /** Optional decorative document-section number, e.g. "01". Hidden from screen readers. */
+  number?: string;
+  children: React.ReactNode;
+}) {
   return (
     <h2
       id={id}
-      className="scroll-mt-24 text-2xl font-bold tracking-tight text-foreground md:text-3xl"
+      className="scroll-mt-24 border-t border-border pt-6 text-2xl font-bold tracking-tight text-foreground md:text-3xl"
     >
+      {number && (
+        <span
+          aria-hidden="true"
+          className="mb-1.5 block font-mono text-sm font-medium tabular-nums text-muted-foreground/70"
+        >
+          {number}
+        </span>
+      )}
       {children}
     </h2>
   );
@@ -81,7 +98,7 @@ export function ArticleDataTable({
 }) {
   return (
     <div
-      className="w-full overflow-x-auto rounded-[12px] border border-border"
+      className="w-full overflow-x-auto border-y border-border print:overflow-visible"
       role="region"
       aria-label={caption}
       tabIndex={0}
@@ -89,7 +106,7 @@ export function ArticleDataTable({
       <table className="w-full border-collapse text-sm" style={{ minWidth }}>
         <caption className="sr-only">{caption}</caption>
         <thead>
-          <tr className="border-b border-border bg-muted/50 text-left">
+          <tr className="border-b border-border bg-[#eef2f6] text-left print:bg-white">
             {head.map((h) => (
               <th key={h} scope="col" className="px-3 py-2.5 font-semibold text-foreground">
                 {h}

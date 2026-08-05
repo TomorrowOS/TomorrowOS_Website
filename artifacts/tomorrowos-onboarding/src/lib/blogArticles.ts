@@ -32,6 +32,10 @@ export type BlogCategory =
   | 'AI Development'
   | 'DOOH and Retail Media';
 
+/** Editorial layout system (see docs/editorial-template.md). */
+export type EditorialLayoutMode = 'document' | 'document-with-rail';
+export type EditorialTocMode = 'none' | 'compact' | 'grouped' | 'rail';
+
 export interface BlogArticle {
   /** Bare identifier, e.g. 'build-a-digital-signage-cms'. */
   slug: string;
@@ -43,10 +47,19 @@ export interface BlogArticle {
   /** ISO date, e.g. '2026-08-03'. */
   publishedAt: string;
   updatedAt?: string;
+  /** ISO date of the last technical review — only when a real review happened. */
+  reviewedAt?: string;
   readingTimeMinutes: number;
   author: string;
+  reviewer?: string;
+  /** e.g. 'Cornerstone Guide'. Shown in the document metadata panel when set. */
+  documentType?: string;
+  /** Only set when status maintenance is genuinely established. */
+  documentStatus?: string;
   featured?: boolean;
   indexable: boolean;
+  layoutMode?: EditorialLayoutMode;
+  tocMode?: EditorialTocMode;
 }
 
 /** Published articles only. */
@@ -59,10 +72,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       'Learn how to build a reliable digital signage CMS, including architecture, device pairing, content delivery, offline playback, telemetry and multi-platform runtimes.',
     category: 'Building Digital Signage',
     publishedAt: '2026-08-03',
+    reviewedAt: '2026-08-05',
     readingTimeMinutes: 21,
     author: 'Dylan Holtzhausen',
+    documentType: 'Cornerstone Guide',
     featured: true,
     indexable: true,
+    layoutMode: 'document-with-rail',
+    tocMode: 'rail',
   },
   {
     slug: 'how-to-start-a-dooh-network',
@@ -72,9 +89,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       'Learn how to start a digital out-of-home network, including locations, screens, CMS software, ad serving, proof of play, measurement, sales and operations.',
     category: 'DOOH and Retail Media',
     publishedAt: '2026-08-05',
+    reviewedAt: '2026-08-05',
     readingTimeMinutes: 19,
     author: 'Dylan Holtzhausen',
+    documentType: 'Cornerstone Guide',
     indexable: true,
+    layoutMode: 'document-with-rail',
+    tocMode: 'rail',
   },
 ];
 

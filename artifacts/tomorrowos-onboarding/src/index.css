@@ -113,6 +113,38 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+ * Editorial print styles — scoped to journal article pages, which mark their
+ * root with [data-editorial-article]. When such a page prints:
+ *   - site chrome (header, footer, cookie/banner UI) is hidden;
+ *   - breadcrumbs, the navigation rail, and CTAs carry print:hidden utilities;
+ *   - the document metadata table, body, tables, diagrams and references
+ *     remain, legible in black and white;
+ *   - the canonical URL is shown beneath the title (print-only element);
+ *   - tables and the metadata panel avoid splitting across pages.
+ * FAQs are always expanded in the DOM, so nothing needs un-collapsing.
+ * ------------------------------------------------------------------------- */
+@media print {
+  body:has([data-editorial-article]) header:not([data-editorial-article] *),
+  body:has([data-editorial-article]) footer:not([data-editorial-article] *) {
+    display: none !important;
+  }
+  [data-editorial-article] {
+    color: #000;
+  }
+  [data-editorial-article] a {
+    color: #000;
+  }
+  [data-editorial-article] table,
+  [data-editorial-article] [role='img'] {
+    break-inside: avoid;
+  }
+  [data-editorial-article] h2,
+  [data-editorial-article] h3 {
+    break-after: avoid;
+  }
+}
+
 @utility scrollbar-none {
   scrollbar-width: none;
   &::-webkit-scrollbar {

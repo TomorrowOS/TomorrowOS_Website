@@ -11,21 +11,20 @@
  * (also imported by vite.config.ts for prerendered JSON-LD), so structured
  * data cannot drift from the visible page content.
  */
-import { Link } from 'wouter';
-import { ArrowRight, ExternalLink } from 'lucide-react';
 import { DOOH_ARTICLE, DOOH_ARTICLE_FAQ, DOOH_ARTICLE_SOURCES } from '@/lib/doohArticleMeta';
 import { CMS_ARTICLE, BLOG_AUTHOR } from '@/lib/cmsArticleMeta';
+import { BLOG_ARTICLES } from '@/lib/blogArticles';
 import { siteConfig } from '@/config/site';
 import { absoluteUrl } from '@/lib/seoConfig';
 import { usePageSeo } from '@/hooks/use-page-seo';
 import { JsonLd } from '@/components/JsonLd';
 import { SectionHeading, P, Lead, UL, IntLink, ExtLink } from '@/components/blog/articlePrimitives';
-import {
-  ArticleTableOfContents,
-  type ArticleTocGroup,
-} from '@/components/blog/ArticleTableOfContents';
+import { type ArticleTocGroup } from '@/components/blog/ArticleTableOfContents';
 import { ArticleFAQ } from '@/components/blog/ArticleFAQ';
 import { ArticleAuthorBox } from '@/components/blog/ArticleAuthorBox';
+import { EditorialArticleLayout } from '@/components/blog/EditorialArticleLayout';
+import { EditorialClosingCta } from '@/components/blog/EditorialClosingCta';
+import { EditorialReferences } from '@/components/blog/EditorialReferences';
 import { DoohSectionsFoundation } from '@/pages/dooh-article/SectionsFoundation';
 import { DoohSectionsTechnology } from '@/pages/dooh-article/SectionsTechnology';
 import { DoohSectionsStrategy } from '@/pages/dooh-article/SectionsStrategy';
@@ -88,11 +87,6 @@ const TOC_GROUPS: ArticleTocGroup[] = [
   },
 ];
 
-const PrimaryA =
-  'inline-flex items-center justify-center rounded-[10px] bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
-const SecondaryA =
-  'inline-flex items-center justify-center rounded-[10px] border border-border px-5 py-2.5 text-sm font-semibold text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
-
 function formatDate(iso: string): string {
   const [y, m, d] = iso.split('-').map(Number);
   const months = [
@@ -104,9 +98,10 @@ function formatDate(iso: string): string {
 
 export default function HowToStartADoohNetwork() {
   usePageSeo(DOOH_ARTICLE.path);
+  const record = BLOG_ARTICLES.find((a) => a.href === DOOH_ARTICLE.path);
 
   return (
-    <div className="bg-background">
+    <>
       <JsonLd
         id="article"
         data={{
@@ -156,61 +151,29 @@ export default function HowToStartADoohNetwork() {
           })),
         }}
       />
-      <article className="mx-auto flex w-full max-w-[880px] flex-col gap-12 px-5 py-10 md:gap-14 md:py-14">
-        {/* 1. Breadcrumbs */}
-        <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-          <ol className="flex flex-wrap items-center gap-1.5">
-            <li>
-              <Link href="/" className="hover:text-foreground hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
-                Home
-              </Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li>
-              <Link href="/blog" className="hover:text-foreground hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
-                Blog
-              </Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">
-              {DOOH_ARTICLE.headline}
-            </li>
-          </ol>
-        </nav>
-
-        {/* 2. Hero */}
-        <header className="flex flex-col gap-5">
-          <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-            DOOH and Retail Media
+      <EditorialArticleLayout
+        layoutMode={record?.layoutMode ?? 'document-with-rail'}
+        category="DOOH and Retail Media"
+        title={DOOH_ARTICLE.headline}
+        subtitle="A practical guide to the business model, technology stack and operating systems required to build a digital out-of-home advertising network."
+        byline={
+          <p className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">By {BLOG_AUTHOR.name}</span>
+            {' · '}
+            {BLOG_AUTHOR.role}
           </p>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            {DOOH_ARTICLE.headline}
-          </h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            A practical guide to the business model, technology stack and operating systems
-            required to build a digital out-of-home advertising network.
-          </p>
-          <div className="flex flex-col gap-1 text-sm text-muted-foreground">
-            <p>
-              <span className="font-medium text-foreground">By {BLOG_AUTHOR.name}</span>
-              {' · '}
-              {BLOG_AUTHOR.role}
-            </p>
-            <p>
-              {DOOH_ARTICLE.readingTimeMinutes} min read{' · '}
-              <time dateTime={DOOH_ARTICLE.datePublished}>
-                {formatDate(DOOH_ARTICLE.datePublished)}
-              </time>
-            </p>
-            <p>
-              Last technically reviewed{' '}
-              <time dateTime={DOOH_ARTICLE.dateModified}>
-                {formatDate(DOOH_ARTICLE.dateModified)}
-              </time>
-            </p>
-          </div>
-        </header>
-
+        }
+        metaItems={[
+          { label: 'Document owner', value: 'TomorrowOS' },
+          { label: 'Published', value: formatDate(DOOH_ARTICLE.datePublished) },
+          { label: 'Last reviewed', value: formatDate(DOOH_ARTICLE.dateModified) },
+          { label: 'Reading time', value: `${DOOH_ARTICLE.readingTimeMinutes} minutes` },
+          { label: 'Category', value: 'DOOH and Retail Media' },
+          { label: 'Document type', value: record?.documentType ?? 'Cornerstone Guide' },
+        ]}
+        canonicalUrl={absoluteUrl(DOOH_ARTICLE.path)}
+        tocGroups={TOC_GROUPS}
+      >
         {/* 3. Direct introductory answer */}
         <section className="flex flex-col gap-4" aria-label="Introduction">
           <Lead>
@@ -242,8 +205,10 @@ export default function HowToStartADoohNetwork() {
             are also investing heavily in measurement and programmatic standards, reflecting
             the need for clearer, more interoperable DOOH infrastructure.
           </P>
-          <div className="flex flex-col gap-1.5 rounded-[12px] border border-foreground/25 bg-muted/50 p-4 md:p-5">
-            <p className="text-sm font-semibold text-foreground">Direct answer</p>
+          <div className="flex flex-col gap-1.5 border-l-2 border-foreground/70 bg-[#eef2f6] py-3 pl-4 pr-4 md:pl-5 print:bg-white">
+            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-foreground">
+              Direct answer
+            </p>
             <p className="text-sm leading-relaxed text-muted-foreground">
               To start a DOOH network, first validate the audience and venue model, then deploy
               a small technically reliable pilot. Use a CMS for content and device operations,
@@ -253,9 +218,6 @@ export default function HowToStartADoohNetwork() {
             </p>
           </div>
         </section>
-
-        {/* 4. Table of contents — grouped editorial navigation. */}
-        <ArticleTableOfContents mode="grouped" groups={TOC_GROUPS} />
 
         {/* 5. Full article sections */}
         <DoohSectionsFoundation />
@@ -306,17 +268,17 @@ export default function HowToStartADoohNetwork() {
           </UL>
         </section>
 
-        {/* 7. Primary sources */}
+        {/* 7. References — numbered editorial reference list. */}
         <section className="flex flex-col gap-4" aria-labelledby="primary-sources">
           <SectionHeading id="primary-sources">Primary sources</SectionHeading>
-          <ul className="flex flex-col gap-3">
-            {DOOH_ARTICLE_SOURCES.map((s) => (
-              <li key={s.href} className="flex flex-col gap-0.5">
-                <ExtLink href={s.href}>{s.label}</ExtLink>
-                <p className="text-sm text-muted-foreground">{s.note}</p>
-              </li>
-            ))}
-          </ul>
+          <EditorialReferences
+            references={DOOH_ARTICLE_SOURCES.map((s, i) => ({
+              id: `src-${i + 1}`,
+              title: s.label,
+              href: s.href,
+              note: s.note,
+            }))}
+          />
         </section>
 
         {/* 8. Related resources */}
@@ -363,35 +325,9 @@ export default function HowToStartADoohNetwork() {
         {/* Author box */}
         <ArticleAuthorBox />
 
-        {/* 9. Closing CTA */}
-        <section aria-labelledby="closing-cta" className="flex flex-col gap-4">
-          <SectionHeading id="closing-cta">
-            Start building your DOOH product
-          </SectionHeading>
-          <P>
-            TomorrowOS provides reusable open-source screen infrastructure — device
-            communication, content delivery, offline playback and platform adapters — while you
-            own the DOOH product, the commercial model and the customer experience.
-          </P>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            <Link href="/start" className={PrimaryA}>
-              Start building
-              <ArrowRight className="ml-1.5 h-3.5 w-3.5" aria-hidden="true" />
-            </Link>
-            <a
-              href={siteConfig.links.docs}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={SecondaryA}
-            >
-              Read the documentation
-              <ExternalLink className="ml-1.5 h-3.5 w-3.5 opacity-70" aria-hidden="true" />
-              <span className="sr-only"> (opens in a new window)</span>
-            </a>
-            <ExtLink href={siteConfig.links.github}>Explore GitHub</ExtLink>
-          </div>
-        </section>
-      </article>
-    </div>
+        {/* 9. Closing CTA — quiet document-ending panel. */}
+        <EditorialClosingCta />
+      </EditorialArticleLayout>
+    </>
   );
 }

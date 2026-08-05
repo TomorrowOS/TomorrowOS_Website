@@ -22,7 +22,7 @@
  * scroll hijacking — anchor targets provide their own scroll-margin-top.
  */
 
-export type ArticleTocMode = 'none' | 'compact' | 'grouped' | 'sticky';
+export type ArticleTocMode = 'none' | 'compact' | 'grouped' | 'sticky' | 'rail';
 
 export interface ArticleTocItem {
   label: string;
@@ -101,6 +101,25 @@ export function ArticleTableOfContents({
   groups?: ArticleTocGroup[];
 }) {
   if (mode === 'none') return null;
+
+  // "rail" — grouped links restyled as a quiet document index for the
+  // article's side rail. The PAGE decides placement: on large screens it puts
+  // this inside a sticky rail column; below that breakpoint the page should
+  // render the "grouped" mobile disclosure instead. No box, document rules only.
+  if (mode === 'rail') {
+    const railGroups = groups ?? [];
+    if (railGroups.length === 0) return null;
+    return (
+      <nav aria-label="In this guide" className="flex flex-col gap-5 border-t border-border pt-4">
+        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-foreground">
+          In this guide
+        </p>
+        {railGroups.map((g) => (
+          <TocGroup key={g.title} group={g} />
+        ))}
+      </nav>
+    );
+  }
 
   if (mode === 'compact' || mode === 'sticky') {
     const links = items ?? [];

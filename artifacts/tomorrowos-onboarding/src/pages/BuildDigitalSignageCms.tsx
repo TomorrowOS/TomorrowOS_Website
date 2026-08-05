@@ -1,24 +1,14 @@
-import { Link } from 'wouter';
-import { ArrowRight, ExternalLink } from 'lucide-react';
 import { usePageSeo } from '@/hooks/use-page-seo';
 import { JsonLd } from '@/components/JsonLd';
 import { absoluteUrl } from '@/lib/seoConfig';
 import { siteConfig } from '@/config/site';
 import { CMS_ARTICLE, CMS_ARTICLE_FAQ, BLOG_AUTHOR } from '@/lib/cmsArticleMeta';
+import { BLOG_ARTICLES } from '@/lib/blogArticles';
 import { ArticleAuthorBox } from '@/components/blog/ArticleAuthorBox';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
+import { EditorialArticleLayout } from '@/components/blog/EditorialArticleLayout';
+import { EditorialClosingCta } from '@/components/blog/EditorialClosingCta';
 import { SectionHeading, P, Lead, UL, IntLink, ExtLink } from '@/components/blog/articlePrimitives';
-import {
-  ArticleTableOfContents,
-  type ArticleTocGroup,
-} from '@/components/blog/ArticleTableOfContents';
+import { type ArticleTocGroup } from '@/components/blog/ArticleTableOfContents';
 import { ArticleFAQ } from '@/components/blog/ArticleFAQ';
 import { SectionsFoundation } from './cms-article/SectionsFoundation';
 import { SectionsRuntime } from './cms-article/SectionsRuntime';
@@ -101,11 +91,6 @@ const TOC_GROUPS: ArticleTocGroup[] = [
   },
 ];
 
-const PrimaryA =
-  'inline-flex h-11 items-center justify-center whitespace-nowrap rounded-md bg-foreground px-8 text-sm font-medium text-background transition-colors hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
-const SecondaryA =
-  'inline-flex h-11 items-center justify-center whitespace-nowrap rounded-md border border-input bg-background px-8 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
-
 /** Formats an ISO date as e.g. "3 August 2026" for visible metadata. */
 function formatDate(iso: string): string {
   const [y, m, d] = iso.split('-').map(Number);
@@ -119,9 +104,10 @@ function formatDate(iso: string): string {
 export default function BuildDigitalSignageCms() {
   usePageSeo(CMS_ARTICLE.path);
   const canonical = absoluteUrl(CMS_ARTICLE.path);
+  const record = BLOG_ARTICLES.find((a) => a.href === CMS_ARTICLE.path);
 
   return (
-    <div className="w-full">
+    <>
       <JsonLd
         id="article"
         data={{
@@ -167,67 +153,29 @@ export default function BuildDigitalSignageCms() {
         }}
       />
 
-      {/* 1. Breadcrumbs */}
-      <div className="w-full px-4 pt-8 md:px-8">
-        <div className="mx-auto max-w-[880px]">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/">Home</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/blog">Blog</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>How to Build a Digital Signage CMS</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </div>
-
-      <article className="mx-auto flex max-w-[880px] flex-col gap-12 px-4 py-10 md:px-8 md:py-14">
-        {/* 2. Article hero */}
-        <header className="flex flex-col gap-5">
-          <span className="inline-flex h-6 w-fit items-center rounded-full border border-border bg-muted px-2.5 text-xs font-medium text-foreground">
-            Building Digital Signage
-          </span>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-[2.75rem] md:leading-[1.1]">
-            How to Build a Digital Signage CMS
-          </h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            A practical architecture guide covering everything required to build reliable
-            digital signage software — from the dashboard down to device pairing, content
-            delivery, offline playback and multi-platform runtimes.
+      <EditorialArticleLayout
+        layoutMode={record?.layoutMode ?? 'document-with-rail'}
+        category="Building Digital Signage"
+        title="How to Build a Digital Signage CMS"
+        subtitle="A practical architecture guide covering everything required to build reliable digital signage software — from the dashboard down to device pairing, content delivery, offline playback and multi-platform runtimes."
+        byline={
+          <p className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">By {CMS_ARTICLE.author}</span>
+            {' · '}
+            {CMS_ARTICLE.authorRole}
           </p>
-          {/* 4. Article metadata */}
-          <div className="flex flex-col gap-1 text-sm text-muted-foreground">
-            <p>
-              <span className="font-medium text-foreground">By {CMS_ARTICLE.author}</span>
-              {' · '}
-              {CMS_ARTICLE.authorRole}
-            </p>
-            <p>
-              {CMS_ARTICLE.readingTimeMinutes} min read{' · '}
-              <time dateTime={CMS_ARTICLE.datePublished}>
-                {formatDate(CMS_ARTICLE.datePublished)}
-              </time>
-            </p>
-            <p>
-              Last technically reviewed{' '}
-              <time dateTime={CMS_ARTICLE.dateModified}>
-                {formatDate(CMS_ARTICLE.dateModified)}
-              </time>
-            </p>
-          </div>
-        </header>
-
+        }
+        metaItems={[
+          { label: 'Document owner', value: 'TomorrowOS' },
+          { label: 'Published', value: formatDate(CMS_ARTICLE.datePublished) },
+          { label: 'Last reviewed', value: formatDate(CMS_ARTICLE.dateModified) },
+          { label: 'Reading time', value: `${CMS_ARTICLE.readingTimeMinutes} minutes` },
+          { label: 'Category', value: 'Building Digital Signage' },
+          { label: 'Document type', value: record?.documentType ?? 'Cornerstone Guide' },
+        ]}
+        canonicalUrl={canonical}
+        tocGroups={TOC_GROUPS}
+      >
         {/* 3. Direct introductory answer */}
         <section className="flex flex-col gap-4" aria-label="Introduction">
           <Lead>Building a digital signage content management system looks deceptively simple.</Lead>
@@ -251,9 +199,6 @@ export default function BuildDigitalSignageCms() {
             your team needs to own.
           </P>
         </section>
-
-        {/* 5. Table of contents — grouped editorial navigation. */}
-        <ArticleTableOfContents mode="grouped" groups={TOC_GROUPS} />
 
         {/* 6. Full article sections */}
         <SectionsFoundation />
@@ -349,35 +294,9 @@ export default function BuildDigitalSignageCms() {
         {/* Author box */}
         <ArticleAuthorBox />
 
-        {/* 9. Closing CTA */}
-        <section aria-labelledby="closing-cta" className="flex flex-col gap-4">
-          <SectionHeading id="closing-cta">
-            Start building your digital signage product
-          </SectionHeading>
-          <P>
-            TomorrowOS provides reusable open-source infrastructure — device communication,
-            content delivery, offline playback and platform adapters — while you own the
-            product, the workflow and the customer experience.
-          </P>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            <Link href="/start" className={PrimaryA}>
-              Start building
-              <ArrowRight className="ml-1.5 h-3.5 w-3.5" aria-hidden="true" />
-            </Link>
-            <a
-              href={siteConfig.links.docs}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={SecondaryA}
-            >
-              Read the documentation
-              <ExternalLink className="ml-1.5 h-3.5 w-3.5 opacity-70" aria-hidden="true" />
-              <span className="sr-only"> (opens in a new window)</span>
-            </a>
-            <ExtLink href={siteConfig.links.github}>Explore GitHub</ExtLink>
-          </div>
-        </section>
-      </article>
-    </div>
+        {/* 9. Closing CTA — quiet document-ending panel. */}
+        <EditorialClosingCta />
+      </EditorialArticleLayout>
+    </>
   );
 }
