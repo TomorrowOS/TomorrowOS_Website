@@ -23,8 +23,8 @@ export function WebsiteFooter() {
           <Link href="/start" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity">
             Start building
           </Link>
-          <Link href="/blog" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity">
-            Blog
+          <Link href="/journal" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity">
+            Journal
           </Link>
           {!siteConfig.links.docs.includes('{{') && (
             <a href={siteConfig.links.docs} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-foreground hover:opacity-70 transition-opacity inline-flex items-center">

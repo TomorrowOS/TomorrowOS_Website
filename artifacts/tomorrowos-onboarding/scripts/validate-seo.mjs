@@ -64,6 +64,7 @@ const configured = new Set(routes.map((r) => r.key));
 for (const p of appRoutes) {
   if (p.includes(':')) continue; // dynamic params handled by page components
   if (p === '/quickstart') continue; // redirect alias to /
+  if (p === '/blog') continue; // redirect alias to /journal (moved 2026-08-05)
   if (placeholderRoutes.includes(p)) continue; // component-level noindex
   if (!configured.has(p)) fail(`App.tsx route ${p} has no entry in seoConfig.ts (indexing policy undefined)`);
 }
@@ -134,7 +135,7 @@ ok(`scanned ${files.length} source files for link/domain issues`);
  */
 
 // Deliberate exclusions, each documented at its source:
-const REDIRECT_ALIASES = ['/quickstart']; // client redirect to / — exempt from SEO/prerender checks, NOT from mirror-host checks
+const REDIRECT_ALIASES = ['/quickstart', '/blog']; // client redirects (/quickstart → /, /blog → /journal) — exempt from SEO/prerender checks, NOT from mirror-host checks
 const SPA_ONLY_ROUTES = ['/github', '/community', '/license']; // PlaceholderPage, component-level noindex
 
 // -- source 1: App.tsx static routes (already parsed above as appRoutes) --

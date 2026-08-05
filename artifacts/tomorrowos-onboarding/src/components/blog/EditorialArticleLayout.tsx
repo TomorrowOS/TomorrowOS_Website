@@ -73,7 +73,7 @@ export function EditorialArticleLayout({
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="/blog">Blog</Link>
+                  <Link href="/journal">Journal</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />

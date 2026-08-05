@@ -28,10 +28,10 @@ function isActive(location: string, href: string) {
   if (href === '/start') {
     return location.startsWith('/start') || location.startsWith('/connect') || location.startsWith('/guides');
   }
-  if (href === '/blog') {
+  if (href === '/journal') {
     return (
-      location === '/blog' ||
-      location.startsWith('/blog/') ||
+      location === '/journal' ||
+      location.startsWith('/journal/') ||
       BLOG_PILLAR_PATHS.includes(location)
     );
   }

@@ -135,7 +135,7 @@ export default function BuildDigitalSignageCms() {
           '@type': 'BreadcrumbList',
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl('/') },
-            { '@type': 'ListItem', position: 2, name: 'Blog', item: absoluteUrl('/blog') },
+            { '@type': 'ListItem', position: 2, name: 'Journal', item: absoluteUrl('/journal') },
             { '@type': 'ListItem', position: 3, name: CMS_ARTICLE.headline, item: canonical },
           ],
         }}

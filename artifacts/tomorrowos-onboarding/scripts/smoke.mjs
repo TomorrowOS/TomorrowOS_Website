@@ -22,7 +22,7 @@ const envArg = process.argv.find((a) => a.startsWith('--env='))?.slice(6) ?? 'pr
 const LEARN_ENABLED = process.env.VITE_ENABLE_LEARN === 'true';
 
 const routes = [
-  '/', '/about', '/blog', '/start', '/start/guided', '/start/guided/replit',
+  '/', '/about', '/journal', '/blog', '/start', '/start/guided', '/start/guided/replit',
   '/start/guided/vercel', '/start/terminal', '/connect/server-sdk',
   '/connect/api', '/guides/supabase', '/guides/cloudinary', '/guides/vercel',
   '/guides/neon', '/guides/vercel-blob', '/guides/content',
@@ -59,7 +59,7 @@ const indexableRoutes = new Set([
   '/guides/supabase', '/guides/cloudinary', '/guides/vercel', '/guides/neon',
   '/guides/vercel-blob', '/guides/content', '/guides/platforms',
   '/guides/platforms/samsung-tizen', '/compatibility/media',
-  '/blog', '/build-a-digital-signage-cms', '/how-to-start-a-dooh-network',
+  '/journal', '/build-a-digital-signage-cms', '/how-to-start-a-dooh-network',
 ]);
 
 const staticFiles = ['/robots.txt', '/favicon.svg', '/og/tomorrowos-social-v1.png'];
@@ -86,9 +86,12 @@ for (const path of [...activeRoutes, ...staticFiles]) {
       // get "index, follow", everything else an explicit "noindex, follow".
       const robots = body.match(/<meta name="robots" content="([^"]+)"/)?.[1];
       if (envArg === 'production') {
-        if (path === '/quickstart') {
-          // Redirect alias: no prerendered page — hosts serve the homepage
-          // shell (canonical "/") and the client redirects to "/".
+        if (path === '/quickstart' || path === '/blog') {
+          // Redirect aliases: no prerendered page. /quickstart → "/" (client
+          // redirect via SPA shell); /blog → /journal (301 on both hosts,
+          // plus a client redirect for SPA navigation). Static test servers
+          // without redirect rules serve the SPA shell here, so no robots
+          // assertion applies.
         } else if (indexableRoutes.has(path)) {
           if (!robots || robots.includes('noindex')) fail(`${path} → indexable route carries noindex in production ("${robots ?? 'missing'}")`);
         } else {

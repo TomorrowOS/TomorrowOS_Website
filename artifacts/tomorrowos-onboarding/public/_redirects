@@ -20,6 +20,9 @@
 # Keep SPA-only entries below in sync with src/App.tsx whenever placeholder
 # routes are promoted or removed.
 
+# Moved 2026-08-05: the Blog index is now the TomorrowOS Journal at /journal.
+/blog          /journal     301
+
 /quickstart    /index.html  200
 /github        /index.html  200
 /community     /index.html  200

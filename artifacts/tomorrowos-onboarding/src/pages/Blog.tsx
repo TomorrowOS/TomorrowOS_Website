@@ -20,13 +20,12 @@ import {
 } from '@/lib/blogArticles';
 
 /**
- * /blog — the TomorrowOS Journal index.
+ * /journal — the TomorrowOS Journal index (moved from /blog on 2026-08-05
+ * with 301 redirects on both hosts plus a client-side redirect in App.tsx).
  *
  * Presented as an editorial archive of technical writing rather than a
  * marketing blog: journal masthead, short editorial statement, one featured
- * record, then a text-led archive of records separated by thin rules. The
- * navigation label and URL remain "Blog" / /blog — only the on-page identity
- * is "TomorrowOS Journal".
+ * record, then a text-led archive of records separated by thin rules.
  *
  * All article content derives from src/lib/blogArticles.ts. If no article is
  * published the page renders a purposeful empty state — no fake cards, no
@@ -128,7 +127,7 @@ function ArchiveRecord({ article, featured }: { article: BlogArticle; featured?:
 }
 
 export default function Blog() {
-  usePageSeo('/blog');
+  usePageSeo('/journal');
   const categories = getActiveCategories();
   const archive = BLOG_ARTICLES.filter((a) => !a.featured);
 
@@ -141,7 +140,7 @@ export default function Blog() {
           '@type': 'BreadcrumbList',
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl('/') },
-            { '@type': 'ListItem', position: 2, name: 'Blog', item: absoluteUrl('/blog') },
+            { '@type': 'ListItem', position: 2, name: 'Journal', item: absoluteUrl('/journal') },
           ],
         }}
       />
@@ -157,7 +156,7 @@ export default function Blog() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Blog</BreadcrumbPage>
+                <BreadcrumbPage>Journal</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

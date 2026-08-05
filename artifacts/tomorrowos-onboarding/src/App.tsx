@@ -85,7 +85,10 @@ function Router() {
         <Route path="/guides/platforms/samsung-tizen/magicinfo" component={SamsungTizenGuide} />
         <Route path="/guides/platforms/samsung-tizen" component={SamsungTizenGuide} />
         <Route path="/guides/platforms" component={PlatformGuides} />
-        <Route path="/blog" component={Blog} />
+        <Route path="/journal" component={Blog} />
+        {/* Legacy URL: the Blog index moved to /journal (301 on both hosts;
+            this client redirect covers SPA navigation and dev preview). */}
+        <Route path="/blog" component={() => <Redirect to="/journal" replace />} />
         <Route path="/build-a-digital-signage-cms" component={BuildDigitalSignageCms} />
         <Route path="/how-to-start-a-dooh-network" component={HowToStartADoohNetwork} />
         {/* Learn: fully feature-gated behind VITE_ENABLE_LEARN. When the flag

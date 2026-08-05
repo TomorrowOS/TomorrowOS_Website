@@ -6,6 +6,12 @@
       "src": "/quickstart",
       "dest": "/index.html"
     },
+    {
+      "comment": "Moved 2026-08-05: the Blog index is now the TomorrowOS Journal at /journal.",
+      "src": "/blog",
+      "status": 301,
+      "headers": { "Location": "/journal" }
+    },
     { "src": "/github",    "dest": "/index.html" },
     { "src": "/community", "dest": "/index.html" },
     { "src": "/license",   "dest": "/index.html" },

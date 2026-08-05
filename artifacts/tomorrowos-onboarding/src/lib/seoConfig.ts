@@ -148,12 +148,12 @@ export const seoRoutes: Record<string, RouteSeo> = {
     canonicalPath: '/compatibility/media',
     indexable: true,
   },
-  '/blog': {
-    title: 'Digital Signage Engineering Blog',
+  '/journal': {
+    title: 'TomorrowOS Journal — Digital Signage Engineering',
     description:
       'Read practical guides about building digital signage software, open-source infrastructure, screen platforms, playback and reliable device operations.',
-    canonicalPath: '/blog',
-    indexable: true, // flipped 2026-08-03 — first pillar article shipped
+    canonicalPath: '/journal',
+    indexable: true, // indexable since 2026-08-03 (as /blog); moved to /journal 2026-08-05 with 301s
   },
   // ---- Cornerstone articles (root-level pillar pages) ---------------------
   '/build-a-digital-signage-cms': {

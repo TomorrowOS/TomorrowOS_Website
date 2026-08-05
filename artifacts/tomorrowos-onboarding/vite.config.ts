@@ -182,12 +182,12 @@ function prerenderPlugin() {
       canonicalPath: '/compatibility/media',
       indexable: true,
     },
-    '/blog': {
-      rawTitle: 'Digital Signage Engineering Blog',
+    '/journal': {
+      rawTitle: 'TomorrowOS Journal — Digital Signage Engineering',
       description:
         'Read practical guides about building digital signage software, open-source infrastructure, screen platforms, playback and reliable device operations.',
-      canonicalPath: '/blog',
-      // Flipped to indexable on 2026-08-03 — first pillar article shipped.
+      canonicalPath: '/journal',
+      // Indexable since 2026-08-03 (as /blog); moved to /journal 2026-08-05 with 301s.
       indexable: true,
     },
     // Cornerstone article (root-level pillar page). Metadata sourced from
@@ -371,7 +371,7 @@ function prerenderPlugin() {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog` },
+          { '@type': 'ListItem', position: 2, name: 'Journal', item: `${SITE_URL}/journal` },
           { '@type': 'ListItem', position: 3, name: meta.headline, item: canonicalUrl },
         ],
       });
@@ -417,7 +417,7 @@ function prerenderPlugin() {
 
     const hasBreadcrumb =
       routePath === '/about' ||
-      routePath === '/blog' ||
+      routePath === '/journal' ||
       routePath === '/learn' ||
       routePath === '/learn/brightsign-digital-signage-player' ||
       routePath.startsWith('/guides/') ||
@@ -446,8 +446,8 @@ function prerenderPlugin() {
       crumbs.push({
         // Keep structured data consistent with the visible breadcrumbs.
         name:
-          routePath === '/blog'
-            ? 'Blog'
+          routePath === '/journal'
+            ? 'Journal'
             : routePath === '/learn'
             ? 'Learn'
             : routePath === '/learn/brightsign-digital-signage-player'

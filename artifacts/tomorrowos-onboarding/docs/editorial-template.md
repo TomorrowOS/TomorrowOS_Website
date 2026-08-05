@@ -60,11 +60,11 @@ No CTAs above the article. No hero images.
 
 ## Blog index
 
-`/blog` is the "TomorrowOS Journal" archive: masthead + editorial statement,
-featured record, text-led archive records (uppercase category line, title,
+`/journal` is the "TomorrowOS Journal" archive: masthead + editorial statement,
+featured record, text-led archive records,
 description, date + reading time) with thin rules and a subtle blue-grey
 hover. Categories appear as a plain text line, only when populated. Nav label
-and URL remain **Blog** / `/blog`.
+and URL are now **Journal** / `/journal` (moved from /blog on 2026-08-05 with 301 redirects in `_redirects`, `vercel.json` and a client redirect in App.tsx).
 
 ## Print
 
