@@ -77,7 +77,7 @@ export function BuySectionsFramework() {
             <DiagramNode>Your product, server, runtime and adapters</DiagramNode>
           </div>
         </ArticleDiagram>
-        <ArticleCallout kind="important" label="Founder's view">
+        <ArticleCallout kind="important">
           A phased approach is often underrated. Launching on an existing platform can prove
           demand before the organisation takes on the cost of owning infrastructure.
         </ArticleCallout>
@@ -330,7 +330,7 @@ export function BuySectionsFramework() {
           needs screens working quickly may still be better served by a finished commercial
           CMS.
         </P>
-        <ArticleCallout kind="important" label="Founder's conclusion">
+        <ArticleCallout kind="important">
           Most businesses should buy. Teams should build when signage itself becomes part of
           the product, the competitive advantage or the long-term strategy. TomorrowOS is
           designed for that second group.

@@ -195,7 +195,7 @@ restartRuntime()`}
           The player should recover locally wherever possible. The server should retain enough
           history and reported state to help operators understand what happened.
         </P>
-        <ArticleCallout kind="important" label="Reliability principle">
+        <ArticleCallout kind="important">
           Recovery should restore a known-good operating state without requiring a site visit.
         </ArticleCallout>
       </section>
@@ -340,7 +340,7 @@ restartRuntime()`}
           TomorrowOS does not remove the need to design the product. It reduces the amount of
           common signage infrastructure each team must rebuild independently.
         </P>
-        <ArticleCallout kind="engineering" label="Current product truth">
+        <ArticleCallout kind="engineering">
           Platform support, package versions and implementation details change over time.
           Review the current TomorrowOS documentation and GitHub repositories before planning
           production deployment.

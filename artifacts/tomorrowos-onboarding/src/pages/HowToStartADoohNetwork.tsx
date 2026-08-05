@@ -204,9 +204,6 @@ export default function HowToStartADoohNetwork() {
             the need for clearer, more interoperable DOOH infrastructure.
           </P>
           <div className="flex flex-col gap-1.5 border-l-2 border-foreground/70 bg-[#eef2f6] py-3 pl-4 pr-4 md:pl-5 print:bg-white">
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-foreground">
-              Direct answer
-            </p>
             <p className="text-sm leading-relaxed text-muted-foreground">
               To start a DOOH network, first validate the audience and venue model, then deploy
               a small technically reliable pilot. Use a CMS for content and device operations,

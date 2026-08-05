@@ -118,7 +118,7 @@ export function BuySectionsCost() {
           <li>supporting old versions;</li>
           <li>vendor and hardware changes.</li>
         </UL>
-        <ArticleCallout kind="important" label="Founder's view">
+        <ArticleCallout kind="important">
           The first version is rarely the expensive part. The cost appears when customers
           expect the platform to keep working, new devices must be supported and every release
           has to be safe for screens already in the field.
@@ -158,7 +158,7 @@ export function BuySectionsCost() {
           Building can also delay sales, deployment or product validation while engineering
           focuses on infrastructure that customers may never see.
         </P>
-        <ArticleCallout kind="practical" label="Decision rule">
+        <ArticleCallout kind="practical">
           Include opportunity cost in the build estimate. The correct comparison is not only
           software cost versus vendor licence. It is also what the team could have shipped,
           sold or learned instead.
@@ -207,7 +207,7 @@ export function BuySectionsCost() {
           A company creating a DOOH platform, retail media product, OEM system or signage SaaS
           may need to own the product layer and commercial model.
         </P>
-        <ArticleCallout kind="practical" label="Key distinction">
+        <ArticleCallout kind="practical">
           Build when ownership improves the product or business model. Do not build only to
           avoid a software subscription.
         </ArticleCallout>

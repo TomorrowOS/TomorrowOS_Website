@@ -48,7 +48,7 @@ export function ArchSectionsEdge() {
           is unavailable. If it requires a live API request to decide what to display next, it
           is not genuinely offline-capable.
         </P>
-        <ArticleCallout kind="important" label="Core principle">
+        <ArticleCallout kind="important">
           The edge runtime is an operational system, not simply a browser pointed at a URL.
         </ArticleCallout>
       </section>
@@ -239,7 +239,7 @@ export function ArchSectionsEdge() {
           Useful telemetry includes connection state, runtime version, firmware, storage,
           active policy, download status, recent error, uptime and last reboot.
         </P>
-        <ArticleCallout kind="practical" label="Operational rule">
+        <ArticleCallout kind="practical">
           Telemetry should answer support questions. More data is not useful unless it changes
           an operator&rsquo;s decision.
         </ArticleCallout>

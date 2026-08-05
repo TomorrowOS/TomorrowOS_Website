@@ -77,7 +77,7 @@ export function ArchSectionsModel() {
             <DiagramNode>Physical screen</DiagramNode>
           </div>
         </ArticleDiagram>
-        <ArticleCallout kind="important" label="Core principle">
+        <ArticleCallout kind="important">
           The server defines intent. The player executes that intent locally and continues
           operating when the server cannot be reached.
         </ArticleCallout>
@@ -113,7 +113,7 @@ export function ArchSectionsModel() {
             Samsung Tizen, BrightSign or another operating environment.
           </LayerDefinition>
         </div>
-        <ArticleCallout kind="practical" label="Architecture boundary">
+        <ArticleCallout kind="practical">
           A new platform should require a new adapter, not a rewrite of the customer
           application.
         </ArticleCallout>
@@ -147,7 +147,7 @@ export function ArchSectionsModel() {
           assign a policy to a group of screens. It should not contain separate dashboard logic
           for every operating system.
         </P>
-        <ArticleCallout kind="practical" label="Key distinction">
+        <ArticleCallout kind="practical">
           The product layer owns the customer experience. The platform adapter owns
           hardware-specific behaviour.
         </ArticleCallout>

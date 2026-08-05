@@ -177,9 +177,6 @@ export default function BuildVsBuyDigitalSignageCms() {
         {/* Direct answer + introductory copy */}
         <section className="flex flex-col gap-4" aria-label="Introduction">
           <div className="flex flex-col gap-1.5 border-l-2 border-foreground/70 bg-[#eef2f6] py-3 pl-4 pr-4 md:pl-5 print:bg-white">
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-foreground">
-              Direct answer
-            </p>
             <p className="text-sm leading-relaxed text-muted-foreground">
               Most organisations should buy an established digital signage CMS. Building
               becomes rational when signage is part of the product, a meaningful competitive

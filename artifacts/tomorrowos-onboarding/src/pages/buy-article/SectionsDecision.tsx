@@ -19,7 +19,7 @@ export function BuySectionsDecision() {
           source of competitive advantage, building may be worth the investment.
         </P>
         <P>That is not an absolute rule. It is a useful starting point.</P>
-        <ArticleCallout kind="important" label="Founder's view">
+        <ArticleCallout kind="important">
           If I were advising a business today, I would tell most teams to buy an existing CMS
           first. I would only recommend building once the business can explain exactly what it
           needs to own, why a commercial product cannot provide it and how it will support the
