@@ -1,0 +1,421 @@
+# TomorrowOS Article UX Refinement and Compatibility-Link Removal
+
+You are working inside the existing TomorrowOS website repository.
+
+The first cornerstone article has been implemented at:
+
+/build-a-digital-signage-cms
+
+The article content is approved, but the table of contents and related-resource behaviour need refinement.
+
+This task must improve the article-navigation system for the current article and future Blog articles while preserving the existing website design.
+
+Do not rewrite the article copy.
+
+Do not change the homepage.
+
+Do not change the Blog structure.
+
+Do not expose Learn.
+
+Do not install packages.
+
+Do not change dependencies or the lockfile.
+
+Do not publish or deploy.
+
+---
+
+## Objective 1 — Replace the current table of contents
+
+The current table of contents lists approximately 32 numbered sections in two columns.
+
+This creates:
+
+- an unnatural left-to-right reading order;
+- excessive density;
+- poor editorial hierarchy;
+- visual weight before the article begins;
+- a generated-index feeling rather than a premium guide experience.
+
+Replace it with a reusable adaptive article-navigation component.
+
+The new component should support these explicit modes:
+
+- `none`
+- `compact`
+- `grouped`
+- `sticky`
+
+Do not automatically list every H2.
+
+The page author must supply the major sections or groups intentionally.
+
+---
+
+## Current article mode
+
+For:
+
+/build-a-digital-signage-cms
+
+use:
+
+`grouped`
+
+Create five high-level groups.
+
+### 01 Foundations
+
+Links:
+
+- What is a digital signage CMS?
+- The complete system at a glance
+- Designing the frontend
+- Designing the backend
+
+### 02 Devices and content
+
+Links:
+
+- Device pairing
+- Content delivery
+- Scheduling
+- Media validation
+
+### 03 Runtime and reliability
+
+Links:
+
+- The player runtime
+- Offline playback
+- Recovery
+- Telemetry
+- Remote commands
+
+### 04 Platforms and security
+
+Links:
+
+- Supporting multiple platforms
+- Security
+- Common mistakes
+
+### 05 Build strategy
+
+Links:
+
+- Build, buy or use infrastructure?
+- Where TomorrowOS fits
+- Building with AI-assisted tools
+- A practical build sequence
+- Pre-launch checklist
+
+Do not list all 32 article sections.
+
+All existing article headings should keep their anchor IDs so direct links continue to work.
+
+---
+
+## Visual design
+
+The section title should be:
+
+`In this guide`
+
+Do not use:
+
+`On this page`
+
+The grouped TOC should feel like a premium editorial navigation component.
+
+Use:
+
+- one vertical reading flow;
+- five clearly separated groups;
+- subtle chapter numbers;
+- group title;
+- concise nested links;
+- generous spacing;
+- existing TomorrowOS typography and border tokens;
+- one restrained container;
+- no coloured chapter cards;
+- no heavy shadows;
+- no gradients;
+- no dashboard styling.
+
+Desktop:
+
+- two-column layout is acceptable only if each column contains complete groups;
+- never split one reading sequence across alternating rows;
+- preferred layout: two columns of whole chapter groups, or one clean vertical stack.
+
+Tablet:
+
+- one or two columns depending on available width.
+
+Mobile:
+
+- use native `<details>/<summary>`;
+- summary label: `In this guide`;
+- all groups shown inside when expanded;
+- collapsed by default;
+- no sticky overlay.
+
+The component must work at:
+
+- 1440px
+- 1280px
+- 1024px
+- 768px
+- 390px
+- 320px
+
+No horizontal overflow.
+
+---
+
+## Accessibility
+
+Requirements:
+
+- render as `<nav aria-label="In this guide">`;
+- semantic list structure;
+- links have descriptive text;
+- chapter numbers are decorative where appropriate;
+- native `<details>/<summary>` on mobile;
+- visible focus states;
+- keyboard navigation;
+- headings use `scroll-margin-top`;
+- no JavaScript scroll hijacking;
+- no nested interactive controls.
+
+---
+
+## Future article behaviour
+
+Create a reusable configuration pattern.
+
+Suggested conceptual API:
+
+```ts
+type ArticleTocMode = "none" | "compact" | "grouped" | "sticky";
+
+interface ArticleTocItem {
+  label: string;
+  href: string;
+}
+
+interface ArticleTocGroup {
+  number?: string;
+  title: string;
+  items: ArticleTocItem[];
+}
+
+Rules:
+
+none: no contents navigation.
+compact: 4–8 major links.
+grouped: long cornerstone guides with explicit chapter groups.
+sticky: only for long technical articles and only when the layout supports a side rail.
+
+Do not derive every item automatically from every H2.
+
+Document recommended thresholds:
+
+fewer than 4 major sections: none;
+4–8 major sections: compact;
+more than 8 major sections: grouped;
+sticky only when specifically selected.
+Objective 2 — Remove compatibility-page promotion
+
+The compatibility pages are not yet ready to be promoted as authoritative public resources.
+
+Remove links and CTAs to:
+
+/compatibility
+/compatibility/media
+
+from:
+
+/build-a-digital-signage-cms
+Blog related resources
+article footer CTAs
+article inline callouts
+current Blog article data
+reusable article-related-resource defaults
+
+Do not delete the compatibility routes.
+
+Do not modify their content during this task.
+
+Do not add redirects.
+
+Do not expose Learn.
+
+Replacement destinations
+
+Where compatibility links currently appear, replace them with useful current destinations.
+
+Use only verified existing URLs.
+
+Preferred replacements:
+
+TomorrowOS Documentation
+TomorrowOS GitHub
+current Samsung Tizen guide
+current BrightSign repository or guide
+current SDK documentation
+Start Building
+
+Do not create placeholder routes.
+
+Required article wording change
+
+Replace compatibility-related language with this safer statement:
+
+Platform support changes as runtimes, firmware and testing evolve. Review the current TomorrowOS documentation and GitHub repositories before planning a production deployment.
+
+Use that wording, or a very close editorial equivalent, in the TomorrowOS/platform section.
+
+Do not claim that compatibility pages are the current source of truth.
+
+Next steps section
+
+Update the final article actions.
+
+Use:
+
+Start Building
+Documentation
+GitHub
+
+Optional:
+
+Samsung Tizen guide
+BrightSign repository or current guide
+
+Remove:
+
+Platform Compatibility
+Media Compatibility
+
+Keep the CTA hierarchy restrained.
+
+Primary:
+
+Start building
+
+Secondary:
+
+Read the documentation
+
+Tertiary:
+
+Explore GitHub
+
+Internal-link audit
+
+Search the full public website for:
+
+/compatibility
+/compatibility/media
+Platform Compatibility
+Media Compatibility
+View compatibility
+Explore compatibility
+
+Report every occurrence.
+
+For this task:
+
+remove promotional article and Blog references;
+do not change existing navigation or standalone compatibility pages unless explicitly required;
+do not silently modify unrelated existing guides.
+
+List remaining references and explain why they remain.
+
+SEO
+
+Do not change:
+
+article title;
+meta description;
+canonical;
+schema;
+indexability;
+sitemap inclusion;
+Blog indexability;
+article URL.
+
+Ensure changing the TOC does not remove article content from prerendered HTML.
+
+The TOC links must be present in the prerendered output.
+
+Regression and testing
+
+Run:
+
+TypeScript check;
+prototype build;
+production build;
+SEO validation;
+social validation;
+route-sync validation;
+smoke tests;
+static HTML inspection;
+keyboard test;
+responsive screenshots;
+no-overflow test;
+article anchor-link test;
+compatibility-link audit;
+existing-page regression checks.
+
+Verify:
+
+article copy unchanged except the approved compatibility wording;
+all existing H2 anchors remain valid;
+grouped TOC uses only the approved major sections;
+no alternating left-to-right number order;
+mobile TOC uses native details/summary;
+/compatibility and /compatibility/media are no longer promoted by the article or Blog;
+Documentation and GitHub links work;
+homepage unchanged;
+header unchanged;
+footer unchanged;
+Learn remains disabled;
+no dependency changes;
+no lockfile changes;
+no deployment.
+Required final report
+
+Return:
+
+Executive summary
+Previous TOC problems
+New TOC architecture
+Current article grouping
+Mobile behaviour
+Accessibility results
+Compatibility references removed
+Compatibility references retained
+Replacement destinations
+Files changed
+SEO verification
+Responsive results
+Test results
+Regression review
+Performance comparison
+Rollback instructions
+Recommendation for future article TOC modes
+
+Do not publish or deploy.
+
+Finish by confirming the article UX refinement is ready for visual review.
+
+
+## My recommended final appearance
+
+The current box is visually too large for the value it provides. The improved version should probably occupy around **40–55% less vertical space**.
+
+I would also avoid numbering every link. Number only the five chapter groups. The nested links can be unnumbered. That gives
