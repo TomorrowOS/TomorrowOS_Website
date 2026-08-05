@@ -1,0 +1,337 @@
+# TomorrowOS Journal Homepage — Safe `/blog` to `/journal` Migration and Editorial Redesign
+
+You are working inside the existing production TomorrowOS website repository.
+
+The current editorial index was previously built at:
+
+`/blog`
+
+The public editorial destination must now become:
+
+`/journal`
+
+The navigation label must become:
+
+`Journal`
+
+Existing long-form article routes remain at their current root-level URLs, including:
+
+- `/build-a-digital-signage-cms`
+- `/how-to-start-a-dooh-network`
+- `/modern-digital-signage-architecture`
+- `/build-vs-buy-digital-signage-cms`
+
+Your task is to:
+
+1. Safely migrate the public editorial index from `/blog` to `/journal`.
+2. Preserve any SEO value, inbound links and historical `/blog` traffic.
+3. Redesign the Journal homepage so it feels simple, clear and editorial.
+4. Remove internal content-marketing terminology from the public interface.
+5. Preserve all existing article content, URLs, metadata and structured data.
+
+Do not publish or deploy anything.
+
+---
+
+# Primary objective
+
+Create a clean TomorrowOS Journal homepage at:
+
+`/journal`
+
+It should feel like:
+
+- a human-led technical publication;
+- a restrained engineering journal;
+- a clear collection of practical articles;
+- a publication written by experienced people rather than a marketing department.
+
+It should not feel like:
+
+- a SaaS marketing blog;
+- a content-marketing dashboard;
+- a card-heavy news site;
+- an article archive;
+- a documentation index;
+- a literal Word interface.
+
+The design should use typography, spacing and clear article information to help readers quickly decide what to read.
+
+---
+
+# Critical safety rules
+
+Do not:
+
+- change existing root-level article URLs;
+- rewrite any article copy;
+- alter article claims;
+- modify the homepage;
+- modify About;
+- modify current guides;
+- modify compatibility routes;
+- expose Learn;
+- change `VITE_ENABLE_LEARN`;
+- add dependencies;
+- add new fonts;
+- add MDX or a CMS;
+- add runtime content fetching;
+- change canonical article URLs;
+- remove Article or FAQ structured data;
+- change article indexability without explicit need;
+- modify deployment configuration;
+- modify the lockfile;
+- publish or deploy.
+
+Create a reversible checkpoint before changing code.
+
+---
+
+# Phase 1 — Audit the current state
+
+Before implementation, inspect:
+
+- current `/blog` route;
+- current Blog navigation item;
+- Blog active-state logic;
+- Blog footer link;
+- Blog SEO metadata;
+- Blog canonical;
+- Blog sitemap entry;
+- Blog prerender entry;
+- smoke coverage;
+- route-sync validation;
+- mirror-host rules;
+- internal links to `/blog`;
+- article breadcrumbs;
+- article data source;
+- Article-related components;
+- structured data;
+- any hardcoded references to “Blog”;
+- any hardcoded references to:
+  - Featured
+  - Archive
+  - Cornerstone Guide
+  - Blog Article
+  - Blog Index.
+
+Return a concise internal audit before changing code.
+
+---
+
+# Public route migration
+
+The new public editorial index is:
+
+`/journal`
+
+The old route:
+
+`/blog`
+
+must permanently redirect to:
+
+`/journal`
+
+Use a true permanent redirect where supported by the current hosting setup.
+
+Preferred status:
+
+`301`
+
+or the platform-equivalent permanent redirect.
+
+Do not leave `/blog` rendering duplicate content.
+
+Do not keep both routes indexable.
+
+Do not create two canonicals.
+
+Required behaviour:
+
+- `/journal` serves the Journal homepage.
+- `/blog` permanently redirects to `/journal`.
+- `/journal` canonical is:
+  `https://tomorrowos.org/journal`
+- `/blog` must not remain in the sitemap.
+- `/journal` must be in the sitemap if currently approved for indexing.
+- `/blog` should not emit duplicate prerendered editorial HTML.
+- `/blog/*` should not be redirected blindly unless a matching historical route actually existed.
+- Unknown paths must continue to resolve to the existing NotFound behaviour.
+
+Update redirect configuration consistently across all supported hosts.
+
+---
+
+# Navigation and footer
+
+Change the public navigation label from:
+
+`Blog`
+
+to:
+
+`Journal`
+
+Change the navigation destination from:
+
+`/blog`
+
+to:
+
+`/journal`
+
+Recommended navigation order:
+
+- Home
+- About
+- Journal
+- Docs
+
+Preserve existing GitHub and Start Building actions.
+
+Update active-state behaviour so Journal is active for:
+
+- `/journal`
+- all current root-level article routes:
+  - `/build-a-digital-signage-cms`
+  - `/how-to-start-a-dooh-network`
+  - `/modern-digital-signage-architecture`
+  - `/build-vs-buy-digital-signage-cms`
+- future registered editorial article routes.
+
+Do not infer editorial routes from arbitrary root paths.
+
+Use one explicit typed source or helper for Journal article routes.
+
+Update the footer link from Blog to Journal.
+
+Do not change footer layout.
+
+---
+
+# Breadcrumbs
+
+Update editorial breadcrumbs.
+
+Journal homepage:
+
+- Home
+- Journal
+
+Article pages:
+
+- Home
+- Journal
+- Article title
+
+The Journal breadcrumb must link to:
+
+`/journal`
+
+Update visible breadcrumbs and BreadcrumbList structured data.
+
+Do not change article canonicals.
+
+---
+
+# Public terminology
+
+Remove these public-facing terms from the Journal homepage:
+
+- Featured
+- Archive
+- Cornerstone Guide
+- Pillar
+- Evergreen
+- Issue number
+- Article identifier
+- TOS Journal number
+- Content type badges
+
+These terms may remain internally in code or data if they are useful and do not leak into the public interface.
+
+Do not perform a large internal refactor solely to rename `BlogArticle`, `BlogIndex` or `blogArticles.ts`.
+
+Public-facing correctness is the priority.
+
+---
+
+# Journal homepage identity
+
+Create the page at:
+
+`/journal`
+
+H1:
+
+`TomorrowOS Journal`
+
+Supporting copy:
+
+`Practical engineering guides, architecture notes and implementation insights for teams building modern digital signage software.`
+
+Optional supporting metadata line:
+
+`4 articles · Updated August 2026`
+
+Requirements:
+
+- derive the article count from published article data;
+- derive the newest date from actual published or updated article data;
+- do not hardcode “4 articles”;
+- do not show “Updated” if no reliable date exists;
+- do not make the metadata line visually dominant.
+
+Do not add a hero image.
+
+Do not add a newsletter signup.
+
+Do not add a decorative banner.
+
+---
+
+# Featured article treatment
+
+The article data model may still support `featured: true` internally.
+
+Do not display the word:
+
+`Featured`
+
+The larger editorial layout should communicate prominence by itself.
+
+The featured article should display only:
+
+- category;
+- title;
+- description;
+- author;
+- publication date;
+- reading time;
+- `Read article →`.
+
+Do not display:
+
+- Cornerstone Guide;
+- Featured;
+- document type;
+- version;
+- issue number;
+- status.
+
+Recommended hierarchy:
+
+```text
+BUILDING DIGITAL SIGNAGE
+
+How to Build a Digital Signage CMS
+
+Learn how to build a reliable digital signage CMS, including architecture,
+device pairing, content delivery, offline playback, telemetry and
+multi-platform runtimes.
+
+By Dylan Holtzhausen
+3 August 2026 · 21 min read
+
+Read article →
