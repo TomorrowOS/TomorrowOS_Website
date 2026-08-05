@@ -168,8 +168,6 @@ export default function HowToStartADoohNetwork() {
           { label: 'Published', value: formatDate(DOOH_ARTICLE.datePublished) },
           { label: 'Last reviewed', value: formatDate(DOOH_ARTICLE.dateModified) },
           { label: 'Reading time', value: `${DOOH_ARTICLE.readingTimeMinutes} minutes` },
-          { label: 'Category', value: 'DOOH and Retail Media' },
-          { label: 'Document type', value: record?.documentType ?? 'Cornerstone Guide' },
         ]}
         canonicalUrl={absoluteUrl(DOOH_ARTICLE.path)}
         tocGroups={TOC_GROUPS}

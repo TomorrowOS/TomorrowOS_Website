@@ -170,8 +170,6 @@ export default function BuildDigitalSignageCms() {
           { label: 'Published', value: formatDate(CMS_ARTICLE.datePublished) },
           { label: 'Last reviewed', value: formatDate(CMS_ARTICLE.dateModified) },
           { label: 'Reading time', value: `${CMS_ARTICLE.readingTimeMinutes} minutes` },
-          { label: 'Category', value: 'Building Digital Signage' },
-          { label: 'Document type', value: record?.documentType ?? 'Cornerstone Guide' },
         ]}
         canonicalUrl={canonical}
         tocGroups={TOC_GROUPS}

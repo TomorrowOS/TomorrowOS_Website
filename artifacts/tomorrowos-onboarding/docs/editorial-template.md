@@ -40,9 +40,10 @@ No CTAs above the article. No hero images.
 
 - **`EditorialDocumentMeta`** — the signature document-control table; the
   ONLY place colour appears (charcoal label cells, pale blue-grey values,
-  steel accent strip). Rows: Document owner / Published / Last reviewed /
-  Reading time, then Category / Document type. Never invent Status or
-  Version values.
+  steel accent strip). Exactly one row: Document owner / Published /
+  Last reviewed / Reading time. Do NOT add a Category / Document type row —
+  it was removed by editorial decision (2026-08-05) and must not return in
+  future articles. Never invent Status or Version values.
 - **`EditorialReferences` + `RefMark`** — numbered source list with optional
   inline `[n]` markers and back-links. Use for any article citing external
   sources. Listing a source does not imply endorsement.
