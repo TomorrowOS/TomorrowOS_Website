@@ -176,6 +176,16 @@ export const seoRoutes: Record<string, RouteSeo> = {
     ogDescription:
       'A practical guide to the technology, commercial model and operations required to build a digital out-of-home advertising network.',
   },
+  '/modern-digital-signage-architecture': {
+    title: 'Modern Digital Signage Architecture Explained',
+    description:
+      'Understand how modern digital signage systems connect the CMS, APIs, content delivery, player runtime, offline storage, telemetry and screen platforms.',
+    canonicalPath: '/modern-digital-signage-architecture',
+    indexable: true,
+    ogTitle: 'Modern Digital Signage Architecture Explained',
+    ogDescription:
+      'A practical guide to the product, server, content, runtime and platform layers behind reliable digital signage software.',
+  },
   // ---- Learn section (Phase A) ------------------------------------------
   // Feature-gated behind VITE_ENABLE_LEARN (default off in production).
   // Entries stay here as preserved metadata drafts; they are all

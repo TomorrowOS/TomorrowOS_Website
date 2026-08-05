@@ -11,6 +11,7 @@ import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
 // structured data can never drift from the visible content.
 import { CMS_ARTICLE, CMS_ARTICLE_FAQ, BLOG_AUTHOR } from './src/lib/cmsArticleMeta';
 import { DOOH_ARTICLE, DOOH_ARTICLE_FAQ } from './src/lib/doohArticleMeta';
+import { ARCH_ARTICLE, ARCH_ARTICLE_FAQ } from './src/lib/archArticleMeta';
 
 // Replit always injects PORT/BASE_PATH via artifact.toml.
 // Local defaults keep `pnpm run dev:web` working in VS Code without env setup.
@@ -212,6 +213,16 @@ function prerenderPlugin() {
       ogTitle: DOOH_ARTICLE.ogTitle,
       ogDescription: DOOH_ARTICLE.ogDescription,
     },
+    // Cornerstone article #3 — same literal-key rule as above; metadata
+    // sourced from src/lib/archArticleMeta.ts.
+    '/modern-digital-signage-architecture': {
+      rawTitle: ARCH_ARTICLE.headline,
+      description: ARCH_ARTICLE.description,
+      canonicalPath: ARCH_ARTICLE.path,
+      indexable: true,
+      ogTitle: ARCH_ARTICLE.ogTitle,
+      ogDescription: ARCH_ARTICLE.ogDescription,
+    },
     // Learn section — feature-gated behind VITE_ENABLE_LEARN. Entries are
     // preserved metadata drafts; the prerender loop skips them when the flag
     // is off, so no /learn HTML is emitted in a disabled build.
@@ -310,6 +321,11 @@ function prerenderPlugin() {
       `[prerender] cornerstone route key mismatch: routes table has no entry for CMS_ARTICLE.path "${CMS_ARTICLE.path}" — keep the literal key in sync with src/lib/cmsArticleMeta.ts`,
     );
   }
+  if (!routes[ARCH_ARTICLE.path]) {
+    throw new Error(
+      `[prerender] cornerstone route key mismatch: routes table has no entry for ARCH_ARTICLE.path "${ARCH_ARTICLE.path}" — keep the literal key in sync with src/lib/archArticleMeta.ts`,
+    );
+  }
   if (!routes[DOOH_ARTICLE.path]) {
     throw new Error(
       `[prerender] cornerstone route key mismatch: routes table has no entry for DOOH_ARTICLE.path "${DOOH_ARTICLE.path}" — keep the literal key in sync with src/lib/doohArticleMeta.ts`,
@@ -340,12 +356,27 @@ function prerenderPlugin() {
     // Cornerstone articles: TechArticle + BreadcrumbList (Home → Blog → title)
     // + FAQPage, all sourced from the shared per-article meta modules so the
     // structured data always matches the visible page content.
+    // Per-article author schemas: the CMS and DOOH guides carry a personal
+    // byline; the architecture guide is authored by the organisation (per
+    // its approved editorial source package).
+    const personAuthor = {
+      '@type': 'Person',
+      name: BLOG_AUTHOR.name,
+      jobTitle: BLOG_AUTHOR.role,
+      sameAs: [BLOG_AUTHOR.linkedin, BLOG_AUTHOR.github],
+    };
     const cornerstone =
       routePath === CMS_ARTICLE.path
-        ? { meta: CMS_ARTICLE, faq: CMS_ARTICLE_FAQ }
+        ? { meta: CMS_ARTICLE, faq: CMS_ARTICLE_FAQ, author: personAuthor }
         : routePath === DOOH_ARTICLE.path
-          ? { meta: DOOH_ARTICLE, faq: DOOH_ARTICLE_FAQ }
-          : null;
+          ? { meta: DOOH_ARTICLE, faq: DOOH_ARTICLE_FAQ, author: personAuthor }
+          : routePath === ARCH_ARTICLE.path
+            ? {
+                meta: ARCH_ARTICLE,
+                faq: ARCH_ARTICLE_FAQ,
+                author: { '@type': 'Organization', name: ARCH_ARTICLE.authorName, url: `${SITE_URL}/` },
+              }
+            : null;
     if (cornerstone) {
       const { meta, faq } = cornerstone;
       const canonicalUrl = `${SITE_URL}${route.canonicalPath}`;
@@ -358,12 +389,7 @@ function prerenderPlugin() {
         mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
         datePublished: meta.datePublished,
         dateModified: meta.dateModified,
-        author: {
-          '@type': 'Person',
-          name: BLOG_AUTHOR.name,
-          jobTitle: BLOG_AUTHOR.role,
-          sameAs: [BLOG_AUTHOR.linkedin, BLOG_AUTHOR.github],
-        },
+        author: cornerstone.author,
         publisher: { '@type': 'Organization', name: 'TomorrowOS', url: `${SITE_URL}/` },
       });
       schemas.push({

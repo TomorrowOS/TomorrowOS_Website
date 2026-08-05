@@ -97,6 +97,22 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     layoutMode: 'document-with-rail',
     tocMode: 'rail',
   },
+  {
+    slug: 'modern-digital-signage-architecture',
+    href: '/modern-digital-signage-architecture',
+    title: 'Modern Digital Signage Architecture Explained',
+    description:
+      'Understand how modern digital signage systems connect the CMS, APIs, content delivery, player runtime, offline storage, telemetry and screen platforms.',
+    category: 'Architecture',
+    publishedAt: '2026-08-05',
+    reviewedAt: '2026-08-05',
+    readingTimeMinutes: 16,
+    author: 'TomorrowOS',
+    documentType: 'Cornerstone Guide',
+    indexable: true,
+    layoutMode: 'document-with-rail',
+    tocMode: 'rail',
+  },
 ];
 
 export const FEATURED_ARTICLE: BlogArticle | undefined = BLOG_ARTICLES.find(

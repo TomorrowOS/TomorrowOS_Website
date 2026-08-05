@@ -32,6 +32,7 @@ const routes = [
   '/cookie-policy', '/cookie-settings', '/quickstart',
   '/build-a-digital-signage-cms',
   '/how-to-start-a-dooh-network',
+  '/modern-digital-signage-architecture',
   // Learn section — feature-gated (skipped below unless VITE_ENABLE_LEARN=true);
   // must always be noindex in either state.
   '/learn',
@@ -60,6 +61,7 @@ const indexableRoutes = new Set([
   '/guides/vercel-blob', '/guides/content', '/guides/platforms',
   '/guides/platforms/samsung-tizen', '/compatibility/media',
   '/journal', '/build-a-digital-signage-cms', '/how-to-start-a-dooh-network',
+  '/modern-digital-signage-architecture',
 ]);
 
 const staticFiles = ['/robots.txt', '/favicon.svg', '/og/tomorrowos-social-v1.png'];
