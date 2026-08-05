@@ -4,7 +4,8 @@ import { usePageSeo } from '@/hooks/use-page-seo';
 import { JsonLd } from '@/components/JsonLd';
 import { absoluteUrl } from '@/lib/seoConfig';
 import { siteConfig } from '@/config/site';
-import { CMS_ARTICLE, CMS_ARTICLE_FAQ } from '@/lib/cmsArticleMeta';
+import { CMS_ARTICLE, CMS_ARTICLE_FAQ, BLOG_AUTHOR } from '@/lib/cmsArticleMeta';
+import { ArticleAuthorBox } from '@/components/blog/ArticleAuthorBox';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -132,7 +133,12 @@ export default function BuildDigitalSignageCms() {
           mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
           datePublished: CMS_ARTICLE.datePublished,
           dateModified: CMS_ARTICLE.dateModified,
-          author: { '@type': 'Organization', name: 'TomorrowOS', url: absoluteUrl('/') },
+          author: {
+            '@type': 'Person',
+            name: BLOG_AUTHOR.name,
+            jobTitle: BLOG_AUTHOR.role,
+            sameAs: [BLOG_AUTHOR.linkedin, BLOG_AUTHOR.github],
+          },
           publisher: { '@type': 'Organization', name: 'TomorrowOS', url: absoluteUrl('/') },
         }}
       />
@@ -201,32 +207,25 @@ export default function BuildDigitalSignageCms() {
             delivery, offline playback and multi-platform runtimes.
           </p>
           {/* 4. Article metadata */}
-          <dl className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm text-muted-foreground">
-            <div className="flex gap-1.5">
-              <dt className="font-medium text-foreground">By</dt>
-              <dd>{CMS_ARTICLE.author}</dd>
-            </div>
-            <div className="flex gap-1.5">
-              <dt className="font-medium text-foreground">Published</dt>
-              <dd>
-                <time dateTime={CMS_ARTICLE.datePublished}>
-                  {formatDate(CMS_ARTICLE.datePublished)}
-                </time>
-              </dd>
-            </div>
-            <div className="flex gap-1.5">
-              <dt className="font-medium text-foreground">Last technically reviewed</dt>
-              <dd>
-                <time dateTime={CMS_ARTICLE.dateModified}>
-                  {formatDate(CMS_ARTICLE.dateModified)}
-                </time>
-              </dd>
-            </div>
-            <div className="flex gap-1.5">
-              <dt className="sr-only">Reading time</dt>
-              <dd>{CMS_ARTICLE.readingTimeMinutes} min read</dd>
-            </div>
-          </dl>
+          <div className="flex flex-col gap-1 text-sm text-muted-foreground">
+            <p>
+              <span className="font-medium text-foreground">By {CMS_ARTICLE.author}</span>
+              {' · '}
+              {CMS_ARTICLE.authorRole}
+            </p>
+            <p>
+              {CMS_ARTICLE.readingTimeMinutes} min read{' · '}
+              <time dateTime={CMS_ARTICLE.datePublished}>
+                {formatDate(CMS_ARTICLE.datePublished)}
+              </time>
+            </p>
+            <p>
+              Last technically reviewed{' '}
+              <time dateTime={CMS_ARTICLE.dateModified}>
+                {formatDate(CMS_ARTICLE.dateModified)}
+              </time>
+            </p>
+          </div>
         </header>
 
         {/* 3. Direct introductory answer */}
@@ -346,6 +345,9 @@ export default function BuildDigitalSignageCms() {
             ))}
           </ul>
         </section>
+
+        {/* Author box */}
+        <ArticleAuthorBox />
 
         {/* 9. Closing CTA */}
         <section aria-labelledby="closing-cta" className="flex flex-col gap-4">

@@ -24,7 +24,20 @@ export const CMS_ARTICLE = {
   /** Last technical review date — shown in the hero and emitted as schema dateModified. */
   dateModified: '2026-08-05',
   readingTimeMinutes: 21,
-  author: 'TomorrowOS',
+  author: 'Dylan Holtzhausen',
+  authorRole: 'Co-founder, TomorrowOS',
+} as const;
+
+/**
+ * Blog author profile — shared by the visible byline/author box and the
+ * Person JSON-LD emitted for articles. Keep dependency-free (see note above).
+ */
+export const BLOG_AUTHOR = {
+  name: 'Dylan Holtzhausen',
+  role: 'Co-founder, TomorrowOS',
+  bio: 'Co-founder of Amped Digital, Menuzen, TomorrowOS and SL-X. Helping shape the future of digital signage for all. Based in Australia, Perth.',
+  linkedin: 'https://www.linkedin.com/in/dylan-holtzhausen/',
+  github: 'https://github.com/itsme-nobody',
 } as const;
 
 /**

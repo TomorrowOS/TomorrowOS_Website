@@ -59,7 +59,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     category: 'Building Digital Signage',
     publishedAt: '2026-08-03',
     readingTimeMinutes: 21,
-    author: 'TomorrowOS',
+    author: 'Dylan Holtzhausen',
     featured: true,
     indexable: true,
   },

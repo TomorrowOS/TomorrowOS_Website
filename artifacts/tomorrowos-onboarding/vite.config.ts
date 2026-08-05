@@ -9,7 +9,7 @@ import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
 // Shared article metadata + FAQ source of truth for the cornerstone article.
 // Imported by BOTH this prerender plugin and the article page so the
 // structured data can never drift from the visible content.
-import { CMS_ARTICLE, CMS_ARTICLE_FAQ } from './src/lib/cmsArticleMeta';
+import { CMS_ARTICLE, CMS_ARTICLE_FAQ, BLOG_AUTHOR } from './src/lib/cmsArticleMeta';
 
 // Replit always injects PORT/BASE_PATH via artifact.toml.
 // Local defaults keep `pnpm run dev:web` working in VS Code without env setup.
@@ -335,7 +335,12 @@ function prerenderPlugin() {
         mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
         datePublished: CMS_ARTICLE.datePublished,
         dateModified: CMS_ARTICLE.dateModified,
-        author: { '@type': 'Organization', name: 'TomorrowOS', url: `${SITE_URL}/` },
+        author: {
+          '@type': 'Person',
+          name: BLOG_AUTHOR.name,
+          jobTitle: BLOG_AUTHOR.role,
+          sameAs: [BLOG_AUTHOR.linkedin, BLOG_AUTHOR.github],
+        },
         publisher: { '@type': 'Organization', name: 'TomorrowOS', url: `${SITE_URL}/` },
       });
       schemas.push({
