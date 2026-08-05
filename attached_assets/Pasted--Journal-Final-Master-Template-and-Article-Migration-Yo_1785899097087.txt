@@ -1,0 +1,993 @@
+ Journal — Final Master Template and Article Migration
+
+You are working inside the existing production TomorrowOS website repository.
+
+The website currently includes:
+
+- `/blog`
+- `/build-a-digital-signage-cms`
+- a completed DOOH editorial package for:
+  `/how-to-start-a-dooh-network`
+- reusable Blog/article components
+- Learn preserved behind `VITE_ENABLE_LEARN`
+
+Your task is to create one safe, reusable TomorrowOS editorial template for all current and future articles, then apply it to:
+
+1. `/build-a-digital-signage-cms`
+2. `/how-to-start-a-dooh-network`
+
+Use the supplied DOOH Word document as the editorial and factual source of truth for the second article.
+
+Do not rewrite or shorten either article.
+
+Do not publish or deploy.
+
+---
+
+# Design objective
+
+The TomorrowOS Blog should feel like a serious engineering publication.
+
+The visual direction should combine:
+
+- an old-school technical journal;
+- a carefully typeset Word document;
+- a readable RFC;
+- an academic paper;
+- modern developer documentation;
+- the existing TomorrowOS monochrome brand.
+
+The experience must remain recognisably TomorrowOS.
+
+It should not feel like:
+
+- a generic SaaS blog;
+- a colourful marketing landing page;
+- a dashboard;
+- a literal Microsoft Word clone;
+- a magazine;
+- a card-heavy article template.
+
+The content, typography and evidence should lead the design.
+
+---
+
+# Critical safety rules
+
+Do not:
+
+- redesign the homepage;
+- redesign About;
+- change the header structure;
+- change global navigation behaviour;
+- modify existing guides;
+- modify compatibility routes;
+- expose Learn;
+- change `VITE_ENABLE_LEARN`;
+- rewrite editorial content;
+- alter article claims;
+- change canonical URLs;
+- change indexability without explicit approval;
+- remove structured data;
+- add dependencies;
+- add a new font package;
+- modify the lockfile;
+- add MDX;
+- add a CMS;
+- add runtime content fetching;
+- introduce a different template for each article;
+- publish or deploy.
+
+Create a reversible branch, tag or checkpoint before beginning.
+
+---
+
+# Implementation phases
+
+## Phase 1 — Audit
+
+Inspect the current:
+
+- Blog index;
+- CMS article;
+- article components;
+- typography;
+- metadata;
+- table of contents;
+- diagrams;
+- tables;
+- callouts;
+- FAQs;
+- references;
+- related resources;
+- responsive behaviour;
+- print behaviour;
+- design tokens;
+- lazy loading;
+- SEO implementation.
+
+Provide a concise internal audit before changing code.
+
+## Phase 2 — Shared editorial template
+
+Build or refine one reusable system for all articles.
+
+## Phase 3 — CMS article migration
+
+Apply the template to:
+
+`/build-a-digital-signage-cms`
+
+Preserve all wording, anchors, metadata, schema and links.
+
+## Phase 4 — DOOH article implementation
+
+Create or migrate:
+
+`/how-to-start-a-dooh-network`
+
+Use the supplied DOOH Word document exactly as the editorial source.
+
+## Phase 5 — Blog index
+
+Update `/blog` to use the same journal/archive design.
+
+## Phase 6 — Documentation
+
+Document how future articles use the shared system.
+
+---
+
+# Core article layout
+
+Support two explicit layouts:
+
+```ts
+type EditorialLayoutMode =
+  | "document"
+  | "document-with-rail";
+
+Use:
+
+CMS article: document-with-rail
+DOOH article: document-with-rail
+shorter future articles: document
+
+The long-form layout should contain:
+
+Site header
+Breadcrumbs
+Category label
+H1
+Article subtitle
+Document metadata panel
+Opening answer
+Article navigation
+Main content
+References
+FAQ
+Related reading
+Restrained closing CTA
+Site footer
+Unique document metadata panel
+
+Create a reusable component named according to existing conventions, conceptually:
+
+<EditorialDocumentMeta />
+
+This should become a distinctive TomorrowOS editorial signature.
+
+It should resemble a compact document-control table from a formal Word report, engineering specification or tender document.
+
+It must not look like a dashboard card.
+
+Desktop structure
+
+Render a four-column table directly beneath the article subtitle:
+
+| DOCUMENT OWNER | PUBLISHED | LAST REVIEWED | READING TIME |
+| TomorrowOS | 5 August 2026 | 5 August 2026 | 20 minutes |
+
+Optional second row:
+
+| CATEGORY | DOCUMENT TYPE | STATUS | VERSION |
+| DOOH and Retail Media | Cornerstone Guide | Current | 1.0 |
+
+Only show the second row where the data is meaningful.
+
+Do not invent version numbers or reviewed dates.
+
+Visual direction
+
+Use a restrained colour system:
+
+outer border: existing neutral border token;
+label row: deep charcoal or near-black;
+label text: white or off-white;
+value cells: very pale blue-grey or existing cool-neutral token;
+alternating value cells may use white and pale blue-grey;
+one narrow vertical editorial accent strip may use a muted steel-blue or blue-grey;
+no bright blue;
+no gradients;
+no shadows;
+square or very small-radius corners;
+thin document-style rules;
+compact, precise spacing.
+
+The table should be punchy because of contrast and structure, not loud colour.
+
+Suggested editorial accent:
+
+a muted blue-grey close to #DCE5EC for cell backgrounds;
+a darker steel tone close to #526473 only if compatible with existing tokens;
+otherwise use current TomorrowOS neutral tokens.
+
+Do not introduce new colours globally.
+
+Scope colours to the editorial component.
+
+Typography
+
+Labels:
+
+uppercase;
+small size;
+slightly increased letter spacing;
+semibold;
+white on charcoal.
+
+Values:
+
+normal case;
+strong but not oversized;
+clear date formatting;
+no decorative icons required.
+
+Optional small document identifier:
+
+TOS-JOURNAL-002
+
+Only add this if the project team approves document IDs.
+
+Do not generate IDs automatically during this task.
+
+Mobile behaviour
+
+At mobile widths, transform the table into a two-column document grid:
+
+DOCUMENT OWNER     TomorrowOS
+PUBLISHED          5 August 2026
+LAST REVIEWED      5 August 2026
+READING TIME       20 minutes
+CATEGORY           DOOH and Retail Media
+
+Requirements:
+
+preserve label/value relationships;
+no horizontal scrolling;
+no tiny text;
+no overflow;
+no stacked dashboard cards;
+use shared borders so it still feels like one document table.
+Accessibility
+
+Use semantic markup:
+
+<dl> is acceptable if visually table-like;
+or a semantic <table> with accessible headers;
+labels and values must be clearly associated;
+colour must not be the only distinction;
+contrast must pass;
+screen readers must read the data in a logical order.
+Print behaviour
+
+The metadata panel must print cleanly in black and white.
+
+When printing:
+
+charcoal becomes black;
+pale backgrounds become white or light grey;
+borders remain visible;
+text remains legible;
+the panel should not split across pages.
+Article header
+
+The complete header order should be:
+
+Breadcrumbs
+
+CATEGORY
+
+H1
+
+Subtitle / deck
+
+Document metadata panel
+
+Opening answer / lead
+
+Do not place CTA buttons above the article.
+
+Do not add a hero image.
+
+The page title should feel like the cover page of a technical report.
+
+Typography
+
+Use the existing TomorrowOS font stack.
+
+Do not add a new font dependency.
+
+Use a safe system monospace stack for architecture and technical flows:
+
+ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+
+Recommended hierarchy:
+
+H1: large, editorial, controlled line length;
+H2: strong document section heading;
+H3: clearly subordinate;
+body: comfortable 65–80 character line length;
+labels: small uppercase;
+diagrams: monospace;
+references: compact but readable.
+
+Suggested prose width:
+
+700–780px;
+diagrams and tables may expand to 960–1080px.
+Section numbering
+
+Support optional numbered major sections.
+
+Example:
+
+01
+What is a DOOH network?
+
+or:
+
+01  What is a DOOH network?
+
+Choose one consistent presentation after visual testing.
+
+Requirements:
+
+number only major H2 sections;
+do not number every H3;
+numbers are decorative to screen readers where appropriate;
+preserve section anchor IDs;
+use restrained document rules;
+avoid oversized typography.
+Article navigation
+
+Support:
+
+type EditorialTocMode =
+  | "none"
+  | "compact"
+  | "grouped"
+  | "rail";
+
+Use rail for both current cornerstone articles.
+
+The rail should contain:
+
+In this guide;
+grouped high-level sections;
+only major links;
+references;
+optional related reading.
+
+Do not list every heading.
+
+Desktop:
+
+rail width approximately 260–300px;
+sticky only on sufficiently large screens;
+stop before footer;
+no heavy box;
+use document rules and spacing.
+
+Mobile:
+
+remove rail;
+use native <details>/<summary>;
+collapsed by default;
+label: In this guide;
+no sticky overlay.
+Tables
+
+Create one shared editorial table system.
+
+Visual rules:
+
+no rounded card shell;
+no shadow;
+no coloured dashboard header;
+thin rules;
+subtle blue-grey header or label cells where useful;
+readable spacing;
+strong row labels;
+semantic captions;
+<th scope>;
+wider than prose when needed.
+
+The metadata table may use stronger contrast than body tables.
+
+Body comparison tables should remain mostly monochrome.
+
+Mobile:
+
+transform to accessible stacked records;
+or use a contained scroll area with a clear affordance;
+no page-level overflow;
+do not reduce font size below comfortable reading levels.
+Diagrams
+
+Create one shared diagram language.
+
+Simple flows
+
+Use monospace vertical sequences:
+
+Advertiser books campaign
+          ↓
+Creative approved
+          ↓
+Content delivered
+          ↓
+Playback recorded
+          ↓
+Report reconciled
+Complex architecture
+
+Use semantic HTML/CSS or inline SVG.
+
+Visual rules:
+
+black and grey;
+simple borders;
+no gradients;
+no shadows;
+no bright colour coding;
+clear captions;
+accessible descriptions;
+responsive structure.
+Callouts
+
+Create a restrained document-note component.
+
+Supported labels:
+
+Key distinction
+Engineering note
+Important
+Practical guidance
+Current product truth
+Measurement rule
+
+Visual treatment:
+
+thin left rule;
+small uppercase label;
+short body;
+optional pale blue-grey background;
+minimal radius;
+no icons required;
+no bright alert colours.
+
+Example:
+
+KEY DISTINCTION
+
+A signage CMS answers what a screen should play.
+A DOOH platform must also manage inventory, campaigns and delivery evidence.
+References and citations
+
+Create reusable:
+
+<EditorialReferences />
+
+Support inline reference markers:
+
+DOOH revenue reached $9.46 billion in 2025.[1]
+
+Each reference should support:
+
+interface EditorialReference {
+  id: string;
+  title: string;
+  publisher?: string;
+  href: string;
+  note?: string;
+  accessedAt?: string;
+}
+
+Requirements:
+
+reference marker links to source entry;
+source entry may link back to citation;
+accessible IDs;
+keyboard friendly;
+external-link treatment;
+no implication of endorsement.
+
+For the DOOH article, preserve the source notes provided in the Word document, including OAAA, IAB, IAB Tech Lab and World Out of Home sources.
+
+Convert the existing “Primary source notes” into the standard References component.
+
+Blog index
+
+Redesign /blog as a restrained journal archive.
+
+Internal page identity may read:
+
+TomorrowOS Journal
+
+Keep the navigation label and URL as:
+
+Blog
+/blog
+
+Structure:
+
+Journal heading
+Short editorial statement
+Featured article
+Article archive
+Categories only where populated
+
+Avoid a colourful card grid.
+
+Use text-led editorial records:
+
+DOOH AND RETAIL MEDIA
+
+How to Start a DOOH Network
+A practical guide to the technology, commercial model and operations...
+5 August 2026                                      20 min read
+
+────────────────────────────────────────────────────────────
+
+BUILDING DIGITAL SIGNAGE
+
+How to Build a Digital Signage CMS
+A practical architecture guide...
+3 August 2026                                      21 min read
+
+Each record may use a subtle pale blue-grey hover background.
+
+No heavy cards.
+
+Existing CMS article
+
+Apply the shared template to:
+
+/build-a-digital-signage-cms
+
+Preserve:
+
+all wording;
+canonical URL;
+metadata;
+publication date;
+reading time;
+anchors;
+Article schema;
+FAQ schema;
+indexability;
+sitemap presence;
+references;
+internal links.
+
+Add the document metadata panel using its real article data.
+
+Do not invent a reviewed date.
+
+Use:
+
+owner: TomorrowOS;
+category: Building Digital Signage;
+document type: Cornerstone Guide;
+publication date from current source;
+reading time from current article record;
+updated/reviewed only if currently recorded.
+DOOH article implementation
+
+Implement:
+
+/how-to-start-a-dooh-network
+
+Use the attached DOOH Word document as the editorial source of truth.
+
+The article must include:
+
+category: DOOH and Retail Media;
+H1: How to Start a DOOH Network;
+subtitle from the supplied article;
+document metadata panel;
+direct answer;
+numbered sections;
+grouped article navigation;
+DOOH/digital signage/retail media comparison;
+business-model sections;
+technology-stack diagram;
+campaign and ad-serving logic;
+inventory;
+proof of play;
+audience measurement;
+direct versus programmatic comparison;
+hardware and connectivity;
+creative operations;
+operations;
+legal/privacy section;
+build/buy/assemble table;
+TomorrowOS boundary section;
+launch roadmap;
+checklist;
+FAQs;
+references;
+related reading;
+closing CTA.
+
+Do not shorten or paraphrase the supplied article.
+
+Do not create links to unfinished routes.
+
+Use only verified live destinations:
+
+/blog
+/build-a-digital-signage-cms
+/start
+current TomorrowOS documentation
+current TomorrowOS GitHub resources
+
+Do not promote incomplete compatibility pages.
+
+DOOH document metadata panel
+
+For the DOOH article, render:
+
+DOCUMENT OWNER     TomorrowOS
+PUBLISHED          [real publication date]
+LAST REVIEWED      [only if real]
+READING TIME       [calculated final time]
+CATEGORY           DOOH and Retail Media
+DOCUMENT TYPE      Cornerstone Guide
+STATUS             Current
+
+Do not add STATUS: Current unless the editorial data model supports and maintains it.
+
+If status maintenance is not established, omit the status field.
+
+Do not invent version 1.0 unless approved.
+
+Article data model
+
+Extend the typed article model only as needed:
+
+type EditorialLayoutMode =
+  | "document"
+  | "document-with-rail";
+
+type EditorialTocMode =
+  | "none"
+  | "compact"
+  | "grouped"
+  | "rail";
+
+interface BlogArticle {
+  slug: string;
+  href: string;
+  title: string;
+  description: string;
+  category: BlogCategory;
+  publishedAt: string;
+  updatedAt?: string;
+  reviewedAt?: string;
+  readingTimeMinutes: number;
+  author: string;
+  reviewer?: string;
+  documentType?: string;
+  documentStatus?: string;
+  featured?: boolean;
+  indexable: boolean;
+  layoutMode?: EditorialLayoutMode;
+  tocMode?: EditorialTocMode;
+}
+
+Do not duplicate data between article components and blogArticles.ts where one source can safely control it.
+
+Related reading
+
+Use a restrained document list.
+
+For the CMS article, include only live related content.
+
+For the DOOH article, include:
+
+How to Build a Digital Signage CMS
+Documentation
+GitHub
+Start Building
+
+Do not link to planned DOOH supporting articles until they exist.
+
+Closing CTA
+
+Use a quiet document-ending panel.
+
+Example:
+
+BUILD WITH TOMORROWOS
+
+Use open-source server-to-screen infrastructure while retaining ownership
+of your product, workflow and commercial model.
+
+Start building     Documentation     GitHub
+
+One primary action.
+
+Two quiet secondary text links.
+
+No gradient.
+
+No oversized banner.
+
+Print behaviour
+
+Add narrowly scoped article print styles.
+
+Print should:
+
+hide site header;
+hide footer;
+hide navigation rail;
+hide CTA buttons;
+preserve article title;
+preserve metadata table;
+preserve body;
+preserve tables;
+preserve diagrams;
+preserve references;
+expand FAQs;
+display canonical URL;
+avoid splitting the metadata table;
+use black text on white;
+remain readable in grayscale.
+
+Do not add PDF generation.
+
+Browser print is sufficient.
+
+Future article standard
+
+Create internal documentation explaining how future articles use:
+
+document header;
+metadata panel;
+article layout mode;
+TOC mode;
+section numbering;
+tables;
+diagrams;
+callouts;
+references;
+FAQs;
+related reading;
+closing CTA;
+SEO registration;
+Blog registration.
+
+Future articles must not create a separate visual system.
+
+SEO preservation
+
+Preserve all existing search fundamentals:
+
+canonical URLs;
+titles;
+descriptions;
+indexability;
+sitemap entries;
+Article/TechArticle schema;
+FAQ schema;
+BreadcrumbList;
+publication dates;
+modification dates;
+full content in prerendered HTML;
+internal links;
+Blog active state.
+
+The redesign must not:
+
+hide article content behind interaction;
+remove headings;
+convert text into canvas;
+inject metadata after load;
+alter canonical URLs;
+create duplicate pages;
+remove citations;
+disrupt semantic reading order.
+Accessibility
+
+Verify:
+
+one H1;
+logical heading hierarchy;
+semantic <article>;
+labelled TOC navigation;
+metadata labels associated with values;
+accessible reference links;
+table captions and header scopes;
+diagram descriptions;
+native mobile TOC;
+visible focus;
+200% zoom;
+no text truncation;
+no horizontal page overflow;
+good contrast in the coloured metadata panel;
+colour is not the only meaning;
+print output remains usable.
+Responsive review
+
+Test:
+
+1440px
+1280px
+1024px
+768px
+390px
+320px
+
+Capture:
+
+Blog
+1440px
+390px
+CMS article
+header and metadata table at 1440px;
+rail at 1280px;
+table and callout mid-article;
+mobile header and metadata panel at 390px;
+mobile table;
+references;
+print preview.
+DOOH article
+header and metadata table at 1440px;
+DOOH comparison table;
+technology diagram;
+rail at 1280px;
+mobile header at 390px;
+mobile document metadata grid;
+proof-of-play flow;
+references;
+print preview.
+
+No page-level horizontal overflow.
+
+Performance
+
+Requirements:
+
+no new dependencies;
+no new fonts;
+preserve route-level lazy loading;
+no runtime content fetch;
+no large decorative images;
+no heavy scroll observers;
+no animation library;
+no global layout regressions;
+preserve prerendered article content;
+keep article styles/components in lazy chunks where practical;
+main entry bundle must not materially increase.
+Testing
+
+Record a clean baseline.
+
+Run:
+
+TypeScript;
+prototype build;
+production build;
+SEO validation;
+social validation;
+route-sync validation;
+dev smoke tests;
+production smoke tests;
+static HTML inspection;
+schema inspection;
+link validation;
+keyboard review;
+reference navigation;
+responsive screenshots;
+200% zoom;
+overflow testing;
+anchor-link testing;
+print preview;
+bundle comparison;
+regression checks.
+
+Regression pages:
+
+homepage;
+About;
+Blog;
+CMS article;
+DOOH article;
+one existing guide;
+mobile navigation;
+NotFound.
+
+Confirm:
+
+homepage unchanged;
+header structure unchanged;
+footer structure unchanged;
+Learn remains disabled;
+compatibility routes unchanged;
+dependencies unchanged;
+lockfile unchanged;
+deployment unchanged;
+editorial content unchanged.
+Required final report
+
+Return:
+
+Executive summary
+Existing article audit
+Final editorial design principles
+Document metadata panel design
+Colour and accessibility choices
+Shared component architecture
+Blog index redesign
+CMS article migration
+DOOH article implementation
+Typography system
+TOC and rail behaviour
+Table system
+Diagram system
+Callout system
+Reference system
+Print behaviour
+Article data-model changes
+Files changed
+Content-integrity confirmation
+SEO verification
+Accessibility results
+Responsive results
+Performance comparison
+Test results
+Regression review
+Known limitations
+Rollback instructions
+Future article instructions
+Publish-readiness recommendation
+
+Do not deploy.
+
+Finish by confirming that the TomorrowOS Journal template, CMS article and DOOH article are ready for human visual, editorial and technical review.
+
+Definition of done
+
+This task is complete only when:
+
+one reusable editorial template exists;
+the Blog index uses the journal style;
+the CMS article uses the document style;
+the DOOH article is implemented with the same template;
+both articles use the document metadata panel;
+metadata colours remain restrained and accessible;
+article copy is unchanged;
+canonical URLs and schema are preserved;
+long and short future articles are supported;
+tables, diagrams, callouts and references are standardised;
+mobile and print behaviour are excellent;
+Learn remains hidden;
+compatibility routes remain untouched;
+all tests pass;
+no dependency is added;
+nothing is deployed.
+
+The metadata panel is the right place to introduce a subtle amount of colour. It gives TomorrowOS a recognisable editorial signature without making the body of every article colourful or moving away from the monochrome engineering identity.

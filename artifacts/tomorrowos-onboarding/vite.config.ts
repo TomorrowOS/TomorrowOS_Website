@@ -10,6 +10,7 @@ import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
 // Imported by BOTH this prerender plugin and the article page so the
 // structured data can never drift from the visible content.
 import { CMS_ARTICLE, CMS_ARTICLE_FAQ, BLOG_AUTHOR } from './src/lib/cmsArticleMeta';
+import { DOOH_ARTICLE, DOOH_ARTICLE_FAQ } from './src/lib/doohArticleMeta';
 
 // Replit always injects PORT/BASE_PATH via artifact.toml.
 // Local defaults keep `pnpm run dev:web` working in VS Code without env setup.
@@ -201,6 +202,16 @@ function prerenderPlugin() {
       ogTitle: CMS_ARTICLE.ogTitle,
       ogDescription: CMS_ARTICLE.ogDescription,
     },
+    // Cornerstone article #2 — same literal-key rule as above; metadata
+    // sourced from src/lib/doohArticleMeta.ts.
+    '/how-to-start-a-dooh-network': {
+      rawTitle: DOOH_ARTICLE.headline,
+      description: DOOH_ARTICLE.description,
+      canonicalPath: DOOH_ARTICLE.path,
+      indexable: true,
+      ogTitle: DOOH_ARTICLE.ogTitle,
+      ogDescription: DOOH_ARTICLE.ogDescription,
+    },
     // Learn section — feature-gated behind VITE_ENABLE_LEARN. Entries are
     // preserved metadata drafts; the prerender loop skips them when the flag
     // is off, so no /learn HTML is emitted in a disabled build.
@@ -299,6 +310,11 @@ function prerenderPlugin() {
       `[prerender] cornerstone route key mismatch: routes table has no entry for CMS_ARTICLE.path "${CMS_ARTICLE.path}" — keep the literal key in sync with src/lib/cmsArticleMeta.ts`,
     );
   }
+  if (!routes[DOOH_ARTICLE.path]) {
+    throw new Error(
+      `[prerender] cornerstone route key mismatch: routes table has no entry for DOOH_ARTICLE.path "${DOOH_ARTICLE.path}" — keep the literal key in sync with src/lib/doohArticleMeta.ts`,
+    );
+  }
 
   /** Escape a string for safe use in an HTML attribute value (double-quoted). */
   function escAttr(s: string): string {
@@ -321,20 +337,27 @@ function prerenderPlugin() {
   function buildJsonLd(routePath: string, route: PreRoute): string {
     const schemas: unknown[] = [];
 
-    // Cornerstone article: TechArticle + BreadcrumbList (Home → Blog → title)
-    // + FAQPage, all sourced from src/lib/cmsArticleMeta.ts so the structured
-    // data always matches the visible page content.
-    if (routePath === CMS_ARTICLE.path) {
+    // Cornerstone articles: TechArticle + BreadcrumbList (Home → Blog → title)
+    // + FAQPage, all sourced from the shared per-article meta modules so the
+    // structured data always matches the visible page content.
+    const cornerstone =
+      routePath === CMS_ARTICLE.path
+        ? { meta: CMS_ARTICLE, faq: CMS_ARTICLE_FAQ }
+        : routePath === DOOH_ARTICLE.path
+          ? { meta: DOOH_ARTICLE, faq: DOOH_ARTICLE_FAQ }
+          : null;
+    if (cornerstone) {
+      const { meta, faq } = cornerstone;
       const canonicalUrl = `${SITE_URL}${route.canonicalPath}`;
       schemas.push({
         '@context': 'https://schema.org',
         '@type': 'TechArticle',
-        headline: CMS_ARTICLE.headline,
-        description: CMS_ARTICLE.description,
+        headline: meta.headline,
+        description: meta.description,
         url: canonicalUrl,
         mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
-        datePublished: CMS_ARTICLE.datePublished,
-        dateModified: CMS_ARTICLE.dateModified,
+        datePublished: meta.datePublished,
+        dateModified: meta.dateModified,
         author: {
           '@type': 'Person',
           name: BLOG_AUTHOR.name,
@@ -349,13 +372,13 @@ function prerenderPlugin() {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
           { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog` },
-          { '@type': 'ListItem', position: 3, name: CMS_ARTICLE.headline, item: canonicalUrl },
+          { '@type': 'ListItem', position: 3, name: meta.headline, item: canonicalUrl },
         ],
       });
       schemas.push({
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: CMS_ARTICLE_FAQ.map((f) => ({
+        mainEntity: faq.map((f) => ({
           '@type': 'Question',
           name: f.question,
           acceptedAnswer: { '@type': 'Answer', text: f.answer },

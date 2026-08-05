@@ -166,6 +166,16 @@ export const seoRoutes: Record<string, RouteSeo> = {
     ogDescription:
       'A practical architecture guide covering everything required to build reliable digital signage software.',
   },
+  '/how-to-start-a-dooh-network': {
+    title: 'How to Start a DOOH Network',
+    description:
+      'Learn how to start a digital out-of-home network, including locations, screens, CMS software, ad serving, proof of play, measurement, sales and operations.',
+    canonicalPath: '/how-to-start-a-dooh-network',
+    indexable: true,
+    ogTitle: 'How to Start a DOOH Network',
+    ogDescription:
+      'A practical guide to the technology, commercial model and operations required to build a digital out-of-home advertising network.',
+  },
   // ---- Learn section (Phase A) ------------------------------------------
   // Feature-gated behind VITE_ENABLE_LEARN (default off in production).
   // Entries stay here as preserved metadata drafts; they are all

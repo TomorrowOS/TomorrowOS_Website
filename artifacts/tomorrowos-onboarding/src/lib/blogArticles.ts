@@ -29,7 +29,8 @@ export type BlogCategory =
   | 'Architecture'
   | 'Platforms'
   | 'Engineering'
-  | 'AI Development';
+  | 'AI Development'
+  | 'DOOH and Retail Media';
 
 export interface BlogArticle {
   /** Bare identifier, e.g. 'build-a-digital-signage-cms'. */
@@ -61,6 +62,18 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     readingTimeMinutes: 21,
     author: 'Dylan Holtzhausen',
     featured: true,
+    indexable: true,
+  },
+  {
+    slug: 'how-to-start-a-dooh-network',
+    href: '/how-to-start-a-dooh-network',
+    title: 'How to Start a DOOH Network',
+    description:
+      'Learn how to start a digital out-of-home network, including locations, screens, CMS software, ad serving, proof of play, measurement, sales and operations.',
+    category: 'DOOH and Retail Media',
+    publishedAt: '2026-08-05',
+    readingTimeMinutes: 19,
+    author: 'Dylan Holtzhausen',
     indexable: true,
   },
 ];
