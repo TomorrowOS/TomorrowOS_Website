@@ -229,22 +229,6 @@ export default function BuildDigitalSignageCms() {
               <dd>{CMS_ARTICLE.readingTimeMinutes} min read</dd>
             </div>
           </dl>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            <Link href="/start" className={PrimaryA}>
-              Start building
-              <ArrowRight className="ml-1.5 h-3.5 w-3.5" aria-hidden="true" />
-            </Link>
-            <a
-              href={siteConfig.links.docs}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={SecondaryA}
-            >
-              View documentation
-              <ExternalLink className="ml-1.5 h-3.5 w-3.5 opacity-70" aria-hidden="true" />
-              <span className="sr-only"> (opens in a new window)</span>
-            </a>
-          </div>
         </header>
 
         {/* 3. Direct introductory answer */}
