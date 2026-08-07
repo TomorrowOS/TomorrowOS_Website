@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { useGuideSeo, GuideBreadcrumbs } from '@/components/GuideSeo';
 import { useLocation } from 'wouter';
 import { usePrototype } from '@/components/PrototypeProvider';
@@ -7,10 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CopyActionBlock } from '@/components/CopyActionBlock';
 
+
 export default function GuideSupabase() {
   useGuideSeo('/guides/supabase');
   const [, setLocation] = useLocation();
   const { state } = usePrototype();
+  const flowARef = useRef<HTMLHeadingElement>(null);
+  const flowBRef = useRef<HTMLHeadingElement>(null);
 
   return (
     <div className="max-w-3xl mx-auto space-y-8 pb-32 animate-in fade-in">
@@ -33,24 +36,47 @@ export default function GuideSupabase() {
             <CardContent className="p-6">
               <h3 className="font-semibold text-gray-900 mb-2 mt-0">I'm new to Supabase</h3>
               <p className="text-sm text-gray-600 mb-4">Create an account, organisation and project.</p>
-              <Button variant="secondary" className="w-full">Start new account setup</Button>
+              <Button variant="secondary" className="w-full"
+              onClick={()=>{
+                flowARef.current?.scrollIntoView({
+                  behavior:"smooth",
+                  block:'start'
+                })
+              }}
+              
+              >Start new account setup</Button>
             </CardContent>
           </Card>
           <Card className="bg-gray-50">
             <CardContent className="p-6">
               <h3 className="font-semibold text-gray-900 mb-2 mt-0">I already have a Supabase account</h3>
               <p className="text-sm text-gray-600 mb-4">Sign in and open an existing project—or create a new one.</p>
-              <Button variant="secondary" className="w-full">Use my existing account</Button>
+              <Button variant="secondary" className="w-full"
+              onClick={()=>{
+                flowBRef.current?.scrollIntoView({
+                  behavior:'smooth',
+                  block:"start"
+                })
+              }}
+              >Use my existing account</Button>
             </CardContent>
           </Card>
         </div>
 
-        <h2>Flow A — I'm new to Supabase</h2>
+        <h2 ref={flowARef} className="scroll-mt-24">Flow A — I'm new to Supabase</h2>
         
         <h3>1. Create your Supabase account</h3>
         <p>
           Open Supabase and create an account.<br/>
-          <Button variant="outline" size="sm" className="mt-2 mb-2">Open Supabase</Button><br/>
+          <Button
+            variant="outline"
+            size="sm"
+            className="mt-2 mb-2"
+            onClick={() => window.open('https://supabase.com/', '_blank', 'noopener,noreferrer')}
+          >
+            Open Supabase
+          </Button>
+          <br/>
           <em>Note: Keep this guide open — Supabase will open in a new browser tab. Keep this TomorrowOS guide open so you can return to it during setup.</em>
         </p>
 
@@ -79,11 +105,18 @@ export default function GuideSupabase() {
 
         <hr className="my-12 border-gray-200" />
 
-        <h2>Flow B — I already have a Supabase account</h2>
+        <h2 ref={flowBRef} className="scroll-mt-24">Flow B — I already have a Supabase account</h2>
         
         <h3>1. Sign in to Supabase</h3>
         <p>Sign in using your existing account.<br/>
-        <Button variant="outline" size="sm" className="mt-2 mb-2">Open Supabase</Button></p>
+        <Button
+          variant="outline"
+          size="sm"
+          className="mt-2 mb-2"
+          onClick={() => window.open('https://supabase.com/', '_blank', 'noopener,noreferrer')}
+        >
+          Open Supabase
+        </Button></p>
 
         <h3>2. Open or create a project</h3>
         <ul>
